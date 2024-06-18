@@ -2,6 +2,8 @@ import Rounded_Button from "@/components/Button";
 import Icon_Logo from "@/svg/Icon-logo";
 import { SlMenu } from "react-icons/sl";
 
+//defind;
+
 export default function Home() {
     return (
         <>
