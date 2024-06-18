@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontSize: {
+        iconSize: "24px",
+      },
+
       colors: {
         borderColor1: "#E3E3E3",
         textColor1: "#676767",
