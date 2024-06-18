@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,8 +14,8 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className="flex justify-center bg-black">
-                <div className="w-[375px] h-screen bg-white">{children}</div>
+            <body className="flex justify-center bg-gray-500">
+                <div className="w-screen h-screen bg-white">{children}</div>
             </body>
         </html>
     );
