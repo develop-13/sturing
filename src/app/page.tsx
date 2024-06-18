@@ -1,6 +1,6 @@
 //defind;
 
-import Header from "@/components/Header";
+import Header from "@/components/HeaderSection";
 
 export default function Home() {
   return <></>;
