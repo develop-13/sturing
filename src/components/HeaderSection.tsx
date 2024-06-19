@@ -11,21 +11,23 @@ import { VscBell } from "react-icons/vsc";
 import { FaRegUser } from "react-icons/fa6";
 import Nav from "./Nav";
 
-let isLoggedin = false; // 임의로 지정
+let isLoggedin = false; // 임의로 지정. 여기서 로그인에 대한 정보를 가져오는 함수가 필요함
+
+const hasLogoPages = ["recommendation", "myStudy", "search"];
+// 로고가 보여지는 페이지.
 
 function HeaderSection() {
   // url에 따라 형태를 달리함
   const [empty, pageName, searchingWord] = usePathname().split("/");
 
-  let hasLogo = ["recommendation", "myStudy", "search"].includes(pageName)
-    ? true
-    : false;
+  let hasLogo = hasLogoPages.includes(pageName) ? true : false;
 
   if (pageName == "search" && searchingWord) {
     hasLogo = false;
-  }
+  } // 검색페이지인데, 검색창에 단어를 검색하는 경우에는 로고가 보여지지 않는다.
 
   if (hasLogo) {
+    // 로고가 보여지게끔 스타일링
     return (
       <div>
         <header className="w-full p-[15px]  flex justify-between items-center max-w-[375px] max-h-[54px] border-b border-[##E4E4E4]">
@@ -33,12 +35,13 @@ function HeaderSection() {
             <SlMenu className="text-iconSize" />
             <Icon_Logo />
           </div>
-          {isLoggedin ? (
+          {isLoggedin ? ( // 로그인 여부에 따라 헤더 오른쪽 보여지는 아이콘이 달라지게 함, 추후 컴포넌트로 분리 예정
             <div className="flex gap-[12px] items-center">
               <VscBell className="text-iconSize" />
               <FaRegUser className="text-iconSize" />
-            </div>
+            </div> // 로그인 되어있을 때는 벨과 유저 아이콘이 보여지도록 함
           ) : (
+            // 로그인 되어있을 때는 간편 로그인 버튼이 보여지도록 함
             <Rounded_Button className="w-[71px] h-[34px]  border-blue-500">
               <p className=" text-blue-500 font-medium text-[12px] leading-[18px] tracking-[-3%]	">
                 간편로그인
@@ -51,9 +54,10 @@ function HeaderSection() {
     );
   } else {
     return (
+      // 로고가 안보여지게끔 스타일링
       <header className="w-full p-[15px]  flex gap-[11px] items-center  max-w-[375px] max-h-[54px]">
         <IoIosArrowBack className="text-iconSize" />
-        {searchingWord && (
+        {searchingWord && ( // 검색중이면 검색창이 보여지게끔 함
           <div className="w-full py-[7px] px-[16px] max-w-[311px] max-h-[36px] bg-[#ECF1FF] flex gap-[10px] items-center rounded-full">
             <input
               type="text"

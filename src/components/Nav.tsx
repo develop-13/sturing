@@ -9,7 +9,7 @@ const pageNames = [
 
 function Nav({ curPageName }: { curPageName: string }) {
   return (
-    <div className="flex px-[16px] h-[48px] w-full border-b border-[##E4E4E4]">
+    <div className="flex px-[16px] h-[48px] max-w-[375px] border-b border-[##E4E4E4]">
       {pageNames.map((pageName) => (
         <Link
           href={`/${pageName[0]}`}
