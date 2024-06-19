@@ -13,14 +13,14 @@ import Nav from "./Nav";
 
 let isLoggedin = false; // 임의로 지정. 여기서 로그인에 대한 정보를 가져오는 함수가 필요함
 
-const hasLogoPages = ["recommendation", "myStudy", "search"];
+const pagesWithLogo = ["recommendation", "myStudy", "search"];
 // 로고가 보여지는 페이지.
 
 function HeaderSection() {
   // url에 따라 형태를 달리함
   const [empty, pageName, searchingWord] = usePathname().split("/");
 
-  let hasLogo = hasLogoPages.includes(pageName) ? true : false;
+  let hasLogo = pagesWithLogo.includes(pageName) ? true : false;
 
   if (pageName == "search" && searchingWord) {
     hasLogo = false;
@@ -29,7 +29,7 @@ function HeaderSection() {
   if (hasLogo) {
     // 로고가 보여지게끔 스타일링
     return (
-      <div>
+      <section>
         <header className="w-full p-[15px]  flex justify-between items-center max-w-[375px] max-h-[54px] border-b border-[##E4E4E4]">
           <div className="flex gap-[8px] items-center">
             <SlMenu className="text-iconSize" />
@@ -50,7 +50,7 @@ function HeaderSection() {
           )}
         </header>
         <Nav curPageName={pageName} />
-      </div>
+      </section>
     );
   } else {
     return (

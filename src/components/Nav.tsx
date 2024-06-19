@@ -10,10 +10,11 @@ const pageNames = [
 function Nav({ curPageName }: { curPageName: string }) {
   return (
     <div className="flex px-[16px] h-[48px] max-w-[375px] border-b border-[##E4E4E4]">
-      {pageNames.map((pageName) => (
+      {pageNames.map((pageName, idx) => (
         <Link
           href={`/${pageName[0]}`}
-          className={`flex-1 flex items-center justify-center ${
+          key={idx}
+          className={`cursor-pointer flex-1 flex items-center justify-center ${
             pageName[0] === curPageName ? "text-gray-1000" : "text-gray-700"
           }`}
         >
