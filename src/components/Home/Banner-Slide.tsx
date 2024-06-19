@@ -50,6 +50,11 @@ function Banner_Slide() {
                                     className="h-[194px] w-[375px]"
                                     src={slide.src}
                                 />
+                                <div className="flex justify-center items-center absolute w-[45px] h-[20px] bg-black bg-opacity-50 rounded-xl bottom-3 right-5">
+                                    <text className="text-[12px] text-white">
+                                        {slide.id} / {slideData.length}
+                                    </text>
+                                </div>
                             </button>
                         </SwiperSlide>
                     ))}
