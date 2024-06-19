@@ -6,11 +6,3 @@
   margin: 0;
   padding: 0;
 }
-
-.customBullet {
-  cursor: pointer;
-  width: 5.48px;
-  height: 6px;
-  border-radius: 8px;
-  background-color: red;
-}

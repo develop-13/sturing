@@ -7,7 +7,7 @@ import UpcomingStudyList from "./components/UpcomingStudyList";
 
 function MyStudyPage() {
   return (
-    <div className="w-max-[375px] ">
+    <div className="w-auto ">
       <UpcomingStudyList />
       <MyStudyList />
     </div>

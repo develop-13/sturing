@@ -39,15 +39,6 @@ const UpcomingStudyList_dummy: TupcomingStudy[] = [
 
 function UpcomingStudyList() {
   return (
-    // <div className="py-[28px] flex flex-col gap-5 px-[16px] bg-gradient-to-br from-[#D9E3FF] 100% to-[#FFE4E0] 100%">
-    //   <h1 className="font-semibold text-[20px] leading-7 tracking-[-3%]">
-    //     다가오는 스터디
-    //   </h1>
-
-    //   {UpcomingStudyList_dummy.map((UpcomingStudy, idx) => (
-    //     <UpcomingStudyInfo upcomingStudyInfo={UpcomingStudy} />
-    //   ))}
-    // </div> // 한 페이지?
     <Swiper
       spaceBetween={30}
       pagination={{
