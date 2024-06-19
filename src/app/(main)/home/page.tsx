@@ -4,6 +4,7 @@ import { SlMagnifier, SlArrowRight } from "react-icons/sl";
 import { GoPlus } from "react-icons/go";
 import Banner_Slide from "@/components/Home/Banner-Slide";
 import { Roboto } from "next/font/google";
+import Seacrh_Study_Slide from "@/components/Home/Seacrh-Study-Slide";
 
 const roboto = Roboto({
     weight: "400",
@@ -53,21 +54,8 @@ export default function page() {
                     </text>
                     <SlArrowRight className="text-black ml-auto" />
                 </div>
-                <div className="flex flex-row items-center pt-6 pl-5 gap-4">
-                    <Button className="flex flex-row items-center rounded-full border-gray-400 w-[104px] h-[50px] pl-[10px] gap-1 text-[14px] font-bold">
-                        <img
-                            className="w-36px h-36px bg-black rounded-full"
-                            src="./img/study-icon-design.png"
-                        ></img>
-                        디자인
-                    </Button>{" "}
-                    <Button className="flex flex-row items-center rounded-full border-gray-400 w-[104px] h-[50px] pl-[10px] gap-1 text-[14px] font-bold">
-                        <img
-                            className="w-36px h-36px bg-black rounded-full"
-                            src="./img/study-icon-design.png"
-                        ></img>
-                        마케팅
-                    </Button>
+                <div className="block pt-6 pl-5">
+                    <Seacrh_Study_Slide />
                 </div>
             </div>
         </>
