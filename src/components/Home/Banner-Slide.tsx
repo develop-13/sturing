@@ -1,5 +1,7 @@
 "use client";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { Suspense } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 function Banner_Slide() {
@@ -28,36 +30,46 @@ function Banner_Slide() {
         <>
             <div className="swiper-container">
                 <Swiper
-                    loop={true} // 슬라이드 루프
-                    spaceBetween={0} // 슬라이스 사이 간격
-                    slidesPerView={1} // 보여질 슬라이스 수
-                    navigation={false} // prev, next button
+                    loop={true}
+                    spaceBetween={0}
+                    slidesPerView={1}
+                    navigation={false}
                     autoplay={{
                         delay: 5000,
-                        disableOnInteraction: false, // 사용자 상호작용시 슬라이더 일시 정지 비활성
+                        disableOnInteraction: false,
                     }}
                 >
-                    {slideData.map((slide) => (
-                        <SwiperSlide key={slide.id}>
-                            <button
-                                className="flex"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    router.push(slide.href);
-                                }}
-                            >
-                                <img
-                                    className="h-[194px] w-[375px]"
-                                    src={slide.src}
-                                />
-                                <div className="flex justify-center items-center absolute w-[45px] h-[20px] bg-black bg-opacity-50 rounded-xl bottom-3 right-5">
-                                    <text className="text-[12px] text-white">
-                                        {slide.id} / {slideData.length}
-                                    </text>
-                                </div>
-                            </button>
-                        </SwiperSlide>
-                    ))}
+                    <Suspense
+                        fallback={
+                            <img className="h-[194px] w-[375px] bg-slate-400"></img>
+                        }
+                    >
+                        {slideData.map((slide) => (
+                            <SwiperSlide key={slide.id}>
+                                <button
+                                    className="flex"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        router.push(slide.href);
+                                    }}
+                                >
+                                    <Image
+                                        src={slide.src}
+                                        alt=""
+                                        width={375}
+                                        height={194}
+                                        placeholder="blur"
+                                        blurDataURL="/img/banner-1.png"
+                                    />
+                                    <div className="flex justify-center items-center absolute w-[45px] h-[20px] bg-black bg-opacity-50 rounded-xl bottom-3 right-5">
+                                        <text className="text-[12px] text-white">
+                                            {slide.id} / {slideData.length}
+                                        </text>
+                                    </div>
+                                </button>
+                            </SwiperSlide>
+                        ))}
+                    </Suspense>
                 </Swiper>
                 <button
                     className="flex flex-row items-center h-[43px] w-full bg-black pl-5 gap-2"
