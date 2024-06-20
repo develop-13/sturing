@@ -7,7 +7,7 @@ const pageNames = [
   ["myStudy", "내 스터디"],
 ];
 
-function Nav({ curPageName }: { curPageName: string }) {
+function SectionTabs({ curPageName }: { curPageName: string }) {
   return (
     <div className="flex px-[16px] h-[48px] max-w-[375px] border-b border-[##E4E4E4]">
       {pageNames.map((pageName, idx) => (
@@ -25,4 +25,4 @@ function Nav({ curPageName }: { curPageName: string }) {
   );
 }
 
-export default Nav;
+export default SectionTabs;
