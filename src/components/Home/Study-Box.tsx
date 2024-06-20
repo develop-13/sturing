@@ -75,10 +75,10 @@ export default function Study_Box() {
                                         <FiBookmark className="text-white" />
                                     </div>
                                     <div className="flex flex-row gap-2 pt-3">
-                                        <div className="flex rounded-sm bg-[#4171FF] h-[22px] w-auto text-[10px] text-[#ECF1FF] items-center justify-center px-2">
+                                        <div className="flex rounded bg-[#4171FF] h-[22px] w-auto text-[10px] text-[#ECF1FF] items-center justify-center px-2">
                                             {slide.tags[0]}
                                         </div>
-                                        <div className="flex rounded-sm bg-[#ECF1FF] h-[22px] w-auto text-[10px] text-[#4171FF] items-center justify-center px-2 border border-[#4171FF]">
+                                        <div className="flex rounded bg-[#ECF1FF] h-[22px] w-auto text-[10px] text-[#4171FF] items-center justify-center px-2 border border-[#4171FF]">
                                             {slide.tags[1]}
                                         </div>
                                     </div>
