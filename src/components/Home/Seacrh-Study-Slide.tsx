@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Suspense } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Button from "../Button";
 
@@ -58,28 +57,22 @@ export default function Seacrh_Study_Slide() {
                     navigation={false}
                     autoplay={false}
                 >
-                    <Suspense
-                        fallback={
-                            <img className="h-[50px] w-[120px] bg-slate-400"></img>
-                        }
-                    >
-                        {slideData.map((slide) => (
-                            <SwiperSlide key={slide.id}>
-                                <Button className="flex flex-row h-[50px] w-auto px-2 justify-between items-center gap-1 rounded-full">
-                                    <Image
-                                        src={slide.src}
-                                        alt=""
-                                        width={36}
-                                        height={36}
-                                        className="flex bg-black rounded-full"
-                                    ></Image>
-                                    <text className="font-bold text-[12px]">
-                                        {slide.text}
-                                    </text>
-                                </Button>
-                            </SwiperSlide>
-                        ))}
-                    </Suspense>
+                    {slideData.map((slide) => (
+                        <SwiperSlide key={slide.id}>
+                            <Button className="flex flex-row h-[50px] px-2 justify-between items-center gap-1 rounded-full">
+                                <Image
+                                    src={slide.src}
+                                    alt=""
+                                    width={36}
+                                    height={36}
+                                    className="flex bg-black rounded-full"
+                                ></Image>
+                                <text className="font-bold text-[12px]">
+                                    {slide.text}
+                                </text>
+                            </Button>
+                        </SwiperSlide>
+                    ))}
                 </Swiper>
             </div>
         </>
