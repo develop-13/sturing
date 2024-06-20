@@ -63,7 +63,7 @@ export default function page() {
                         </text>
                         <SlArrowRight className="text-black ml-auto" />
                     </button>
-                    <div className="block pt-6 px-5">
+                    <div className="pt-6 px-5">
                         <Seacrh_Study_Slide />
                     </div>
                 </div>

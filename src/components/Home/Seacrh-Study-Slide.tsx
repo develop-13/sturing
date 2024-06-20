@@ -52,7 +52,7 @@ export default function Seacrh_Study_Slide() {
             <div className="swiper-container">
                 <Swiper
                     loop={false}
-                    spaceBetween={10}
+                    spaceBetween={2}
                     slidesPerView="auto"
                     navigation={false}
                     autoplay={false}
