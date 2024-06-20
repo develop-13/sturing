@@ -19,3 +19,5 @@ export default async function RootLayout({
     </html>
   );
 }
+
+// header 도 slot처리 해야 하나?
