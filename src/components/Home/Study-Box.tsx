@@ -20,6 +20,7 @@ export default function Study_Box() {
             date: "06.20~06.30",
             location: "성동구 외3",
             state: "모집중 1/4",
+            schedule: "매주 금 오후 9:00",
         },
         {
             id: 2,
@@ -30,6 +31,7 @@ export default function Study_Box() {
             date: "06.20~06.30",
             location: "ZOOM",
             state: "모집중 3/4",
+            schedule: "모임 날짜 미정",
         },
         {
             id: 3,
@@ -40,6 +42,7 @@ export default function Study_Box() {
             date: "06.20~06.30",
             location: "ZOOM",
             state: "모집중 2/4",
+            schedule: "매주 수 오전 12:00",
         },
     ];
 
@@ -57,12 +60,17 @@ export default function Study_Box() {
                         <SwiperSlide key={slide.id}>
                             <div className="flex">
                                 <button className="flex flex-col h-auto w-[182px]">
-                                    <Image
-                                        width={182}
-                                        height={100}
-                                        src={slide.src}
-                                        alt=""
-                                    />
+                                    <div className="flex items-end">
+                                        <Image
+                                            width={182}
+                                            height={100}
+                                            src={slide.src}
+                                            alt=""
+                                        />
+                                        <div className="flex absolute w-full h-[25px] bg-black rounded-b-lg opacity-80 text-white text-[12px] items-center justify-center">
+                                            {slide.schedule}
+                                        </div>
+                                    </div>
                                     <div className="flex absolute w-full justify-end items-end p-2">
                                         <FiBookmark className="text-white" />
                                     </div>
