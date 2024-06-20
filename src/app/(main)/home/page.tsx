@@ -6,6 +6,7 @@ import Banner_Slide from "@/components/Home/Banner-Slide";
 import { Roboto } from "next/font/google";
 import Seacrh_Study_Slide from "@/components/Home/Seacrh-Study-Slide";
 import Study_Box from "@/components/Home/Study-Box";
+import Team_Box from "@/components/Home/Team-Box";
 
 const roboto = Roboto({
     weight: "400",
@@ -20,7 +21,7 @@ export default function page() {
                 {/** 매칭페이지 버튼 */}
                 <div className="flex justify-end px-16">
                     <div className="absolute bottom-16">
-                        <Button className="flex fixed bg-[#4171FF] w-[58px] h-[58px] rounded-full justify-center items-center">
+                        <Button className="flex fixed bg-[#4171FF] w-[58px] h-[58px] rounded-full justify-center items-center z-10">
                             <GoPlus className="text-[32px] font-bold text-white" />
                         </Button>
                     </div>
@@ -71,7 +72,7 @@ export default function page() {
             <div className="flex h-[8px] bg-[#F7F7F7]"></div>
             <div>
                 <button
-                    className="flex items-center pt-6 px-5"
+                    className="flex w-full items-center pt-6 px-5"
                     onClick={() => "스터디 이동 링크"}
                 >
                     <text className="font-bold text-[18px]">
@@ -79,8 +80,50 @@ export default function page() {
                     </text>
                     <SlArrowRight className="text-black ml-auto" />
                 </button>
-                <div className="mt-5 ml-5">
+                <div className="mt-5">
                     <Study_Box />
+                </div>
+            </div>
+            <div className="pt-6">
+                <button
+                    className="flex w-full items-center pt-6 px-5 "
+                    onClick={() => "스터디 이동 링크"}
+                >
+                    <text className="font-bold text-[18px]">
+                        새로 개설된 스터디
+                    </text>
+                    <SlArrowRight className="text-black ml-auto" />
+                </button>
+                <div className="mt-5">
+                    <Study_Box />
+                </div>
+            </div>
+            <div className="pt-6">
+                <button
+                    className="flex w-full items-center pt-6 px-5 "
+                    onClick={() => "스터디 이동 링크"}
+                >
+                    <text className="font-bold text-[18px]">
+                        스터링 활동 우수 팀원
+                    </text>
+                    <SlArrowRight className="text-black ml-auto" />
+                </button>
+                <div className="mt-5">
+                    <Team_Box />
+                </div>
+            </div>
+            <div className="pt-6">
+                <button
+                    className="flex w-full items-center pt-6 px-5 "
+                    onClick={() => "스터디 이동 링크"}
+                >
+                    <text className="font-bold text-[18px]">
+                        스터링 활동 우수 팀원
+                    </text>
+                    <SlArrowRight className="text-black ml-auto" />
+                </button>
+                <div className="mt-5">
+                    <Team_Box />
                 </div>
             </div>
         </>
