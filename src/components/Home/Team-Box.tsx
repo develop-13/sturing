@@ -59,7 +59,7 @@ export default function Team_Box() {
                     {slideData.map((slide) => (
                         <SwiperSlide key={slide.id}>
                             <div className="flex">
-                                <button className="flex flex-col h-auto w-[134px]">
+                                <div className="flex flex-col h-auto w-[134px]">
                                     <div className="flex flex-col items-center justify-center gap-2 w-full h-[149px] bg-[#ECF1FF] rounded-lg">
                                         <div className="flex w-[60px] h-[60px]">
                                             <Image
@@ -93,7 +93,7 @@ export default function Team_Box() {
                                             {slide.datas.tags[1]}
                                         </div>
                                     </div>
-                                </button>
+                                </div>
                             </div>
                         </SwiperSlide>
                     ))}

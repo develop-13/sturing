@@ -35,41 +35,35 @@ function Banner_Slide() {
                     slidesPerView={1}
                     navigation={false}
                     autoplay={{
-                        delay: 5000,
+                        delay: 2000,
                         disableOnInteraction: false,
                     }}
                 >
-                    <Suspense
-                        fallback={
-                            <img className="h-[194px] w-[375px] bg-slate-400"></img>
-                        }
-                    >
-                        {slideData.map((slide) => (
-                            <SwiperSlide key={slide.id}>
-                                <button
-                                    className="flex"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        router.push(slide.href);
-                                    }}
-                                >
-                                    <Image
-                                        src={slide.src}
-                                        alt=""
-                                        width={375}
-                                        height={194}
-                                        placeholder="blur"
-                                        blurDataURL="/img/banner-1.png"
-                                    />
-                                    <div className="flex justify-center items-center absolute w-[45px] h-[20px] bg-black bg-opacity-50 rounded-xl bottom-3 right-5">
-                                        <text className="text-[12px] text-white">
-                                            {slide.id} / {slideData.length}
-                                        </text>
-                                    </div>
-                                </button>
-                            </SwiperSlide>
-                        ))}
-                    </Suspense>
+                    {slideData.map((slide) => (
+                        <SwiperSlide key={slide.id}>
+                            <button
+                                className="flex"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    router.push(slide.href);
+                                }}
+                            >
+                                <Image
+                                    src={slide.src}
+                                    alt=""
+                                    width={375}
+                                    height={194}
+                                    placeholder="blur"
+                                    blurDataURL="/img/banner-1.png"
+                                />
+                                <div className="flex justify-center items-center absolute w-[45px] h-[20px] bg-black bg-opacity-50 rounded-xl bottom-3 right-5">
+                                    <text className="text-[12px] text-white">
+                                        {slide.id} / {slideData.length}
+                                    </text>
+                                </div>
+                            </button>
+                        </SwiperSlide>
+                    ))}
                 </Swiper>
                 <button
                     className="flex flex-row items-center h-[43px] w-full bg-black pl-5 gap-2"
