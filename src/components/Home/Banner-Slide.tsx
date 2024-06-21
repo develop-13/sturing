@@ -1,5 +1,7 @@
 "use client";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { Suspense } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 function Banner_Slide() {
@@ -28,13 +30,13 @@ function Banner_Slide() {
         <>
             <div className="swiper-container">
                 <Swiper
-                    loop={true} // 슬라이드 루프
-                    spaceBetween={0} // 슬라이스 사이 간격
-                    slidesPerView={1} // 보여질 슬라이스 수
-                    navigation={false} // prev, next button
+                    loop={true}
+                    spaceBetween={0}
+                    slidesPerView={1}
+                    navigation={false}
                     autoplay={{
-                        delay: 5000,
-                        disableOnInteraction: false, // 사용자 상호작용시 슬라이더 일시 정지 비활성
+                        delay: 2000,
+                        disableOnInteraction: false,
                     }}
                 >
                     {slideData.map((slide) => (
@@ -46,9 +48,13 @@ function Banner_Slide() {
                                     router.push(slide.href);
                                 }}
                             >
-                                <img
-                                    className="h-[194px] w-[375px]"
+                                <Image
                                     src={slide.src}
+                                    alt=""
+                                    width={375}
+                                    height={194}
+                                    placeholder="blur"
+                                    blurDataURL="/img/banner-1.png"
                                 />
                                 <div className="flex justify-center items-center absolute w-[45px] h-[20px] bg-black bg-opacity-50 rounded-xl bottom-3 right-5">
                                     <text className="text-[12px] text-white">
