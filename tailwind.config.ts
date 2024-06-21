@@ -8,6 +8,17 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontSize: {
+        iconSize: "24px",
+      },
+
+      colors: {
+        borderColor1: "#E3E3E3",
+        textColor1: "#676767",
+        "custom-blue-bright": "rgba(217, 227, 255, 0.3)",
+        "custom-pink-bright": "rgba(255, 228, 224, 0.3)",
+      },
+
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
