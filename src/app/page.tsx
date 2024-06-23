@@ -1,7 +1,6 @@
 //defind;
 
-import Header from "@/components/HeaderSection";
-
+// domain/recommend로 리다이렉트
 export default function Home() {
   return <></>;
 }
