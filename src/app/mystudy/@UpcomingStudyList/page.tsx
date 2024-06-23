@@ -7,7 +7,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import { Pagination } from "swiper/modules";
-import UpcomingStudyInfo from "../components/UpcomingStudyInfo";
+import UpcomingStudyInfo from "@/components/mystudy/UpcomingStudyInfo";
+
 // 서버로부터 불러온 다가오는 스터디 리스트의 예상 포멧
 type TupcomingStudy = {
   startDate: string;
