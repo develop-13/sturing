@@ -4,22 +4,19 @@ import ChatBoxBtn from "@/components/header_metarials/ChatBoxBtn";
 import HeaderForamt from "@/components/header_metarials/headerForamt";
 import React from "react";
 
-function MyPageLayout({ children }: { children: React.ReactNode }) {
+function UserPage() {
   return (
     <div>
       <HeaderForamt
         icons_left={<ArrowBackBtn />}
-        text_center="마이페이지"
         icons_right={
           <div className="flex gap-3 items-center">
-            <ChatBoxBtn />
-            <BookMarkBtn />
+            <ChatBoxBtn /> <BookMarkBtn />
           </div>
         }
       />
-      {children}
     </div>
   );
 }
 
-export default MyPageLayout;
+export default UserPage;

@@ -1,18 +1,17 @@
 import TemporalSaveBtn from "@/components/header_metarials/TemporalSaveBtn";
-import CancelBtn from "@/components/header_metarials/cancelBtn";
+import CancelBtn from "@/components/header_metarials/CancelBtn";
 import HeaderForamt from "@/components/header_metarials/headerForamt";
 import React from "react";
 
-function RecruitmentLayout({ children }: { children: React.ReactNode }) {
+function ApplicationPage() {
   return (
     <div>
       <HeaderForamt
         icons_left={<CancelBtn />}
         icons_right={<TemporalSaveBtn />}
       />
-      {children}
     </div>
   );
 }
 
-export default RecruitmentLayout;
+export default ApplicationPage;

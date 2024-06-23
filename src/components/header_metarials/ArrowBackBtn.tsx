@@ -2,6 +2,7 @@
 
 import { IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
+import IconFormat from "./IconFormat";
 
 function ArrowBackBtn() {
   const router = useRouter();
@@ -10,8 +11,7 @@ function ArrowBackBtn() {
     console.log("이전 페이지로 이동");
     router.back();
   };
-
-  return <IoIosArrowBack className="text-iconSize" onClick={goBack} />;
+  return <IconFormat onClick={goBack} icon={<IoIosArrowBack />} />;
 }
 
 export default ArrowBackBtn;

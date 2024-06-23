@@ -1,6 +1,7 @@
 "use client";
 
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
+import IconFormat from "./IconFormat";
 
 function MoreInfo() {
   const onClickMoreInfoBtn = () => {
@@ -8,9 +9,10 @@ function MoreInfo() {
   };
 
   return (
-    <PiDotsThreeOutlineFill
-      className="text-iconSize"
+    <IconFormat
+      size={20}
       onClick={onClickMoreInfoBtn}
+      icon={<PiDotsThreeOutlineFill />}
     />
   );
 }
