@@ -1,3 +1,5 @@
+import React from "react";
+
 function IconFormat({
   size = 24,
   icon,
@@ -5,11 +7,13 @@ function IconFormat({
 }: {
   size?: number;
   icon: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
 }) {
   return (
-    <div onClick={onClick} className={`text-[${size}px]`}>
-      {icon}
+    <div onClick={onClick} className="cursor-pointer">
+      {React.cloneElement(icon as React.ReactElement, {
+        size,
+      })}{" "}
     </div>
   );
 }

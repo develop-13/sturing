@@ -2,9 +2,9 @@ import Link from "next/link";
 import React from "react";
 
 const pageNames = [
-  ["recommendation", "추천"],
+  ["recommend", "추천"],
   ["search_before", "검색"],
-  ["myStudy", "내 스터디"],
+  ["mystudy", "내 스터디"],
 ];
 
 function SectionTabs({ curPageName }: { curPageName: string }) {
