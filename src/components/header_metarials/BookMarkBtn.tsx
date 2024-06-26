@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { CiBookmark } from "react-icons/ci";
-import IconFormat from "./IconFormat";
+import IconFormat from "../common/IconFormat";
 
 function BookMarkBtn() {
   const onClickChatBoxBtn = () => {

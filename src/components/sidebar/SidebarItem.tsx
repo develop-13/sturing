@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { SlArrowDown } from "react-icons/sl";
 import { IoIosArrowDown } from "react-icons/io";
 
-import IconFormat from "../header_metarials/IconFormat";
+import IconFormat from "../common/IconFormat";
 
 type TProps = {
   fontWeight?: number;
@@ -24,9 +23,9 @@ function SidebarItem(props: TProps) {
       className={` cursor-pointer flex justify-between items-center`}
     >
       <h1
-        className={`font-[${effectiveWeight}] text-[18px] leading-[${effectiveHeight}px] tracking-[-3%] ${
+        className={`text-[18px] leading-[${effectiveHeight}px] tracking-[-3%] ${
           textColor ? `text-[${textColor}]` : "text-gray-1000"
-        }`}
+        } font-[${effectiveWeight}]`}
       >
         {text}
       </h1>

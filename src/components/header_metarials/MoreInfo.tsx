@@ -1,7 +1,7 @@
 "use client";
 
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
-import IconFormat from "./IconFormat";
+import IconFormat from "../common/IconFormat";
 
 function MoreInfo() {
   const onClickMoreInfoBtn = () => {

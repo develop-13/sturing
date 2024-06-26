@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import IconFormat from "./IconFormat";
+import IconFormat from "../common/IconFormat";
 import { FaRegUser } from "react-icons/fa6";
 
 function UserBtn() {

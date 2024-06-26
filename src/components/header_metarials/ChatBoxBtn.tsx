@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { BsChatSquareDots } from "react-icons/bs";
-import IconFormat from "./IconFormat";
+import IconFormat from "../common/IconFormat";
 
 function ChatBoxBtn() {
   const onClickChatBoxBtn = () => {
