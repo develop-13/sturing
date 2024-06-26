@@ -2,10 +2,14 @@
 import Icon_Logo from "@/svg/Icon-logo";
 import { SlMenu } from "react-icons/sl";
 import IconFormat from "./IconFormat";
+import { useRouter } from "next/navigation";
 
 function MenuLogo() {
+  const router = useRouter();
+
   const onClickBack = () => {
     console.log("menu modal show!");
+    router.push("/sidebarr");
   };
 
   return (

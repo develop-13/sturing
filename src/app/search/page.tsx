@@ -3,7 +3,7 @@ import MenuLogo from "@/components/header_metarials/MenuLogo";
 import UserBtn from "@/components/header_metarials/UserBtn";
 import HeaderForamt from "@/components/header_metarials/headerForamt";
 
-function SearchBeforePage() {
+function SearchPage() {
   return (
     <div>
       <HeaderForamt
@@ -20,4 +20,4 @@ function SearchBeforePage() {
   );
 }
 
-export default SearchBeforePage;
+export default SearchPage;

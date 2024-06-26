@@ -1,7 +1,7 @@
 import HeaderForamt from "@/components/header_metarials/headerForamt";
 import React from "react";
 
-function page() {
+function SearchResultPage() {
   return (
     <div>
       <HeaderForamt hasSearchBar={true} />
@@ -9,4 +9,4 @@ function page() {
   );
 }
 
-export default page;
+export default SearchResultPage;

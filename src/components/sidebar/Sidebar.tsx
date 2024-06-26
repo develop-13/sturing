@@ -4,7 +4,7 @@ import { IoMdClose } from "react-icons/io";
 import IconFormat from "../header_metarials/IconFormat";
 import SidebarSection from "./SidebarSection";
 import SidebarItem from "./SidebarItem";
-
+import { useRouter } from "next/navigation";
 const userInfo_dummy = {
   id: 1,
   name: "웅진",
@@ -20,6 +20,8 @@ const userInfo_dummy = {
 };
 
 function Sidebar() {
+  const router = useRouter();
+
   return (
     <div className="w-[323px] h-[816px]  px-[23px] py-[40px] fixed top-0 left-0 bg-white">
       <div className="flex justify-between ">
@@ -28,6 +30,7 @@ function Sidebar() {
           icon={<IoMdClose />}
           onClick={() => {
             console.log("모달 닫기 기능을 구현해주세요");
+            router.back();
           }}
         />
       </div>
