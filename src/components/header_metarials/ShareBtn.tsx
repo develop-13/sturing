@@ -1,7 +1,7 @@
 "use client";
 
 import { GoShare } from "react-icons/go";
-import IconFormat from "./IconFormat";
+import IconFormat from "../common/IconFormat";
 
 function ShareBtn() {
   const onClickShareBtn = () => {

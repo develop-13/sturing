@@ -1,4 +1,4 @@
-import ArrowBackBtn from "@/components/header_metarials/ArrowBackBtn";
+import ArrowBackBtn from "@/components/common/ArrowBackBtn";
 import MoreInfo from "@/components/header_metarials/MoreInfo";
 import ShareBtn from "@/components/header_metarials/ShareBtn";
 import HeaderForamt from "@/components/header_metarials/headerForamt";

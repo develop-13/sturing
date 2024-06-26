@@ -1,7 +1,7 @@
 "use client";
 import Icon_Logo from "@/svg/Icon-logo";
 import { SlMenu } from "react-icons/sl";
-import IconFormat from "./IconFormat";
+import IconFormat from "../common/IconFormat";
 import { useRouter } from "next/navigation";
 
 function MenuLogo() {
@@ -9,7 +9,7 @@ function MenuLogo() {
 
   const onClickBack = () => {
     console.log("menu modal show!");
-    router.push("/sidebarr");
+    router.push("/sidebar");
   };
 
   return (

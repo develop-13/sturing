@@ -3,7 +3,7 @@ import React from "react";
 
 const pageNames = [
   ["recommend", "추천"],
-  ["search_before", "검색"],
+  ["search", "검색"],
   ["mystudy", "내 스터디"],
 ];
 

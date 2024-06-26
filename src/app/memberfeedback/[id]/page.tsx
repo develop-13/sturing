@@ -1,4 +1,4 @@
-import ArrowBackBtn from "@/components/header_metarials/ArrowBackBtn";
+import ArrowBackBtn from "@/components/common/ArrowBackBtn";
 import HeaderForamt from "@/components/header_metarials/headerForamt";
 import React from "react";
 
