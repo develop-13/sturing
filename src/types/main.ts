@@ -20,7 +20,13 @@ type TUserMatching = {
 			career: TCareer;
 		}
 	];
+	location?: TLocation[];
+	studytype: TStudyType;
+	mood: TMood[];
 };
 
 type TCategory = string;
-type TCareer = string;
+type TMood = string;
+type TCareer = "비기너" | "신입" | "주니어" | "시니어";
+type TLocation = string;
+type TStudyType = "온라인" | "오프라인" | "상관없음";
