@@ -1,7 +1,7 @@
 import React from "react";
 
-function skilledPage() {
-  return <div>skilledpage</div>;
+function page() {
+  return <div>skilled Page</div>;
 }
 
-export default skilledPage;
+export default page;

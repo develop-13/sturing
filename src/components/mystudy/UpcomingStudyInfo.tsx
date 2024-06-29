@@ -19,11 +19,11 @@ function UpcomingStudyInfo({
       <div className="flex flex-col gap-3 opacity-100">
         <div className="px-[20px] py-[24px] flex flex-col gap-[8px] rounded-lg border border-gray-300 bg-[#ffffff]">
           <div className="flex gap-1">
-            <button className="text-[12px] font-medium tracking-[-3%] leading-[18px] py-[2px] px-[6px] bg-[#4171FF] rounded-[3px] text-[#FFFFFF]">
+            <button className="text-[12px] font-medium tracking-[-3%] leading-[18px] py-[2px] px-[6px] bg-mainColor rounded-[3px] text-[#FFFFFF]">
               {/* // 시간처리 함수 구현은 추후에 하겠습니다.. */}
               D-3
             </button>
-            <button className="border bg-[#ECF1FF]  py-[2px] px-[6px] rounded-[3px] text-[12px] font-medium tracking-[-3%] leading-[18px] text-[#4171FF]">
+            <button className="border bg-[#ECF1FF]  py-[2px] px-[6px] rounded-[3px] text-[12px] font-medium tracking-[-3%] leading-[18px] text-mainColor">
               6월 7일
             </button>
           </div>

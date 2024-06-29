@@ -14,7 +14,7 @@ function SectionTabs({ curPageName }: { curPageName: string }) {
         <Link
           href={`/${pageName[0]}`}
           key={idx}
-          className={`cursor-pointer flex-1 flex items-center justify-center ${
+          className={`cursor-pointer flex-1 flex items-center font-medium justify-center ${
             pageName[0] === curPageName ? "text-gray-1000" : "text-gray-700"
           }`}
         >

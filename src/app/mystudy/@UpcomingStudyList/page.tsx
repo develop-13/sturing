@@ -38,6 +38,7 @@ const UpcomingStudyList_dummy: TupcomingStudy[] = [
   },
 ];
 
+// 이미 여기서 데이터 받아오는 작업이 이뤄줘야 할 듯
 function UpcomingStudyList() {
   return (
     <Swiper

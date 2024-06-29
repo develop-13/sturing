@@ -1,6 +1,7 @@
 import MatchingGridSection from "@/components/matching/MatchingGridSection";
 import MatchingHeader from "@/components/matching/MatchingHeader";
 import MatchingGridItem from "@/components/matching/MatchingGridItem";
+import MainLayout from "@/components/common/mainLayout";
 
 const svgPaths = [
   ["/svg/interests/business.svg", "비즈니스"],
@@ -13,25 +14,26 @@ const svgPaths = [
   ["/svg/interests/tech.svg", "개발.테크"],
 ];
 
-function Atmosphere() {
+function Interests() {
   return (
     <section className="flex flex-col gap-10">
       <MatchingHeader
-        title={[`웅진님이 선호하는`, `스터디 분위기를 선택해 주세요`]}
+        title={[`웅진님 안녕하세요`, `현재 관심있는 분야는 무엇인가요?`]}
         subtitle={[`최대 3개까지 선택 가능합니다.`]}
       />
-
-      <MatchingGridSection>
-        {svgPaths.map((pathname, idx) => (
-          <MatchingGridItem
-            key={idx}
-            svgPath={pathname[0]}
-            name={pathname[1]}
-          />
-        ))}
-      </MatchingGridSection>
+      <MainLayout>
+        <MatchingGridSection>
+          {svgPaths.map((pathname, idx) => (
+            <MatchingGridItem
+              key={idx}
+              svgPath={pathname[0]}
+              name={pathname[1]}
+            />
+          ))}
+        </MatchingGridSection>
+      </MainLayout>
     </section>
   );
 }
 
-export default Atmosphere;
+export default Interests;

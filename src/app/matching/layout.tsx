@@ -35,12 +35,22 @@ const state = {
       })
     ),
     type: 3,
-    place: ["강남구", "성동구"],
+    place: {
+      서울: ["강남구", "강동구", "강북구"],
+      경기: [],
+      인천: [],
+      대전: [],
+      세종: [],
+      충남: [],
+      충북: [],
+      전북: [],
+    },
     atmosphere: ["친근한", "열정적인", "학습중식적"],
   },
 };
 
 function MatchingLayout({
+  children,
   interests,
   skilled,
   type,
@@ -63,20 +73,17 @@ function MatchingLayout({
     <div>
       {" "}
       <HeaderForamt icons_left={<ArrowBackBtn />} />
-      <div className="flex flex-col gap-10">
-        <MatchingHeader
-          title={["관심분야에 대한", "나의 직업수준을 선택해주세요"]}
-        />
-        <main>
-          {/* pregress bar 구현 예정 */}
-          {/* {interests} */}
-          {skilled}
-          {type}
-          {place}
-          {atmosphere}
-          {complete}
-        </main>
-      </div>
+      <main>
+        {/* pregress bar 구현 예정 */}
+        {/* {interests} */}
+        {skilled}
+        {/* {type} */}
+        {/* {place} */}
+        {/* {atmosphere} */}
+        {/* {complete} */}
+        {/* {children} */}
+      </main>
+      {/* </div> */}
       <FixedBtnSection>
         <FixedBtn icon={<ArrowBackBtn />} bgColor={"#D0D0D0"} />
         <FixedBtn icon={<ArrowForwardBtn />} />
