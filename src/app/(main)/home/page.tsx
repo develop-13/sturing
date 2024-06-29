@@ -1,5 +1,5 @@
 "use client";
-import Button from "@/components/header_metarials/molecules/Button";
+import Button from "@/components/header_metarials/atoms/Button";
 import { SlMagnifier, SlArrowRight } from "react-icons/sl";
 import { GoPlus } from "react-icons/go";
 import Banner_Slide from "@/components/Home/Banner-Slide";

@@ -1,4 +1,4 @@
-import SkillTabItem from "./SkillTabItem";
+import SkillTabItem from "../molecules/SkilledTabItem";
 
 const dummy_data = [
   { level: "비기너", description: "관련 공부를 이제 막 시작했어요" },
@@ -7,9 +7,9 @@ const dummy_data = [
   { level: "시니어", description: "4년 이상의 관련 분야 업무경험이 있어요" },
 ];
 
-function TabMain() {
+function SkilledTabMain() {
   return (
-    <div className="mx-4 my-5 flex flex-col gap-[14px]">
+    <ul className="flex flex-col gap-[14px] mx-[15px] my-5">
       {dummy_data.map((data, idx) => (
         <SkillTabItem
           key={idx}
@@ -17,8 +17,8 @@ function TabMain() {
           description={data.description}
         />
       ))}
-    </div>
+    </ul>
   );
 }
 
-export default TabMain;
+export default SkilledTabMain;

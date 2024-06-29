@@ -1,5 +1,5 @@
 "use client";
-import ArrowBackBtn from "../../common/molecules/ArrowBackBtn";
+import ArrowBackBtn from "../../common/atoms/ArrowBackBtn";
 import Searchbar from "../../common/molecules/SearchBar";
 import SectionTabs from "../molecules/SectionTabs";
 import { usePathname } from "next/navigation";
