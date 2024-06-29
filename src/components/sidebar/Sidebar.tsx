@@ -23,7 +23,7 @@ function Sidebar() {
   const router = useRouter();
 
   return (
-    <div className="w-[323px] h-[816px]  px-[23px] py-[40px] fixed top-0 left-0 bg-white">
+    <div className="w-[323px] px-[23px] py-[40px] fixed top-0 left-0 bg-white z-[999999999]">
       <div className="flex justify-between ">
         <div></div>
         <IconFormat

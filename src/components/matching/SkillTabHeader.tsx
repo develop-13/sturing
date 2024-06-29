@@ -23,7 +23,7 @@ function TabHeader() {
           href={`./${mkey}`}
           className={`flex-1 text-center font-medium text-[16px] leading-[15px] p-4 ${
             params.interests === mkey
-              ? `text-[#4171FF] border-b-2 border-[#4171FF]`
+              ? `text-mainColor border-b-2 border-mainColor`
               : `text-gray-700`
           }`}
         >

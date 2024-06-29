@@ -1,7 +1,17 @@
-import React from "react";
+import Searchbar from "@/components/common/SearchBar";
+import MatchingHeader from "@/components/matching/MatchingHeader";
 
 function placePage() {
-  return <div>placePage</div>;
+  return (
+    <section className="flex flex-col gap-5">
+      <MatchingHeader
+        title={[`웅진님이 선호하는`, `스터디 장소를 선택해 주세요`]}
+        subtitle={[`최대 3개까지 선택 가능합니다.`]}
+      />
+      <Searchbar />
+      place page
+    </section>
+  );
 }
 
 export default placePage;

@@ -1,6 +1,6 @@
 "use client";
 import ArrowBackBtn from "../common/ArrowBackBtn";
-import Searchbar from "./SearchBar";
+import Searchbar from "../common/SearchBar";
 import SectionTabs from "./SectionTabs";
 import { usePathname } from "next/navigation";
 

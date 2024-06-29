@@ -12,7 +12,12 @@ const config: Config = {
         iconSize: "24px",
       },
 
+      backgroundColor: {
+        mainColor: "#4171FF",
+      },
+
       colors: {
+        mainColor: "#4171FF",
         borderColor1: "#E3E3E3",
         textColor1: "#676767",
         "custom-blue-bright": "rgba(217, 227, 255, 0.3)",
