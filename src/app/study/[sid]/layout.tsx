@@ -1,5 +1,5 @@
-import ArrowBackBtn from "@/components/common/ArrowBackBtn";
-import HeaderForamt from "@/components/header_metarials/headerForamt";
+import ArrowBackBtn from "@/components/common/molecules/ArrowBackBtn";
+import HeaderForamt from "@/components/header_metarials/organisms/headerForamt";
 
 function StudyDetailLayout() {
   return (

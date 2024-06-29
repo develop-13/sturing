@@ -1,7 +1,7 @@
 "use client";
-import ArrowBackBtn from "../common/ArrowBackBtn";
-import Searchbar from "../common/SearchBar";
-import SectionTabs from "./SectionTabs";
+import ArrowBackBtn from "../../common/molecules/ArrowBackBtn";
+import Searchbar from "../../common/molecules/SearchBar";
+import SectionTabs from "../molecules/SectionTabs";
 import { usePathname } from "next/navigation";
 
 type THeaderFormatProps = {

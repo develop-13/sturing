@@ -1,7 +1,7 @@
 import MatchingGridSection from "@/components/matching/MatchingGridSection";
 import MatchingHeader from "@/components/matching/MatchingHeader";
 import MatchingGridItem from "@/components/matching/MatchingGridItem";
-import MainLayout from "@/components/common/mainLayout";
+import MainLayout from "@/components/common/atoms/mainLayout";
 
 const svgPaths = [
   ["/svg/interests/business.svg", "비즈니스"],

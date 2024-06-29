@@ -1,12 +1,12 @@
 "use client";
 // 왜 use client 붙여야 하지?
 
-import ArrowBackBtn from "@/components/common/ArrowBackBtn";
-import HeaderForamt from "@/components/header_metarials/headerForamt";
-import FixedBtn from "@/components/common/FixedBtn";
-import FixedBtnSection from "@/components/common/FixedBtnSection";
-import ArrowForwardBtn from "@/components/common/ArrowForwardBtn";
-import MainLayout from "@/components/common/mainLayout";
+import ArrowBackBtn from "@/components/common/molecules/ArrowBackBtn";
+import HeaderForamt from "@/components/header_metarials/organisms/headerForamt";
+import FixedBtn from "@/components/common/molecules/FixedBtn";
+import FixedBtnSection from "@/components/common/organisms/FixedBtnSection";
+import ArrowForwardBtn from "@/components/common/molecules/ArrowForwardBtn";
+import MainLayout from "@/components/common/atoms/mainLayout";
 import MatchingHeader from "@/components/matching/MatchingHeader";
 
 // context api로 해당 페이지 내 상탯값 관리?
