@@ -2,7 +2,7 @@
 
 import { IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
-import IconFormat from "./IconFormat";
+import IconFormat from "../atoms/IconFormat";
 
 function ArrowBackBtn() {
   const router = useRouter();

@@ -1,7 +1,9 @@
-import BellBtn from "@/components/header_metarials/BellBtn";
-import MenuLogo from "@/components/header_metarials/MenuLogo";
-import UserBtn from "@/components/header_metarials/UserBtn";
-import HeaderForamt from "@/components/header_metarials/headerForamt";
+import TwoIconsFormat from "@/components/header_metarials/atoms/TwoIconsFormat";
+import BellBtn from "@/components/header_metarials/molecules/BellBtn";
+import LogoBtn from "@/components/header_metarials/molecules/LogoBtn";
+import MenuLogo from "@/components/header_metarials/molecules/MenuBtn";
+import UserBtn from "@/components/header_metarials/molecules/UserBtn";
+import HeaderForamt from "@/components/header_metarials/organisms/headerForamt";
 function MyStudyLayout({
   children,
   MyStudyList,
@@ -14,12 +16,17 @@ function MyStudyLayout({
   return (
     <div>
       <HeaderForamt
-        icons_left={<MenuLogo />}
+        icons_left={
+          <TwoIconsFormat gap={8}>
+            <MenuLogo />
+            <LogoBtn />
+          </TwoIconsFormat>
+        }
         icons_right={
-          <div className="flex gap-[12px] items-center">
+          <TwoIconsFormat gap={12}>
             <BellBtn />
             <UserBtn />
-          </div>
+          </TwoIconsFormat>
         }
         hasTab={true}
       />

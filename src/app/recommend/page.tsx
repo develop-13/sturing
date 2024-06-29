@@ -1,19 +1,26 @@
-import BellBtn from "@/components/header_metarials/BellBtn";
-import MenuLogo from "@/components/header_metarials/MenuLogo";
-import UserBtn from "@/components/header_metarials/UserBtn";
-import HeaderForamt from "@/components/header_metarials/headerForamt";
+import TwoIconsFormat from "@/components/header_metarials/atoms/TwoIconsFormat";
+import BellBtn from "@/components/header_metarials/molecules/BellBtn";
+import LogoBtn from "@/components/header_metarials/molecules/LogoBtn";
+import MenuBtn from "@/components/header_metarials/molecules/MenuBtn";
+import UserBtn from "@/components/header_metarials/molecules/UserBtn";
+import HeaderForamt from "@/components/header_metarials/organisms/headerForamt";
 import React from "react";
 
 function RecommendPage() {
   return (
     <div>
       <HeaderForamt
-        icons_left={<MenuLogo />}
+        icons_left={
+          <TwoIconsFormat gap={8}>
+            <MenuBtn />
+            <LogoBtn />
+          </TwoIconsFormat>
+        }
         icons_right={
-          <div className="flex gap-[12px] items-center">
-            <BellBtn />
+          <TwoIconsFormat gap={12}>
             <UserBtn />
-          </div>
+            <BellBtn />
+          </TwoIconsFormat>
         }
         hasTab={true}
       />

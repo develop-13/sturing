@@ -1,7 +1,7 @@
 "use client";
 // 굳이 client 컴포넌트여야 하나?
 import { IoMdClose } from "react-icons/io";
-import IconFormat from "../common/IconFormat";
+import IconFormat from "../common/atoms/IconFormat";
 import SidebarSection from "./SidebarSection";
 import SidebarItem from "./SidebarItem";
 import { useRouter } from "next/navigation";

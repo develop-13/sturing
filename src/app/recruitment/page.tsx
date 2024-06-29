@@ -1,6 +1,6 @@
-import CancelBtn from "@/components/header_metarials/CancelBtn";
-import TemporalSaveBtn from "@/components/header_metarials/TemporalSaveBtn";
-import HeaderForamt from "@/components/header_metarials/headerForamt";
+import CancelBtn from "@/components/header_metarials/molecules/CancelBtn";
+import TemporalSaveBtn from "@/components/header_metarials/molecules/TemporalSaveBtn";
+import HeaderForamt from "@/components/header_metarials/organisms/headerForamt";
 import React from "react";
 
 function RecruitmentPage() {
