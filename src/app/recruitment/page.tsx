@@ -1,5 +1,5 @@
-import CancelBtn from "@/components/header_metarials/molecules/CancelBtn";
-import TemporalSaveBtn from "@/components/header_metarials/molecules/TemporalSaveBtn";
+import CancelBtn from "@/components/header_metarials/atoms/CancelBtn";
+import TemporalSaveBtn from "@/components/header_metarials/atoms/TemporalSaveBtn";
 import HeaderForamt from "@/components/header_metarials/organisms/headerForamt";
 import React from "react";
 

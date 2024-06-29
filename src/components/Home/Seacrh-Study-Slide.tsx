@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
-import Button from "@/components/header_metarials/molecules/Button";
+import Button from "@/components/header_metarials/atoms/Button";
 
 export default function Seacrh_Study_Slide() {
   console.log("Seacrh_Study_Slide Rendered");

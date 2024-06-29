@@ -1,15 +1,15 @@
 type TProps = {
   icon: React.ReactNode;
-  bgColor?: string;
+  isGray?: boolean;
 };
 
 function FixedBtn(props: TProps) {
-  const { bgColor, icon } = props;
-  const effectiveColor = bgColor || "#4171FF";
+  const { isGray, icon } = props;
   // console.log("bgColor= " + effectiveColor);
   return (
     <div
-      className={`w-14 h-14  rounded-full flex items-center justify-center text-white bg-mainColor`}
+      className={`w-14 h-14  rounded-full flex items-center justify-center text-white 
+      ${isGray ? "bg-gray-400" : "bg-mainColor"}`}
     >
       {icon}
     </div>

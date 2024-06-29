@@ -1,8 +1,8 @@
 import TwoIconsFormat from "@/components/header_metarials/atoms/TwoIconsFormat";
-import BellBtn from "@/components/header_metarials/molecules/BellBtn";
-import LogoBtn from "@/components/header_metarials/molecules/LogoBtn";
-import MenuLogo from "@/components/header_metarials/molecules/MenuBtn";
-import UserBtn from "@/components/header_metarials/molecules/UserBtn";
+import BellBtn from "@/components/header_metarials/atoms/BellBtn";
+import LogoBtn from "@/components/header_metarials/atoms/LogoBtn";
+import MenuLogo from "@/components/header_metarials/atoms/MenuBtn";
+import UserBtn from "@/components/header_metarials/atoms/UserBtn";
 import HeaderForamt from "@/components/header_metarials/organisms/headerForamt";
 function MyStudyLayout({
   children,

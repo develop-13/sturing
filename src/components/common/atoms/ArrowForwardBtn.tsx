@@ -1,5 +1,5 @@
 import { IoIosArrowForward } from "react-icons/io";
-import IconFormat from "../atoms/IconFormat";
+import IconFormat from "./IconFormat";
 
 function ArrowForwardBtn() {
   return (

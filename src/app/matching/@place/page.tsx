@@ -1,5 +1,5 @@
 import Searchbar from "@/components/common/molecules/SearchBar";
-import MatchingHeader from "@/components/matching/MatchingHeader";
+import MatchingHeader from "@/components/matching/common/MatchingHeader";
 
 function placePage() {
   return (

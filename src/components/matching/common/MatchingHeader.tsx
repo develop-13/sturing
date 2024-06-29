@@ -6,7 +6,7 @@ type TProps = {
 function MatchingHeader(props: TProps) {
   const { title, subtitle } = props;
   return (
-    <header className="flex flex-col gap-[11px] ml-4 mt-5">
+    <header className="flex flex-col gap-[11px] ml-4 mt-5 mb-10">
       <div className="font-semibold text-[20px] leading-[30px] font-[#010101]">
         {title.map((text, idx) => (
           <h1 key={idx}>{text}</h1>

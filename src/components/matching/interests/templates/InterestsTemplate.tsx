@@ -1,7 +1,7 @@
-import MatchingGridSection from "@/components/matching/common/MatchingGridSection";
-import MatchingHeader from "@/components/matching/common/MatchingHeader";
-import MatchingGridItem from "@/components/matching/common/MatchingGridItem";
 import MainLayout from "@/components/common/atoms/mainLayout";
+import MatchingHeader from "../../common/MatchingHeader";
+import MatchingGridSection from "../../common/MatchingGridSection";
+import MatchingGridItem from "../../common/MatchingGridItem";
 
 const svgPaths = [
   ["/svg/interests/business.svg", "비즈니스"],
@@ -14,7 +14,7 @@ const svgPaths = [
   ["/svg/interests/tech.svg", "개발.테크"],
 ];
 
-function Interests() {
+function InterestsTemplate() {
   return (
     <section className="flex flex-col gap-10">
       <MatchingHeader
@@ -36,4 +36,4 @@ function Interests() {
   );
 }
 
-export default Interests;
+export default InterestsTemplate;
