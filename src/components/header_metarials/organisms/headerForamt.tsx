@@ -19,13 +19,11 @@ function HeaderForamt(props: THeaderFormatProps) {
 
   if (hasSearchBar) {
     return (
-      <section>
-        <header className="w-full p-[15px]  flex gap-[]  items-center max-w-[375px] max-h-[54px] border-b border-[##E4E4E4]">
-          <div>
-            <ArrowBackBtn />
-          </div>
+      <section className="px-4 max-w-[375px] h-[54px] flex items-center">
+        <header className="flex gap-[7px] w-full items-center">
+          <ArrowBackBtn />
           <div className="flex-grow">
-            <Searchbar />
+            <Searchbar px={16} py={7} />
           </div>
         </header>
       </section>
@@ -33,7 +31,7 @@ function HeaderForamt(props: THeaderFormatProps) {
   } else {
     return (
       <section>
-        <header className="w-full p-[15px]  flex  items-center max-w-[375px] max-h-[54px] border-b border-[##E4E4E4]">
+        <header className="w-full p-4  flex  items-center max-w-[375px] h-[54px] border-b border-[#E4E4E4]">
           <div className="flex-1">{icons_left}</div>
           <div className="flex items-center flex-[2] justify-center font-semibold text-[18px] lead-[27px] tracking-[2%]">
             {text_center}

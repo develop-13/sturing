@@ -14,7 +14,7 @@ function ArrowBackBtn() {
         console.log("이전 페이지로 이동");
         router.back();
       }}
-      icon={<SearchIcon />}
+      icon={<IoIosArrowBack />}
     />
   );
 }

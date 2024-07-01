@@ -1,10 +1,9 @@
 "use client";
 // 굳이 client 컴포넌트여야 하나?
-import { IoMdClose } from "react-icons/io";
-import IconFormat from "../common/atoms/IconFormat";
 import SidebarSection from "./SidebarSection";
 import SidebarItem from "./SidebarItem";
 import { useRouter } from "next/navigation";
+import CloseBtn from "../common/atoms/CloseBtn";
 const userInfo_dummy = {
   id: 1,
   name: "웅진",
@@ -26,8 +25,8 @@ function Sidebar() {
     <div className="w-[323px] px-[23px] py-[40px] fixed top-0 left-0 bg-white z-[999999999]">
       <div className="flex justify-between ">
         <div></div>
-        <IconFormat
-          icon={<IoMdClose />}
+        <CloseBtn
+          size={24}
           onClick={() => {
             console.log("모달 닫기 기능을 구현해주세요");
             router.back();
