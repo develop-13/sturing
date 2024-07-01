@@ -8,7 +8,7 @@ function MatchingGridItem({
   name: string;
 }) {
   return (
-    <div className="border rounded-lg border-gray-300 w-[164px] h-[90px] flex items-center justify-center cursor-pointer">
+    <div className=" border rounded-lg border-gray-300  flex items-center justify-center cursor-pointer">
       <div className="flex gap-[10px]">
         <img src={svgPath} alt="" />
         <div>{name}</div>
