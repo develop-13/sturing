@@ -1,6 +1,8 @@
 const DummyTotalPageNum = 5;
 const DummyCurrentPageNum = 1;
 
+// swiper?
+
 function ProgressBar() {
   return (
     <div className="h-1 flex">
