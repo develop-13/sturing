@@ -1,11 +1,13 @@
 import InterestsTemplate from "@/components/matching/interests/templates/InterestsTemplate";
 import SkilledTemplate from "@/components/matching/skilled/templates/SkilledTemplate";
+import StudyPlaceTemplate from "@/components/matching/studyplace/templates/StudyPlaceTemplate";
 import StudyTypeTemplate from "@/components/matching/studytype/templates/StudyTypeTemplate";
 
 function page() {
   // return <InterestsTemplate />;
   // return <SkilledTemplate />;
-  return <StudyTypeTemplate />;
+  // return <StudyTypeTemplate />;
+  return <StudyPlaceTemplate />;
 }
 
 export default page;

@@ -1,15 +1,29 @@
-import { IoSearchOutline } from "react-icons/io5";
+"use client";
 
-function Searchbar() {
+import SearchIcon from "../atoms/SearchIcon";
+
+type TProps = {
+  placeholder?: string;
+  px: number;
+  py: number;
+};
+
+function SearchBar(props: TProps) {
+  const { placeholder, px, py } = props;
+
   return (
-    <div className="w-full py-[7px] px-[16px] max-w-[311px] max-h-[36px] bg-[#ECF1FF] flex gap-[10px] items-center rounded-full">
+    <div
+      className={`flex gap-[10px] bg-[#ECF1FF] rounded-full`}
+      style={{ padding: `${py}px ${px}px` }}
+    >
       <input
         type="text"
-        className="w-full bg-inherit text-[14px] tracking-[-3%] leading-[22px] font-semibold "
+        placeholder={placeholder}
+        className="w-full bg-inherit text-[14px] outline-none placeholder-[#676767] tracking-[-3%] leading-[22px] font-semibold "
       />
-      <IoSearchOutline className="text-iconSize" />
+      <SearchIcon />
     </div>
   );
 }
 
-export default Searchbar;
+export default SearchBar;

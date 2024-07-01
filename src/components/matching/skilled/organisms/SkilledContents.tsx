@@ -7,7 +7,7 @@ const dummy_data = [
   { level: "시니어", description: "4년 이상의 관련 분야 업무경험이 있어요" },
 ];
 
-function SkilledTabMain() {
+function SkilledContents() {
   return (
     <ul className="flex flex-col gap-[14px] mx-[15px] my-5">
       {dummy_data.map((data, idx) => (
@@ -21,4 +21,4 @@ function SkilledTabMain() {
   );
 }
 
-export default SkilledTabMain;
+export default SkilledContents;
