@@ -1,6 +1,7 @@
 "use client";
 import ArrowBackBtn from "../../common/atoms/ArrowBackBtn";
 import Searchbar from "../../common/molecules/SearchBar";
+import FilterBar from "../../search/molecules/FilterBar";
 import SectionTabs from "../molecules/SectionTabs";
 import { usePathname } from "next/navigation";
 
@@ -19,11 +20,13 @@ function HeaderForamt(props: THeaderFormatProps) {
 
   if (hasSearchBar) {
     return (
-      <section className="px-4 max-w-[375px] h-[54px] flex items-center">
-        <header className="flex gap-[7px] w-full items-center">
-          <ArrowBackBtn />
-          <div className="flex-grow">
-            <Searchbar px={16} py={7} />
+      <section className="w-[375px]">
+        <header className="px-4 max-w-[375px] h-[54px] flex items-center">
+          <div className="flex gap-[7px] w-full items-center">
+            <ArrowBackBtn />
+            <div className="flex-grow">
+              <Searchbar px={16} py={7} />
+            </div>
           </div>
         </header>
       </section>
