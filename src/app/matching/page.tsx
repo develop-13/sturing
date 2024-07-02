@@ -7,9 +7,9 @@ import StudyTypeTemplate from "@/components/matching/studytype/templates/StudyTy
 function page() {
   // return <InterestsTemplate />;
   // return <SkilledTemplate />;
-  // return <StudyTypeTemplate />;
+  return <StudyTypeTemplate />;
   // return <StudyPlaceTemplate />;
-  return <AtmosphereTemplate />;
+  // return <AtmosphereTemplate />;
 }
 
 export default page;

@@ -1,10 +1,10 @@
 import TwoIconsFormat from "@/components/header_metarials/atoms/TwoIconsFormat";
-import BellBtn from "@/components/header_metarials/atoms/BellBtn";
 import LogoBtn from "@/components/header_metarials/atoms/LogoBtn";
 import MenuBtn from "@/components/header_metarials/atoms/MenuBtn";
 import UserBtn from "@/components/header_metarials/atoms/UserBtn";
 import HeaderForamt from "@/components/header_metarials/organisms/headerForamt";
 import React from "react";
+import Icon from "@/components/common/atoms/Icon";
 
 function RecommendPage() {
   return (
@@ -19,7 +19,7 @@ function RecommendPage() {
         icons_right={
           <TwoIconsFormat gap={12}>
             <UserBtn />
-            <BellBtn />
+            <Icon type="BELL" />
           </TwoIconsFormat>
         }
         hasTab={true}

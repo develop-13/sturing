@@ -1,4 +1,5 @@
 "use client";
+import Icon from "@/components/common/atoms/Icon";
 import ArrowBackBtn from "../../common/atoms/ArrowBackBtn";
 import Searchbar from "../../common/molecules/SearchBar";
 import FilterBar from "../../search/molecules/FilterBar";
@@ -23,7 +24,8 @@ function HeaderForamt(props: THeaderFormatProps) {
       <section className="w-[375px]">
         <header className="px-4 max-w-[375px] h-[54px] flex items-center">
           <div className="flex gap-[7px] w-full items-center">
-            <ArrowBackBtn />
+            {/* <ArrowBackBtn /> */}
+            <Icon type="BACK" />
             <div className="flex-grow">
               <Searchbar px={16} py={7} />
             </div>
