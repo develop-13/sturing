@@ -3,7 +3,6 @@
 import HeaderForamt from "@/components/header_metarials/organisms/headerForamt";
 import FixedBtn from "@/components/common/atoms/FixedBtn";
 import FixedBtnSection from "@/components/common/organisms/FixedBtnSection";
-import ArrowForwardBtn from "@/components/common/atoms/ArrowForwardBtn";
 import ProgressBar from "@/components/common/molecules/ProgressBar";
 import Icon from "@/components/common/atoms/Icon";
 
@@ -32,7 +31,7 @@ function MatchingLayout({
       {children}
       <FixedBtnSection>
         <FixedBtn icon={<Icon type="BACK" />} isGray={true} />
-        <FixedBtn icon={<ArrowForwardBtn />} />
+        <FixedBtn icon={<Icon type="FORWARD" />} />
       </FixedBtnSection>
     </div>
   );
