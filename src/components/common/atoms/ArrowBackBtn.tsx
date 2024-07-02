@@ -6,17 +6,17 @@ import IconFormat from "./IconFormat";
 import SearchIcon from "./SearchIcon";
 
 function ArrowBackBtn() {
-  const router = useRouter();
+	const router = useRouter();
 
-  return (
-    <IconFormat
-      onClick={() => {
-        console.log("이전 페이지로 이동");
-        router.back();
-      }}
-      icon={<IoIosArrowBack />}
-    />
-  );
+	return (
+		<IconFormat
+			onClick={() => {
+				console.log("이전 페이지로 이동");
+				router.back();
+			}}
+			icon={<IoIosArrowBack />}
+		/>
+	);
 }
 
 export default ArrowBackBtn;
