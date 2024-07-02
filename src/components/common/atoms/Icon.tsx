@@ -46,7 +46,7 @@ function Icon(props: TIconData) {
       );
 
     case "BOOKMARK":
-      return <IconFormat icon={<CiBookmark />} size={size} />;
+      return <IconFormat icon={<CiBookmark />} size={effectiveSize} />;
   }
   return <></>;
 }
