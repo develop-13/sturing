@@ -1,10 +1,10 @@
-import ArrowBackBtn from "@/components/common/atoms/ArrowBackBtn";
+import Icon from "@/components/common/atoms/Icon";
 import HeaderForamt from "@/components/header_metarials/organisms/headerForamt";
 
 function StudyDetailLayout() {
   return (
     <div>
-      <HeaderForamt icons_left={<ArrowBackBtn />} />
+      <HeaderForamt icons_left={<Icon type="CHECKED" />} />
     </div>
   );
 }
