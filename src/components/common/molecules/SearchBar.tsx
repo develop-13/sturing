@@ -1,6 +1,6 @@
 "use client";
 
-import SearchIcon from "../atoms/SearchIcon";
+import Icon from "../atoms/Icon";
 
 type TProps = {
   placeholder?: string;
@@ -21,7 +21,7 @@ function SearchBar(props: TProps) {
         placeholder={placeholder}
         className="w-full bg-inherit text-[14px] outline-none placeholder-[#676767] tracking-[-3%] leading-[22px] font-semibold "
       />
-      <SearchIcon />
+      <Icon type="SEARCH" />
     </div>
   );
 }
