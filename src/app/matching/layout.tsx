@@ -1,10 +1,10 @@
 "use client";
 // 왜 use client 붙여야 하지?
-import HeaderForamt from "@/components/header_metarials/organisms/headerForamt";
-import FixedBtn from "@/components/common/atoms/FixedBtn";
-import FixedBtnSection from "@/components/common/organisms/FixedBtnSection";
-import ProgressBar from "@/components/common/molecules/ProgressBar";
-import Icon from "@/components/common/atoms/Icon";
+import HeaderForamt from "@/components/organisms/headerForamt";
+import FixedBtn from "@/components/atoms/FixedBtn";
+import FixedBtnSection from "@/components/organisms/FixedBtnSection";
+import ProgressBar from "@/components/molcules/ProgressBar";
+import Icon from "@/components/atoms/Icon";
 
 function MatchingLayout({
   children,

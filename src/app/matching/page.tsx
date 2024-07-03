@@ -1,8 +1,8 @@
-import AtmosphereTemplate from "@/components/matching/atmosphere/templates/AtmosphereTemplate";
-import InterestsTemplate from "@/components/matching/interests/templates/InterestsTemplate";
-import SkilledTemplate from "@/components/matching/skilled/templates/SkilledTemplate";
-import StudyPlaceTemplate from "@/components/matching/studyplace/templates/StudyPlaceTemplate";
-import StudyTypeTemplate from "@/components/matching/studytype/templates/StudyTypeTemplate";
+import AtmosphereTemplate from "@/components/templates/AtmosphereTemplate";
+import InterestsTemplate from "@/components/templates/InterestsTemplate";
+import SkilledTemplate from "@/components/templates/SkilledTemplate";
+import StudyPlaceTemplate from "@/components/templates/StudyPlaceTemplate";
+import StudyTypeTemplate from "@/components/templates/StudyTypeTemplate";
 
 function page() {
   // return <InterestsTemplate />;

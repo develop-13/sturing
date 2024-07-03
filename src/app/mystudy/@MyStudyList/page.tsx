@@ -1,4 +1,4 @@
-import MyStudyListComponent from "@/components/mystudy/organisms/MyStudyList";
+import MyStudyListComponent from "@/components/organisms/MyStudyList";
 
 function MyStudyList() {
   //데이터 가져오기

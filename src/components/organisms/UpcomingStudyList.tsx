@@ -7,8 +7,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import { Pagination } from "swiper/modules";
-import UpcomingStudyInfo from "@/components/molcules/UpcomingStudyInfo";
-
+import UpcomingStudyInfo from "../molcules/UpcomingStudyInfo";
 // 서버로부터 불러온 다가오는 스터디 리스트의 예상 포멧
 type TupcomingStudy = {
   startDate: string;
@@ -38,7 +37,6 @@ const UpcomingStudyList_dummy: TupcomingStudy[] = [
   },
 ];
 
-// 이미 여기서 데이터 받아오는 작업이 이뤄줘야 할 듯
 function UpcomingStudyList() {
   return (
     <Swiper

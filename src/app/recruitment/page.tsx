@@ -1,6 +1,6 @@
 import CancelBtn from "@/components/header_metarials/atoms/CancelBtn";
 import TemporalSaveBtn from "@/components/header_metarials/atoms/TemporalSaveBtn";
-import HeaderForamt from "@/components/header_metarials/organisms/headerForamt";
+import HeaderForamt from "@/components/organisms/headerForamt";
 import React from "react";
 
 function RecruitmentPage() {
