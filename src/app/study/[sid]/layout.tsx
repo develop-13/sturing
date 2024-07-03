@@ -4,7 +4,7 @@ import HeaderForamt from "@/components/header_metarials/organisms/headerForamt";
 function StudyDetailLayout() {
   return (
     <div>
-      <HeaderForamt icons_left={<Icon type="CHECKED" />} />
+      <HeaderForamt icons_left={<Icon type="BACK" />} />
     </div>
   );
 }
