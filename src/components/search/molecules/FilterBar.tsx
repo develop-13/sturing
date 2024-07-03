@@ -1,5 +1,5 @@
 "use client";
-import FilterBtn from "../atoms/FilterBtn";
+import Icon from "@/components/common/atoms/Icon";
 import FilterItem from "../atoms/FilterItem";
 
 const dummyFilters = ["분야", "지역", "인원", "기간", "직업", "역할"];
@@ -13,7 +13,7 @@ function FilterBar() {
         <FilterItem key={filter} filterName={filter} />
       ))}
       <div className="absolute right-0 top-0 h-full bg-white z-[99999px] flex items-center">
-        <FilterBtn />
+        <Icon type="FILTER" />
       </div>
     </ul>
   );

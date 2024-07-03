@@ -33,7 +33,8 @@ type TIconData = {
     | "MENU"
     | "MORE"
     | "SHARE"
-    | "USER";
+    | "USER"
+    | "FILTER";
 
   // svg?: () => {};
   // src?: string;
@@ -126,6 +127,15 @@ function Icon(props: TIconData) {
 
     case "USER":
       return <IconFormat icon={<FaRegUser />} />;
+
+    case "FILTER":
+      return (
+        <IconFormat
+          icon={
+            <Image src="/svg/ect/filter.svg" alt="" width={24} height={24} />
+          }
+        />
+      );
   }
   return <></>;
 }
