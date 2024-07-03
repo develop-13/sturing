@@ -1,5 +1,5 @@
-import Icon from "@/components/common/atoms/Icon";
-import HeaderForamt from "@/components/header_metarials/organisms/headerForamt";
+import Icon from "@/components/atoms/Icon";
+import HeaderForamt from "@/components/organisms/headerForamt";
 
 function StudyDetailLayout() {
   return (

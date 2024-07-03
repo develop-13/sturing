@@ -3,7 +3,7 @@
 import SidebarSection from "./SidebarSection";
 import SidebarItem from "./SidebarItem";
 import { useRouter } from "next/navigation";
-import Icon from "../common/atoms/Icon";
+import Icon from "../atoms/Icon";
 const userInfo_dummy = {
   id: 1,
   name: "웅진",

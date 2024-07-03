@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { IoIosArrowDown } from "react-icons/io";
 
-import IconFormat from "../common/atoms/IconFormat";
+import IconFormat from "../atoms/IconFormat";
 
 type TProps = {
   fontWeight?: number;

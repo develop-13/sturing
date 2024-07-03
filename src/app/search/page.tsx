@@ -1,6 +1,6 @@
-import TwoIconsFormat from "@/components/header_metarials/atoms/TwoIconsFormat";
-import HeaderForamt from "@/components/header_metarials/organisms/headerForamt";
-import Icon from "@/components/common/atoms/Icon";
+import TwoIconsFormat from "@/components/atoms/TwoIconsFormat";
+import HeaderForamt from "@/components/organisms/headerForamt";
+import Icon from "@/components/atoms/Icon";
 
 function SearchPage() {
   return (

@@ -1,7 +1,7 @@
-import TwoIconsFormat from "@/components/header_metarials/atoms/TwoIconsFormat";
-import HeaderForamt from "@/components/header_metarials/organisms/headerForamt";
+import TwoIconsFormat from "@/components/atoms/TwoIconsFormat";
+import HeaderForamt from "@/components/organisms/headerForamt";
 import React from "react";
-import Icon from "@/components/common/atoms/Icon";
+import Icon from "@/components/atoms/Icon";
 
 function RecommendPage() {
   return (

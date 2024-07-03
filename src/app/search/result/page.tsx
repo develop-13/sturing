@@ -1,7 +1,7 @@
-import Icon from "@/components/common/atoms/Icon";
-import HeaderForamt from "@/components/header_metarials/organisms/headerForamt";
-import FilterBar from "@/components/search/molecules/FilterBar";
-import FilterModal from "@/components/search/organisms/FilterModal";
+import Icon from "@/components/atoms/Icon";
+import HeaderForamt from "@/components/organisms/headerForamt";
+import FilterBar from "@/components/molcules/FilterBar";
+import FilterModal from "@/components/organisms/FilterModal";
 
 function SearchResultPage() {
   return (
