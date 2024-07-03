@@ -1,4 +1,4 @@
-import MainLayout from "@/components/common/atoms/mainLayout";
+import MainLayout from "@/components/atoms/CommonMarginDIv";
 import MatchingHeader from "../../common/MatchingHeader";
 import MatchingGridSection from "../../common/MatchingGridSection";
 import MatchingGridItem from "../../common/MatchingGridItem";
@@ -21,7 +21,7 @@ function InterestsTemplate() {
         title={[`웅진님 안녕하세요`, `현재 관심있는 분야는 무엇인가요?`]}
         subtitle={[`최대 3개까지 선택 가능합니다.`]}
       />
-      <MainLayout>
+      <div className="mx-4">
         <MatchingGridSection>
           {svgPaths.map((pathname, idx) => (
             <MatchingGridItem
@@ -31,7 +31,7 @@ function InterestsTemplate() {
             />
           ))}
         </MatchingGridSection>
-      </MainLayout>
+      </div>
     </section>
   );
 }

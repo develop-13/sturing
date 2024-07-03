@@ -1,6 +1,6 @@
 import React from "react";
 import MatchingHeader from "../../common/MatchingHeader";
-import MainLayout from "@/components/common/atoms/mainLayout";
+import MainLayout from "@/components/atoms/CommonMarginDIv";
 import MatchingGridSection from "../../common/MatchingGridSection";
 import MatchingGridItem from "../../common/MatchingGridItem";
 
@@ -24,7 +24,7 @@ function AtmosphereTemplate() {
         title={[`웅진님이 선호하는`, `스터디 분위기를 선택해 주세요.`]}
         subtitle={[`최대 3개까지 선택 가능합니다.`]}
       />
-      <MainLayout>
+      <div className="mx-4">
         <MatchingGridSection>
           {svgPaths.map((pathname, idx) => (
             <MatchingGridItem
@@ -34,7 +34,7 @@ function AtmosphereTemplate() {
             />
           ))}
         </MatchingGridSection>
-      </MainLayout>
+      </div>
     </section>
   );
 }

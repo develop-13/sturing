@@ -34,7 +34,8 @@ type TIconData = {
     | "MORE"
     | "SHARE"
     | "USER"
-    | "FILTER";
+    | "FILTER"
+    | "CAMERA";
 
   // svg?: () => {};
   // src?: string;
@@ -45,6 +46,7 @@ type TIconData = {
 function Icon(props: TIconData) {
   const { type, color } = props;
   const router = useRouter();
+  const defaultSize = 24;
 
   switch (type) {
     case "BELL":
@@ -54,6 +56,7 @@ function Icon(props: TIconData) {
             console.log("bell icon clicked!");
           }}
           icon={<VscBell />}
+          size={defaultSize}
         />
       );
     case "CHECKED":
@@ -67,6 +70,7 @@ function Icon(props: TIconData) {
             console.log("이전 페이지로 이동");
             router.back();
           }}
+          size={defaultSize}
         />
       );
 
@@ -80,6 +84,7 @@ function Icon(props: TIconData) {
           onClick={() => {
             "앞으로 가기 기능을 구현해주세요";
           }}
+          size={defaultSize}
         />
       );
 
@@ -90,6 +95,7 @@ function Icon(props: TIconData) {
           onClick={() => {
             router.back();
           }}
+          size={defaultSize}
         />
       );
 
@@ -100,14 +106,15 @@ function Icon(props: TIconData) {
           onClick={() => {
             console.log("search/result페이지로 이동");
           }}
+          size={defaultSize}
         />
       );
 
     case "CHATBOX":
-      return <IconFormat icon={<BsChatSquareDots />} />;
+      return <IconFormat icon={<BsChatSquareDots />} size={defaultSize} />;
 
     case "LOGO":
-      return <IconFormat icon={<Icon_Logo />} />;
+      return <IconFormat icon={<Icon_Logo />} size={defaultSize} />;
 
     case "MENU":
       return (
@@ -116,6 +123,7 @@ function Icon(props: TIconData) {
           onClick={() => {
             router.push("/sidebar");
           }}
+          size={defaultSize}
         />
       );
 
@@ -123,16 +131,35 @@ function Icon(props: TIconData) {
       return <IconFormat icon={<PiDotsThreeOutlineFill />} size={20} />;
 
     case "SHARE":
-      return <IconFormat icon={<GoShare />} />;
+      return <IconFormat icon={<GoShare />} size={defaultSize} />;
 
     case "USER":
-      return <IconFormat icon={<FaRegUser />} />;
+      return <IconFormat icon={<FaRegUser />} size={defaultSize} />;
+
+    case "CAMERA":
+      return (
+        <IconFormat
+          icon={
+            <Image
+              src="/svg/ect/camera.svg"
+              alt=""
+              width={defaultSize}
+              height={defaultSize}
+            />
+          }
+        />
+      );
 
     case "FILTER":
       return (
         <IconFormat
           icon={
-            <Image src="/svg/ect/filter.svg" alt="" width={24} height={24} />
+            <Image
+              src="/svg/ect/filter.svg"
+              alt=""
+              width={defaultSize}
+              height={defaultSize}
+            />
           }
         />
       );
