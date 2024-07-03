@@ -1,4 +1,3 @@
-import ArrowBackBtn from "@/components/common/atoms/ArrowBackBtn";
 import Icon from "@/components/common/atoms/Icon";
 import HeaderForamt from "@/components/header_metarials/organisms/headerForamt";
 import FilterBar from "@/components/search/molecules/FilterBar";
@@ -7,7 +6,7 @@ import FilterModal from "@/components/search/organisms/FilterModal";
 function SearchResultPage() {
   return (
     <div className="w-[375px]">
-      <HeaderForamt icons_left={<Icon type="CHECKED" />} hasSearchBar={true} />
+      <HeaderForamt icons_left={<Icon type="BACK" />} hasSearchBar={true} />
       <FilterBar />
       <FilterModal />
     </div>

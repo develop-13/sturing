@@ -11,6 +11,11 @@ import { IoMdClose } from "react-icons/io";
 import { CiBookmark } from "react-icons/ci";
 import { IoSearchOutline } from "react-icons/io5";
 import { BsChatSquareDots } from "react-icons/bs";
+import Icon_Logo from "@/svg/Icon-logo";
+import { SlMenu } from "react-icons/sl";
+import { PiDotsThreeOutlineFill } from "react-icons/pi";
+import { GoShare } from "react-icons/go";
+import { FaRegUser } from "react-icons/fa6";
 
 type TIconData = {
   type:
@@ -23,7 +28,13 @@ type TIconData = {
     | "SEARCH"
     | "CANCEL"
     | "TEMPORALSAVE"
-    | "CHATBOX";
+    | "CHATBOX"
+    | "LOGO"
+    | "MENU"
+    | "MORE"
+    | "SHARE"
+    | "USER";
+
   // svg?: () => {};
   // src?: string;
   color?: string;
@@ -93,8 +104,29 @@ function Icon(props: TIconData) {
 
     case "CHATBOX":
       return <IconFormat icon={<BsChatSquareDots />} />;
-  }
 
+    case "LOGO":
+      return <IconFormat icon={<Icon_Logo />} />;
+
+    case "MENU":
+      return (
+        <IconFormat
+          icon={<SlMenu />}
+          onClick={() => {
+            router.push("/sidebar");
+          }}
+        />
+      );
+
+    case "MORE":
+      return <IconFormat icon={<PiDotsThreeOutlineFill />} size={20} />;
+
+    case "SHARE":
+      return <IconFormat icon={<GoShare />} />;
+
+    case "USER":
+      return <IconFormat icon={<FaRegUser />} />;
+  }
   return <></>;
 }
 
