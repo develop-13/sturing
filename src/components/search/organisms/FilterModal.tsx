@@ -1,16 +1,20 @@
+"use client";
+import Image from "next/image";
 import React from "react";
+import CheckBoxIcon from "@/public/svg/tick-square.svg";
+import CheckboxItem from "../atoms/CheckboxItem";
 
 const dummyFilters = ["분야", "지역", "인원", "기간", "직업", "역할"];
 
 const dummyItems = [
-  "디자인",
-  "개발.테크",
-  "마케팅",
-  "비즈니스",
-  "경제",
-  "외국어",
-  "자격증",
-  "자기개발",
+  { name: "디자인", num: 41 },
+  { name: "개발.태크", num: 22 },
+  { name: "마케팅", num: 22 },
+  { name: "비즈니스", num: 22 },
+  { name: "경제", num: 22 },
+  { name: "외국어", num: 22 },
+  { name: "자격증", num: 22 },
+  { name: "자기개발", num: 22 },
 ];
 
 function FilterModal() {
@@ -24,12 +28,9 @@ function FilterModal() {
           <li key={it}>{it}</li>
         ))}
       </ul>
-      <ul className="mx-4 my-8">
+      <ul className="mx-4 my-8 flex flex-col gap-[21px]">
         {dummyItems.map((it) => (
-          <li key={it}>
-            <input type="checkbox" />
-            <span>{it}</span>
-          </li>
+          <CheckboxItem key={it.name} name={it.name} num={it.num} />
         ))}
       </ul>
     </div>
