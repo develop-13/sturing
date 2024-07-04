@@ -10,7 +10,7 @@ export default function StudyBox({ props }: { props: TStudy }) {
                     date={props.date}
                     isChecked={false}
                 />
-                <div className="flex flex-row gap-2 pt-2">
+                <div className="flex flex-row gap-2 pt-3">
                     <Button
                         fontsize={12}
                         height={22}
@@ -23,6 +23,14 @@ export default function StudyBox({ props }: { props: TStudy }) {
                         text={props.category}
                         theme="SECONDARY"
                     />
+                </div>
+                <text className="text-[16px] font-bold pt-2">
+                    {props.title}
+                </text>
+                <div className="flex flex-row pt-3 text-gray-600 border-b-2 py-2">
+                    <text className="text-[12px] font-bold">
+                        {props.location}
+                    </text>
                 </div>
             </div>
         </>

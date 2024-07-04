@@ -1,5 +1,6 @@
 type TStudy = {
     id: number;
+    title: string;
     src: string;
     date: string;
     type: TStudyType;
