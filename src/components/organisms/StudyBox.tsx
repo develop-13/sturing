@@ -13,7 +13,7 @@ export default function StudyBox({ props }: { props: TStudy }) {
 				<div className="flex flex-row gap-2 pt-3">
 					<Button
 						datas={{
-							type: "CATEGORY",
+							type: "TAG",
 							text: props.type,
 							theme: "PRIMARY",
 						}}

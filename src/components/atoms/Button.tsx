@@ -10,7 +10,7 @@ export default function Button({ datas }: { datas: TButton }) {
 	let btnType = "";
 	switch (datas.theme) {
 		case "PRIMARY":
-			btnTheme = "text-white gradient-2 ";
+			btnTheme = "text-white bg-mainColor ";
 			break;
 		case "SECONDARY":
 			btnTheme = "text-mainColor bg-main-100 border-mainColor border-2 ";
