@@ -4,7 +4,7 @@ type TUser = {
     email: string;
     profile: TUserProfile;
     matching: TUserMatching;
-    studyId?: [number];
+    studyId?: number[];
 };
 
 type TUserProfile = {
