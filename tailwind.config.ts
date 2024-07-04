@@ -25,6 +25,8 @@ const config: Config = {
 				"custom-pink-bright": "rgba(255, 228, 224, 0.3)",
 				"mainColor-700": "#1544D0",
 				"main-100": "#ECF1FF",
+				"main-200": "#D9E3FF",
+				error: "FF0000",
 			},
 
 			backgroundImage: {
