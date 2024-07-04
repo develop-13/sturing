@@ -1,31 +1,22 @@
+import TitleLink from "@/components/atoms/TitleLink";
 import StudyBox from "@/components/organisms/StudyBox";
 import StudyCategory from "@/components/organisms/StudyCategory";
-
+import { studyDatas } from "@/db/studyDatas";
 export default function HomePage() {
-    const study1: TStudy = {
-        id: 0,
-        src: "",
-        date: "매주 금 오후 9:00",
-        type: "오프라인",
-        category: "개발·테크",
-        location: "",
-    };
-    const study2: TStudy = {
-        id: 1,
-        src: "",
-        date: "모임 날짜 미정",
-        type: "온라인",
-        category: "디자인",
-        location: "",
-    };
-
     return (
         <>
             <div className="flex flex-col h-[2400px] mt-2 overflow-hidden">
+                <TitleLink props={{ title: "분야별 스터디 탐색하기" }} />
                 <StudyCategory />
-                <div className="flex flex-row gap-2 mt-2">
-                    <StudyBox props={study1} />
-                    <StudyBox props={study2} />
+                <TitleLink props={{ title: "이번주 인기 스터디" }} />
+                <div className="flex flex-row gap-2">
+                    <StudyBox props={studyDatas[0]} />
+                    <StudyBox props={studyDatas[1]} />
+                </div>
+                <TitleLink props={{ title: "새로 개설된 스터디" }} />
+                <div className="flex flex-row gap-2">
+                    <StudyBox props={studyDatas[2]} />
+                    <StudyBox props={studyDatas[3]} />
                 </div>
             </div>
         </>
