@@ -3,16 +3,16 @@
 @tailwind utilities;
 
 * {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 /* 스크롤바 숨기기 */
 .scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
+	display: none; /* Safari and Chrome */
 }
 
 .scrollbar-hide {
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none; /* Internet Explorer 10+ */
+	scrollbar-width: none; /* Firefox */
 }
