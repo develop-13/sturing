@@ -1,5 +1,4 @@
 "use client";
-import { MouseEventHandler } from "react";
 import ButtonLabel from "../atoms/ButtonLabel";
 
 export default function StudyCategory() {
@@ -13,7 +12,7 @@ export default function StudyCategory() {
         <>
             <div className="relative overflow-x-hidden">
                 <ul
-                    className="flex gap-2 overflow-x-hidden list-none"
+                    className="flex gap-2 overflow-x-hidden list-none px-2"
                     onMouseMove={dragging}
                     onMouseDown={() => (isDragging = true)}
                     onMouseUp={() => (isDragging = false)}

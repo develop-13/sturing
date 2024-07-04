@@ -6,8 +6,8 @@ type TStudy = {
     type: TStudyType;
     category: TCategory;
     location: string;
-    member?: [TStudyMember];
-    schedule?: [TStudySchedule];
+    member?: TStudyMember[];
+    schedule?: TStudySchedule[];
 };
 
 type TStudyMember = {
@@ -36,4 +36,9 @@ type TStudyBoard = {
     title: string;
     detail: string;
     src?: string;
+};
+
+type TStudyBanner = {
+    id: number;
+    src: string;
 };

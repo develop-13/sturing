@@ -1,11 +1,15 @@
 import TitleLink from "@/components/atoms/TitleLink";
+import StudyBanner from "@/components/organisms/StudyBanner";
 import StudyBox from "@/components/organisms/StudyBox";
 import StudyCategory from "@/components/organisms/StudyCategory";
+import { studyBanners } from "@/db/studyBanners";
 import { studyDatas } from "@/db/studyDatas";
+
 export default function HomePage() {
     return (
         <>
-            <div className="flex flex-col h-[2400px] mt-2 overflow-hidden">
+            <div className="flex flex-col overflow-hidden">
+                <StudyBanner props={studyBanners} />
                 <TitleLink props={{ title: "분야별 스터디 탐색하기" }} />
                 <StudyCategory />
                 <TitleLink props={{ title: "이번주 인기 스터디" }} />
