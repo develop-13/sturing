@@ -1,34 +1,38 @@
 type TButton = {
-	height: number;
+	type: "TAG";
 	text: string;
-	fontsize: number;
 	theme: "PRIMARY" | "SECONDARY";
 	onClick?: () => {};
 };
 
-export default function Button(props: TButton) {
-	const { height, text, fontsize, theme, onClick } = props;
-	let btnStyle = "";
-	switch (theme) {
+export default function Button({ datas }: { datas: TButton }) {
+	let btnTheme = "";
+	let btnType = "";
+	switch (datas.theme) {
 		case "PRIMARY":
-			btnStyle = "text-white bg-mainColor";
+			btnTheme = "text-white bg-mainColor ";
 			break;
 		case "SECONDARY":
-			btnStyle = "text-mainColor bg-main-100 border-mainColor border-2";
+			btnTheme = "text-mainColor bg-main-100 border-mainColor border-2 ";
+			break;
+	}
+	switch (datas.type) {
+		case "TAG":
+			btnType = "text-[12px] h-[22px] ";
 			break;
 	}
 
 	return (
 		<>
 			<button
-				style={{ height: height, fontSize: fontsize }}
 				className={
 					`flex w-auto font-bold justify-center items-center px-2 rounded-[3px] ` +
-					btnStyle
+					btnTheme +
+					btnType
 				}
-				onClick={onClick}
+				onClick={datas.onClick}
 			>
-				{text}
+				{datas.text}
 			</button>
 		</>
 	);

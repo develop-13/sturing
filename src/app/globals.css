@@ -16,3 +16,12 @@
 	-ms-overflow-style: none; /* Internet Explorer 10+ */
 	scrollbar-width: none; /* Firefox */
 }
+
+@layer components {
+	.gradient-2 {
+		@apply bg-gradient-to-r from-[#D9E3FF] to-[#FFE4E0];
+	}
+	.gradient-1 {
+		@apply bg-gradient-to-r from-[#3A6CFF] to-[#FFE4E0];
+	}
+}
