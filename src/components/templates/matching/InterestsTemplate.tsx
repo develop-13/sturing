@@ -1,9 +1,8 @@
 "use client";
-
-import MainLayout from "@/components/atoms/CommonMarginDIv";
-import MatchingHeader from "../../molcules/MatchingHeader";
-import MatchingGridSection from "../../atoms/MatchingGridSection";
-import MatchingGridItem from "../../atoms/MatchingGridItem";
+import Text from "@/components/atoms/Text";
+import MatchingTitle from "../../molcules/MatchingTitle";
+// import MatchingGridSection from "../../atoms/MatchingGridSection";
+// import MatchingGridItem from "../../atoms/MatchingGridItem";
 
 const svgPaths = [
   ["/svg/interests/business.svg", "비즈니스"],
@@ -16,14 +15,13 @@ const svgPaths = [
   ["/svg/interests/tech.svg", "개발.테크"],
 ];
 
+const dummyUsername = "웅진";
+
 function InterestsTemplate() {
   return (
-    <section className="flex flex-col gap-10">
-      <MatchingHeader
-        title={[`웅진님 안녕하세요`, `현재 관심있는 분야는 무엇인가요?`]}
-        subtitle={[`최대 3개까지 선택 가능합니다.`]}
-      />
-      <div className="mx-4">
+    <section className="flex flex-col">
+      <MatchingTitle datas={{ type: "INTEREST", userName: dummyUsername }} />
+      {/* <div className="mx-4">
         <MatchingGridSection>
           {svgPaths.map((pathname, idx) => (
             <MatchingGridItem
@@ -33,7 +31,7 @@ function InterestsTemplate() {
             />
           ))}
         </MatchingGridSection>
-      </div>
+      </div> */}
     </section>
   );
 }

@@ -1,4 +1,4 @@
-import MatchingHeader from "../../molcules/MatchingHeader";
+import MatchingHeader from "../../molcules/MatchingTitle";
 import StudyTypes from "../../organisms/StudyTypes";
 
 function StudyTypeTemplate() {

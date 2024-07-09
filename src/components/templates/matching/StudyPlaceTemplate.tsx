@@ -1,5 +1,5 @@
 import Searchbar from "@/components/molcules/SearchBar";
-import MatchingHeader from "../../molcules/MatchingHeader";
+import MatchingHeader from "../../molcules/MatchingTitle";
 import LocationPicker from "../../organisms/LocationPicker";
 
 function StudyPlaceTemplate() {
