@@ -1,8 +1,5 @@
 "use client";
-import Text from "@/components/atoms/Text";
 import MatchingTitle from "../../molcules/MatchingTitle";
-// import MatchingGridSection from "../../atoms/MatchingGridSection";
-// import MatchingGridItem from "../../atoms/MatchingGridItem";
 
 const svgPaths = [
   ["/svg/interests/business.svg", "비즈니스"],
@@ -21,17 +18,7 @@ function InterestsTemplate() {
   return (
     <section className="flex flex-col gap-10">
       <MatchingTitle datas={{ type: "INTEREST", userName: dummyUsername }} />
-      {/* <div className="mx-4">
-        <MatchingGridSection>
-          {svgPaths.map((pathname, idx) => (
-            <MatchingGridItem
-              key={idx}
-              svgPath={pathname[0]}
-              name={pathname[1]}
-            />
-          ))}
-        </MatchingGridSection>
-      </div> */}
+      <main className="grid grid-cols-2 gap-[15px]"></main>;
     </section>
   );
 }
