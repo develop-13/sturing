@@ -19,7 +19,7 @@ const dummyUsername = "웅진";
 
 function InterestsTemplate() {
   return (
-    <section className="flex flex-col">
+    <section className="flex flex-col gap-10">
       <MatchingTitle datas={{ type: "INTEREST", userName: dummyUsername }} />
       {/* <div className="mx-4">
         <MatchingGridSection>
