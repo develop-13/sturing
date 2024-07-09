@@ -1,6 +1,5 @@
 import React from "react";
-import MatchingHeader from "../../molcules/MatchingHeader";
-import MainLayout from "@/components/atoms/CommonMarginDIv";
+import MatchingHeader from "../../molcules/MatchingTitle";
 import MatchingGridSection from "../../atoms/MatchingGridSection";
 import MatchingGridItem from "../../atoms/MatchingGridItem";
 

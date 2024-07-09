@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import IconFormat from "./IconFormat";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { IoCheckmark } from "react-icons/io5";
@@ -42,6 +41,27 @@ type TIconData = {
   color?: string;
   onClick?: () => void;
 };
+
+function IconFormat({
+  size = 24,
+  icon,
+  onClick,
+  color,
+}: {
+  size?: number;
+  icon: React.ReactNode;
+  onClick?: () => void;
+  color?: string;
+}) {
+  return (
+    <div onClick={onClick} className="cursor-pointer">
+      {React.cloneElement(icon as React.ReactElement, {
+        size,
+        color,
+      })}{" "}
+    </div>
+  );
+}
 
 function Icon(props: TIconData) {
   const { type, color } = props;
