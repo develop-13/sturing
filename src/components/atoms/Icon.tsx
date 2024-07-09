@@ -34,7 +34,15 @@ type TIconData = {
     | "SHARE"
     | "USER"
     | "FILTER"
-    | "CAMERA";
+    | "CAMERA"
+    | "DESIGN"
+    | "TECH"
+    | "BUSINESS"
+    | "MARKETING"
+    | "ECONOMY"
+    | "LANGUAGE"
+    | "CERTIFICATION"
+    | "SELFDEVELOP";
 
   // svg?: () => {};
   // src?: string;
@@ -179,6 +187,89 @@ function Icon(props: TIconData) {
               alt=""
               width={defaultSize}
               height={defaultSize}
+            />
+          }
+        />
+      );
+
+    case "DESIGN":
+      return (
+        <IconFormat
+          icon={
+            <Image src="/svg/interests/design" alt="" width={28} height={28} />
+          }
+        />
+      );
+
+    case "TECH":
+      return (
+        <IconFormat
+          icon={
+            <Image src="/svg/interests/tech" alt="" width={28} height={28} />
+          }
+        />
+      );
+
+    case "BUSINESS":
+      return (
+        <IconFormat
+          icon={
+            <Image
+              src="/svg/interests/business"
+              alt=""
+              width={30}
+              height={22.5}
+            />
+          }
+        />
+      );
+
+    case "ECONOMY":
+      return (
+        <IconFormat
+          icon={
+            <Image src="/svg/interests/economy" alt="" width={26} height={26} />
+          }
+        />
+      );
+
+    case "LANGUAGE":
+      return (
+        <IconFormat
+          icon={
+            <Image
+              src="/svg/interests/language"
+              alt=""
+              width={33}
+              height={20}
+            />
+          }
+        />
+      );
+
+    case "CERTIFICATION":
+      return (
+        <IconFormat
+          icon={
+            <Image
+              src="/svg/interests/certification"
+              alt=""
+              width={28}
+              height={19}
+            />
+          }
+        />
+      );
+
+    case "SELFDEVELOP":
+      return (
+        <IconFormat
+          icon={
+            <Image
+              src="/svg/interests/selfDevelop"
+              alt=""
+              width={25.2}
+              height={28}
             />
           }
         />
