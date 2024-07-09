@@ -1,5 +1,11 @@
+import { ReactNode } from "react";
+
+interface Props {
+  datas: TText;
+  children?: ReactNode;
+}
+
 type TText = {
-  text: string;
   size: "xs" | "sm" | "base" | "lg" | "xl" | "2xl";
   weight: "bold" | "regular";
   color?:
@@ -14,12 +20,10 @@ type TText = {
     | "gray-900"
     | "gray-1000";
 };
-
-function Text({ datas }: { datas: TText }) {
+function Text({ datas, children }: Props) {
   let textSize = "";
   let textWeight = "";
   let textColor = "";
-
   switch (datas.size) {
     case "xs":
       textSize = "text-xs ";
@@ -40,7 +44,6 @@ function Text({ datas }: { datas: TText }) {
       textSize = "text-2xl ";
       break;
   }
-
   switch (datas.weight) {
     case "bold":
       textWeight = "font-bold ";
@@ -48,7 +51,6 @@ function Text({ datas }: { datas: TText }) {
     case "regular":
       textWeight = "font-normal ";
   }
-
   switch (datas.color) {
     case "gray-100":
       textColor = "text-gray-100 ";
@@ -84,8 +86,6 @@ function Text({ datas }: { datas: TText }) {
       textColor = "text-gray-1000 ";
       break;
   }
-
-  return <text className={textSize + textWeight}>{datas.text}</text>;
+  return <text className={textSize + textWeight}>{children}</text>;
 }
-
 export default Text;
