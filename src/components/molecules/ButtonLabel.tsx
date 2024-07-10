@@ -1,8 +1,17 @@
 type TButtonLabel = {
   text: string;
   icon: React.ReactNode;
-  theme: string;
-  type: string;
+  theme: "PRIMARY" | "SECONDARY" | "TERTIARY" | "KAKAO";
+  type:
+    | "MATCHING_INTEREST_ITEM"
+    | "MATCHING_ATMOSPHERE_ITEM"
+    | "RECOMMEND_CATEGORY"
+    | "FILTER_RESET"
+    | "STUDY_ATMOSPHERE_ITEM"
+    | "STUDY_WRITE"
+    | "SIGNUP"
+    | "OPEN_STUDY"
+    | "LOCATION_ITEM";
 };
 
 function ButtonLabel({ datas }: { datas: TButtonLabel }) {
