@@ -1,7 +1,7 @@
 type TButton = {
   type: "TAG" | "CATEGORY" | "FAT" | "THIN" | "ITEM/FAT" | "ITEM/THIN" | "TAB";
   text: string;
-  theme: "PRIMARY" | "SECONDARY" | "TERTIARY" | "QUANTERNARY";
+  theme: "PRIMARY" | "SECONDARY" | "TERTIARY" | "QUATERNARY";
   onClick?: () => {};
 };
 
@@ -24,7 +24,7 @@ export default function Button({ datas }: { datas: TButton }) {
       btnTheme = "text-gray-800 bg-white border border-gray-300 ";
       break;
 
-    case "QUANTERNARY":
+    case "QUATERNARY":
       btnTheme = "text-gray-600";
   }
   switch (datas.type) {
