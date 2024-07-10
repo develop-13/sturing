@@ -5,18 +5,19 @@ type TButton = {
   onClick?: () => {};
 };
 
-// radius 고정
-// theme 3 x 상태 4
+// theme 에 따라 fontColor, backgroundColor, borderColor이 달라집니다.
+// type 에 따라 fontSize, height, width가 달라집니다.
 
 export default function Button({ datas }: { datas: TButton }) {
   let btnTheme = "";
   let btnType = "";
   switch (datas.theme) {
+    // 각 버튼의 normal, hover, active, focus 시 색상을 정해야 할 것 같습니다
     case "PRIMARY":
       btnTheme = "text-white bg-mainColor ";
       break;
     case "SECONDARY":
-      btnTheme = "text-subColor bg-main-100 border border-main-300 ";
+      btnTheme = "text-subColor bg-white border border-main-300 ";
       break;
 
     case "TERTIARY":
@@ -30,7 +31,7 @@ export default function Button({ datas }: { datas: TButton }) {
     case "TAG":
       btnType = "text-[12px] h-[22px] w-auto ";
       break;
-    case "CATEGORY": // 무슨 버튼인지 모르겠습니다!
+    case "CATEGORY":
       btnType = "text-[24px] h-[60px] w-auto ";
       break;
 
@@ -53,7 +54,9 @@ export default function Button({ datas }: { datas: TButton }) {
     case "TAB":
       return (
         <button
-          className="flex font-bold justify-center items-center h-[49px]"
+          className={
+            "flex font-bold justify-center items-center h-[49px] " + btnTheme
+          }
           onClick={datas.onClick}
         >
           {datas.text}
