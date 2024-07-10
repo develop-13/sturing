@@ -39,6 +39,7 @@ const config: Config = {
         "main-300": "#A0B8FF",
         "main-200": "#D9E3FF",
         "main-100": "#ECF1FF",
+        yellow: "#FFE810",
         error: "FF0000",
       },
 

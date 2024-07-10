@@ -42,7 +42,8 @@ type TIconData = {
     | "ECONOMY"
     | "LANGUAGE"
     | "CERTIFICATION"
-    | "SELFDEVELOP";
+    | "SELFDEVELOP"
+    | "LOGO";
 
   // svg?: () => {};
   // src?: string;
@@ -79,13 +80,7 @@ function Icon(props: TIconData) {
   switch (type) {
     case "BELL":
       return (
-        <IconFormat
-          onClick={() => {
-            console.log("bell icon clicked!");
-          }}
-          icon={<VscBell />}
-          size={defaultSize}
-        />
+        <IconFormat onClick={() => {}} icon={<VscBell />} size={defaultSize} />
       );
     case "CHECKED":
       return <IconFormat icon={<IoCheckmark />} color={color} />;
@@ -272,6 +267,13 @@ function Icon(props: TIconData) {
               height={28}
             />
           }
+        />
+      );
+
+    case "LOGO":
+      return (
+        <IconFormat
+          icon={<Image src={"svg/logo.svg"} alt="" height={18} width={17.28} />}
         />
       );
   }
