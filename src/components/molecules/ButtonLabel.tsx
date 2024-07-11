@@ -1,7 +1,7 @@
 type TButtonLabel = {
   text: string;
   icon: React.ReactNode;
-  theme: "PRIMARY" | "SECONDARY" | "TERTIARY" | "KAKAO";
+  theme: "WHITE_MAIN" | "GRAY_WHITE_GRAY" | "BLACK_WHITE_SHADOW" | "KAKAO";
   type:
     | "MATCHING_INTEREST_ITEM"
     | "MATCHING_ATMOSPHERE_ITEM"
@@ -11,7 +11,7 @@ type TButtonLabel = {
     | "STUDY_WRITE"
     | "SIGNUP"
     | "OPEN_STUDY"
-    | "LOCATION_ITEM";
+    | "HAS_CLOSE";
 };
 
 function ButtonLabel({ datas }: { datas: TButtonLabel }) {
@@ -22,16 +22,16 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
   let btnType = "";
 
   switch (datas.theme) {
-    case "PRIMARY":
+    case "WHITE_MAIN":
       btnTheme = "text-white bg-mainColor ";
       break;
 
-    case "SECONDARY":
+    case "GRAY_WHITE_GRAY":
       btnTheme = "text-gray-700 bg-white border border-gray-300 ";
       break;
 
-    case "TERTIARY":
-      btnTheme = "text-gray-1000 bg-white shadow-lg ";
+    case "BLACK_WHITE_SHADOW":
+      btnTheme = "text-gray-1000 bg-white shadow-md ";
       break;
 
     case "KAKAO":
@@ -49,7 +49,8 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
       break;
 
     case "RECOMMEND_CATEGORY":
-      btnType = "w-auto px-[12px] h-[50px] text-[14px] gap-[8px] ";
+      btnType =
+        "w-auto px-[12px] h-[50px] text-[14px] gap-[8px] rounded-[100px] ";
       break;
 
     case "FILTER_RESET":
@@ -72,17 +73,22 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
       btnType = "w-auto px-[12px] h-[42px] text-[14px] gap-[10px]";
       break;
 
-    case "LOCATION_ITEM":
+    case "HAS_CLOSE":
       return (
-        <span className=" w-auto px-[14px] h-[39px] text-[14px] flex gap-[8px] items-center justify-center rounded-[3px]">
+        <button
+          className={
+            btnTheme +
+            `w-auto px-[14px] h-[39px] text-[14px] font-bold flex gap-[8px] items-center justify-center rounded-[3px]`
+          }
+        >
           <span>{datas.text}</span>
           {datas.icon}
-        </span>
+        </button>
       );
   }
 
   return (
-    <span
+    <button
       className={
         `flex font-bold justify-center items-center rounded-[3px] ` +
         btnTheme +
@@ -91,7 +97,7 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
     >
       {datas.icon}
       <span>{datas.text}</span>
-    </span>
+    </button>
   );
 }
 
