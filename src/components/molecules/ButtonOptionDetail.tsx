@@ -1,10 +1,13 @@
+"use client";
+
 type TButtonOptionDetail = {
   type: "LEVEL" | "STUDYPLACE";
   level?: string;
   levelDetail?: string;
   studyTypeDetail?: string;
-  checkIcon: React.ReactNode;
-  onClick: () => void;
+  checkIcon?: React.ReactNode;
+  onClick?: () => void;
+  // 함수 넘겨받는 issue
 };
 
 function ButtonOptionDetail({ datas }: { datas: TButtonOptionDetail }) {
@@ -25,7 +28,7 @@ function ButtonOptionDetail({ datas }: { datas: TButtonOptionDetail }) {
     case "LEVEL":
       return (
         <span
-          className={commonClassName + "gap-[18px] "}
+          className={commonClassName + "text-[14px] gap-[18px] "}
           onClick={datas.onClick}
         >
           <span>{datas.level}</span>
@@ -35,10 +38,10 @@ function ButtonOptionDetail({ datas }: { datas: TButtonOptionDetail }) {
 
     case "STUDYPLACE":
       return (
-        <button className={commonClassName + "justify-end"}>
+        <span className={commonClassName + "text-[16pz] justify-between"}>
           <span>{datas.studyTypeDetail}</span>
           {datas.checkIcon}
-        </button>
+        </span>
       );
   }
 }

@@ -44,9 +44,6 @@ type TIconData = {
     | "CERTIFICATION"
     | "SELFDEVELOP"
     | "LOGO";
-
-  // svg?: () => {};
-  // src?: string;
   color?: string;
   onClick?: () => void;
 };
@@ -73,14 +70,15 @@ function IconFormat({
 }
 
 function Icon(props: TIconData) {
-  const { type, color } = props;
+  const { type, color, onClick } = props;
   const router = useRouter();
   const defaultSize = 24;
 
   switch (type) {
     case "BELL":
       return (
-        <IconFormat onClick={() => {}} icon={<VscBell />} size={defaultSize} />
+        //<IconFormat onClick={() => {}} icon={<VscBell />} size={defaultSize} />
+        <IconFormat onClick={onClick} icon={<VscBell />} size={defaultSize} />
       );
     case "CHECKED":
       return <IconFormat icon={<IoCheckmark />} color={color} />;

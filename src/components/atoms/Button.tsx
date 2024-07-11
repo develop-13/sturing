@@ -1,7 +1,15 @@
 type TButton = {
-  type: "TAG" | "CATEGORY" | "FAT" | "THIN" | "ITEM/FAT" | "ITEM/THIN" | "TAB";
+  type: "TAG" | "CATEGORY" | "FAT" | "THIN" | "ITEM_FAT" | "ITEM_THIN" | "TAB";
   text: string;
-  theme: "PRIMARY" | "SECONDARY" | "TERTIARY" | "QUATERNARY";
+  // theme: "PRIMARY" | "SECONDARY" | "TERTIARY" | "QUATERNARY";
+  theme:
+    | "WHITE_MAIN"
+    | "MAIN_WHITE_MAIN"
+    | "GRAY_EMPTY_MAIN"
+    | "SUB_WHITE_MAIN"
+    | "GRAY_WHITE_GRAY"
+    | "GRAY_EMPTY"
+    | "MAIN_MAIN";
   onClick?: () => {};
 };
 
@@ -12,24 +20,35 @@ export default function Button({ datas }: { datas: TButton }) {
   let btnTheme = "";
   let btnType = "";
   switch (datas.theme) {
-    // 각 버튼의 normal, hover, active, focus 시 색상을 정해야 할 것 같습니다
-    case "PRIMARY":
+    case "WHITE_MAIN":
       btnTheme = "text-white bg-mainColor ";
       break;
-    case "SECONDARY":
+    case "MAIN_WHITE_MAIN":
+      // text색 Main, bg색 white, border색 mainColor라서 MAIN_WHITE_MAIN이라고 지었습니다.
+      btnTheme = "text-mainColor bg-white border border-mainColor ";
+      break;
+    case "GRAY_EMPTY_MAIN":
+      btnTheme = "text-gray-900 bg-transparent border border-main-200 ";
+      break;
+    case "SUB_WHITE_MAIN":
       btnTheme = "text-subColor bg-white border border-main-300 ";
       break;
 
-    case "TERTIARY":
-      btnTheme = "text-gray-800 bg-white border border-gray-300 ";
+    case "GRAY_WHITE_GRAY":
+      btnTheme = "text-gray-800 bg-white border border-gray-400 ";
       break;
 
-    case "QUATERNARY":
-      btnTheme = "text-gray-600";
+    case "MAIN_MAIN":
+      btnTheme = "text-mainColor bg-main-100 ";
+      break;
+
+    case "GRAY_EMPTY":
+      btnTheme = "text-gray-600 ";
+      break;
   }
   switch (datas.type) {
     case "TAG":
-      btnType = "text-[12px] h-[22px] w-auto ";
+      btnType = "text-[12px] h-[22px] w-auto px-[6px] ";
       break;
     case "CATEGORY":
       btnType = "text-[24px] h-[60px] w-auto ";
@@ -43,11 +62,11 @@ export default function Button({ datas }: { datas: TButton }) {
       btnType = "text-[16px] h-[37px] w-full ";
       break;
 
-    case "ITEM/FAT": // 마이페이지 관심목록_함께하고 싶은 팀원의 연령대 버튼
+    case "ITEM_FAT": // 마이페이지 관심목록_함께하고 싶은 팀원의 연령대 버튼
       btnType = "text-[14px] h-[42px] w-full ";
       break;
 
-    case "ITEM/THIN": // 나머지 작은 버튼들
+    case "ITEM_THIN": // 나머지 작은 버튼들
       btnType = "text-[14px] h-[34px] w-auto px-[15px] ";
       break;
 
@@ -55,7 +74,8 @@ export default function Button({ datas }: { datas: TButton }) {
       return (
         <button
           className={
-            "flex font-bold justify-center items-center h-[49px] " + btnTheme
+            "text-[14px] h-[49px] w-full flex font-bold justify-center items-center " +
+            btnTheme
           }
           onClick={datas.onClick}
         >
