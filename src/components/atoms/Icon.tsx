@@ -16,7 +16,7 @@ import { PiDotsThreeOutlineFill } from "react-icons/pi";
 import { GoShare } from "react-icons/go";
 import { FaRegUser } from "react-icons/fa6";
 
-type TIconData = {
+export type TIconData = {
   type:
     | "BELL"
     | "CHECKED"
@@ -50,7 +50,7 @@ type TIconData = {
   onClick?: () => void;
 };
 
-function IconFormat({
+export function IconFormat({
   size = 24,
   icon,
   onClick,
