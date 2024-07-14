@@ -1,81 +1,83 @@
 type TButtonLabel = {
   text: string;
   icon: React.ReactNode;
-  theme: "WHITE_MAIN" | "GRAY_WHITE_GRAY" | "BLACK_WHITE_SHADOW" | "KAKAO";
-  type:
-    | "MATCHING_INTEREST_ITEM"
-    | "MATCHING_ATMOSPHERE_ITEM"
-    | "RECOMMEND_CATEGORY"
-    | "FILTER_RESET"
-    | "STUDY_ATMOSPHERE_ITEM"
-    | "STUDY_WRITE"
-    | "SIGNUP"
-    | "OPEN_STUDY"
-    | "HAS_CLOSE";
+  theme: "primary" | "secondary" | "ordinary" | "shadow" | "kakao";
+  role:
+    | "interestItem"
+    | "atmosphereItem"
+    | "category"
+    | "studyItem"
+    | "reset"
+    | "write"
+    | "signup"
+    | "openStudy"
+    | "close";
 };
 
 function ButtonLabel({ datas }: { datas: TButtonLabel }) {
   // theme 에 따라 fontColor, backgroundColor, borderColor이 달라집니다.
-  // type 에 따라 fontSize, height, width가 달라집니다.
+  // role 에 따라 fontSize, height, width가 달라집니다.
 
   let btnTheme = "";
   let btnType = "";
 
   switch (datas.theme) {
-    case "WHITE_MAIN":
+    case "primary":
       btnTheme = "text-white bg-mainColor ";
       break;
 
-    case "GRAY_WHITE_GRAY":
+    case "secondary":
+      btnTheme = "text-mainColor bg-white border border-mainColor ";
+      break;
+
+    case "ordinary":
       btnTheme = "text-gray-700 bg-white border border-gray-300 ";
       break;
 
-    case "BLACK_WHITE_SHADOW":
+    case "shadow":
       btnTheme = "text-gray-1000 bg-white shadow-md ";
       break;
 
-    case "KAKAO":
+    case "kakao":
       btnTheme = "text-gray-1000 bg-yellow ";
       break;
   }
 
-  switch (datas.type) {
-    case "MATCHING_INTEREST_ITEM":
-      //FAT
+  switch (datas.role) {
+    case "interestItem":
       btnType = "w-full h-[90px] text-[16px] gap-[10px] ";
       break;
 
-    case "MATCHING_ATMOSPHERE_ITEM":
-      //FAT
+    case "atmosphereItem":
       btnType = "w-full h-[70px] text-[16px] gap-[10px] ";
       break;
 
-    case "RECOMMEND_CATEGORY":
+    case "category":
       btnType =
         "w-auto px-[12px] h-[50px] text-[14px] gap-[8px] rounded-[100px] ";
       break;
 
-    case "FILTER_RESET":
-      btnType = "w-full h-[50px] text-[16px] gap-[2px]";
+    case "reset":
+      btnType = "w-full h-[50px] text-[16px] gap-[2px] ";
       break;
 
-    case "STUDY_ATMOSPHERE_ITEM":
-      btnType = "w-auto px-[8px] h-[33px] text-[16px] gap-[3px]";
+    case "studyItem":
+      btnType = "w-auto px-[8px] h-[33px] text-[16px] gap-[3px] ";
       break;
 
-    case "STUDY_WRITE":
-      btnType = "w-auto px-[6px] (py-[4px] | h-[26px]) text-[12px] gap-[4px]";
+    case "write":
+      btnType = "w-auto px-[6px] (py-[4px] | h-[26px]) text-[12px] gap-[4px] ";
       break;
 
-    case "SIGNUP":
-      btnType = "w-full h-[45px] text-[14px] gap-[16px]";
+    case "signup":
+      btnType = "w-full h-[45px] text-[14px] gap-[16px] ";
       break;
 
-    case "OPEN_STUDY":
-      btnType = "w-auto px-[12px] h-[42px] text-[14px] gap-[10px]";
+    case "openStudy":
+      btnType = "w-auto px-[12px] h-[42px] text-[14px] gap-[10px] ";
       break;
 
-    case "HAS_CLOSE":
+    case "close":
       return (
         <button
           className={
