@@ -1,7 +1,7 @@
 "use client";
 
 type TButtonOptionDetail = {
-  type: "LEVEL" | "STUDYPLACE";
+  role: "LEVEL" | "STUDYPLACE";
   level?: string;
   levelDetail?: string;
   studyTypeDetail?: string;
@@ -24,7 +24,7 @@ function ButtonOptionDetail({ datas }: { datas: TButtonOptionDetail }) {
   const commonClassName =
     "w-full px-[24px] h-[64px] flex items-center rounded-[3px] border border-gray-300 text-gray-700 font-bold ";
 
-  switch (datas.type) {
+  switch (datas.role) {
     case "LEVEL":
       return (
         <span
