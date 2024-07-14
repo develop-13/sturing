@@ -53,8 +53,8 @@ function InputField({ datas }: { datas: TInputField }) {
 
     case "TEXT_EDITABLE":
     case "EMAIL_EDITABLE":
-      let inputType = datas.type === "TEXT_EDITABLE" ? "text" : "email";
-      let textColor =
+      const inputType = datas.type === "TEXT_EDITABLE" ? "text" : "email";
+      const textColor =
         datas.type === "TEXT_EDITABLE" ? "text-black" : "text-gray-500";
       return (
         <div className="w-full h-[52px] flex items-center border-b border-gray-300 ">
@@ -62,7 +62,7 @@ function InputField({ datas }: { datas: TInputField }) {
             type={inputType}
             value={datas.value}
             className={
-              `w-full border-none outline-non font-bold text-[16px] ` +
+              "w-full border-none outline-non font-bold text-[16px] " +
               textColor
             }
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,7 +72,10 @@ function InputField({ datas }: { datas: TInputField }) {
         </div>
       );
 
-    case "SWITCH_EDITABLE":
+    case "SWITCH_EDITABLE": // 추후 구현 예정입니다
+
+    default:
+      return <div>없는 타입입니다.</div>;
   }
 }
 

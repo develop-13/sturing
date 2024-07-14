@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { IoCheckmark } from "react-icons/io5";
 import { VscBell } from "react-icons/vsc";
 import { IoIosArrowBack } from "react-icons/io";
@@ -25,7 +24,6 @@ type TIconData = {
     | "BOOKMARK"
     | "CLOSE"
     | "SEARCH"
-    | "CANCEL"
     | "TEMPORALSAVE"
     | "CHATBOX"
     | "LOGO"
@@ -42,14 +40,160 @@ type TIconData = {
     | "ECONOMY"
     | "LANGUAGE"
     | "CERTIFICATION"
-    | "SELFDEVELOP"
-    | "LOGO";
-  color?: string;
+    | "SELFDEVELOP";
   onClick?: () => void;
+};
+const IconDataSet: Record<
+  TIconData["type"],
+  { icon: React.ReactNode; size?: number; color?: string }
+> = {
+  BELL: {
+    icon: <VscBell />,
+    size: undefined,
+    color: undefined,
+  },
+  CHECKED: {
+    icon: <IoCheckmark />,
+    size: undefined,
+    color: undefined,
+  },
+  BACK: {
+    icon: <IoIosArrowBack />,
+    size: undefined,
+    color: undefined,
+  },
+  BOOKMARK: {
+    icon: <CiBookmark />,
+    size: 20,
+    color: undefined,
+  },
+  FORWARD: {
+    icon: <IoIosArrowForward />,
+    size: undefined,
+    color: undefined,
+  },
+  CLOSE: {
+    icon: <IoMdClose />,
+    size: undefined,
+    color: undefined,
+  },
+  SEARCH: {
+    icon: <IoSearchOutline />,
+    size: undefined,
+    color: undefined,
+  },
+  CHATBOX: {
+    icon: <BsChatSquareDots />,
+    size: undefined,
+    color: undefined,
+  },
+  LOGO: {
+    icon: <Icon_Logo />,
+    size: undefined,
+    color: undefined,
+  },
+  MENU: {
+    icon: <SlMenu />,
+    size: undefined,
+    color: undefined,
+  },
+  MORE: {
+    icon: <PiDotsThreeOutlineFill />,
+    size: 20,
+    color: undefined,
+  },
+  SHARE: {
+    icon: <GoShare />,
+    size: undefined,
+    color: undefined,
+  },
+  USER: {
+    icon: <FaRegUser />,
+    size: undefined,
+    color: undefined,
+  },
+  CAMERA: {
+    icon: <Image src="/svg/ect/camera.svg" alt="" width={24} height={24} />,
+  },
+  FILTER: {
+    icon: <Image src="/svg/ect/filter.svg" alt="" width={24} height={24} />,
+  },
+  DESIGN: {
+    icon: (
+      <Image src="/svg/interests/design.svg" alt="" width={28} height={28} />
+    ),
+  },
+  TECH: {
+    icon: <Image src="/svg/interests/tech.svg" alt="" width={28} height={28} />,
+  },
+  BUSINESS: {
+    icon: (
+      <Image
+        src="/svg/interests/business.svg"
+        alt=""
+        width={30}
+        height={22.5}
+      />
+    ),
+  },
+  ECONOMY: {
+    icon: (
+      <Image src="/svg/interests/economy.svg" alt="" width={26} height={26} />
+    ),
+  },
+  LANGUAGE: {
+    icon: (
+      <Image src="/svg/interests/language.svg" alt="" width={33} height={20} />
+    ),
+  },
+  CERTIFICATION: {
+    icon: (
+      <Image
+        src="/svg/interests/certification.svg"
+        alt=""
+        width={28}
+        height={19}
+      />
+    ),
+  },
+  SELFDEVELOP: {
+    icon: (
+      <Image
+        src="/svg/interests/selfDevelop.svg"
+        alt=""
+        width={25.2}
+        height={28}
+      />
+    ),
+  },
+
+  TEMPORALSAVE: {
+    icon: null, // 적절한 아이콘으로 변경하거나 임시로 null 설정
+    size: undefined,
+    color: undefined,
+  },
+  MARKETING: {
+    icon: null, // 적절한 아이콘으로 변경하거나 임시로 null 설정
+    size: undefined,
+    color: undefined,
+  },
+};
+
+const getIcon = ({ type, onClick }: TIconData) => {
+  const iconData = IconDataSet[type];
+  const effectiveSize = iconData.size || 24;
+  return (
+    <IconFormat
+      icon={iconData.icon}
+      size={effectiveSize}
+      color={iconData.color}
+      onClick={onClick}
+    />
+  );
 };
 
 function IconFormat({
-  size = 24,
+  size,
   icon,
   onClick,
   color,
@@ -70,212 +214,7 @@ function IconFormat({
 }
 
 function Icon(props: TIconData) {
-  const { type, color, onClick } = props;
-  const router = useRouter();
-  const defaultSize = 24;
-
-  switch (type) {
-    case "BELL":
-      return (
-        //<IconFormat onClick={() => {}} icon={<VscBell />} size={defaultSize} />
-        <IconFormat onClick={onClick} icon={<VscBell />} size={defaultSize} />
-      );
-    case "CHECKED":
-      return <IconFormat icon={<IoCheckmark />} color={color} />;
-
-    case "BACK":
-      return (
-        <IconFormat
-          icon={<IoIosArrowBack />}
-          onClick={() => {
-            console.log("이전 페이지로 이동");
-            router.back();
-          }}
-          size={defaultSize}
-        />
-      );
-
-    case "BOOKMARK":
-      return <IconFormat icon={<CiBookmark />} size={20} />;
-
-    case "FORWARD":
-      return (
-        <IconFormat
-          icon={<IoIosArrowForward />}
-          onClick={() => {
-            "앞으로 가기 기능을 구현해주세요";
-          }}
-          size={defaultSize}
-        />
-      );
-
-    case "CLOSE":
-      return (
-        <IconFormat
-          icon={<IoMdClose />}
-          onClick={() => {
-            router.back();
-          }}
-          size={defaultSize}
-        />
-      );
-
-    case "SEARCH":
-      return (
-        <IconFormat
-          icon={<IoSearchOutline />}
-          onClick={() => {
-            console.log("search/result페이지로 이동");
-          }}
-          size={defaultSize}
-        />
-      );
-
-    case "CHATBOX":
-      return <IconFormat icon={<BsChatSquareDots />} size={defaultSize} />;
-
-    case "LOGO":
-      return <IconFormat icon={<Icon_Logo />} size={defaultSize} />;
-
-    case "MENU":
-      return (
-        <IconFormat
-          icon={<SlMenu />}
-          onClick={() => {
-            router.push("/sidebar");
-          }}
-          size={defaultSize}
-        />
-      );
-
-    case "MORE":
-      return <IconFormat icon={<PiDotsThreeOutlineFill />} size={20} />;
-
-    case "SHARE":
-      return <IconFormat icon={<GoShare />} size={defaultSize} />;
-
-    case "USER":
-      return <IconFormat icon={<FaRegUser />} size={defaultSize} />;
-
-    case "CAMERA":
-      return (
-        <IconFormat
-          icon={
-            <Image
-              src="/svg/ect/camera.svg"
-              alt=""
-              width={defaultSize}
-              height={defaultSize}
-            />
-          }
-        />
-      );
-
-    case "FILTER":
-      return (
-        <IconFormat
-          icon={
-            <Image
-              src="/svg/ect/filter.svg"
-              alt=""
-              width={defaultSize}
-              height={defaultSize}
-            />
-          }
-        />
-      );
-
-    case "DESIGN":
-      return (
-        <IconFormat
-          icon={
-            <Image src="/svg/interests/design" alt="" width={28} height={28} />
-          }
-        />
-      );
-
-    case "TECH":
-      return (
-        <IconFormat
-          icon={
-            <Image src="/svg/interests/tech" alt="" width={28} height={28} />
-          }
-        />
-      );
-
-    case "BUSINESS":
-      return (
-        <IconFormat
-          icon={
-            <Image
-              src="/svg/interests/business"
-              alt=""
-              width={30}
-              height={22.5}
-            />
-          }
-        />
-      );
-
-    case "ECONOMY":
-      return (
-        <IconFormat
-          icon={
-            <Image src="/svg/interests/economy" alt="" width={26} height={26} />
-          }
-        />
-      );
-
-    case "LANGUAGE":
-      return (
-        <IconFormat
-          icon={
-            <Image
-              src="/svg/interests/language"
-              alt=""
-              width={33}
-              height={20}
-            />
-          }
-        />
-      );
-
-    case "CERTIFICATION":
-      return (
-        <IconFormat
-          icon={
-            <Image
-              src="/svg/interests/certification"
-              alt=""
-              width={28}
-              height={19}
-            />
-          }
-        />
-      );
-
-    case "SELFDEVELOP":
-      return (
-        <IconFormat
-          icon={
-            <Image
-              src="/svg/interests/selfDevelop"
-              alt=""
-              width={25.2}
-              height={28}
-            />
-          }
-        />
-      );
-
-    case "LOGO":
-      return (
-        <IconFormat
-          icon={<Image src={"svg/logo.svg"} alt="" height={18} width={17.28} />}
-        />
-      );
-  }
-  return <></>;
+  return getIcon(props);
 }
 
 export default Icon;
