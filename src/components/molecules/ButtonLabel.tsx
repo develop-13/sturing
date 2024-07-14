@@ -41,10 +41,12 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
 
   switch (datas.type) {
     case "MATCHING_INTEREST_ITEM":
+      //FAT
       btnType = "w-full h-[90px] text-[16px] gap-[10px] ";
       break;
 
     case "MATCHING_ATMOSPHERE_ITEM":
+      //FAT
       btnType = "w-full h-[70px] text-[16px] gap-[10px] ";
       break;
 

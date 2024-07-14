@@ -16,10 +16,14 @@ type TButton = {
 // theme 에 따라 fontColor, backgroundColor, borderColor이 달라집니다.
 // type 에 따라 fontSize, height, width가 달라집니다.
 
+// switch문을 배열로?
+// datas -> props
 export default function Button({ datas }: { datas: TButton }) {
   let btnTheme = "";
   let btnType = "";
-  switch (datas.theme) {
+  switch (
+    datas.theme // 소문자?
+  ) {
     case "WHITE_MAIN":
       btnTheme = "text-white bg-mainColor ";
       break;
@@ -43,7 +47,7 @@ export default function Button({ datas }: { datas: TButton }) {
       break;
 
     case "GRAY_EMPTY":
-      btnTheme = "text-gray-600 ";
+      btnTheme = "text-gray-600 bg-transparent";
       break;
   }
   switch (datas.type) {
