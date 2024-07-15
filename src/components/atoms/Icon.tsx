@@ -24,7 +24,6 @@ type TIconData = {
     | "BOOKMARK"
     | "CLOSE"
     | "SEARCH"
-    | "TEMPORALSAVE"
     | "CHATBOX"
     | "LOGO"
     | "MENU"
@@ -167,15 +166,15 @@ const IconDataSet: Record<
     ),
   },
 
-  TEMPORALSAVE: {
-    icon: null, // 적절한 아이콘으로 변경하거나 임시로 null 설정
-    size: undefined,
-    color: undefined,
-  },
   MARKETING: {
-    icon: null, // 적절한 아이콘으로 변경하거나 임시로 null 설정
-    size: undefined,
-    color: undefined,
+    icon: (
+      <Image
+        src="/svg/interests/marketing.svg"
+        alt=""
+        width={25.2}
+        height={28}
+      />
+    ),
   },
 };
 
