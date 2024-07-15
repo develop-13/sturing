@@ -1,23 +1,27 @@
 "use client";
 
+type TType =
+  | "main"
+  | "tag"
+  | "item"
+  | "radius-none"
+  | "category"
+  | "full"
+  | "round"
+  | "float";
+
+type TTheme =
+  | "primary"
+  | "secondary"
+  | "ordinary"
+  | "transparent-border"
+  | "transparent"
+  | "shadow"
+  | "kakao";
+
 type TButton = {
-  type:
-    | "main"
-    | "tag"
-    | "item"
-    | "radius-none"
-    | "category"
-    | "full"
-    | "round"
-    | "float";
-  theme:
-    | "primary"
-    | "secondary"
-    | "ordinary"
-    | "transparent-border"
-    | "transparent"
-    | "shadow"
-    | "kakao";
+  type: TType;
+  theme: TTheme;
   onClick?: () => void;
   children?: React.ReactNode;
 };
@@ -29,8 +33,6 @@ type TButton = {
 // Text 컴포넌트와 Icon을 받는 경우?
 
 export default function Button({ type, theme, onClick, children }: TButton) {
-  console.log(children);
-
   let btnTheme = "";
   let btnType = "";
   switch (theme) {
@@ -61,13 +63,16 @@ export default function Button({ type, theme, onClick, children }: TButton) {
       break;
   }
   switch (type) {
-    // none-radious?
     case "main": // 스터디 전체보기 버튼, 홈으로가기 버튼, 이전 버튼, 관심분야 수정 버튼 등
       btnType = "w-full h-[50px] ";
       break;
 
     case "full":
       btnType = "w-full h-full ";
+      break;
+
+    case "radius-none":
+      btnType = "w-full h-full rounded-none ";
       break;
 
     case "tag":
