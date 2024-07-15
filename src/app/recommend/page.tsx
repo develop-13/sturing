@@ -6,8 +6,8 @@ function RecommendPage() {
   return (
     <ButtonLabel
       datas={{
-        theme: "ordinary",
-        role: "category",
+        theme: "secondary",
+        role: "studyItem",
         icon: <Icon type="DESIGN" />,
         text: "디자인",
       }}

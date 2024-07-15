@@ -1,24 +1,33 @@
+type TButtonTheme =
+  | "primary"
+  | "secondary"
+  | "ordinary"
+  | "shadow"
+  | "kakao"
+  | "transparent-border";
+
+type TButtonRole =
+  | "interestItem"
+  | "atmosphereItem"
+  | "category"
+  | "studyItem"
+  | "reset"
+  | "write"
+  | "signup"
+  | "openStudy"
+  | "close"
+  | "filterItem";
+
 type TButtonLabel = {
   text: string;
   icon: React.ReactNode;
-  theme: "primary" | "secondary" | "ordinary" | "shadow" | "kakao";
-  role:
-    | "interestItem"
-    | "atmosphereItem"
-    | "category"
-    | "studyItem"
-    | "reset"
-    | "write"
-    | "signup"
-    | "openStudy"
-    | "close";
+  theme: TButtonTheme;
+  role: TButtonRole;
 };
 
 function ButtonLabel({ datas }: { datas: TButtonLabel }) {
   // theme 에 따라 fontColor, backgroundColor, borderColor이 달라집니다.
   // role 에 따라 fontSize, height, width가 달라집니다.
-
-  console.log(datas);
 
   let btnTheme = "";
   let btnType = "";
@@ -43,6 +52,9 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
     case "kakao":
       btnTheme = "text-gray-1000 bg-yellow ";
       break;
+
+    case "transparent-border":
+      btnTheme = "text-gray-800 bg-transparent border border-main-200 ";
   }
 
   switch (datas.role) {
@@ -56,7 +68,7 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
 
     case "category":
       btnType =
-        "w-auto px-[12px] h-[50px] text-[14px] gap-[8px] rounded-[9999px] ";
+        "max-w-[126px]  px-[12px] h-[50px] text-[14px] gap-[8px] rounded-[9999px] ";
       break;
 
     case "reset":
@@ -68,7 +80,7 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
       break;
 
     case "write":
-      btnType = "w-auto px-[6px] (py-[4px] | h-[26px]) text-[12px] gap-[4px] ";
+      btnType = "w-auto px-[6px] h-[26px] text-[12px] gap-[4px] ";
       break;
 
     case "signup":
@@ -84,7 +96,7 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
         <button
           className={
             btnTheme +
-            `w-auto px-[14px] h-[39px] text-[14px] font-bold flex gap-[8px] items-center justify-center rounded-[3px]`
+            `w-auto px-[14px] h-[39px] text-[14px] font-bold flex gap-[8px] items-center justify-center rounded-[3px] shrink-0`
           }
         >
           <span>{datas.text}</span>
@@ -96,7 +108,7 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
   return (
     <button
       className={
-        `flex font-bold justify-center items-center rounded-[3px] ` +
+        `flex font-bold justify-center items-center rounded-[3px] shrink-0 ` +
         btnTheme +
         btnType
       }
