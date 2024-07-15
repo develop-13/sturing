@@ -14,6 +14,7 @@ import { SlMenu } from "react-icons/sl";
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
 import { GoShare } from "react-icons/go";
 import { FaRegUser } from "react-icons/fa6";
+import { GrPowerReset } from "react-icons/gr";
 
 type TIconData = {
   type:
@@ -39,7 +40,11 @@ type TIconData = {
     | "ECONOMY"
     | "LANGUAGE"
     | "CERTIFICATION"
-    | "SELFDEVELOP";
+    | "SELFDEVELOP"
+    | "RESET"
+    | "WRITE"
+    | "KAKAO"
+    | "RLOGO";
   onClick?: () => void;
 };
 const IconDataSet: Record<
@@ -48,68 +53,44 @@ const IconDataSet: Record<
 > = {
   BELL: {
     icon: <VscBell />,
-    size: undefined,
-    color: undefined,
   },
   CHECKED: {
     icon: <IoCheckmark />,
-    size: undefined,
-    color: undefined,
   },
   BACK: {
     icon: <IoIosArrowBack />,
-    size: undefined,
-    color: undefined,
   },
   BOOKMARK: {
     icon: <CiBookmark />,
     size: 20,
-    color: undefined,
   },
   FORWARD: {
     icon: <IoIosArrowForward />,
-    size: undefined,
-    color: undefined,
   },
   CLOSE: {
     icon: <IoMdClose />,
-    size: undefined,
-    color: undefined,
   },
   SEARCH: {
     icon: <IoSearchOutline />,
-    size: undefined,
-    color: undefined,
   },
   CHATBOX: {
     icon: <BsChatSquareDots />,
-    size: undefined,
-    color: undefined,
   },
   LOGO: {
     icon: <Icon_Logo />,
-    size: undefined,
-    color: undefined,
   },
   MENU: {
     icon: <SlMenu />,
-    size: undefined,
-    color: undefined,
   },
   MORE: {
     icon: <PiDotsThreeOutlineFill />,
     size: 20,
-    color: undefined,
   },
   SHARE: {
     icon: <GoShare />,
-    size: undefined,
-    color: undefined,
   },
   USER: {
     icon: <FaRegUser />,
-    size: undefined,
-    color: undefined,
   },
   CAMERA: {
     icon: <Image src="/svg/ect/camera.svg" alt="" width={24} height={24} />,
@@ -176,6 +157,22 @@ const IconDataSet: Record<
       />
     ),
   },
+  RESET: {
+    icon: <GrPowerReset />,
+    size: 19,
+  },
+
+  WRITE: {
+    icon: <Image src="/svg/ect/write.svg" alt="" width={16} height={16} />,
+  },
+
+  KAKAO: {
+    icon: <Image src="/svg/ect/kakao.svg" alt="" width={18} height={17} />,
+  },
+
+  RLOGO: {
+    icon: <Image src="/svg/ect/logo.svg" alt="" width={18} height={17} />,
+  },
 };
 
 const getIcon = ({ type, onClick }: TIconData) => {
@@ -203,7 +200,7 @@ function IconFormat({
   color?: string;
 }) {
   return (
-    <div onClick={onClick} className="cursor-pointer">
+    <div onClick={onClick} className="cursor-pointer shrink-0">
       {React.cloneElement(icon as React.ReactElement, {
         size,
         color,

@@ -52,7 +52,7 @@ export default function StudyCategory() {
               icon: <Icon type="BUSINESS" />,
             }}
           />
-          {/* <ButtonLabel
+          <ButtonLabel
             datas={{
               text: "경제",
               theme: "ordinary",
@@ -83,7 +83,7 @@ export default function StudyCategory() {
               role: "category",
               icon: <Icon type="SELFDEVELOP" />,
             }}
-          /> */}
+          />
         </ul>
       </div>
     </>
