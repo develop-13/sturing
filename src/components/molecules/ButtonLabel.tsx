@@ -68,7 +68,7 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
 
     case "category":
       btnType =
-        "max-w-[126px]  px-[12px] h-[50px] text-[14px] gap-[8px] rounded-[9999px] ";
+        "max-w-[126px]  px-[12px] h-[50px] text-[14px] gap-[8px] rounded-[9999px] shrink-0 ";
       break;
 
     case "reset":
@@ -96,7 +96,7 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
         <button
           className={
             btnTheme +
-            `w-auto px-[14px] h-[39px] text-[14px] font-bold flex gap-[8px] items-center justify-center rounded-[3px] shrink-0`
+            `w-auto px-[14px] h-[39px] text-[14px] font-bold flex gap-[8px] items-center justify-center rounded-[3px] `
           }
         >
           <span>{datas.text}</span>
@@ -108,7 +108,7 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
   return (
     <button
       className={
-        `flex font-bold justify-center items-center rounded-[3px] shrink-0 ` +
+        `flex font-bold justify-center items-center rounded-[3px] ` +
         btnTheme +
         btnType
       }

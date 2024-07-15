@@ -1,30 +1,32 @@
 import { ReactNode } from "react";
 
-interface Props {
-  datas: TText;
-  children?: ReactNode;
-}
+type TSize = "xs" | "sm" | "base" | "lg" | "xl" | "2xl";
+type TWeight = "bold" | "regular";
+type TColor =
+  | "gray-100"
+  | "gray-200"
+  | "gray-300"
+  | "gray-400"
+  | "gray-500"
+  | "gray-600"
+  | "gray-700"
+  | "gray-800"
+  | "gray-900"
+  | "gray-1000"
+  | "white";
 
 type TText = {
-  size: "xs" | "sm" | "base" | "lg" | "xl" | "2xl";
-  weight: "bold" | "regular";
-  color?:
-    | "gray-100"
-    | "gray-200"
-    | "gray-300"
-    | "gray-400"
-    | "gray-500"
-    | "gray-600"
-    | "gray-700"
-    | "gray-800"
-    | "gray-900"
-    | "gray-1000";
+  size: TSize;
+  weight?: TWeight;
+  color?: TColor;
+  children: ReactNode;
 };
-function Text({ datas, children }: Props) {
+
+function Text({ size, weight = "bold", color = "gray-1000", children }: TText) {
   let textSize = "";
   let textWeight = "";
   let textColor = "";
-  switch (datas.size) {
+  switch (size) {
     case "xs":
       textSize = "text-xs ";
       break;
@@ -44,14 +46,14 @@ function Text({ datas, children }: Props) {
       textSize = "text-2xl ";
       break;
   }
-  switch (datas.weight) {
+  switch (weight) {
     case "bold":
       textWeight = "font-bold ";
       break;
     case "regular":
       textWeight = "font-normal ";
   }
-  switch (datas.color) {
+  switch (color) {
     case "gray-100":
       textColor = "text-gray-100 ";
       break;
@@ -85,7 +87,9 @@ function Text({ datas, children }: Props) {
     case "gray-1000":
       textColor = "text-gray-1000 ";
       break;
+    case "white":
+      textColor = "text-[#FFFFFF] ";
   }
-  return <text className={textSize + textWeight}>{children}</text>;
+  return <p className={textSize + textWeight}>{children}</p>;
 }
 export default Text;
