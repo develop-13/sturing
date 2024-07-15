@@ -1,5 +1,6 @@
 "use client";
-import ButtonLabel from "../atoms/ButtonLabel";
+import Icon from "../atoms/Icon";
+import ButtonLabel from "../molecules/ButtonLabel";
 
 export default function StudyCategory() {
     let isDragging = false;
@@ -18,14 +19,70 @@ export default function StudyCategory() {
                     onMouseUp={() => (isDragging = false)}
                     onMouseLeave={() => (isDragging = false)}
                 >
-                    <ButtonLabel text="디자인" src="" />
-                    <ButtonLabel text="개발·테크" src="" />
-                    <ButtonLabel text="마케팅" src="" />
-                    <ButtonLabel text="비즈니스" src="" />
-                    <ButtonLabel text="경제" src="" />
-                    <ButtonLabel text="외국어" src="" />
-                    <ButtonLabel text="자격증" src="" />
-                    <ButtonLabel text="자기계발" src="" />
+                    <ButtonLabel
+                        datas={{
+                            theme: "ordinary",
+                            role: "category",
+                            icon: <Icon type="DESIGN" />,
+                            text: "디자인",
+                        }}
+                    />
+                    <ButtonLabel
+                        datas={{
+                            theme: "ordinary",
+                            role: "category",
+                            icon: <Icon type="TECH" />,
+                            text: "개발·테크",
+                        }}
+                    />
+                    <ButtonLabel
+                        datas={{
+                            theme: "ordinary",
+                            role: "category",
+                            icon: <Icon type="MARKETING" />,
+                            text: "마케팅",
+                        }}
+                    />
+                    <ButtonLabel
+                        datas={{
+                            theme: "ordinary",
+                            role: "category",
+                            icon: <Icon type="BUSINESS" />,
+                            text: "비즈니스",
+                        }}
+                    />
+                    <ButtonLabel
+                        datas={{
+                            theme: "ordinary",
+                            role: "category",
+                            icon: <Icon type="ECONOMY" />,
+                            text: "경제",
+                        }}
+                    />
+                    <ButtonLabel
+                        datas={{
+                            theme: "ordinary",
+                            role: "category",
+                            icon: <Icon type="LANGUAGE" />,
+                            text: "외국어",
+                        }}
+                    />
+                    <ButtonLabel
+                        datas={{
+                            theme: "ordinary",
+                            role: "category",
+                            icon: <Icon type="CERTIFICATION" />,
+                            text: "자격증",
+                        }}
+                    />
+                    <ButtonLabel
+                        datas={{
+                            theme: "ordinary",
+                            role: "category",
+                            icon: <Icon type="TEMPORALSAVE" />,
+                            text: "자기계발",
+                        }}
+                    />
                 </ul>
             </div>
         </>
