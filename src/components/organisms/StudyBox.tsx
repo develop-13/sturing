@@ -9,16 +9,16 @@ export default function StudyBox({ props }: { props: TStudy }) {
         <div className="flex flex-row gap-2 pt-3">
           <Button
             datas={{
-              type: "TAG",
+              type: "tag",
               text: props.type,
-              theme: "PRIMARY",
+              theme: "primary",
             }}
           />
           <Button
             datas={{
-              type: "TAG",
+              type: "tag",
               text: props.category,
-              theme: "SECONDARY",
+              theme: "secondary",
             }}
           />
         </div>
