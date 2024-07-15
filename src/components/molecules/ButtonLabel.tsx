@@ -18,6 +18,8 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
   // theme 에 따라 fontColor, backgroundColor, borderColor이 달라집니다.
   // role 에 따라 fontSize, height, width가 달라집니다.
 
+  console.log(datas);
+
   let btnTheme = "";
   let btnType = "";
 
@@ -54,7 +56,7 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
 
     case "category":
       btnType =
-        "w-auto px-[12px] h-[50px] text-[14px] gap-[8px] rounded-[100px] ";
+        "w-auto px-[12px] h-[50px] text-[14px] gap-[8px] rounded-[9999px] ";
       break;
 
     case "reset":
