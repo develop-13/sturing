@@ -17,6 +17,7 @@ type TButtonLabelProps = {
   type: TType;
   icon?: React.ReactNode;
   text?: string;
+  onClick?: () => void;
 };
 
 function ButtonLabel({ type, icon, text }: TButtonLabelProps) {
