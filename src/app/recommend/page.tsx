@@ -8,7 +8,9 @@ import Icon_Logo from "@/svg/Icon-logo";
 
 function RecommendPage() {
   return (
-    <ButtonLabel type="category" icon={<Icon type="DESIGN" />} text="디자인" />
+    <div>
+      <Icon type="FORWARD" color="text-gray-200" />
+    </div>
   );
 }
 
