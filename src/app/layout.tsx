@@ -21,6 +21,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className="flex justify-center">
         <div className={`w-[375px] h-screen ` + roboto.className}>
+          {/* 헤더 */}
           {children}
         </div>
       </body>

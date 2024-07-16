@@ -46,67 +46,101 @@ type TIconData = {
     | "KAKAO"
     | "RLOGO";
   onClick?: () => void;
+  color?: string; // 같은 아이콘이라도 색이 다른 경우 때문에 추가하였습니다.
 };
 const IconDataSet: Record<
   TIconData["type"],
-  { icon: React.ReactNode; size?: number; color?: string }
+  (color?: string) => { icon: React.ReactNode; size?: number; color?: string }
 > = {
-  BELL: {
+  BELL: (color?: string) => ({
     icon: <VscBell />,
-  },
-  CHECKED: {
+    color,
+  }),
+
+  CHECKED: (color?: string) => ({
     icon: <IoCheckmark />,
-  },
-  BACK: {
+    color,
+  }),
+
+  BACK: (color?: string) => ({
     icon: <IoIosArrowBack />,
-  },
-  BOOKMARK: {
+    color,
+  }),
+
+  BOOKMARK: (color?: string) => ({
     icon: <CiBookmark />,
-    size: 20,
-  },
-  FORWARD: {
+    color,
+  }),
+
+  FORWARD: (color?: string) => ({
     icon: <IoIosArrowForward />,
-  },
-  CLOSE: {
+    color,
+  }),
+
+  CLOSE: (color?: string) => ({
     icon: <IoMdClose />,
-  },
-  SEARCH: {
+    color,
+  }),
+
+  SEARCH: (color?: string) => ({
     icon: <IoSearchOutline />,
-  },
-  CHATBOX: {
+    color,
+  }),
+
+  CHATBOX: (color?: string) => ({
     icon: <BsChatSquareDots />,
-  },
-  LOGO: {
+    color,
+  }),
+
+  LOGO: (color?: string) => ({
     icon: <Icon_Logo />,
-  },
-  MENU: {
+    color,
+  }),
+
+  MENU: (color?: string) => ({
     icon: <SlMenu />,
-  },
-  MORE: {
+    color,
+  }),
+
+  MORE: (color?: string) => ({
     icon: <PiDotsThreeOutlineFill />,
     size: 20,
-  },
-  SHARE: {
+    color,
+  }),
+
+  SHARE: (color?: string) => ({
     icon: <GoShare />,
-  },
-  USER: {
+    color,
+  }),
+
+  USER: (color?: string) => ({
     icon: <FaRegUser />,
-  },
-  CAMERA: {
+    color,
+  }),
+
+  CAMERA: (color?: string) => ({
     icon: <Image src="/svg/ect/camera.svg" alt="" width={24} height={24} />,
-  },
-  FILTER: {
+    color,
+  }),
+
+  FILTER: (color?: string) => ({
     icon: <Image src="/svg/ect/filter.svg" alt="" width={24} height={24} />,
-  },
-  DESIGN: {
+    color,
+  }),
+
+  DESIGN: (color?: string) => ({
     icon: (
       <Image src="/svg/interests/design.svg" alt="" width={28} height={28} />
     ),
-  },
-  TECH: {
+    color,
+  }),
+
+  TECH: (color?: string) => ({
     icon: <Image src="/svg/interests/tech.svg" alt="" width={28} height={28} />,
-  },
-  BUSINESS: {
+    color,
+  }),
+
+  BUSINESS: (color?: string) => ({
     icon: (
       <Image
         src="/svg/interests/business.svg"
@@ -115,18 +149,24 @@ const IconDataSet: Record<
         height={22.5}
       />
     ),
-  },
-  ECONOMY: {
+    color,
+  }),
+
+  ECONOMY: (color?: string) => ({
     icon: (
       <Image src="/svg/interests/economy.svg" alt="" width={26} height={26} />
     ),
-  },
-  LANGUAGE: {
+    color,
+  }),
+
+  LANGUAGE: (color?: string) => ({
     icon: (
       <Image src="/svg/interests/language.svg" alt="" width={33} height={20} />
     ),
-  },
-  CERTIFICATION: {
+    color,
+  }),
+
+  CERTIFICATION: (color?: string) => ({
     icon: (
       <Image
         src="/svg/interests/certification.svg"
@@ -135,8 +175,10 @@ const IconDataSet: Record<
         height={19}
       />
     ),
-  },
-  SELFDEVELOP: {
+    color,
+  }),
+
+  SELFDEVELOP: (color?: string) => ({
     icon: (
       <Image
         src="/svg/interests/selfDevelop.svg"
@@ -145,9 +187,10 @@ const IconDataSet: Record<
         height={28}
       />
     ),
-  },
+    color,
+  }),
 
-  MARKETING: {
+  MARKETING: (color?: string) => ({
     icon: (
       <Image
         src="/svg/interests/marketing.svg"
@@ -156,27 +199,31 @@ const IconDataSet: Record<
         height={28}
       />
     ),
-  },
-  RESET: {
+    color,
+  }),
+
+  RESET: (color?: string) => ({
     icon: <GrPowerReset />,
-    size: 19,
-  },
+    color,
+  }),
 
-  WRITE: {
+  WRITE: (color?: string) => ({
     icon: <Image src="/svg/ect/write.svg" alt="" width={16} height={16} />,
-  },
+    color,
+  }),
 
-  KAKAO: {
+  KAKAO: (color?: string) => ({
     icon: <Image src="/svg/ect/kakao.svg" alt="" width={18} height={17} />,
-  },
+    color,
+  }),
 
-  RLOGO: {
+  RLOGO: (color?: string) => ({
     icon: <Image src="/svg/ect/logo.svg" alt="" width={18} height={17} />,
-  },
+    color,
+  }),
 };
-
-const getIcon = ({ type, onClick }: TIconData) => {
-  const iconData = IconDataSet[type];
+const getIcon = ({ type, onClick, color }: TIconData) => {
+  const iconData = IconDataSet[type](color);
   const effectiveSize = iconData.size || 24;
   return (
     <IconFormat
@@ -203,7 +250,7 @@ function IconFormat({
     <div onClick={onClick} className="cursor-pointer shrink-0">
       {React.cloneElement(icon as React.ReactElement, {
         size,
-        color,
+        className: color,
       })}{" "}
     </div>
   );

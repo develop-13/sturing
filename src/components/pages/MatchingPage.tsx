@@ -4,6 +4,8 @@ import React, { useState } from "react";
 // 각 템플릿 컴포넌트를 가져옵니다.
 import InterestsTemplate from "@/components/templates/matching/InterestsTemplate";
 import SkilledTemplate from "@/components/templates/matching/SkilledTemplate";
+import ButtonIcon from "../molecules/ButtonIcon";
+import Icon from "../atoms/Icon";
 // import StudyPlaceTemplate from "@/components/templates/matching/StudyPlaceTemplate";
 // import StudyTypeTemplate from "@/components/templates/matching/StudyTypeTemplate";
 // import AtmosphereTemplate from "@/components/templates/matching/AtmosphereTemplate";
@@ -28,7 +30,18 @@ function MatchingPage() {
     <div>
       {/* // progressbar */}
       {steps[step]}
-      {/* 버튼 섹션 */}
+      <div className="flex justify-between mt-[45px]">
+        <ButtonIcon
+          icon={<Icon type="BACK" color="text-white" />}
+          theme="secondary"
+          type="backward"
+        />
+        <ButtonIcon
+          icon={<Icon type="FORWARD" color="text-white" />}
+          theme="primary"
+          type="forward"
+        />
+      </div>
     </div>
   );
 }
