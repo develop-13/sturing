@@ -1,0 +1,38 @@
+export const studyDatas: TStudy[] = [
+    {
+        id: 0,
+        title: "C언어 기초부터 함께 배울 스터디 모집",
+        src: "",
+        date: "매주 금 오후 9:00",
+        type: "오프라인",
+        category: "개발·테크",
+        location: "성동구 외3",
+    },
+    {
+        id: 1,
+        title: "블렌더 테크닉 향상 및 피드백 스터디",
+        src: "",
+        date: "모임 날짜 미정",
+        type: "온라인",
+        category: "디자인",
+        location: "ZOOM",
+    },
+    {
+        id: 2,
+        title: "기획안 작성 노하우 강의 들을 취준생 구해요!",
+        src: "",
+        date: "매주 목 오후 8:00",
+        type: "온∙오프라인",
+        category: "마케팅",
+        location: "종로구",
+    },
+    {
+        id: 3,
+        title: "주식 투자 재테그 강의 들을 주린이들 모임",
+        src: "",
+        date: "매주 금 토",
+        type: "오프라인",
+        category: "경제",
+        location: "서초구",
+    },
+];

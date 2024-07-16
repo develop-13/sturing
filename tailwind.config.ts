@@ -14,14 +14,33 @@ const config: Config = {
 
       backgroundColor: {
         mainColor: "#4171FF",
+        "mainColor-700": "#1544D0",
       },
 
       colors: {
-        mainColor: "#4171FF",
         borderColor1: "#E3E3E3",
         textColor1: "#676767",
         "custom-blue-bright": "rgba(217, 227, 255, 0.3)",
         "custom-pink-bright": "rgba(255, 228, 224, 0.3)",
+        "gray-1000": "#010101",
+        "gray-900": "#313131",
+        "gray-800": "#4D4D4D",
+        "gray-700": "#676767",
+        "gray-600": "#909090'",
+        "gray-500": "#B5B5B5",
+        "gray-400": "#D0D0D0",
+        "gray-300": "#E3E3E3",
+        "gray-200": "#F3F3F3",
+        "gray-100": "#F9F9F9",
+        "mainColor-700": "#1544D0",
+        mainColor: "#4171FF",
+        subColor: "#6284E8",
+        "main-400": "#A0B8FF",
+        "main-300": "#A0B8FF",
+        "main-200": "#D9E3FF",
+        "main-100": "#ECF1FF",
+        yellow: "#FFE810",
+        error: "FF0000",
       },
 
       backgroundImage: {
