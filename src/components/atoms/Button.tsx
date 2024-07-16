@@ -26,12 +26,6 @@ type TButton = {
   children?: React.ReactNode;
 };
 
-// theme 에 따라 fontColor, backgroundColor, borderColor이 달라집니다.
-// type 에 따라 height, width가 달라집니다.
-
-// Text 컴포넌트만 받는 경우?
-// Text 컴포넌트와 Icon을 받는 경우?
-
 export default function Button({ type, theme, onClick, children }: TButton) {
   let btnTheme = "";
   let btnType = "";
@@ -64,7 +58,7 @@ export default function Button({ type, theme, onClick, children }: TButton) {
   }
   switch (type) {
     case "main": // 스터디 전체보기 버튼, 홈으로가기 버튼, 이전 버튼, 관심분야 수정 버튼 등
-      btnType = "w-full h-[50px] ";
+      btnType = "w-full h-[50px] text-[16px] ";
       break;
 
     case "full":
@@ -76,11 +70,11 @@ export default function Button({ type, theme, onClick, children }: TButton) {
       break;
 
     case "tag":
-      btnType = "w-auto h-[22px] px-[6px] ";
+      btnType = "w-auto h-[22px] px-[6px] text-[12px] ";
       break;
 
     case "item": // 나머지 작은 버튼들
-      btnType = "w-auto h-[34px] px-[15px] ";
+      btnType = "w-auto h-[34px] px-[15px] text-[14px] ";
       break;
 
     case "round":
@@ -96,7 +90,7 @@ export default function Button({ type, theme, onClick, children }: TButton) {
     <>
       <button
         className={
-          `flex gap-[10px] justify-center items-center rounded-[3px] ` +
+          `flex gap-[10px] justify-center items-center rounded-[3px] font-bold ` +
           btnTheme +
           btnType
         }

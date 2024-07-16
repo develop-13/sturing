@@ -8,11 +8,7 @@ import Icon_Logo from "@/svg/Icon-logo";
 
 function RecommendPage() {
   return (
-    <div className="w-[117px] h-[49px]">
-      <Button type="radius-none" theme="ordinary">
-        경기도
-      </Button>
-    </div>
+    <ButtonLabel type="category" icon={<Icon type="DESIGN" />} text="디자인" />
   );
 }
 
