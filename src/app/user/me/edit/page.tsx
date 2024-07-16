@@ -1,5 +1,5 @@
-function editMePage() {
-  return <div>editMePage</div>;
+function EditMePage() {
+  return <div></div>;
 }
 
-export default editMePage;
+export default EditMePage;

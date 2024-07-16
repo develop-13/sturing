@@ -1,30 +1,17 @@
-import TwoIconsFormat from "@/components/header_metarials/atoms/TwoIconsFormat";
-import BellBtn from "@/components/header_metarials/atoms/BellBtn";
-import LogoBtn from "@/components/header_metarials/atoms/LogoBtn";
-import MenuBtn from "@/components/header_metarials/atoms/MenuBtn";
-import UserBtn from "@/components/header_metarials/atoms/UserBtn";
-import HeaderForamt from "@/components/header_metarials/organisms/headerForamt";
-import React from "react";
+"use client";
+import Icon from "@/components/atoms/Icon";
+import ButtonLabel from "@/components/molecules/ButtonLabel";
 
 function RecommendPage() {
   return (
-    <div>
-      <HeaderForamt
-        icons_left={
-          <TwoIconsFormat gap={8}>
-            <MenuBtn />
-            <LogoBtn />
-          </TwoIconsFormat>
-        }
-        icons_right={
-          <TwoIconsFormat gap={12}>
-            <UserBtn />
-            <BellBtn />
-          </TwoIconsFormat>
-        }
-        hasTab={true}
-      />
-    </div>
+    <ButtonLabel
+      datas={{
+        theme: "ordinary",
+        role: "category",
+        icon: <Icon type="DESIGN" />,
+        text: "디자인",
+      }}
+    />
   );
 }
 
