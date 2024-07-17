@@ -2,9 +2,10 @@ type TButtonIcon = {
   icon: React.ReactNode;
   theme: "primary" | "secondary";
   type: "forward" | "backward" | "plus";
+  onClick?: () => void;
 };
 
-function ButtonIcon({ icon, theme, type }: TButtonIcon) {
+function ButtonIcon({ icon, theme, type, onClick }: TButtonIcon) {
   let btnTheme = "";
   let btnType = "";
 
@@ -30,6 +31,7 @@ function ButtonIcon({ icon, theme, type }: TButtonIcon) {
         btnType +
         `w-[58px] h-[58px] rounded-full flex justify-center items-center`
       }
+      onClick={onClick}
     >
       {icon}
     </button>

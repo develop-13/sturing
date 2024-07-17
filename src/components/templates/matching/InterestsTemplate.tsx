@@ -15,7 +15,7 @@ function InterestsTemplate() {
             text: "디자인",
             icon: <Icon type="DESIGN" />,
             theme: "ordinary",
-            role: "interestItem",
+            role: "matchingItem",
           }}
         />
         <ButtonLabel
@@ -23,7 +23,7 @@ function InterestsTemplate() {
             text: "개발 · 테크",
             icon: <Icon type="TECH" />,
             theme: "ordinary",
-            role: "interestItem",
+            role: "matchingItem",
           }}
         />
         <ButtonLabel
@@ -31,7 +31,7 @@ function InterestsTemplate() {
             text: "비즈니스",
             icon: <Icon type="BUSINESS" />,
             theme: "ordinary",
-            role: "interestItem",
+            role: "matchingItem",
           }}
         />
         <ButtonLabel
@@ -39,7 +39,7 @@ function InterestsTemplate() {
             text: "마케팅",
             icon: <Icon type="MARKETING" />,
             theme: "ordinary",
-            role: "interestItem",
+            role: "matchingItem",
           }}
         />
         <ButtonLabel
@@ -47,7 +47,7 @@ function InterestsTemplate() {
             text: "경제",
             icon: <Icon type="ECONOMY" />,
             theme: "ordinary",
-            role: "interestItem",
+            role: "matchingItem",
           }}
         />
         <ButtonLabel
@@ -55,7 +55,7 @@ function InterestsTemplate() {
             text: "외국어",
             icon: <Icon type="LANGUAGE" />,
             theme: "ordinary",
-            role: "interestItem",
+            role: "matchingItem",
           }}
         />
         <ButtonLabel
@@ -63,7 +63,7 @@ function InterestsTemplate() {
             text: "자격증",
             icon: <Icon type="CERTIFICATION" />,
             theme: "ordinary",
-            role: "interestItem",
+            role: "matchingItem",
           }}
         />
         <ButtonLabel
@@ -71,7 +71,7 @@ function InterestsTemplate() {
             text: "자기계발",
             icon: <Icon type="SELFDEVELOP" />,
             theme: "ordinary",
-            role: "interestItem",
+            role: "matchingItem",
           }}
         />
       </main>

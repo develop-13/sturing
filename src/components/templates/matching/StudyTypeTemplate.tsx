@@ -6,7 +6,7 @@ function StudyTypeTemplate() {
 
   return (
     <section className="flex flex-col gap-[60px]">
-      <MatchingTitle type="TYPE" userName={dummyUsername} />
+      <MatchingTitle role="TYPE" userName={dummyUsername} />
       <div className="flex flex-col gap-[14px]">
         <ButtonOptionDetail
           role="CHECK"

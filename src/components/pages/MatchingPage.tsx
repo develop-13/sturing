@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 // 각 템플릿 컴포넌트를 가져옵니다.
 import InterestsTemplate from "@/components/templates/matching/InterestsTemplate";
@@ -20,7 +19,7 @@ const steps = [
 
 //숫자로 해 볼 것
 function MatchingPage() {
-  const [step, setStep] = useState(4);
+  const [step, setStep] = useState(0);
 
   const handleSteps = () => {
     setStep(step + 1);
@@ -40,6 +39,7 @@ function MatchingPage() {
           icon={<Icon type="FORWARD" color="text-white" />}
           theme="primary"
           type="forward"
+          onClick={handleSteps}
         />
       </div>
     </div>
