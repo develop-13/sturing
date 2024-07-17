@@ -8,21 +8,19 @@ import ButtonIcon from "../molecules/ButtonIcon";
 import Icon from "../atoms/Icon";
 import StudyPlaceTemplate from "../templates/matching/StudyPlaceTemplate";
 import StudyTypeTemplate from "../templates/matching/StudyTypeTemplate";
-// import StudyPlaceTemplate from "@/components/templates/matching/StudyPlaceTemplate";
-// import StudyTypeTemplate from "@/components/templates/matching/StudyTypeTemplate";
-// import AtmosphereTemplate from "@/components/templates/matching/AtmosphereTemplate";
+import AtmosphereTemplate from "../templates/matching/AtmosphereTemplate";
 
 const steps = [
   <InterestsTemplate />,
   <SkilledTemplate />,
   <StudyTypeTemplate />,
   <StudyPlaceTemplate />,
-  // <AtmosphereTemplate />,
+  <AtmosphereTemplate />,
 ];
 
 //숫자로 해 볼 것
 function MatchingPage() {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(4);
 
   const handleSteps = () => {
     setStep(step + 1);
@@ -32,8 +30,8 @@ function MatchingPage() {
     <div className=" px-[16px] py-[20px]">
       {/* // progressbar */}
       {steps[step]}
-      {/* <div className="flex justify-between mt-[45px]">
-        <ButtonIcon // fixed처리 고민해보기
+      <div className="w-full flex justify-between fixed left-0 bottom-[9px] px-[16px]">
+        <ButtonIcon //
           icon={<Icon type="BACK" color="text-white" />}
           theme="secondary"
           type="backward"
@@ -43,7 +41,7 @@ function MatchingPage() {
           theme="primary"
           type="forward"
         />
-      </div> */}
+      </div>
     </div>
   );
 }

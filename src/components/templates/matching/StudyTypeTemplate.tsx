@@ -1,16 +1,28 @@
-import ButtonOptionDetail from "@/components/molecules/ButtonOptionDetail";
+import ButtonOptionDetail from "@/components/organisms/ButtonOptionDetail";
 import MatchingTitle from "@/components/molecules/MatchingTitle";
 
 function StudyTypeTemplate() {
   const dummyUsername = "웅진";
 
   return (
-    <section className="flex flex-col">
+    <section className="flex flex-col gap-[60px]">
       <MatchingTitle type="TYPE" userName={dummyUsername} />
-      <div className="pt-[20px] flex flex-col gap-[14px]">
-        <ButtonOptionDetail role="TYPE" detail="온라인 스터디" />
-        <ButtonOptionDetail role="TYPE" detail="오프라인 스터디" />
-        <ButtonOptionDetail role="TYPE" detail="온오프라인 상관 없어요" />
+      <div className="flex flex-col gap-[14px]">
+        <ButtonOptionDetail
+          role="CHECK"
+          checkType="defaultCheck"
+          text="온라인 스터디"
+        />
+        <ButtonOptionDetail
+          role="CHECK"
+          checkType="defaultCheck"
+          text="오프라인 스터디"
+        />
+        <ButtonOptionDetail
+          role="CHECK"
+          checkType="defaultCheck"
+          text="온오프라인 상관 없어요"
+        />
       </div>
     </section>
   );

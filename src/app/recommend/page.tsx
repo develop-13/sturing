@@ -1,13 +1,9 @@
 "use client";
 
+import ButtonOptionDetail from "@/components/organisms/ButtonOptionDetail";
 import Searchbar from "@/components/molecules/Searchbar";
-
 function RecommendPage() {
-  return (
-    <div>
-      <Searchbar usage="main" placeholder="스터디 선호지역을 입력해 주세요" />{" "}
-    </div>
-  );
+  return <div></div>;
 }
 
 export default RecommendPage;
