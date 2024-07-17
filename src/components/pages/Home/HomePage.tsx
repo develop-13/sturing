@@ -1,4 +1,5 @@
 import TitleLink from "@/components/atoms/TitleLink";
+import Button from "@/components/molecules/Button";
 import StudyBanner from "@/components/organisms/StudyBanner";
 import StudyBox from "@/components/organisms/StudyBox";
 import StudyCategory from "@/components/organisms/StudyCategory";
