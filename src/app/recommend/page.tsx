@@ -1,15 +1,11 @@
 "use client";
-import Button from "@/components/atoms/Button";
-import Icon from "@/components/atoms/Icon";
-import Text from "@/components/atoms/Text";
-import ButtonLabel from "@/components/molecules/ButtonLabel";
-import ButtonLabel_ing from "@/components/molecules/ButtonLabel";
-import Icon_Logo from "@/svg/Icon-logo";
+
+import Searchbar from "@/components/molecules/Searchbar";
 
 function RecommendPage() {
   return (
     <div>
-      <Icon type="FORWARD" color="text-gray-200" />
+      <Searchbar usage="main" placeholder="스터디 선호지역을 입력해 주세요" />{" "}
     </div>
   );
 }
