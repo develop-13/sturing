@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 export type TBox = {
-    theme: TBoxColorTheme;
+    theme?: TBoxColorTheme;
     shape?: TBoxShape;
 };
 
@@ -14,7 +14,7 @@ type TBoxColorTheme =
 
 type TBoxShape = "tag" | "rounded" | "button" | "imagebox";
 
-function BoxTheme(theme: TBoxColorTheme) {
+function BoxTheme(theme: TBoxColorTheme | undefined) {
     switch (theme) {
         case "primary":
             return "bg-mainColor ";
