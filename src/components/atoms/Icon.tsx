@@ -44,7 +44,17 @@ type TIconData = {
     | "RESET"
     | "WRITE"
     | "KAKAO"
-    | "RLOGO";
+    | "RLOGO"
+    | "FRIENDLY"
+    | "PROFESSIONAL"
+    | "SERIOUS"
+    | "SYSTEMATIC"
+    | "ENTHUSIASTIC"
+    | "RESPONSIBLE"
+    | "LEARNING"
+    | "COOPERATIVE"
+    | "SELFDIRECTED"
+    | "FREE";
   onClick?: () => void;
   color?: string; // 같은 아이콘이라도 색이 다른 경우 때문에 추가하였습니다.
 };
@@ -52,6 +62,66 @@ const IconDataSet: Record<
   TIconData["type"],
   (color?: string) => { icon: React.ReactNode; size?: number; color?: string }
 > = {
+  FREE: (color?: string) => ({
+    icon: <Image src="/svg/emoji/free.svg" alt="" width={30} height={30} />,
+    color,
+  }),
+  COOPERATIVE: (color?: string) => ({
+    icon: (
+      <Image src="/svg/emoji/cooperative.svg" alt="" width={30} height={30} />
+    ),
+    color,
+  }),
+  SELFDIRECTED: (color?: string) => ({
+    icon: (
+      <Image src="/svg/emoji/selfDirected.svg" alt="" width={30} height={30} />
+    ),
+    color,
+  }),
+  LEARNING: (color?: string) => ({
+    icon: (
+      <Image
+        src="/svg/emoji/learningOriented.svg"
+        alt=""
+        width={30}
+        height={30}
+      />
+    ),
+    color,
+  }),
+  RESPONSIBLE: (color?: string) => ({
+    icon: (
+      <Image src="/svg/emoji/responsible.svg" alt="" width={30} height={30} />
+    ),
+    color,
+  }),
+  ENTHUSIASTIC: (color?: string) => ({
+    icon: (
+      <Image src="/svg/emoji/enthusiastic.svg" alt="" width={30} height={30} />
+    ),
+    color,
+  }),
+  SYSTEMATIC: (color?: string) => ({
+    icon: (
+      <Image src="/svg/emoji/systematic.svg" alt="" width={30} height={30} />
+    ),
+    color,
+  }),
+  SERIOUS: (color?: string) => ({
+    icon: <Image src="/svg/emoji/serious.svg" alt="" width={30} height={30} />,
+    color,
+  }),
+  PROFESSIONAL: (color?: string) => ({
+    icon: (
+      <Image src="/svg/emoji/professional.svg" alt="" width={30} height={30} />
+    ),
+    color,
+  }),
+  FRIENDLY: (color?: string) => ({
+    icon: <Image src="/svg/emoji/friendly.svg" alt="" width={30} height={30} />,
+    color,
+  }),
+
   BELL: (color?: string) => ({
     icon: <VscBell />,
     color,
