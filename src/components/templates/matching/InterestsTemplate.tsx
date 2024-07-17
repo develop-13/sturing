@@ -7,10 +7,10 @@ const dummyUsername = "웅진";
 
 function InterestsTemplate() {
   return (
-    <section className="flex flex-col gap-10">
+    <section className="flex flex-col">
       <MatchingTitle type="INTEREST" userName={dummyUsername} />
       <main className="grid grid-cols-2 gap-[15px] w-full h-[405px]">
-        <ButtonLabel
+        {/* <ButtonLabel
           type="matching"
           icon={<Icon type="DESIGN" />}
           text="디자인"
@@ -49,7 +49,7 @@ function InterestsTemplate() {
           type="matching"
           icon={<Icon type="SELFDEVELOP" />}
           text="자기계발"
-        />
+        /> */}
       </main>
     </section>
   );

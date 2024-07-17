@@ -6,6 +6,8 @@ import InterestsTemplate from "@/components/templates/matching/InterestsTemplate
 import SkilledTemplate from "@/components/templates/matching/SkilledTemplate";
 import ButtonIcon from "../molecules/ButtonIcon";
 import Icon from "../atoms/Icon";
+import StudyPlaceTemplate from "../templates/matching/StudyPlaceTemplate";
+import StudyTypeTemplate from "../templates/matching/StudyTypeTemplate";
 // import StudyPlaceTemplate from "@/components/templates/matching/StudyPlaceTemplate";
 // import StudyTypeTemplate from "@/components/templates/matching/StudyTypeTemplate";
 // import AtmosphereTemplate from "@/components/templates/matching/AtmosphereTemplate";
@@ -13,8 +15,8 @@ import Icon from "../atoms/Icon";
 const steps = [
   <InterestsTemplate />,
   <SkilledTemplate />,
-  // <StudyPlaceTemplate />,
-  // <StudyTypeTemplate />,
+  <StudyTypeTemplate />,
+  <StudyPlaceTemplate />,
   // <AtmosphereTemplate />,
 ];
 
@@ -27,11 +29,11 @@ function MatchingPage() {
   };
 
   return (
-    <div>
+    <div className=" px-[16px] py-[20px]">
       {/* // progressbar */}
       {steps[step]}
-      <div className="flex justify-between mt-[45px]">
-        <ButtonIcon
+      {/* <div className="flex justify-between mt-[45px]">
+        <ButtonIcon // fixed처리 고민해보기
           icon={<Icon type="BACK" color="text-white" />}
           theme="secondary"
           type="backward"
@@ -41,7 +43,7 @@ function MatchingPage() {
           theme="primary"
           type="forward"
         />
-      </div>
+      </div> */}
     </div>
   );
 }
