@@ -54,7 +54,8 @@ type TIconData = {
     | "LEARNING"
     | "COOPERATIVE"
     | "SELFDIRECTED"
-    | "FREE";
+    | "FREE"
+    | "COMPLETE";
   onClick?: () => void;
   color?: string; // 같은 아이콘이라도 색이 다른 경우 때문에 추가하였습니다.
 };
@@ -62,6 +63,11 @@ const IconDataSet: Record<
   TIconData["type"],
   (color?: string) => { icon: React.ReactNode; size?: number; color?: string }
 > = {
+  COMPLETE: (color?: string) => ({
+    icon: <Image src="/svg/ect/complete.svg" alt="" width={62} height={62} />,
+    color,
+  }),
+
   FREE: (color?: string) => ({
     icon: <Image src="/svg/emoji/free.svg" alt="" width={30} height={30} />,
     color,

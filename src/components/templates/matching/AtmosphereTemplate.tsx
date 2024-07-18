@@ -7,7 +7,7 @@ const dummyUsername = "웅진";
 
 function AtmosphereTemplate() {
   return (
-    <section className="flex flex-col gap-[40px]">
+    <section className="flex flex-col gap-[40px] py-[20px]">
       <MatchingTitle role="ATMOSPHERE" userName={dummyUsername} />{" "}
       <main className="grid grid-cols-2 gap-[15px] w-full h-[405px]">
         <ButtonLabel

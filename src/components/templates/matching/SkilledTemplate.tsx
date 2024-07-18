@@ -7,7 +7,7 @@ const dummyUsername = "웅진";
 
 function SkilledTemplate() {
   return (
-    <section className="flex flex-col gap-[40px]">
+    <section className="flex flex-col gap-[40px] py-[20px]">
       <MatchingTitle role="LEVEL" userName={dummyUsername} />
       <main>
         <ButtonGroup gap={12}>

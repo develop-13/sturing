@@ -29,7 +29,7 @@ function StudyPlaceTemplate() {
   const dummyUsername = "웅진";
 
   return (
-    <section className="flex flex-col">
+    <section className="flex flex-col py-[20px]">
       <MatchingTitle role="PLACE" userName={dummyUsername} />
       <div className="mt-[19px] mb-[14px]">
         <Searchbar usage="main" placeholder="스터디 선호지역을 입력해 주세요" />
