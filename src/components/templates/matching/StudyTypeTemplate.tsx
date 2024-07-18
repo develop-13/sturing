@@ -5,7 +5,7 @@ function StudyTypeTemplate() {
   const dummyUsername = "웅진";
 
   return (
-    <section className="flex flex-col gap-[60px]">
+    <section className="flex flex-col gap-[60px] py-[20px]">
       <MatchingTitle role="TYPE" userName={dummyUsername} />
       <div className="flex flex-col gap-[14px]">
         <ButtonOptionDetail
