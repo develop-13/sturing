@@ -17,8 +17,6 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
   // theme 에 따라 fontColor, backgroundColor, borderColor이 달라집니다.
   // role 에 따라 fontSize, height, width가 달라집니다.
 
-  console.log(datas);
-
   let btnTheme = "";
   let btnType = "";
 

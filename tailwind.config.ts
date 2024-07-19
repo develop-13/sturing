@@ -20,8 +20,10 @@ const config: Config = {
       colors: {
         borderColor1: "#E3E3E3",
         textColor1: "#676767",
-        "custom-blue-bright": "rgba(217, 227, 255, 0.3)",
-        "custom-pink-bright": "rgba(255, 228, 224, 0.3)",
+        "custom-blue-30": "rgba(217, 227, 255, 0.3)",
+        "custom-pink-30": "rgba(255, 228, 224, 0.3)",
+        "custom-blue-70": "rgba(217, 227, 255, 0.7)",
+        "custom-pink-70": "rgba(255, 228, 224, 0.7)",
         "gray-1000": "#010101",
         "gray-900": "#313131",
         "gray-800": "#4D4D4D",
