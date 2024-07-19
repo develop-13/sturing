@@ -4,6 +4,7 @@ export type TBox = {
   theme?: TBoxColorTheme;
   shape?: TBoxShape;
   extraCss?: string;
+  children?: React.ReactNode;
 };
 
 type TBoxColorTheme =
@@ -38,7 +39,7 @@ function BoxTheme(theme: TBoxColorTheme | undefined) {
 function BoxShape(shape: TBoxShape | undefined) {
   switch (shape) {
     case "tag":
-      return "rounded-[3px] h-[22px] ";
+      return "rounded-[3px] h-[22px] px-[6px] ";
     case "rounded":
       return "rounded-full h-[50px] ";
     case "button":
@@ -51,6 +52,7 @@ function BoxShape(shape: TBoxShape | undefined) {
 }
 
 function Box({ props, children }: { props: TBox; children?: ReactNode }) {
+  // function Box(props: TBox) {
   const theme = BoxTheme(props.theme);
   const shape = BoxShape(props.shape);
   const extraCss = props.extraCss || "";
@@ -65,7 +67,7 @@ function Box({ props, children }: { props: TBox; children?: ReactNode }) {
           extraCss
         }
       >
-        {children}
+        {props.children}
       </div>
     </>
   );

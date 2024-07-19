@@ -35,7 +35,7 @@ function StudyPlaceTemplate() {
         <Searchbar usage="main" placeholder="스터디 선호지역을 입력해 주세요" />
       </div>
       {/*  */}
-      <div className="h-[333px] overflow-y-scroll  mx-[-16px] border-t border-gray-300 ">
+      <article className="h-[333px] overflow-y-scroll  mx-[-16px] border-t border-gray-300 ">
         <div className="flex">
           <div className="w-[133px] pl-[16px] bg-gray-200 ">
             {dummyRegions.map((region, idx) => (
@@ -65,7 +65,7 @@ function StudyPlaceTemplate() {
             ))}
           </div>
         </div>
-      </div>
+      </article>
       {/*  */}
       <div className="flex gap-[14px] mt-[26px]">
         <ButtonLabel

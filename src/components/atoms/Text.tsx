@@ -23,7 +23,9 @@ type TTextColor =
   | "gray-700"
   | "gray-800"
   | "gray-900"
-  | "gray-1000";
+  | "gray-1000"
+  | "white"
+  | "main";
 
 function TextSize(size: TTextSize | undefined) {
   switch (size) {
@@ -77,6 +79,10 @@ function TextColor(color: TTextColor | undefined) {
       return "text-gray-900 ";
     case "gray-1000":
       return "text-gray-1000 ";
+    case "white":
+      return "text-white ";
+    case "main":
+      return "text-mainColor ";
     default:
       return " ";
   }
