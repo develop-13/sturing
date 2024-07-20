@@ -24,6 +24,8 @@ const config: Config = {
         "custom-pink-30": "rgba(255, 228, 224, 0.3)",
         "custom-blue-70": "rgba(217, 227, 255, 0.7)",
         "custom-pink-70": "rgba(255, 228, 224, 0.7)",
+        "custom-black-10": "rgba(21, 21, 21, 0.1)",
+        "custom-black-100": "rgba(21, 21, 21, 1)",
         "gray-1000": "#010101",
         "gray-900": "#313131",
         "gray-800": "#4D4D4D",
