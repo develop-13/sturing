@@ -1,20 +1,14 @@
 import { ReactNode } from "react";
 import Box, { TBox } from "../atoms/Box";
 
-type TButton = {
-  box: TBox;
-};
+type TButton = TBox;
 
 export default function Button({
-  props,
+  theme,
+  shape,
+  extraCss,
   children,
-}: {
-  props: TButton;
-  children?: ReactNode;
-}) {
-  return (
-    <>
-      <Box props={props.box}>{children}</Box>
-    </>
-  );
+  onClick,
+}: TButton & { children: ReactNode }) {
+  return <Box props={{ theme, shape, extraCss, onClick }}>{children}</Box>;
 }

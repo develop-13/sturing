@@ -4,7 +4,7 @@ export type TBox = {
   theme?: TBoxColorTheme;
   shape?: TBoxShape;
   extraCss?: string;
-  children?: React.ReactNode;
+  onClick?: () => void;
 };
 
 type TBoxColorTheme =
@@ -52,24 +52,22 @@ function BoxShape(shape: TBoxShape | undefined) {
 }
 
 function Box({ props, children }: { props: TBox; children?: ReactNode }) {
-  // function Box(props: TBox) {
-  const theme = BoxTheme(props.theme);
-  const shape = BoxShape(props.shape);
-  const extraCss = props.extraCss || "";
+  const theme = BoxTheme(props.theme) || " ";
+  const shape = BoxShape(props.shape) || " ";
+  const extraCss = props.extraCss || " ";
 
   return (
-    <>
-      <div
-        className={
-          "flex justify-center items-center cursor-pointer " +
-          theme +
-          shape +
-          extraCss
-        }
-      >
-        {props.children}
-      </div>
-    </>
+    <div
+      onClick={props.onClick}
+      className={
+        "flex justify-center items-center cursor-pointer " +
+        theme +
+        shape +
+        extraCss
+      }
+    >
+      {children}
+    </div>
   );
 }
 

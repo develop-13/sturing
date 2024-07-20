@@ -39,11 +39,8 @@ function StudyPlaceTemplate() {
         <div className="flex">
           <div className="w-[133px] pl-[16px] bg-gray-200 ">
             {dummyRegions.map((region, idx) => (
-              <Button
-                key={idx}
-                props={{ box: { theme: "transparent", extraCss: "h-[50px]" } }}
-              >
-                <Text props={{ size: "sm", weight: "bold", color: "gray-600" }}>
+              <Button theme="transparent" extraCss="h-[50px]" key={idx}>
+                <Text size="sm" weight="bold" color="gray-600">
                   {region}
                 </Text>
               </Button>

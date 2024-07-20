@@ -11,19 +11,13 @@ function SkilledTemplate() {
       <MatchingTitle role="LEVEL" userName={dummyUsername} />
       <main>
         <ButtonGroup gap={12}>
-          <Button
-            props={{ box: { theme: "transparent", extraCss: "flex-grow" } }}
-          >
+          <Button theme="transparent" extraCss="flex-grow">
             디자인
           </Button>
-          <Button
-            props={{ box: { theme: "transparent", extraCss: "flex-grow" } }}
-          >
+          <Button theme="transparent" extraCss="flex-grow">
             마케팅
           </Button>
-          <Button
-            props={{ box: { theme: "transparent", extraCss: "flex-grow" } }}
-          >
+          <Button theme="transparent" extraCss="flex-grow">
             비즈니스
           </Button>
         </ButtonGroup>

@@ -25,16 +25,16 @@ function ButtonOptionDetail(props: TButtonOptionDetail) {
     case "TEXT":
       return (
         <Button
-          props={{
-            box: {
-              theme: "ordinary",
-              shape: "button",
-              extraCss: "h-[64px] px-[24px] gap-[18px] !justify-start ",
-            },
-          }}
+          theme="ordinary"
+          shape="button"
+          extraCss="h-[64px] px-[24px] gap-[18px] !justify-start"
         >
-          <Text props={{ size: "sm", weight: "bold" }}>{props.title}</Text>
-          <Text props={{ size: "xs", weight: "bold" }}>{props.text}</Text>
+          <Text size="sm" weight="bold">
+            {props.title}
+          </Text>
+          <Text size="xs" weight="bold">
+            {props.text}
+          </Text>
         </Button>
       );
     case "CHECK":
@@ -48,15 +48,11 @@ function CheckButtonOption({ text, type }: { text: string; type: string }) {
     case "defaultCheck":
       return (
         <Button
-          props={{
-            box: {
-              theme: "ordinary",
-              shape: "button",
-              extraCss: "h-[64px] px-[24px] justify-between ",
-            },
-          }}
+          theme="ordinary"
+          shape="button"
+          extraCss="h-[64px] px-[24px] justify-between "
         >
-          <Text props={{ size: "base", weight: "bold", color: "gray-700" }}>
+          <Text size="base" weight="bold" color="gray-700">
             {text}
           </Text>
           <Icon type="CHECKED" />
@@ -64,15 +60,8 @@ function CheckButtonOption({ text, type }: { text: string; type: string }) {
       );
     case "onClickCheck":
       return (
-        <Button
-          props={{
-            box: {
-              theme: "border-bottom",
-              extraCss: "h-[49px] justify-between ",
-            },
-          }}
-        >
-          <Text props={{ size: "sm", weight: "bold", color: "gray-700" }}>
+        <Button theme="border-bottom" extraCss="h-[49px] justify-between ">
+          <Text size="sm" weight="bold" color="gray-700">
             {text}
           </Text>
           {/* <Icon type="CHECKED" /> */}
