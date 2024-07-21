@@ -18,6 +18,8 @@ const InfoBox = forwardRef<HTMLDivElement, TInfoBox>(function InfoBox(
       props.getInfoBoxTop(ref.current.getBoundingClientRect().top);
     }
   });
+  // 여기서 getInfoBoxTop 의 값을 구해서 상위 컴포넌트의 infoBoxTop의 값을 결정
+  // 상위 컴포넌트 랜더링,  클릭 시 infoBoxTop으로 스크롤 시키기
 
   let bgColor = "";
   switch (props.theme) {

@@ -6,32 +6,44 @@ import Text from "../atoms/Text";
 import Button from "../molecules/Button";
 import StudyOverviewItem from "../molecules/StudyOverviewItem";
 import {
-  StudyDetailButtonGroup,
-  TStudyDetailTab,
+  TabButtonGroup,
+  TDataSet,
+  TInactiveSelectedOption,
 } from "../organisms/ButtonGroup";
 import InfoBox from "../organisms/InfoBox";
 import StudyOverview from "../organisms/StudyOverview";
 import Header from "../organisms/Header";
 
-// 1. 위치값을 state 값으로 한다. 단점: 한 번 밖에 안 바뀌는 값을 state로 하기에는..?
-// 2. 위칙값을 useRef에 담아둔다. 부모컴포넌트의 리랜더링을 어텋게 촉발시킬 건데?
+const dataSet: TDataSet = new Map([
+  ["info", "정보"],
+  ["member", "팀원"],
+]);
 
 function StudyDetailPage() {
-  const studyInfoBoxRef = useRef<HTMLDivElement>(null);
-  const memberInfoBoxRef = useRef<HTMLDivElement>(null);
+  // 1. 위치값을 state 값으로 한다. 단점: 한 번 밖에 안 바뀌는 값을 state로 하기에는..?
+  // 2. 위칙값을 useRef에 담아둔다. 부모컴포넌트의 리랜더링을 어텋게 촉발시킬 건데?
+  // 현재는 좋은 방법이 안 떠올라 1번을 택했지만 나중에 더 좋은 방법을 알아보자.
+  const [selected, setSelected] = useState<TInactiveSelectedOption>(null);
   const [studyInfoBoxTop, setStudyInfoBoxTop] = useState(0);
   const [memberInfoBoxTop, setMemberInfoBoxTop] = useState(0);
-
-  const [selected, setSelected] = useState<TStudyDetailTab>(null);
-
-  const onClickBtn = (InfoBoxTop: number, tab: TStudyDetailTab) => () => {
-    // 클릭시 스크롤이동 + 현재 클릭한 탭
-    window.scrollTo({ top: InfoBoxTop, behavior: "smooth" });
-    setSelected(tab);
+  const boxRef = {
+    info: useRef<HTMLDivElement>(null),
+    member: useRef<HTMLDivElement>(null),
   };
-  // console.log(`studyInfoBoxTop=${studyInfoBoxTop}`);
-  // console.log(`memberInfoBoxTop=${memberInfoBoxTop}`);
 
+  const onClickBtn = (selectedOption: TInactiveSelectedOption) => {
+    setSelected((prev) => selectedOption);
+    switch (selectedOption) {
+      case "info":
+        window.scrollTo({ top: studyInfoBoxTop, behavior: "smooth" });
+        break;
+      case "member":
+        window.scrollTo({ top: memberInfoBoxTop, behavior: "smooth" });
+        break;
+    }
+  };
+
+  // infoBox에서 Top의 위치를 받아와서 set값으로 설정
   const getInfoBoxTop =
     (setInfoBoxTop: (infoBoxTop: number) => void) => (infoBoxTop: number) => {
       setInfoBoxTop(infoBoxTop);
@@ -50,11 +62,11 @@ function StudyDetailPage() {
         }
       />
       <StudyOverview />
-      <StudyDetailButtonGroup
-        onClickBtn={onClickBtn}
-        selectedTab={selected}
-        studyInfoBoxTop={studyInfoBoxTop}
-        memberInfoBoxTop={memberInfoBoxTop}
+      <TabButtonGroup
+        theme="primary"
+        onClick={onClickBtn}
+        selectedOption={selected}
+        dataSet={dataSet}
       />
 
       <section className="flex flex-col gap-[16px] study_detail_main px-[16px]">
@@ -68,7 +80,7 @@ function StudyDetailPage() {
         <InfoBox
           theme="white"
           getInfoBoxTop={getInfoBoxTop(setStudyInfoBoxTop)}
-          ref={studyInfoBoxRef}
+          ref={boxRef.info}
         >
           {/* 스터디 정보 */}
           <div className="flex justify-between">
@@ -154,7 +166,7 @@ function StudyDetailPage() {
         <InfoBox
           theme="white"
           getInfoBoxTop={getInfoBoxTop(setMemberInfoBoxTop)}
-          ref={memberInfoBoxRef}
+          ref={boxRef.member}
         >
           {/* 스터디 정보 */}
           <div className="flex justify-between">
