@@ -22,59 +22,61 @@ function ButtonGroup({ children, gap }: TButtonGroup) {
 
 export default ButtonGroup;
 
-export type TStudyDetailTab = "info" | "member" | null;
-
-const getStyle = {
-  btnStyle: (state: TStudyDetailTab, id: TStudyDetailTab) => {
-    let commonStyle = "flex-grow h-full ";
-    let selectedStyle = commonStyle + "border-b-2 border-mainColor";
-    if (state === id) return selectedStyle;
-    return commonStyle;
-  },
-  textColor: (state: TStudyDetailTab, id: TStudyDetailTab) => {
-    return state === id ? "main" : "gray-700";
-  },
+export type TDataSet = Map<Exclude<TInactiveSelectedOption, null>, string>;
+export type TInactiveSelectedOption = "info" | "member" | null; // StudyDetailPage 에서도 사용해야함
+type InactiveStudyProps = {
+  theme: "primary";
+  selectedOption: TInactiveSelectedOption;
+  dataSet: TDataSet;
+  onClick: (selectedOption: TInactiveSelectedOption) => void;
 };
 
-export function StudyDetailButtonGroup({
-  selectedTab,
-  studyInfoBoxTop,
-  memberInfoBoxTop,
-  onClickBtn,
-}: {
-  selectedTab: TStudyDetailTab;
-  studyInfoBoxTop: number;
-  memberInfoBoxTop: number;
-  onClickBtn: (infoBoxTop: number, tab: TStudyDetailTab) => () => void;
-}) {
+export function TabButtonGroup(props: InactiveStudyProps) {
+  let commonStyle = "flex-grow h-full ";
+  let selectedStyle = "";
+
+  switch (props.theme) {
+    case "primary":
+      selectedStyle = commonStyle + "border-b-2 border-mainColor";
+      break;
+  }
+
   return (
     <ButtonGroup gap={12}>
-      <Button
-        theme="transparent"
-        extraCss={getStyle.btnStyle(selectedTab, "info")}
-        onClick={onClickBtn(studyInfoBoxTop, "info")}
-      >
-        <Text
-          size="sm"
-          weight="bold"
-          color={getStyle.textColor(selectedTab, "info")}
-        >
-          정보
-        </Text>
-      </Button>
-      <Button
-        theme="transparent"
-        extraCss={getStyle.btnStyle(selectedTab, "member")}
-        onClick={onClickBtn(memberInfoBoxTop, "member")}
-      >
-        <Text
-          size="sm"
-          weight="bold"
-          color={getStyle.textColor(selectedTab, "member")}
-        >
-          팀원
-        </Text>{" "}
-      </Button>
+      {Array.from(props.dataSet).map(([key, text]) => {
+        if (key == props.selectedOption) {
+          return (
+            <Button
+              onClick={() => {
+                props.onClick(key);
+              }}
+              key={key}
+              theme="transparent"
+              extraCss={selectedStyle}
+              // 선택된 값과 data가 같으면 selectedStyle 적용하게 하기
+            >
+              <Text size="sm" weight="bold" color="main">
+                {text}
+              </Text>
+            </Button>
+          );
+        } else {
+          return (
+            <Button
+              onClick={() => {
+                props.onClick(key);
+              }}
+              key={key}
+              theme="transparent"
+              extraCss={commonStyle}
+            >
+              <Text size="sm" weight="bold" color="gray-700">
+                {text}
+              </Text>
+            </Button>
+          );
+        }
+      })}
     </ButtonGroup>
   );
 }
