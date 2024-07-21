@@ -11,6 +11,7 @@ import {
 } from "../organisms/ButtonGroup";
 import InfoBox from "../organisms/InfoBox";
 import StudyOverview from "../organisms/StudyOverview";
+import Header from "../organisms/Header";
 
 // 1. 위치값을 state 값으로 한다. 단점: 한 번 밖에 안 바뀌는 값을 state로 하기에는..?
 // 2. 위칙값을 useRef에 담아둔다. 부모컴포넌트의 리랜더링을 어텋게 촉발시킬 건데?
@@ -24,6 +25,7 @@ function StudyDetailPage() {
   const [selected, setSelected] = useState<TStudyDetailTab>(null);
 
   const onClickBtn = (InfoBoxTop: number, tab: TStudyDetailTab) => () => {
+    // 클릭시 스크롤이동 + 현재 클릭한 탭
     window.scrollTo({ top: InfoBoxTop, behavior: "smooth" });
     setSelected(tab);
   };
@@ -36,7 +38,17 @@ function StudyDetailPage() {
     };
 
   return (
-    <div className="px-[16px] bg-gray-100">
+    <div className="bg-gray-100">
+      <Header
+        position="absolute"
+        leftSlot={<Icon type="BACK" color="text-white" />}
+        rightSlot={
+          <div className="flex gap-[12px]">
+            <Icon type="SHARE" color="text-white" />
+            <Icon type="MORE" color="text-white" />
+          </div>
+        }
+      />
       <StudyOverview />
       <StudyDetailButtonGroup
         onClickBtn={onClickBtn}
@@ -45,7 +57,7 @@ function StudyDetailPage() {
         memberInfoBoxTop={memberInfoBoxTop}
       />
 
-      <section className="flex flex-col gap-[16px] study_detail_main">
+      <section className="flex flex-col gap-[16px] study_detail_main px-[16px]">
         {/* 텝 매인 */}
         <ul className="flex flex-col gap-[12px] border-b pt-[2px]  pb-[20px] border-gray-300 study_detail_overview">
           <StudyOverviewItem icon={<br />} name="null" content="null" />

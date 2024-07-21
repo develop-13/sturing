@@ -8,7 +8,7 @@ import StudyInfoItem from "./InfoBox";
 function StudyList() {
   return (
     <div>
-      <div className="ml-[16px]">
+      <div className="ml-[16px] mt-[40px]">
         <Text size="xl" weight="bold">
           스터디 리스트
         </Text>

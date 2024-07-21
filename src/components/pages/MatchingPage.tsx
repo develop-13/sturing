@@ -10,6 +10,7 @@ import StudyTypeTemplate from "../templates/matching/StudyTypeTemplate";
 import AtmosphereTemplate from "../templates/matching/AtmosphereTemplate";
 import Progressbar from "../atoms/Progressbar";
 import CompleteTemplate from "../templates/matching/CompleteTemplate";
+import Header from "../organisms/Header";
 
 const steps = [
   <InterestsTemplate />,
@@ -30,11 +31,12 @@ function MatchingPage() {
 
   return (
     <div className=" px-[16px]">
+      <Header leftSlot={<Icon type="BACK" />} />
       {step < steps.length - 1 && ( // 마지막 페이지에는 안 보이게
         <Progressbar currentPage={step} totalPage={steps.length - 1} />
       )}
       {steps[step]}
-      <div className="w-full flex justify-between fixed left-0 bottom-[9px] px-[16px]">
+      <div className="w-[375px] flex justify-between fixed  left-1/2 transform -translate-x-1/2  bottom-[9px] px-[16px]">
         <ButtonIcon //
           icon={<Icon type="BACK" color="text-white" />}
           theme="secondary"

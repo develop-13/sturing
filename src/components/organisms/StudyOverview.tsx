@@ -15,7 +15,7 @@ type TStudyOverView = {
 function StudyOverview() {
   return (
     <div
-      className="h-[287px] bg-cover bg-center flex items-center justify-center mx-[-16px]"
+      className="h-[287px] bg-cover bg-center flex items-center justify-center "
       style={{
         backgroundImage: `linear-gradient(to bottom right, rgba(21, 21, 21, 0.1), rgba(21, 21, 21, 1)), url('/img/study-overview-example.png')`,
       }}
