@@ -7,14 +7,14 @@ import Button from "../molecules/Button";
 import StudyOverviewItem from "../molecules/StudyOverviewItem";
 import {
   TabButtonGroup,
-  TDataSet,
+  TInactiveStudyDataSet,
   TInactiveSelectedOption,
 } from "../organisms/ButtonGroup";
 import InfoBox from "../organisms/InfoBox";
 import StudyOverview from "../organisms/StudyOverview";
 import Header from "../organisms/Header";
 
-const dataSet: TDataSet = new Map([
+const dataSet: TInactiveStudyDataSet = new Map([
   ["info", "정보"],
   ["member", "팀원"],
 ]);
@@ -63,7 +63,6 @@ function StudyDetailPage() {
       />
       <StudyOverview />
       <TabButtonGroup
-        theme="primary"
         onClick={onClickBtn}
         selectedOption={selected}
         dataSet={dataSet}

@@ -1,4 +1,5 @@
 import Icon from "../atoms/Icon";
+import { NavButtonGroup } from "../organisms/ButtonGroup";
 import Header from "../organisms/Header";
 import StudyList from "../organisms/StudyList";
 import UpcomingStudies from "../organisms/UpcomingStudies";
@@ -20,7 +21,7 @@ function MyStudyPage() {
           </div>
         }
       />
-
+      <NavButtonGroup />
       <UpcomingStudies />
       <StudyList />
     </div>
