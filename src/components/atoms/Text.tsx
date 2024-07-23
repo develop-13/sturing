@@ -7,6 +7,8 @@ type TText = {
   children?: ReactNode;
 };
 
+// 받아야할 게 늘어나면 수정할 곳이
+
 type TTextSize = "xs" | "sm" | "base" | "lg" | "xl" | "2xl";
 type TTextWeight = "bold" | "regular";
 type TTextColor =
@@ -41,6 +43,7 @@ function TextSize(size: TTextSize | undefined) {
       return " ";
   }
 }
+
 function TextWeight(weight: TTextWeight | undefined) {
   switch (weight) {
     case "bold":
@@ -51,6 +54,7 @@ function TextWeight(weight: TTextWeight | undefined) {
       return " ";
   }
 }
+
 function TextColor(color: TTextColor | undefined) {
   switch (color) {
     case "gray-100":
@@ -91,6 +95,8 @@ function Text({ size, weight, color, children }: TText) {
 }
 
 export default Text;
+
+// 위에서
 
 // import { ReactNode } from "react";
 
