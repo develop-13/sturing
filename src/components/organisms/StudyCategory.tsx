@@ -4,7 +4,7 @@ import Icon from "../atoms/Icon";
 import ButtonLabel from "../molecules/ButtonLabel";
 
 export default function StudyCategory() {
-  let isDragging = false;
+  let isDragging = true;
   const dragging = (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
     if (!isDragging) return;
     e.currentTarget.scrollLeft -= e.movementX;

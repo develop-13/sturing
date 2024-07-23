@@ -35,7 +35,7 @@ type InactiveStudyProps = {
 };
 
 export function TabButtonGroup(props: InactiveStudyProps) {
-  let commonStyle = "flex-grow h-full ";
+  let commonStyle = "flex-grow basis-0 h-full ";
   let selectedStyle = commonStyle + "border-b-2 border-mainColor";
 
   return (
@@ -87,7 +87,7 @@ export function TabButtonGroup(props: InactiveStudyProps) {
 // 하지만 이번 프로젝트에서는 NavButtonGroup안에의 내용이 다 똑같아서 그냥 컴포넌트 안에서 정의해주도록 함.
 
 export function NavButtonGroup() {
-  let btnStyle = "flex-grow h-full ";
+  let btnStyle = "flex-grow basis-0 h-full ";
   const pathname = usePathname();
 
   return (

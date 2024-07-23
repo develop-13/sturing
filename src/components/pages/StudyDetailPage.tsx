@@ -55,7 +55,7 @@ function StudyDetailPage() {
         position="absolute"
         leftSlot={<Icon type="BACK" color="text-white" />}
         rightSlot={
-          <div className="flex gap-[12px]">
+          <div className="flex gap-[12px] items-center">
             <Icon type="SHARE" color="text-white" />
             <Icon type="MORE" color="text-white" />
           </div>

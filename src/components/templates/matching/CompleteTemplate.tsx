@@ -1,5 +1,5 @@
 import Icon from "@/components/atoms/Icon";
-import TitleLink from "@/components/atoms/TitleLink";
+import TitleLink from "@/components/molecules/TitleLink";
 import MatchingTitle from "@/components/molecules/MatchingTitle";
 import StudyBox from "@/components/organisms/StudyBox";
 import { studyDatas } from "@/db/studyDatas";
