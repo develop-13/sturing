@@ -55,76 +55,222 @@ type TIconData = {
     | "COOPERATIVE"
     | "SELFDIRECTED"
     | "FREE"
-    | "COMPLETE";
+    | "COMPLETE"
+    | "DATE"
+    | "LOCATION"
+    | "MEMBERS"
+    | "DATE_COLOR"
+    | "CHECKBOX"
+    | "LOCATION_COLOR"
+    | "STAR";
   onClick?: () => void;
   color?: string; // 같은 아이콘이라도 색이 다른 경우 때문에 추가하였습니다.
+  size?: number;
 };
 const IconDataSet: Record<
   TIconData["type"],
-  (color?: string) => { icon: React.ReactNode; size?: number; color?: string }
+  (
+    color?: string,
+    size?: number
+  ) => { icon: React.ReactNode; size?: number; color?: string }
 > = {
-  COMPLETE: (color?: string) => ({
-    icon: <Image src="/svg/ect/complete.svg" alt="" width={62} height={62} />,
-    color,
-  }),
-
-  FREE: (color?: string) => ({
-    icon: <Image src="/svg/emoji/free.svg" alt="" width={30} height={30} />,
-    color,
-  }),
-  COOPERATIVE: (color?: string) => ({
-    icon: (
-      <Image src="/svg/emoji/cooperative.svg" alt="" width={30} height={30} />
-    ),
-    color,
-  }),
-  SELFDIRECTED: (color?: string) => ({
-    icon: (
-      <Image src="/svg/emoji/selfDirected.svg" alt="" width={30} height={30} />
-    ),
-    color,
-  }),
-  LEARNING: (color?: string) => ({
+  STAR: (color?: string, size?: number) => ({
     icon: (
       <Image
-        src="/svg/emoji/learningOriented.svg"
+        src="/svg/ect/star.svg"
         alt=""
-        width={30}
-        height={30}
+        width={size || 12}
+        height={size || 12}
       />
     ),
     color,
   }),
-  RESPONSIBLE: (color?: string) => ({
+  LOCATION_COLOR: (color?: string, size?: number) => ({
     icon: (
-      <Image src="/svg/emoji/responsible.svg" alt="" width={30} height={30} />
+      <Image
+        src="/svg/ect/location_color.svg"
+        alt=""
+        width={size || 18}
+        height={size || 18}
+      />
     ),
     color,
   }),
-  ENTHUSIASTIC: (color?: string) => ({
+  CHECKBOX: (color?: string, size?: number) => ({
     icon: (
-      <Image src="/svg/emoji/enthusiastic.svg" alt="" width={30} height={30} />
+      <Image
+        src="/svg/ect/checkbox.svg"
+        alt=""
+        width={size || 18}
+        height={size || 18}
+      />
     ),
     color,
   }),
-  SYSTEMATIC: (color?: string) => ({
+  DATE_COLOR: (color?: string, size?: number) => ({
     icon: (
-      <Image src="/svg/emoji/systematic.svg" alt="" width={30} height={30} />
+      <Image
+        src="/svg/ect/date_color.svg"
+        alt=""
+        width={size || 18}
+        height={size || 18}
+      />
     ),
     color,
   }),
-  SERIOUS: (color?: string) => ({
-    icon: <Image src="/svg/emoji/serious.svg" alt="" width={30} height={30} />,
-    color,
-  }),
-  PROFESSIONAL: (color?: string) => ({
+  MEMBERS: (color?: string, size?: number) => ({
     icon: (
-      <Image src="/svg/emoji/professional.svg" alt="" width={30} height={30} />
+      <Image
+        src="/svg/ect/members.svg"
+        alt=""
+        width={size || 18}
+        height={size || 18}
+      />
     ),
     color,
   }),
-  FRIENDLY: (color?: string) => ({
-    icon: <Image src="/svg/emoji/friendly.svg" alt="" width={30} height={30} />,
+  LOCATION: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/ect/location.svg"
+        alt=""
+        width={size || 12}
+        height={size || 15}
+      />
+    ),
+    color,
+  }),
+  DATE: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/ect/date.svg"
+        alt=""
+        width={size || 18}
+        height={size || 18}
+      />
+    ),
+    color,
+  }),
+  COMPLETE: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/ect/complete.svg"
+        alt=""
+        width={size || 62}
+        height={size || size || 62}
+      />
+    ),
+    color,
+  }),
+
+  FREE: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/emoji/free.svg"
+        alt=""
+        width={size || 30}
+        height={size || 30}
+      />
+    ),
+    color,
+  }),
+  COOPERATIVE: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/emoji/cooperative.svg"
+        alt=""
+        width={size || 30}
+        height={size || 30}
+      />
+    ),
+    color,
+  }),
+  SELFDIRECTED: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/emoji/selfDirected.svg"
+        alt=""
+        width={size || 30}
+        height={size || 30}
+      />
+    ),
+    color,
+  }),
+  LEARNING: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/emoji/learningOriented.svg"
+        alt=""
+        width={size || 30}
+        height={size || 30}
+      />
+    ),
+    color,
+  }),
+  RESPONSIBLE: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/emoji/responsible.svg"
+        alt=""
+        width={size || 30}
+        height={size || 30}
+      />
+    ),
+    color,
+  }),
+  ENTHUSIASTIC: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/emoji/enthusiastic.svg"
+        alt=""
+        width={size || 30}
+        height={size || 30}
+      />
+    ),
+    color,
+  }),
+  SYSTEMATIC: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/emoji/systematic.svg"
+        alt=""
+        width={size || 30}
+        height={size || 30}
+      />
+    ),
+    color,
+  }),
+  SERIOUS: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/emoji/serious.svg"
+        alt=""
+        width={size || 30}
+        height={size || 30}
+      />
+    ),
+    color,
+  }),
+  PROFESSIONAL: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/emoji/professional.svg"
+        alt=""
+        width={size || 30}
+        height={size || 30}
+      />
+    ),
+    color,
+  }),
+  FRIENDLY: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/emoji/friendly.svg"
+        alt=""
+        width={size || 30}
+        height={size || 30}
+      />
+    ),
     color,
   }),
 
@@ -194,29 +340,55 @@ const IconDataSet: Record<
     color,
   }),
 
-  CAMERA: (color?: string) => ({
-    icon: <Image src="/svg/ect/camera.svg" alt="" width={24} height={24} />,
-    color,
-  }),
-
-  FILTER: (color?: string) => ({
-    icon: <Image src="/svg/ect/filter.svg" alt="" width={24} height={24} />,
-    color,
-  }),
-
-  DESIGN: (color?: string) => ({
+  CAMERA: (color?: string, size?: number) => ({
     icon: (
-      <Image src="/svg/interests/design.svg" alt="" width={28} height={28} />
+      <Image
+        src="/svg/ect/camera.svg"
+        alt=""
+        width={size || 24}
+        height={size || 24}
+      />
     ),
     color,
   }),
 
-  TECH: (color?: string) => ({
-    icon: <Image src="/svg/interests/tech.svg" alt="" width={28} height={28} />,
+  FILTER: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/ect/filter.svg"
+        alt=""
+        width={size || 24}
+        height={size || 24}
+      />
+    ),
     color,
   }),
 
-  BUSINESS: (color?: string) => ({
+  DESIGN: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/interests/design.svg"
+        alt=""
+        width={size || 28}
+        height={size || 28}
+      />
+    ),
+    color,
+  }),
+
+  TECH: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/interests/tech.svg"
+        alt=""
+        width={size || 28}
+        height={size || 28}
+      />
+    ),
+    color,
+  }),
+
+  BUSINESS: (color?: string, size?: number) => ({
     icon: (
       <Image
         src="/svg/interests/business.svg"
@@ -228,51 +400,61 @@ const IconDataSet: Record<
     color,
   }),
 
-  ECONOMY: (color?: string) => ({
+  ECONOMY: (color?: string, size?: number) => ({
     icon: (
-      <Image src="/svg/interests/economy.svg" alt="" width={26} height={26} />
+      <Image
+        src="/svg/interests/economy.svg"
+        alt=""
+        width={size || 26}
+        height={size || 26}
+      />
     ),
     color,
   }),
 
-  LANGUAGE: (color?: string) => ({
+  LANGUAGE: (color?: string, size?: number) => ({
     icon: (
-      <Image src="/svg/interests/language.svg" alt="" width={33} height={20} />
+      <Image
+        src="/svg/interests/language.svg"
+        alt=""
+        width={size || 33}
+        height={size || 20}
+      />
     ),
     color,
   }),
 
-  CERTIFICATION: (color?: string) => ({
+  CERTIFICATION: (color?: string, size?: number) => ({
     icon: (
       <Image
         src="/svg/interests/certification.svg"
         alt=""
-        width={28}
-        height={19}
+        width={size || 28}
+        height={size || 19}
       />
     ),
     color,
   }),
 
-  SELFDEVELOP: (color?: string) => ({
+  SELFDEVELOP: (color?: string, size?: number) => ({
     icon: (
       <Image
         src="/svg/interests/selfDevelop.svg"
         alt=""
-        width={25.2}
-        height={28}
+        width={size || 25.2}
+        height={size || 28}
       />
     ),
     color,
   }),
 
-  MARKETING: (color?: string) => ({
+  MARKETING: (color?: string, size?: number) => ({
     icon: (
       <Image
         src="/svg/interests/marketing.svg"
         alt=""
-        width={25.2}
-        height={28}
+        width={size || 25.2}
+        height={size || 28}
       />
     ),
     color,
@@ -283,23 +465,44 @@ const IconDataSet: Record<
     color,
   }),
 
-  WRITE: (color?: string) => ({
-    icon: <Image src="/svg/ect/write.svg" alt="" width={16} height={16} />,
+  WRITE: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/ect/write.svg"
+        alt=""
+        width={size || 16}
+        height={size || 16}
+      />
+    ),
     color,
   }),
 
-  KAKAO: (color?: string) => ({
-    icon: <Image src="/svg/ect/kakao.svg" alt="" width={18} height={17} />,
+  KAKAO: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/ect/kakao.svg"
+        alt=""
+        width={size || 18}
+        height={size || 17}
+      />
+    ),
     color,
   }),
 
-  RLOGO: (color?: string) => ({
-    icon: <Image src="/svg/ect/logo.svg" alt="" width={18} height={17} />,
+  RLOGO: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/ect/logo.svg"
+        alt=""
+        width={size || 18}
+        height={size || 17}
+      />
+    ),
     color,
   }),
 };
-const getIcon = ({ type, onClick, color }: TIconData) => {
-  const iconData = IconDataSet[type](color);
+const getIcon = ({ type, onClick, color, size }: TIconData) => {
+  const iconData = IconDataSet[type](color, size);
   const effectiveSize = iconData.size || 24;
   return (
     <IconFormat
@@ -323,7 +526,7 @@ function IconFormat({
   color?: string;
 }) {
   return (
-    <div onClick={onClick} className="cursor-pointer shrink-0">
+    <div onClick={onClick} className="shrink-0">
       {React.cloneElement(icon as React.ReactElement, {
         size,
         className: color,

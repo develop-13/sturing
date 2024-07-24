@@ -5,6 +5,9 @@ import Text from "../atoms/Text";
 
 type TTitleLink = {
   title: string;
+  hasArrow: boolean;
+  arrowColor?: "gray-800" | "gray-300";
+  onClick?: () => void;
 };
 
 export default function TitleLink({ props }: { props: TTitleLink }) {
@@ -14,7 +17,13 @@ export default function TitleLink({ props }: { props: TTitleLink }) {
         <Text size="lg" weight="bold">
           {props.title}
         </Text>
-        <Icon type="FORWARD" />
+        {props.hasArrow && (
+          <Icon
+            type="FORWARD"
+            onClick={props.onClick}
+            color={"text-" + props.arrowColor}
+          />
+        )}
       </div>
     </>
   );

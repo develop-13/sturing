@@ -13,13 +13,13 @@ function StudyOverviewItem({
   return (
     <li className="h-[21px] flex items-center gap-[22px] ">
       <div className="flex gap-[7px]">
-        <Icon type="RLOGO" />
+        {icon}
         <Text size="sm" weight="bold" color="gray-800">
-          팀원
+          {name}
         </Text>
       </div>
       <Text size="sm" weight="bold" color="gray-800">
-        최대 4명
+        {content}
       </Text>
     </li>
   );
