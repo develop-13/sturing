@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, createContext, useContext } from "react";
 // 각 템플릿 컴포넌트를 가져옵니다.
 import InterestsTemplate from "@/components/templates/matching/InterestsTemplate";
 import SkilledTemplate from "@/components/templates/matching/SkilledTemplate";
@@ -27,7 +27,14 @@ const stateExample = {
     marketing: "senior",
   },
 
-  studyPreference: "",
+  studyTypePreference: "",
+  placePreference: new Set(),
+  atmospherePreference: new Set(),
+};
+
+const initialState = {
+  interest: {},
+  studyTypePreference: "",
   placePreference: new Set(),
   atmospherePreference: new Set(),
 };
