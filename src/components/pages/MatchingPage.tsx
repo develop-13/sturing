@@ -11,6 +11,7 @@ import AtmosphereTemplate from "../templates/matching/AtmosphereTemplate";
 import Progressbar from "../atoms/Progressbar";
 import CompleteTemplate from "../templates/matching/CompleteTemplate";
 import Header from "../organisms/Header";
+import { useRouter } from "next/navigation";
 
 const steps = [
   <InterestsTemplate />,
@@ -27,7 +28,14 @@ const stateExample = {
     marketing: "senior",
   },
 
-  studyPreference: "",
+  studyTypePreference: "",
+  placePreference: new Set(),
+  atmospherePreference: new Set(),
+};
+
+const initialState = {
+  interest: {},
+  studyTypePreference: "",
   placePreference: new Set(),
   atmospherePreference: new Set(),
 };
@@ -35,6 +43,8 @@ const stateExample = {
 //숫자로 해 볼 것
 function MatchingPage() {
   const [step, setStep] = useState(0);
+
+  const router = useRouter();
 
   const goPrevStep = () => {
     if (step == 0) {
@@ -54,7 +64,7 @@ function MatchingPage() {
 
   return (
     <div className=" px-[16px]">
-      <Header leftSlot={<Icon type="BACK" />} />
+      <Header leftSlot={<Icon type="BACK" onClick={() => router.back()} />} />
       {step < steps.length - 1 && ( // 마지막 페이지에는 안 보이게
         <Progressbar currentPage={step} totalPage={steps.length - 1} />
       )}

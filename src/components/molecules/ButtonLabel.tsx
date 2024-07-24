@@ -1,7 +1,11 @@
+import Icon from "../atoms/Icon";
+
 type TButtonLabel = {
   text: string;
   icon?: React.ReactNode;
   theme: "primary" | "secondary" | "ordinary" | "shadow" | "kakao";
+  // isActive: boolean;
+  onClick?: () => void;
   role:
     | "matchingItem"
     | "category"
@@ -19,6 +23,7 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
 
   let btnTheme = "";
   let btnType = "";
+  let activeClassName = "";
 
   switch (datas.theme) {
     case "primary":
@@ -45,6 +50,7 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
   switch (datas.role) {
     case "matchingItem":
       btnType = "w-full h-full text-[16px] gap-[10px] ";
+
       break;
 
     case "category":
@@ -69,7 +75,7 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
       break;
 
     case "openStudy":
-      btnType = "w-auto px-[12px] h-[42px] text-[14px] gap-[10px] ";
+      btnType = "w-auto px-[6px] h-[42px] text-[14px] gap-[10px] ";
       break;
 
     case "close":
@@ -81,13 +87,14 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
           }
         >
           <span>{datas.text}</span>
-          {datas.icon}
+          <Icon type="CLOSE" />
         </button>
       );
   }
 
   return (
     <button
+      onClick={datas.onClick}
       className={
         `flex font-bold justify-center items-center rounded-[3px] shrink-0 ` +
         btnTheme +

@@ -1,5 +1,5 @@
 "use client";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Divider from "../atoms/Divider";
 import Icon from "../atoms/Icon";
@@ -39,6 +39,7 @@ function StudyDetailPage() {
   // 1. 위치값을 state 값으로 한다. 단점: 한 번 밖에 안 바뀌는 값을 state로 하기에는..?
   // 2. 위칙값을 useRef에 담아둔다. 부모컴포넌트의 리랜더링을 어텋게 촉발시킬 건데?
   // 현재는 좋은 방법이 안 떠올라 1번을 택했지만 나중에 더 좋은 방법을 알아보자.
+  const router = useRouter();
   const params = useParams<{ sid: string }>();
   const [selected, setSelected] = useState<TInactiveSelectedOption>(null);
   const [studyInfoBoxTop, setStudyInfoBoxTop] = useState(0);
@@ -79,7 +80,15 @@ function StudyDetailPage() {
     <div className="bg-gray-100">
       <Header
         position="absolute"
-        leftSlot={<Icon type="BACK" color="text-white" />}
+        leftSlot={
+          <Icon
+            type="BACK"
+            color="text-white"
+            onClick={() => {
+              router.back();
+            }}
+          />
+        }
         rightSlot={
           <div className="flex gap-[12px] items-center">
             <Icon type="SHARE" color="text-white" />
