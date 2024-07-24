@@ -36,9 +36,6 @@ const dataSet: TInactiveStudyDataSet = new Map([
 ]);
 
 function StudyDetailPage() {
-  // 1. 위치값을 state 값으로 한다. 단점: 한 번 밖에 안 바뀌는 값을 state로 하기에는..?
-  // 2. 위칙값을 useRef에 담아둔다. 부모컴포넌트의 리랜더링을 어텋게 촉발시킬 건데?
-  // 현재는 좋은 방법이 안 떠올라 1번을 택했지만 나중에 더 좋은 방법을 알아보자.
   const router = useRouter();
   const params = useParams<{ sid: string }>();
   const [selected, setSelected] = useState<TInactiveSelectedOption>(null);
@@ -55,7 +52,7 @@ function StudyDetailPage() {
     const data = fetchStudyDetail(params.sid);
     setStudyDetail(data);
     console.log(data);
-  });
+  }, [params.sid]);
 
   const onClickBtn = (selectedOption: TInactiveSelectedOption) => {
     setSelected((prev) => selectedOption);
@@ -69,13 +66,12 @@ function StudyDetailPage() {
     }
   };
 
-  // infoBox에서 Top의 위치를 받아와서 set값으로 설정
   const getInfoBoxTop =
     (setInfoBoxTop: (infoBoxTop: number) => void) => (infoBoxTop: number) => {
       setInfoBoxTop(infoBoxTop);
     };
 
-  if (!studyDetail) return;
+  if (!studyDetail) return null;
   return (
     <div className="bg-gray-100">
       <Header
@@ -108,8 +104,7 @@ function StudyDetailPage() {
       />
 
       <section className="flex flex-col gap-[16px] study_detail_main px-[16px]">
-        {/* 텝 매인 */}
-        <ul className="flex flex-col gap-[12px] border-b pt-[12px]  pb-[20px] border-gray-300 study_detail_overview">
+        <ul className="flex flex-col gap-[12px] border-b pt-[12px] pb-[20px] border-gray-300 study_detail_overview">
           <StudyOverviewItem
             icon={<Icon type="MEMBERS" />}
             name="팀원"
@@ -121,7 +116,7 @@ function StudyDetailPage() {
             content={
               studyDetail?.dayOfWeek + "요일" + " " + studyDetail?.startTime
             }
-          />{" "}
+          />
           <StudyOverviewItem
             icon={<Icon type="CHECKBOX" />}
             name="과제"
@@ -133,7 +128,6 @@ function StudyDetailPage() {
             content={studyDetail?.location + ""}
           />
         </ul>
-        {/* 여기서부터 InfoBox들 */}
         <InfoBox
           theme="white"
           getInfoBoxTop={getInfoBoxTop(setStudyInfoBoxTop)}
