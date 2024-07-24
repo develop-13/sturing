@@ -3,68 +3,75 @@ import Divider from "../atoms/Divider";
 
 type TTheme = "gray" | "transparent" | "white";
 
-const getTags = {
+interface GetTagsProps {
   slot2: (
     tagsStyle: string,
     leftSlot: React.ReactNode,
     middleSlot: React.ReactNode
-  ) => {
-    return (
-      <div className={tagsStyle}>
-        {leftSlot}
-        <Divider type="col" />
-        {middleSlot}
-      </div>
-    );
-  },
+  ) => JSX.Element;
   slot3: (
     tagsStyle: string,
     leftSlot: React.ReactNode,
     middleSlot: React.ReactNode,
     rightSlot: React.ReactNode
-  ) => {
-    return (
-      <div className={tagsStyle}>
-        {leftSlot}
-        <Divider type="col" />
-        {middleSlot}
-        <Divider type="col" />
-        {rightSlot}
-      </div>
-    );
-  },
+  ) => JSX.Element;
+}
+
+const getTags: GetTagsProps = {
+  slot2: (tagsStyle, leftSlot, middleSlot) => (
+    <div className={tagsStyle}>
+      {leftSlot}
+      <Divider type="col" mx={8} />
+      {middleSlot}
+    </div>
+  ),
+  slot3: (tagsStyle, leftSlot, middleSlot, rightSlot) => (
+    <div className={tagsStyle}>
+      {leftSlot}
+      <Divider type="col" />
+      {middleSlot}
+      <Divider type="col" />
+      {rightSlot}
+    </div>
+  ),
 };
 
-const getTheme = (theme: TTheme, padding?: number) => {
-  let tagsStyle = `p-[${padding}px] flex `;
+const getTheme = (theme: TTheme, padding: number = 8): string => {
+  const baseStyle = `p-${padding} flex `;
   switch (theme) {
     case "gray":
-      tagsStyle += "bg-gray-100 ";
-      break;
-
+      return baseStyle + "bg-gray-100";
     case "white":
-      tagsStyle += "bg-white ";
-      break;
-
+      return baseStyle + "bg-white";
     case "transparent":
-      tagsStyle += "bg-transparent ";
-      break;
+      return baseStyle + "bg-transparent";
+    default:
+      return baseStyle;
   }
-  return tagsStyle;
 };
 
-function InfoTags({
-  theme,
-  padding = 8,
-  children,
-}: {
+interface InfoTagsProps {
   theme: TTheme;
   padding?: number;
   children: React.ReactNode;
-}) {
+}
+
+const InfoTags: React.FC<InfoTagsProps> = ({
+  theme,
+  padding = 8,
+  children,
+}) => {
   const tagsStyle = getTheme(theme, padding);
-  const [leftSlot, middleSlot, rightSlot] = React.Children.toArray(children);
+  const childrenArray = React.Children.toArray(children);
+  const [leftSlot, middleSlot, rightSlot] = childrenArray;
+
+  if (childrenArray.length > 3) {
+    console.error("InfoTags only supports up to 3 children.");
+    return null;
+  }
+
   if (!rightSlot) return getTags.slot2(tagsStyle, leftSlot, middleSlot);
   else return getTags.slot3(tagsStyle, leftSlot, middleSlot, rightSlot);
-}
+};
+
 export default InfoTags;

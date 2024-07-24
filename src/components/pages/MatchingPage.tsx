@@ -21,11 +21,34 @@ const steps = [
   <CompleteTemplate />,
 ];
 
+const stateExample = {
+  interest: {
+    design: "beginner",
+    marketing: "senior",
+  },
+
+  studyPreference: "",
+  placePreference: new Set(),
+  atmospherePreference: new Set(),
+};
+
 //숫자로 해 볼 것
 function MatchingPage() {
   const [step, setStep] = useState(0);
 
-  const handleSteps = () => {
+  const goPrevStep = () => {
+    if (step == 0) {
+      // 홈으로 가게 하기
+      return;
+    }
+    setStep(step - 1);
+  };
+
+  const goNextStep = () => {
+    if (step >= steps.length - 1) {
+      // 홈으로 가게 하기
+      return;
+    }
     setStep(step + 1);
   };
 
@@ -41,12 +64,13 @@ function MatchingPage() {
           icon={<Icon type="BACK" color="text-white" />}
           theme="secondary"
           type="backward"
+          onClick={goPrevStep}
         />
         <ButtonIcon
           icon={<Icon type="FORWARD" color="text-white" />}
           theme="primary"
           type="forward"
-          onClick={handleSteps}
+          onClick={goNextStep}
         />
       </div>
     </div>

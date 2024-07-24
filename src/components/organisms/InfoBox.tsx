@@ -1,10 +1,9 @@
 "use client";
-import { ForwardedRef, forwardRef, useEffect } from "react";
+import { ForwardedRef, ReactElement, forwardRef, useEffect } from "react";
 
 // 여기서 위치값을 어텋게 줄건데?
 type TInfoBox = {
   theme: "white" | "gradient";
-  borderColor?: string;
   children?: React.ReactNode;
   getInfoBoxTop?: (InfoBoxTop: number) => void;
 };
@@ -36,7 +35,7 @@ const InfoBox = forwardRef<HTMLDivElement, TInfoBox>(function InfoBox(
     <div
       ref={ref}
       className={
-        "py-[24px] px-[20px] flex flex-col rounded-[8px] gap-[8px] " + bgColor
+        "py-[24px] px-[20px] flex flex-col rounded-[8px] gap-[12px] " + bgColor
       }
     >
       {props.children}

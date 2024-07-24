@@ -1,6 +1,6 @@
 type TButtonLabel = {
   text: string;
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   theme: "primary" | "secondary" | "ordinary" | "shadow" | "kakao";
   role:
     | "matchingItem"
@@ -57,7 +57,7 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
       break;
 
     case "studyItem":
-      btnType = "w-auto px-[8px] h-[33px] text-[16px] gap-[3px] ";
+      btnType = "w-auto px-[8px] h-[33px] text-[14px] gap-[3px] ";
       break;
 
     case "write":
