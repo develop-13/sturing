@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, createContext, useContext } from "react";
+import React, { useState } from "react";
 // 각 템플릿 컴포넌트를 가져옵니다.
 import InterestsTemplate from "@/components/templates/matching/InterestsTemplate";
 import SkilledTemplate from "@/components/templates/matching/SkilledTemplate";
@@ -11,6 +11,7 @@ import AtmosphereTemplate from "../templates/matching/AtmosphereTemplate";
 import Progressbar from "../atoms/Progressbar";
 import CompleteTemplate from "../templates/matching/CompleteTemplate";
 import Header from "../organisms/Header";
+import { useRouter } from "next/navigation";
 
 const steps = [
   <InterestsTemplate />,
@@ -43,6 +44,8 @@ const initialState = {
 function MatchingPage() {
   const [step, setStep] = useState(0);
 
+  const router = useRouter();
+
   const goPrevStep = () => {
     if (step == 0) {
       // 홈으로 가게 하기
@@ -61,7 +64,7 @@ function MatchingPage() {
 
   return (
     <div className=" px-[16px]">
-      <Header leftSlot={<Icon type="BACK" />} />
+      <Header leftSlot={<Icon type="BACK" onClick={() => router.back()} />} />
       {step < steps.length - 1 && ( // 마지막 페이지에는 안 보이게
         <Progressbar currentPage={step} totalPage={steps.length - 1} />
       )}
