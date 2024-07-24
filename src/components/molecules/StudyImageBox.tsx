@@ -1,29 +1,23 @@
+import Text from "../atoms/Text";
+
 type TStudyImageBox = {
-	src: string;
-	date: string;
-	isChecked: boolean;
+  src: string;
+  dayOfWeek: string;
+  startTime: string;
+  // isChecked: boolean;
 };
 
 export default function StudyImageBox(props: TStudyImageBox) {
-	const { src, date, isChecked } = props;
+  const { src, dayOfWeek, startTime } = props;
 
-	return (
-		<>
-			<div className="flex flex-col">
-				<div
-					className={
-						`flex relative w-[182px] h-[100px] rounded-lg overflow-hidden ` +
-						(src == "" ? "bg-mainColor" : "")
-					}
-				>
-					{/* <div> 아이콘 추가해주세요 !!! </div> */}
-					<div className="flex absolute bottom-0 w-full h-[24px]  bg-black bg-opacity-80 justify-center items-center">
-						<text className="text-white font-bold text-[12px]">
-							{date}
-						</text>
-					</div>
-				</div>
-			</div>
-		</>
-	);
+  return (
+    <div className=" relative w-[182px] h-[100px] rounded-lg overflow-hidden ">
+      <img className="absolute" src={src} />
+      <div className="flex absolute bottom-0 w-full h-[24px]  bg-black bg-opacity-80 justify-center items-center">
+        <Text size="sm" weight="bold" color="white">
+          {dayOfWeek + " " + startTime}
+        </Text>
+      </div>
+    </div>
+  );
 }

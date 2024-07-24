@@ -1,18 +1,7 @@
-"use client";
-import Icon from "@/components/atoms/Icon";
-import ButtonLabel from "@/components/molecules/ButtonLabel";
+import RecommendPage from "@/components/pages/RecommendPage";
 
-function RecommendPage() {
-  return (
-    <ButtonLabel
-      datas={{
-        theme: "ordinary",
-        role: "category",
-        icon: <Icon type="DESIGN" />,
-        text: "디자인",
-      }}
-    />
-  );
+function page() {
+  return <RecommendPage />;
 }
 
-export default RecommendPage;
+export default page;
