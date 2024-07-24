@@ -14,12 +14,12 @@ import Header from "../organisms/Header";
 import { useRouter } from "next/navigation";
 
 const steps = [
-  <InterestsTemplate />,
-  <SkilledTemplate />,
-  <StudyTypeTemplate />,
-  <StudyPlaceTemplate />,
-  <AtmosphereTemplate />,
-  <CompleteTemplate />,
+  { component: <InterestsTemplate />, key: "interests" },
+  { component: <SkilledTemplate />, key: "skilled" },
+  { component: <StudyTypeTemplate />, key: "studyType" },
+  { component: <StudyPlaceTemplate />, key: "studyPlace" },
+  { component: <AtmosphereTemplate />, key: "atmosphere" },
+  { component: <CompleteTemplate />, key: "complete" },
 ];
 
 const stateExample = {
@@ -68,7 +68,7 @@ function MatchingPage() {
       {step < steps.length - 1 && ( // 마지막 페이지에는 안 보이게
         <Progressbar currentPage={step} totalPage={steps.length - 1} />
       )}
-      {steps[step]}
+      {steps[step].component}
       <div className="w-[375px] flex justify-between fixed  left-1/2 transform -translate-x-1/2  bottom-[9px] px-[16px]">
         <ButtonIcon //
           icon={<Icon type="BACK" color="text-white" />}
