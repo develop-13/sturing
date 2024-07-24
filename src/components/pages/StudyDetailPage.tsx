@@ -194,6 +194,7 @@ function StudyDetailPage() {
           <div className="flex gap-[6px]">
             {studyDetail?.desiredMember.ageRange && (
               <ButtonLabel
+                key="ageRange"
                 datas={{
                   theme: "secondary",
                   role: "studyItem",
@@ -203,6 +204,7 @@ function StudyDetailPage() {
             )}
             {studyDetail?.desiredMember.studyLevel && (
               <ButtonLabel
+                key="studyLevel"
                 datas={{
                   theme: "secondary",
                   role: "studyItem",
