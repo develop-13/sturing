@@ -1,3 +1,5 @@
+"use client";
+import { useRouter } from "next/navigation";
 import Icon from "../atoms/Icon";
 
 type TSearchbar = {
@@ -7,6 +9,7 @@ type TSearchbar = {
 };
 
 function Searchbar({ placeholder, usage, value }: TSearchbar) {
+  const router = useRouter();
   let searchbarSize = "";
   let searchIconColor = "";
 
@@ -33,7 +36,11 @@ function Searchbar({ placeholder, usage, value }: TSearchbar) {
         className="flex-1 border-none outline-none bg-transparent text-[14px] text-gray-1000 font-bold placeholder:text-gray-700"
         value={value}
       />
-      <Icon type="SEARCH" color={searchIconColor} />
+      <Icon
+        type="SEARCH"
+        color={searchIconColor}
+        onClick={() => router.push("/search/result")}
+      />
     </div>
   );
 }

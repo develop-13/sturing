@@ -526,7 +526,7 @@ function IconFormat({
   color?: string;
 }) {
   return (
-    <div onClick={onClick} className="shrink-0">
+    <div onClick={onClick} className="shrink-0 cursor-pointer">
       {React.cloneElement(icon as React.ReactElement, {
         size,
         className: color,
