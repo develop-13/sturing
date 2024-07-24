@@ -6,8 +6,10 @@ type TImage = {
   height: number;
 };
 
-function Image({ datas }: { datas: TImage }) {
-  <Img src={datas.src} width={datas.width} height={datas.height} alt="" />;
+function Image(props: TImage) {
+  return (
+    <Img src={props.src} width={props.width} height={props.height} alt="" />
+  );
 }
 
 export default Image;

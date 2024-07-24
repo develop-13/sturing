@@ -1,25 +1,26 @@
 type TButtonIcon = {
   icon: React.ReactNode;
-  theme: "MAIN" | "GRAY";
-  type: "FORWARD" | "BACKWARD" | "PLUS";
+  theme: "primary" | "secondary";
+  type: "forward" | "backward" | "plus";
+  onClick?: () => void;
 };
 
-function ButtonIcon({ datas }: { datas: TButtonIcon }) {
+function ButtonIcon({ icon, theme, type, onClick }: TButtonIcon) {
   let btnTheme = "";
   let btnType = "";
 
-  switch (datas.theme) {
-    case "MAIN":
+  switch (theme) {
+    case "primary":
       btnTheme = "bg-mainColor ";
       break;
 
-    case "GRAY":
+    case "secondary":
       btnTheme = "bg-gray-400 ";
       break;
   }
 
-  switch (datas.type) {
-    case "PLUS":
+  switch (type) {
+    case "plus":
       btnType = "shadow-lg ";
   }
 
@@ -30,8 +31,9 @@ function ButtonIcon({ datas }: { datas: TButtonIcon }) {
         btnType +
         `w-[58px] h-[58px] rounded-full flex justify-center items-center`
       }
+      onClick={onClick}
     >
-      {datas.icon}
+      {icon}
     </button>
   );
 }
