@@ -10,7 +10,7 @@ function UpcomingStudyItem() {
         다가오는 스터디
       </Text>
 
-      <StudyInfoItem theme="white" borderColor="gray-300">
+      <StudyInfoItem theme="white">
         <div className="flex gap-[4px]">
           <Button theme="primary" shape="tag">
             <Text size="xs" weight="bold" color="white">
