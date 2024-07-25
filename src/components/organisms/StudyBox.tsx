@@ -6,9 +6,9 @@ import Text from "../atoms/Text";
 import Button from "../molecules/Button";
 import InfoTags from "../molecules/InfoTags";
 import StudyImageBox from "../molecules/StudyImageBox";
-import { TBasicInfo } from "@/types/study";
+import { TStudy } from "@/types/study";
 
-export default function StudyBox({ props }: { props: TBasicInfo }) {
+export default function StudyBox({ props }: { props: TStudy }) {
   const router = useRouter();
   return (
     <div
