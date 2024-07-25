@@ -1,4 +1,6 @@
 import React from "react";
+import Image from "../atoms/Image";
+import { profile } from "console";
 
 type TUserInfoItem = {
   name: string;
@@ -15,11 +17,14 @@ const UserInfoItem = ({
 }: TUserInfoItem) => {
   return (
     <div className="flex items-center">
-      <img
+      {/* <img
         src={profileImage}
         alt={`${name} profile`}
         className="w-10 h-10 rounded-full mr-3"
-      />
+      /> */}
+      <div className="rounded-full mr-3">
+        <Image src={profileImage} width={40} height={40} />
+      </div>
       <div className="flex flex-col">
         <div className="flex items-center">
           <span className="font-bold">{name}</span>

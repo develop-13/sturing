@@ -243,7 +243,7 @@ function StudyDetailPage() {
             {studyDetail?.currentParticipants?.map((participant, idx) => {
               return (
                 <UserInfoItem
-                  key={idx}
+                  key={participant.userId}
                   name={participant.userName}
                   role={participant.role}
                   isCreator={participant.userId === studyDetail.creatorId}
