@@ -171,7 +171,7 @@ function StudyDetailPage() {
           <div className="flex gap-[6px]">
             {studyDetail?.atmosphere.map((it, idx) => (
               <ButtonLabel
-                key={idx}
+                key={it}
                 datas={{
                   theme: "secondary",
                   icon: iconAtmosphereMapping[it][1],
@@ -215,7 +215,7 @@ function StudyDetailPage() {
           </div>
           <div className="flex gap-[6px]">
             {studyDetail?.desiredMember.roles &&
-              studyDetail?.desiredMember.roles.map((role, idx) => (
+              studyDetail?.desiredMember.roles.map((role) => (
                 <ButtonLabel
                   key={role}
                   datas={{
@@ -240,20 +240,18 @@ function StudyDetailPage() {
           </div>
           <Divider type="row" />
           <div className="flex flex-col gap-2">
-            {studyDetail?.currentParticipants?.map((participant, idx) => {
-              return (
-                <UserInfoItem
-                  key={participant.userId}
-                  name={participant.userName}
-                  role={participant.role}
-                  isCreator={participant.userId === studyDetail.creatorId}
-                  profileImage={
-                    participant.profileImage ||
-                    "/img/profile/defaultProfileImage.png"
-                  }
-                />
-              );
-            })}
+            {studyDetail?.currentParticipants?.map((participant) => (
+              <UserInfoItem
+                key={participant.userId}
+                name={participant.userName}
+                role={participant.role}
+                isCreator={participant.userId === studyDetail.creatorId}
+                profileImage={
+                  participant.profileImage ||
+                  "/img/profile/defaultProfileImage.png"
+                }
+              />
+            ))}
           </div>
         </InfoBox>
       </section>
