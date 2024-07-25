@@ -26,9 +26,12 @@ type IconAtmosphereMapping = {
 };
 
 const iconAtmosphereMapping: IconAtmosphereMapping = {
-  serious: ["진지한", <Icon type="SERIOUS" size={16} />],
-  friendly: ["친근한", <Icon type="FRIENDLY" size={16} />],
-  professional: ["전문적인", <Icon type="PROFESSIONAL" size={16} />],
+  serious: ["진지한", <Icon type="SERIOUS" size={16} key={uuidv4()} />],
+  friendly: ["친근한", <Icon type="FRIENDLY" size={16} key={uuidv4()} />],
+  professional: [
+    "전문적인",
+    <Icon type="PROFESSIONAL" size={16} key={uuidv4()} />,
+  ],
 };
 
 const dataSet: TInactiveStudyDataSet = new Map([
