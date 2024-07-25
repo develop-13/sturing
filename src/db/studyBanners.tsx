@@ -1,3 +1,8 @@
+export type TStudyBanner = {
+  id: number;
+  src: string;
+};
+
 export const studyBanners = [
   {
     id: 0,
