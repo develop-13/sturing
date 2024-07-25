@@ -5,7 +5,7 @@ import Text from "../atoms/Text";
 
 type TTitleLink = {
   title: string;
-  hasArrow: boolean;
+  hasArrow?: boolean;
   arrowColor?: "gray-800" | "gray-300";
   onClick?: () => void;
 };
