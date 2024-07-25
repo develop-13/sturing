@@ -217,7 +217,7 @@ function StudyDetailPage() {
             {studyDetail?.desiredMember.roles &&
               studyDetail?.desiredMember.roles.map((role, idx) => (
                 <ButtonLabel
-                  key={idx}
+                  key={role}
                   datas={{
                     theme: "secondary",
                     role: "studyItem",
