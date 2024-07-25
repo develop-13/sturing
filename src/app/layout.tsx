@@ -15,7 +15,6 @@ export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-  sidebar: React.ReactNode;
 }>) {
   return (
     <html lang="en">
