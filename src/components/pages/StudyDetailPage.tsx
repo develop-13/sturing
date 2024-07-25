@@ -1,4 +1,5 @@
 "use client";
+import { v4 as uuidv4 } from "uuid";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Divider from "../atoms/Divider";
@@ -171,7 +172,7 @@ function StudyDetailPage() {
           <div className="flex gap-[6px]">
             {studyDetail?.atmosphere.map((it, idx) => (
               <ButtonLabel
-                key={it}
+                key={uuidv4()}
                 datas={{
                   theme: "secondary",
                   icon: iconAtmosphereMapping[it][1],
@@ -194,7 +195,7 @@ function StudyDetailPage() {
           <div className="flex gap-[6px]">
             {studyDetail?.desiredMember.ageRange && (
               <ButtonLabel
-                key="ageRange"
+                key={uuidv4()}
                 datas={{
                   theme: "secondary",
                   role: "studyItem",
@@ -204,7 +205,7 @@ function StudyDetailPage() {
             )}
             {studyDetail?.desiredMember.studyLevel && (
               <ButtonLabel
-                key="studyLevel"
+                key={uuidv4()}
                 datas={{
                   theme: "secondary",
                   role: "studyItem",
@@ -217,7 +218,7 @@ function StudyDetailPage() {
             {studyDetail?.desiredMember.roles &&
               studyDetail?.desiredMember.roles.map((role) => (
                 <ButtonLabel
-                  key={role}
+                  key={uuidv4()}
                   datas={{
                     theme: "secondary",
                     role: "studyItem",
@@ -242,7 +243,7 @@ function StudyDetailPage() {
           <div className="flex flex-col gap-2">
             {studyDetail?.currentParticipants?.map((participant) => (
               <UserInfoItem
-                key={participant.userId}
+                key={uuidv4()}
                 name={participant.userName}
                 role={participant.role}
                 isCreator={participant.userId === studyDetail.creatorId}
