@@ -1,4 +1,5 @@
 "use client";
+import { TStudyBanner } from "@/db/studyBanners";
 import Image from "next/image";
 
 export default function StudyBanner({ props }: { props: TStudyBanner[] }) {
