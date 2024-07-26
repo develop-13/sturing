@@ -5,7 +5,12 @@ import ButtonLabel from "@/components/molecules/ButtonLabel";
 import MatchingTitle from "@/components/molecules/MatchingTitle";
 import Searchbar from "@/components/molecules/Searchbar";
 import ButtonOptionDetail from "@/components/organisms/ButtonOptionDetail";
+import { TState, TDispatchFuncs } from "@/components/pages/MatchingPage";
 
+type TInterestsTemplate = {
+  studyPlacePreference: TState["studyPlacePreference"];
+  setStudyPlacePreference: TDispatchFuncs["setStudyPlacePreference"];
+};
 const dummyRegions = [
   "서울",
   "경기",
@@ -25,7 +30,7 @@ const dummyLocatons = [
   "광진구",
 ];
 
-function StudyPlaceTemplate() {
+function StudyPlaceTemplate(props: TInterestsTemplate) {
   const dummyUsername = "웅진";
 
   return (

@@ -1,7 +1,13 @@
 import ButtonOptionDetail from "@/components/organisms/ButtonOptionDetail";
 import MatchingTitle from "@/components/molecules/MatchingTitle";
+import { TState, TDispatchFuncs } from "@/components/pages/MatchingPage";
 
-function StudyTypeTemplate() {
+type TStudyTypeTemplate = {
+  studyTypePreference: TState["studyTypePreference"];
+  setStudyTypePreference: TDispatchFuncs["setStudyTypePreference"];
+};
+
+function StudyTypeTemplate(props: TStudyTypeTemplate) {
   const dummyUsername = "웅진";
 
   return (
