@@ -3,9 +3,9 @@ import Icon from "../atoms/Icon";
 type TButtonLabel = {
   text: string;
   icon?: React.ReactNode;
-  theme: "primary" | "secondary" | "ordinary" | "shadow" | "kakao";
-  // isActive: boolean;
   onClick?: () => void;
+  isActive?: boolean;
+  theme: "primary" | "secondary" | "ordinary" | "shadow" | "kakao";
   role:
     | "matchingItem"
     | "category"
@@ -50,7 +50,9 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
   switch (datas.role) {
     case "matchingItem":
       btnType = "w-full h-full text-[16px] gap-[10px] ";
-
+      activeClassName = datas.isActive
+        ? "border border-mainColor !bg-main-100 text-mainColor "
+        : "";
       break;
 
     case "category":
@@ -98,11 +100,12 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
       className={
         `flex font-bold justify-center items-center rounded-[3px] shrink-0 ` +
         btnTheme +
-        btnType
+        btnType +
+        activeClassName
       }
     >
       {datas.icon}
-      <span>{datas.text}</span>
+      <span className="">{datas.text}</span>
     </button>
   );
 }

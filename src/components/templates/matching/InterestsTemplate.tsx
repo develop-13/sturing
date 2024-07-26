@@ -2,78 +2,64 @@
 import ButtonLabel from "@/components/molecules/ButtonLabel";
 import MatchingTitle from "../../molecules/MatchingTitle";
 import Icon from "@/components/atoms/Icon";
+import { TIconData } from "@/components/atoms/Icon";
+import { TState, TDispatchFuncs } from "@/components/pages/MatchingPage";
+
+type TInterestsTemplate = {
+  fieldLevels: TState["fieldLevels"];
+  addInterest: TDispatchFuncs["addInterest"];
+  deleteInterest: TDispatchFuncs["deleteInterest"];
+};
 
 const dummyUsername = "웅진";
 
-function InterestsTemplate() {
+type TInterest = { id: string; text: string; iconType: TIconData["type"] }[];
+
+const interests: TInterest = [
+  { id: "design", text: "디자인", iconType: "DESIGN" },
+  { id: "tech", text: "개발 · 테크", iconType: "TECH" },
+  { id: "business", text: "비즈니스", iconType: "BUSINESS" },
+  { id: "marketing", text: "마케팅", iconType: "MARKETING" },
+  { id: "economy", text: "경제", iconType: "ECONOMY" },
+  { id: "language", text: "외국어", iconType: "LANGUAGE" },
+  { id: "certification", text: "자격증", iconType: "CERTIFICATION" },
+  { id: "selfDevelop", text: "자기계발", iconType: "SELFDEVELOP" },
+];
+
+function InterestsTemplate({
+  fieldLevels,
+  deleteInterest,
+  addInterest,
+}: TInterestsTemplate) {
+  console.log("logging in InterestsTemplate");
+
   return (
     <section className="flex flex-col gap-[40px] py-[20px]">
       <MatchingTitle role="INTEREST" userName={dummyUsername} />
       <main className="grid grid-cols-2 gap-[15px] w-full h-[405px]">
-        <ButtonLabel
-          datas={{
-            text: "디자인",
-            icon: <Icon type="DESIGN" />,
-            theme: "ordinary",
-            role: "matchingItem",
-          }}
-        />
-        <ButtonLabel
-          datas={{
-            text: "개발 · 테크",
-            icon: <Icon type="TECH" />,
-            theme: "ordinary",
-            role: "matchingItem",
-          }}
-        />
-        <ButtonLabel
-          datas={{
-            text: "비즈니스",
-            icon: <Icon type="BUSINESS" />,
-            theme: "ordinary",
-            role: "matchingItem",
-          }}
-        />
-        <ButtonLabel
-          datas={{
-            text: "마케팅",
-            icon: <Icon type="MARKETING" />,
-            theme: "ordinary",
-            role: "matchingItem",
-          }}
-        />
-        <ButtonLabel
-          datas={{
-            text: "경제",
-            icon: <Icon type="ECONOMY" />,
-            theme: "ordinary",
-            role: "matchingItem",
-          }}
-        />
-        <ButtonLabel
-          datas={{
-            text: "외국어",
-            icon: <Icon type="LANGUAGE" />,
-            theme: "ordinary",
-            role: "matchingItem",
-          }}
-        />
-        <ButtonLabel
-          datas={{
-            text: "자격증",
-            icon: <Icon type="CERTIFICATION" />,
-            theme: "ordinary",
-            role: "matchingItem",
-          }}
-        />
-        <ButtonLabel
-          datas={{
-            text: "자기계발",
-            icon: <Icon type="SELFDEVELOP" />,
-            theme: "ordinary",
-            role: "matchingItem",
-          }}
-        />
+        {interests.map((interest) => (
+          <ButtonLabel
+            key={interest.id}
+            datas={{
+              isActive: fieldLevels.has(interest.id),
+              text: interest.text,
+              icon: <Icon type={interest.iconType} />,
+              theme: "ordinary",
+              role: "matchingItem",
+              onClick: () => {
+                if (fieldLevels.has(interest.id)) {
+                  deleteInterest(interest.id);
+                  return;
+                }
+                if (fieldLevels.size >= 3) {
+                  alert("3개 이상만 선택가능합니다");
+                  return;
+                }
+                addInterest(interest.id);
+              },
+            }}
+          />
+        ))}
       </main>
     </section>
   );

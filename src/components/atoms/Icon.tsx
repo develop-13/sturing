@@ -16,7 +16,7 @@ import { GoShare } from "react-icons/go";
 import { FaRegUser } from "react-icons/fa6";
 import { GrPowerReset } from "react-icons/gr";
 
-type TIconData = {
+export type TIconData = {
   type:
     | "BELL"
     | "CHECKED"

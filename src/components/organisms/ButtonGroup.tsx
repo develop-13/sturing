@@ -23,20 +23,38 @@ function ButtonGroup({ children, gap }: TButtonGroup) {
 
 export default ButtonGroup;
 
-export type TInactiveStudyDataSet = Map<
-  Exclude<TInactiveSelectedOption, null>,
+export type TInactiveStudyTabOption = "info" | "member" | null; // StudyDetailPage 에서도 사용해야함
+export type TInactiveStudyTabDataSet = Map<
+  Exclude<TInactiveStudyTabOption, null>,
   string
 >;
-export type TInactiveSelectedOption = "info" | "member" | null; // StudyDetailPage 에서도 사용해야함
-type InactiveStudyProps = {
-  selectedOption: TInactiveSelectedOption;
-  dataSet: TInactiveStudyDataSet;
-  onClick: (selectedOption: TInactiveSelectedOption) => void;
+
+export type TMatchingInterestTabOption = string | null;
+// | "design"
+// | "tech"
+// | "economy"
+// | "language"
+// | "selfDevelop";
+// 사용자가 관심있어하는 흥미분야의 속성이 문자열로 들어옴
+export type TMatchingInterestTabDataset = Map<
+  TMatchingInterestTabOption,
+  string
+>;
+
+// 제네릭 타입을 사용하여 유연한 타입 정의
+export type TTabProps<OptionType extends string | null> = {
+  selectedOption?: OptionType;
+  dataSet: Map<OptionType, string>;
+  onClick: (selectedOption: OptionType) => void;
 };
 
-export function TabButtonGroup(props: InactiveStudyProps) {
+export function TabButtonGroup<OptionType extends string | null>(
+  props: TTabProps<OptionType>
+) {
   let commonStyle = "flex-grow basis-0 h-full ";
   let selectedStyle = commonStyle + "border-b-2 border-mainColor";
+
+  console.log("TabButtonGroup render!");
 
   return (
     <ButtonGroup gap={12}>

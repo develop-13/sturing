@@ -2,10 +2,15 @@ import Icon from "@/components/atoms/Icon";
 import ButtonLabel from "@/components/molecules/ButtonLabel";
 import MatchingTitle from "@/components/molecules/MatchingTitle";
 import React from "react";
+import { TState, TDispatchFuncs } from "@/components/pages/MatchingPage";
 
+type TAtmosphereTemplate = {
+  studyAtmospherePreference: TState["studyAtmospherePreference"];
+  setStudyAtmospherePreference: TDispatchFuncs["setStudyAtmospherePreference"];
+};
 const dummyUsername = "웅진";
 
-function AtmosphereTemplate() {
+function AtmosphereTemplate(props: TAtmosphereTemplate) {
   return (
     <section className="flex flex-col gap-[40px] py-[20px]">
       <MatchingTitle role="ATMOSPHERE" userName={dummyUsername} />{" "}

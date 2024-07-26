@@ -9,8 +9,8 @@ import Button from "../molecules/Button";
 import StudyOverviewItem from "../molecules/StudyOverviewItem";
 import {
   TabButtonGroup,
-  TInactiveStudyDataSet,
-  TInactiveSelectedOption,
+  TInactiveStudyTabDataSet,
+  TInactiveStudyTabOption,
 } from "../organisms/ButtonGroup";
 import InfoBox from "../organisms/InfoBox";
 import StudyOverview from "../organisms/StudyOverview";
@@ -34,7 +34,7 @@ const iconAtmosphereMapping: IconAtmosphereMapping = {
   ],
 };
 
-const dataSet: TInactiveStudyDataSet = new Map([
+const dataSet: TInactiveStudyTabDataSet = new Map([
   ["info", "정보"],
   ["member", "팀원"],
 ]);
@@ -42,7 +42,7 @@ const dataSet: TInactiveStudyDataSet = new Map([
 function StudyDetailPage() {
   const router = useRouter();
   const params = useParams<{ sid: string }>();
-  const [selected, setSelected] = useState<TInactiveSelectedOption>(null);
+  const [selected, setSelected] = useState<TInactiveStudyTabOption>(null);
   const [studyInfoBoxTop, setStudyInfoBoxTop] = useState(0);
   const [memberInfoBoxTop, setMemberInfoBoxTop] = useState(0);
   const boxRef = {
@@ -55,10 +55,9 @@ function StudyDetailPage() {
   useEffect(() => {
     const data = fetchStudyDetail(params.sid);
     setStudyDetail(data);
-    console.log(data);
   }, [params.sid]);
 
-  const onClickBtn = (selectedOption: TInactiveSelectedOption) => {
+  const onClickBtn = (selectedOption: TInactiveStudyTabOption) => {
     setSelected((prev) => selectedOption);
     switch (selectedOption) {
       case "info":
