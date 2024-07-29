@@ -9,7 +9,7 @@ import { IoMdClose } from "react-icons/io";
 import { CiBookmark } from "react-icons/ci";
 import { IoSearchOutline } from "react-icons/io5";
 import { BsChatSquareDots } from "react-icons/bs";
-import Icon_Logo from "@/svg/Icon-logo";
+import Icon_Logo from "@/public/svg/ect/Icon-logo";
 import { SlMenu } from "react-icons/sl";
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
 import { GoShare } from "react-icons/go";

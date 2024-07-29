@@ -7,11 +7,7 @@ import Icon from "../atoms/Icon";
 import Text from "../atoms/Text";
 import Button from "../molecules/Button";
 import StudyOverviewItem from "../molecules/StudyOverviewItem";
-import {
-  TabButtonGroup,
-  TInactiveStudyTabDataSet,
-  TInactiveStudyTabOption,
-} from "../organisms/ButtonGroup";
+import { TabButtonGroup } from "../organisms/ButtonGroup";
 import InfoBox from "../organisms/InfoBox";
 import StudyOverview from "../organisms/StudyOverview";
 import Header from "../organisms/Header";
@@ -34,32 +30,30 @@ const iconAtmosphereMapping: IconAtmosphereMapping = {
   ],
 };
 
-const dataSet: TInactiveStudyTabDataSet = new Map([
-  ["info", "정보"],
-  ["member", "팀원"],
-]);
+const buttonGroupData = ["info", "member"];
 
 function StudyDetailPage() {
+  // console.log(`studyDetailPage render!`);
   const router = useRouter();
   const params = useParams<{ sid: string }>();
-  const [selected, setSelected] = useState<TInactiveStudyTabOption>(null);
+  // const [selected, setSelected] = useState<null | string>(null);
+  const [selectedIdx, setSelected] = useState(0);
   const [studyInfoBoxTop, setStudyInfoBoxTop] = useState(0);
   const [memberInfoBoxTop, setMemberInfoBoxTop] = useState(0);
+  const [studyDetail, setStudyDetail] = useState<TStudy | undefined>(undefined);
   const boxRef = {
     info: useRef<HTMLDivElement>(null),
     member: useRef<HTMLDivElement>(null),
   };
-
-  const [studyDetail, setStudyDetail] = useState<TStudy | undefined>(undefined);
 
   useEffect(() => {
     const data = fetchStudyDetail(params.sid);
     setStudyDetail(data);
   }, [params.sid]);
 
-  const onClickBtn = (selectedOption: TInactiveStudyTabOption) => {
-    setSelected((prev) => selectedOption);
-    switch (selectedOption) {
+  const onClickBtn = (selectedOptionIdx: number) => {
+    setSelected(selectedOptionIdx);
+    switch (buttonGroupData[selectedOptionIdx]) {
       case "info":
         window.scrollTo({ top: studyInfoBoxTop, behavior: "smooth" });
         break;
@@ -102,10 +96,9 @@ function StudyDetailPage() {
       />
       <TabButtonGroup
         onClick={onClickBtn}
-        selectedOption={selected}
-        dataSet={dataSet}
+        selectedOptionIdx={selectedIdx}
+        buttonGroupData={buttonGroupData}
       />
-
       <section className="flex flex-col gap-[16px] study_detail_main px-[16px]">
         <ul className="flex flex-col gap-[12px] border-b pt-[12px] pb-[20px] border-gray-300 study_detail_overview">
           <StudyOverviewItem

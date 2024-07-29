@@ -1,3 +1,4 @@
+"use client";
 import { studyDatas } from "@/db/studyDatas";
 import Icon from "../atoms/Icon";
 import Text from "../atoms/Text";
@@ -9,6 +10,7 @@ import Header from "../organisms/Header";
 import StudyBox from "../organisms/StudyBox";
 
 function SearchPage() {
+  console.log("studyPage render");
   return (
     <div>
       <Header

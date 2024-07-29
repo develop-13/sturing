@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 enableMapSet();
 
 export type TState = {
+  interests: string[];
   fieldLevels: Map<string, string>;
   studyTypePreference: string;
   studyPlacePreference: Set<string>;
@@ -25,6 +26,7 @@ export type TState = {
 };
 
 const initialState: TState = {
+  interests: [],
   fieldLevels: new Map(), // 여기에 속성으로 흥미분야, 속성의 값으로 흥미분야의 레벨 들어갈 것임.
   studyTypePreference: "",
   studyPlacePreference: new Set(), // "경기/광주"
@@ -46,9 +48,13 @@ function MatchingReducer(state: TState, action: Action): TState {
   return produce(state, (draft) => {
     switch (action.type) {
       case "addInterest":
+        draft.interests.push(action.payload.interest);
         draft.fieldLevels.set(action.payload.interest, "");
         break;
       case "deleteInterest":
+        draft.interests = draft.interests.filter(
+          (interest) => interest !== action.payload.interest
+        );
         draft.fieldLevels.delete(action.payload.interest);
         break;
       case "setLevel":
@@ -58,9 +64,12 @@ function MatchingReducer(state: TState, action: Action): TState {
         draft.studyTypePreference = action.payload;
         break;
       case "setStudyPlacePreference":
-        draft.studyPlacePreference = new Set([
-          action.payload.region + "/" + action.payload.location,
-        ]);
+        draft.studyPlacePreference.add(
+          action.payload.region + "/" + action.payload.location
+        );
+        // draft.studyPlacePreference = new Set([
+        //   action.payload.region + "/" + action.payload.location,
+        // ]);
         break;
       case "setStudyAtmospherePreference":
         draft.studyAtmospherePreference = new Set(action.payload.atmosphere);
@@ -82,6 +91,7 @@ const steps = [
   ),
   (state: TState, DispatchFuncs: TDispatchFuncs) => (
     <SkilledTemplate
+      interests={state.interests}
       fieldLevels={state.fieldLevels}
       setLevel={DispatchFuncs.setLevel}
     />
@@ -178,6 +188,23 @@ function MatchingPage() {
   };
 
   const goNextStep = () => {
+    if (!state.fieldLevels.size) {
+      alert("최소 1개 이상의 관심분야를 선택해 주세요");
+      return;
+    }
+
+    let levelSelectionDone = true;
+
+    state.fieldLevels.forEach((value, key) => {
+      if (step === 1 && value === "") {
+        alert("선택하신 관심분야들에 대한 수준을 모두 선택해주세요");
+        levelSelectionDone = false;
+        return;
+      }
+    });
+
+    if (!levelSelectionDone) return;
+
     if (step >= steps.length - 1) {
       // 홈으로 가게 하기
       return;

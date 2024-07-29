@@ -18,16 +18,28 @@ function StudyTypeTemplate(props: TStudyTypeTemplate) {
           role="CHECK"
           checkType="defaultCheck"
           text="온라인 스터디"
+          isActive={props.studyTypePreference === "online"}
+          onClick={() => {
+            props.setStudyTypePreference("online");
+          }}
         />
         <ButtonOptionDetail
           role="CHECK"
           checkType="defaultCheck"
           text="오프라인 스터디"
+          isActive={props.studyTypePreference === "offline"}
+          onClick={() => {
+            props.setStudyTypePreference("offline");
+          }}
         />
         <ButtonOptionDetail
           role="CHECK"
           checkType="defaultCheck"
           text="온오프라인 상관 없어요"
+          isActive={props.studyTypePreference === "both"}
+          onClick={() => {
+            props.setStudyTypePreference("both");
+          }}
         />
       </div>
     </section>

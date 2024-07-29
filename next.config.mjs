@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.output.publicPath = "_next/";
@@ -13,3 +13,5 @@ const nextConfig = {
     return config;
   },
 };
+
+export default nextConfig;

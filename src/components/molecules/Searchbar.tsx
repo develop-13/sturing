@@ -1,18 +1,19 @@
 "use client";
 import { useRouter } from "next/navigation";
 import Icon from "../atoms/Icon";
+import { useState } from "react";
 
 type TSearchbar = {
   placeholder?: string;
   usage: "header" | "main";
   value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-function Searchbar({ placeholder, usage, value }: TSearchbar) {
+function Searchbar({ placeholder, usage, value, onChange }: TSearchbar) {
   const router = useRouter();
   let searchbarSize = "";
   let searchIconColor = "";
-
   switch (usage) {
     case "header":
       searchbarSize = "px-[16px] h-[36px]";
@@ -35,6 +36,7 @@ function Searchbar({ placeholder, usage, value }: TSearchbar) {
         placeholder={placeholder}
         className="flex-1 border-none outline-none bg-transparent text-[14px] text-gray-1000 font-bold placeholder:text-gray-700"
         value={value}
+        onChange={onChange}
       />
       <Icon
         type="SEARCH"

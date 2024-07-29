@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Text from "../atoms/Text";
+import { global } from "@/translation/translations";
 import Button from "../molecules/Button";
 import { usePathname } from "next/navigation";
 
@@ -13,7 +14,7 @@ type TButtonGroup = {
 function ButtonGroup({ children, gap }: TButtonGroup) {
   return (
     <div
-      className="h-[46px] px-[16px] bg-transparent border-b border-t border-gray-300 flex justify-between items-center "
+      className="h-[46px] px-[16px] bg-transparent border-b border-gray-300 flex justify-between items-center "
       style={{ gap: gap }}
     >
       {children}
@@ -23,55 +24,37 @@ function ButtonGroup({ children, gap }: TButtonGroup) {
 
 export default ButtonGroup;
 
-export type TInactiveStudyTabOption = "info" | "member" | null; // StudyDetailPage 에서도 사용해야함
-export type TInactiveStudyTabDataSet = Map<
-  Exclude<TInactiveStudyTabOption, null>,
-  string
->;
-
-export type TMatchingInterestTabOption = string | null;
-// | "design"
-// | "tech"
-// | "economy"
-// | "language"
-// | "selfDevelop";
-// 사용자가 관심있어하는 흥미분야의 속성이 문자열로 들어옴
-export type TMatchingInterestTabDataset = Map<
-  TMatchingInterestTabOption,
-  string
->;
-
 // 제네릭 타입을 사용하여 유연한 타입 정의
-export type TTabProps<OptionType extends string | null> = {
-  selectedOption?: OptionType;
-  dataSet: Map<OptionType, string>;
-  onClick: (selectedOption: OptionType) => void;
+export type TTabProps = {
+  selectedOptionIdx: number;
+  buttonGroupData: string[];
+  onClick: (selectedIdx: number) => void;
 };
 
-export function TabButtonGroup<OptionType extends string | null>(
-  props: TTabProps<OptionType>
-) {
+export function TabButtonGroup(props: TTabProps) {
   let commonStyle = "flex-grow basis-0 h-full ";
   let selectedStyle = commonStyle + "border-b-2 border-mainColor";
 
   console.log("TabButtonGroup render!");
+  console.log(props.buttonGroupData);
 
   return (
     <ButtonGroup gap={12}>
-      {Array.from(props.dataSet).map(([key, text]) => {
-        if (key == props.selectedOption) {
+      {props.buttonGroupData.map((data, idx) => {
+        if (data == props.buttonGroupData[props.selectedOptionIdx]) {
           return (
             <Button
               onClick={() => {
-                props.onClick(key);
+                props.onClick(idx);
               }}
-              key={key}
+              key={data}
               theme="transparent"
               extraCss={selectedStyle}
               // 선택된 값과 data가 같으면 selectedStyle 적용하게 하기
             >
               <Text size="sm" weight="bold" color="main">
-                {text}
+                {/* {global[data]} */}
+                {data}
               </Text>
             </Button>
           );
@@ -79,14 +62,15 @@ export function TabButtonGroup<OptionType extends string | null>(
           return (
             <Button
               onClick={() => {
-                props.onClick(key);
+                props.onClick(idx);
               }}
-              key={key}
+              key={data}
               theme="transparent"
               extraCss={commonStyle}
             >
               <Text size="sm" weight="bold" color="gray-700">
-                {text}
+                {/* {global[data]} */}
+                {data}
               </Text>
             </Button>
           );
@@ -105,7 +89,7 @@ export function TabButtonGroup<OptionType extends string | null>(
 // 하지만 이번 프로젝트에서는 NavButtonGroup안에의 내용이 다 똑같아서 그냥 컴포넌트 안에서 정의해주도록 함.
 
 export function NavButtonGroup() {
-  let btnStyle = "flex-grow basis-0 h-full ";
+  let btnStyle = "flex-grow border-t basis-0 h-full ";
   const pathname = usePathname();
 
   return (

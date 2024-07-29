@@ -8,6 +8,7 @@ type TTEXT = {
   text: string;
   onClick?: () => void;
   title: string;
+  isActive: boolean;
 };
 
 type TCheck = {
@@ -15,19 +16,29 @@ type TCheck = {
   text: string;
   onClick?: () => void;
   checkType: "defaultCheck" | "onClickCheck";
+  isActive: boolean;
 };
 
 type TButtonOptionDetail = TTEXT | TCheck;
 
+let activeCss = "border border-mainColor !bg-main-100 !text-mainColor ";
+
 // 옵션으로 사용되는 버튼
 function ButtonOptionDetail(props: TButtonOptionDetail) {
+  console.log(props.isActive);
+
+  let activeClassName = props.isActive ? activeCss : "";
+
   switch (props.role) {
     case "TEXT":
       return (
         <Button
+          onClick={props.onClick}
           theme="ordinary"
           shape="button"
-          extraCss="h-[64px] px-[24px] gap-[18px] !justify-start"
+          extraCss={
+            "h-[64px] px-[24px] gap-[18px] !justify-start " + activeClassName
+          }
         >
           <Text size="sm" weight="bold">
             {props.title}
@@ -38,21 +49,45 @@ function ButtonOptionDetail(props: TButtonOptionDetail) {
         </Button>
       );
     case "CHECK":
-      return <CheckButtonOption type={props.checkType} text={props.text} />;
+      return (
+        <CheckButtonOption
+          type={props.checkType}
+          text={props.text}
+          isActive={props.isActive}
+          onClick={props.onClick}
+        />
+      );
   }
 }
 export default ButtonOptionDetail;
 
-function CheckButtonOption({ text, type }: { text: string; type: string }) {
+function CheckButtonOption({
+  text,
+  type,
+  isActive,
+  onClick,
+}: {
+  text: string;
+  type: string;
+  isActive: boolean;
+  onClick?: () => void;
+}) {
+  let activeClassName = isActive ? activeCss : "";
+
   switch (type) {
     case "defaultCheck":
       return (
         <Button
           theme="ordinary"
           shape="button"
-          extraCss="h-[64px] px-[24px] justify-between "
+          extraCss={"h-[64px] px-[24px] justify-between " + activeClassName}
+          onClick={onClick}
         >
-          <Text size="base" weight="bold" color="gray-700">
+          <Text
+            size="base"
+            weight="bold"
+            color={isActive ? "main" : "gray-700"}
+          >
             {text}
           </Text>
           <Icon type="CHECKED" />
@@ -60,7 +95,10 @@ function CheckButtonOption({ text, type }: { text: string; type: string }) {
       );
     case "onClickCheck":
       return (
-        <Button theme="border-bottom" extraCss="h-[49px] justify-between ">
+        <Button
+          theme="border-bottom"
+          extraCss={"h-[49px] justify-between " + activeClassName}
+        >
           <Text size="sm" weight="bold" color="gray-700">
             {text}
           </Text>
