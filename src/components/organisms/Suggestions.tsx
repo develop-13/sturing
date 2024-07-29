@@ -36,7 +36,7 @@ function Suggestions(props: TSuggestions) {
           key={uuidv4()}
           currentQuery={props.currentQuery}
           suggestion={suggestion}
-          onSelect={() => {
+          onClick={() => {
             console.log(`onSelect occurred in Suggestions`);
             props.onSelect(suggestion);
           }}
@@ -51,15 +51,15 @@ export default Suggestions;
 function SuggestionItem({
   currentQuery,
   suggestion,
-  onSelect,
+  onClick,
 }: {
   currentQuery: string;
   suggestion: string;
-  onSelect: () => void;
+  onClick: () => void;
 }) {
   return (
     <div
-      onClick={onSelect}
+      onClick={onClick}
       className="w-full h-[41px] flex items-start gap-2 cursor-pointer hover:bg-main-100"
     >
       <Icon type="SEARCH" color="text-gray-500" size={13} />

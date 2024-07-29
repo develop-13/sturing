@@ -1,3 +1,4 @@
+import React, { useState, useCallback, useEffect } from "react";
 import Icon from "@/components/atoms/Icon";
 import Text from "@/components/atoms/Text";
 import Button from "@/components/molecules/Button";
@@ -7,64 +8,49 @@ import Searchbar from "@/components/molecules/Searchbar";
 import ButtonOptionDetail from "@/components/organisms/ButtonOptionDetail";
 import Suggestions from "@/components/organisms/Suggestions";
 import { TState, TDispatchFuncs } from "@/components/pages/MatchingPage";
-import { useCallback, useEffect, useState } from "react";
+import locationData from "@/data/location.json";
 
 type TInterestsTemplate = {
   studyPlacePreference: TState["studyPlacePreference"];
   setStudyPlacePreference: TDispatchFuncs["setStudyPlacePreference"];
 };
 
-type TLocationData = {
-  [region: string]: string[];
-};
-
 function StudyPlaceTemplate(props: TInterestsTemplate) {
   const dummyUsername = "웅진";
-  const [data, setData] = useState<TLocationData>({});
+  const [currentRegion, setCurrentRetion] = useState("");
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
 
-  console.log("studyPlaceTemplate render");
+  console.log(`StudyPlaceTemplate render`);
   console.log(`query=${query}`);
   console.log(`suggestions=${suggestions}`);
 
-  const onSelect = useCallback((word: string) => {
-    console.log("onSelect occured");
+  const onSelect = (word: string) => {
+    console.log("onSelect occurred");
     const [region, location] = word.split(" ");
     if (props.studyPlacePreference.has(region + "/" + location)) {
       alert("이미 선택하신 지역입니다");
       return;
     }
+    setQuery(""); // 선택 후 query를 초기화합니다.
     props.setStudyPlacePreference(region, location);
-  }, []);
+  };
 
   const onChangeQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(`onChangeQuery occured`);
-    console.log(e.target);
     setQuery(e.target.value);
   };
 
   useEffect(() => {
-    console.log(`data useEffect occured`);
-    fetch("/data/location.json")
-      .then((response) => response.json())
-      .then((data) => setData(data))
-      .catch((error) => console.error("Error loading data:", error));
-  }, []);
-  // 처음에만 실행
-
-  useEffect(() => {
-    console.log("suggestion useEffect occured");
-    if (suggestions.length === 0 && query === "") {
-      return;
-    }
-
     if (query === "") {
+      if (suggestions.length === 0) {
+        return;
+      }
       setSuggestions([]);
       return;
     }
+
     const results: string[] = [];
-    for (const [region, districts] of Object.entries(data)) {
+    for (const [region, districts] of Object.entries(locationData)) {
       districts.forEach((district) => {
         let fullName = region + " " + district;
         if (fullName.includes(query)) {
@@ -92,13 +78,11 @@ function StudyPlaceTemplate(props: TInterestsTemplate) {
         />
       </div>
 
-      <article className="h-[333px] overflow-y-scroll  mx-[-16px] border-t border-gray-300 ">
+      <article className="h-[333px] overflow-y-scroll mx-[-16px] border-t border-gray-300">
         <div className="flex">
           <div className="w-[133px] pl-[16px] bg-gray-200 ">
             {/* 주요도시 및 도 */}
           </div>
-
-          {/* 지역구 */}
           <div className="flex-grow pl-[16px] pr-[32px]"></div>
         </div>
       </article>
