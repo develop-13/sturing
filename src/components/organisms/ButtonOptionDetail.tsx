@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import Icon from "../atoms/Icon";
 import Text from "../atoms/Text";
 import Button from "../molecules/Button";
@@ -21,7 +22,7 @@ type TCheck = {
 
 type TButtonOptionDetail = TTEXT | TCheck;
 
-let activeCss = "border border-mainColor !bg-main-100 !text-mainColor ";
+let activeCss = "border-mainColor !bg-main-100 !text-mainColor ";
 
 // 옵션으로 사용되는 버튼
 function ButtonOptionDetail(props: TButtonOptionDetail) {
@@ -59,7 +60,7 @@ function ButtonOptionDetail(props: TButtonOptionDetail) {
       );
   }
 }
-export default ButtonOptionDetail;
+export default React.memo(ButtonOptionDetail);
 
 function CheckButtonOption({
   text,
@@ -96,14 +97,20 @@ function CheckButtonOption({
     case "onClickCheck":
       return (
         <Button
-          theme="border-bottom"
-          extraCss={"h-[49px] justify-between " + activeClassName}
+          theme="transparent"
+          extraCss={
+            "h-[49px] justify-between pl-[16px] pr-[32px] " + activeClassName
+          }
+          onClick={onClick}
         >
-          <Text size="sm" weight="bold" color="gray-700">
+          <Text size="sm" weight="bold" color={isActive ? "main" : "gray-700"}>
             {text}
           </Text>
-          {/* <Icon type="CHECKED" /> */}
+          {isActive && <Icon type="CHECKED" />}
         </Button>
       );
   }
 }
+const MemoizedCheckButtonOption = React.memo(CheckButtonOption);
+
+export { MemoizedCheckButtonOption as CheckButtonOption };

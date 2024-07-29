@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Text from "../atoms/Text";
-import { global } from "@/translation/translations";
 import Button from "../molecules/Button";
 import { usePathname } from "next/navigation";
 
@@ -14,7 +13,7 @@ type TButtonGroup = {
 function ButtonGroup({ children, gap }: TButtonGroup) {
   return (
     <div
-      className="h-[46px] px-[16px] bg-transparent border-b border-gray-300 flex justify-between items-center "
+      className="h-[46px] px-[16px] bg-transparent border-t border-b border-gray-300 flex justify-between items-center "
       style={{ gap: gap }}
     >
       {children}
@@ -69,7 +68,6 @@ export function TabButtonGroup(props: TTabProps) {
               extraCss={commonStyle}
             >
               <Text size="sm" weight="bold" color="gray-700">
-                {/* {global[data]} */}
                 {data}
               </Text>
             </Button>
@@ -89,7 +87,7 @@ export function TabButtonGroup(props: TTabProps) {
 // 하지만 이번 프로젝트에서는 NavButtonGroup안에의 내용이 다 똑같아서 그냥 컴포넌트 안에서 정의해주도록 함.
 
 export function NavButtonGroup() {
-  let btnStyle = "flex-grow border-t basis-0 h-full ";
+  let btnStyle = "flex-grow basis-0 h-full ";
   const pathname = usePathname();
 
   return (

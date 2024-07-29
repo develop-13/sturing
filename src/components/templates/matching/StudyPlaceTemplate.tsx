@@ -9,15 +9,25 @@ import ButtonOptionDetail from "@/components/organisms/ButtonOptionDetail";
 import Suggestions from "@/components/organisms/Suggestions";
 import { TState, TDispatchFuncs } from "@/components/pages/MatchingPage";
 import locationData from "@/data/location.json";
+import { v4 as uuidv4 } from "uuid";
 
+type locationData = {
+  [key: string]: string[];
+};
+// 유지보수하기 힘들어졌다.. 액션 하나 추가할때 마다 고쳐야 할 부분이 상당함..
 type TInterestsTemplate = {
   studyPlacePreference: TState["studyPlacePreference"];
-  setStudyPlacePreference: TDispatchFuncs["setStudyPlacePreference"];
+  addStudyPlacePreference: TDispatchFuncs["addStudyPlacePreference"];
+  deleteStudyPlacePreference: TDispatchFuncs["deleteStudyPlacePreference"];
 };
+
+const data: locationData = locationData;
 
 function StudyPlaceTemplate(props: TInterestsTemplate) {
   const dummyUsername = "웅진";
-  const [currentRegion, setCurrentRetion] = useState("");
+  const [currentRegion, setCurrentRegion] = useState<string>(
+    Object.keys(data)[0]
+  );
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
 
@@ -28,12 +38,16 @@ function StudyPlaceTemplate(props: TInterestsTemplate) {
   const onSelect = (word: string) => {
     console.log("onSelect occurred");
     const [region, location] = word.split(" ");
-    if (props.studyPlacePreference.has(region + "/" + location)) {
+    if (props.studyPlacePreference.has(region + " " + location)) {
       alert("이미 선택하신 지역입니다");
       return;
     }
+    if (props.studyPlacePreference.size >= 3) {
+      alert("최대 3개까지만 선택 가능합니다.");
+      return;
+    }
     setQuery(""); // 선택 후 query를 초기화합니다.
-    props.setStudyPlacePreference(region, location);
+    props.addStudyPlacePreference(region, location);
   };
 
   const onChangeQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,7 +64,7 @@ function StudyPlaceTemplate(props: TInterestsTemplate) {
     }
 
     const results: string[] = [];
-    for (const [region, districts] of Object.entries(locationData)) {
+    for (const [region, districts] of Object.entries(data)) {
       districts.forEach((district) => {
         let fullName = region + " " + district;
         if (fullName.includes(query)) {
@@ -82,14 +96,66 @@ function StudyPlaceTemplate(props: TInterestsTemplate) {
         <div className="flex">
           <div className="w-[133px] pl-[16px] bg-gray-200 ">
             {/* 주요도시 및 도 */}
+            {Object.keys(data).map((region) => (
+              <Button
+                theme="transparent"
+                extraCss={
+                  region === currentRegion
+                    ? "h-[50px] !bg-mainColor "
+                    : "h-[50px] "
+                }
+                onClick={() => setCurrentRegion(region)}
+                key={uuidv4()}
+              >
+                <Text
+                  size="sm"
+                  weight="bold"
+                  color={region === currentRegion ? "white" : "gray-600"}
+                >
+                  {region}
+                </Text>
+              </Button>
+            ))}
           </div>
-          <div className="flex-grow pl-[16px] pr-[32px]"></div>
+          <div className="flex-grow">
+            {/* 해당 도의 지역구들 */}
+            {data[currentRegion].map((location) => (
+              <ButtonOptionDetail
+                role="CHECK"
+                text={location}
+                checkType="onClickCheck"
+                isActive={props.studyPlacePreference.has(
+                  currentRegion + " " + location
+                )}
+                onClick={() => {
+                  let fullName = currentRegion + " " + location;
+                  onSelect(fullName);
+                }}
+                key={uuidv4()}
+              />
+            ))}
+          </div>
         </div>
       </article>
 
       {/* 선택된 항목 */}
       <div className="flex gap-[14px] mt-[26px]">
-        {props.studyPlacePreference}
+        {Array.from(props.studyPlacePreference).map((location) => (
+          <ButtonLabel
+            key={uuidv4()}
+            datas={{
+              onClose: () => {
+                props.deleteStudyPlacePreference(
+                  location.split(" ")[0],
+                  location.split(" ")[1]
+                );
+              },
+              role: "close",
+              theme: "secondary",
+              text: location.split(" ")[1],
+            }}
+          />
+        ))}
       </div>
     </section>
   );

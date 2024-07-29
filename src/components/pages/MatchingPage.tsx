@@ -39,10 +39,18 @@ type Action =
   | { type: "setLevel"; payload: { interest: string; level: string } }
   | { type: "setStudyTypePreference"; payload: string }
   | {
-      type: "setStudyPlacePreference";
+      type: "addStudyPlacePreference";
       payload: { region: string; location: string };
     }
-  | { type: "setStudyAtmospherePreference"; payload: { atmosphere: string[] } };
+  | {
+      type: "deleteStudyPlacePreference";
+      payload: { region: string; location: string };
+    }
+  | { type: "addStudyAtmospherePreference"; payload: { atmosphere: string } }
+  | {
+      type: "deleteStudyAtmospherePreference";
+      payload: { atmosphere: string };
+    };
 
 function MatchingReducer(state: TState, action: Action): TState {
   return produce(state, (draft) => {
@@ -63,16 +71,22 @@ function MatchingReducer(state: TState, action: Action): TState {
       case "setStudyTypePreference":
         draft.studyTypePreference = action.payload;
         break;
-      case "setStudyPlacePreference":
+      case "addStudyPlacePreference":
         draft.studyPlacePreference.add(
-          action.payload.region + "/" + action.payload.location
+          action.payload.region + " " + action.payload.location
         );
-        // draft.studyPlacePreference = new Set([
-        //   action.payload.region + "/" + action.payload.location,
-        // ]);
         break;
-      case "setStudyAtmospherePreference":
-        draft.studyAtmospherePreference = new Set(action.payload.atmosphere);
+      case "deleteStudyPlacePreference":
+        draft.studyPlacePreference.delete(
+          action.payload.region + " " + action.payload.location
+        );
+        break;
+      case "addStudyAtmospherePreference":
+        // draft.studyAtmospherePreference = new Set(action.payload.atmosphere);
+        draft.studyAtmospherePreference.add(action.payload.atmosphere);
+        break;
+      case "deleteStudyAtmospherePreference":
+        draft.studyAtmospherePreference.delete(action.payload.atmosphere);
         break;
       default:
         break;
@@ -105,13 +119,17 @@ const steps = [
   (state: TState, DispatchFuncs: TDispatchFuncs) => (
     <StudyPlaceTemplate
       studyPlacePreference={state.studyPlacePreference}
-      setStudyPlacePreference={DispatchFuncs.setStudyPlacePreference}
+      addStudyPlacePreference={DispatchFuncs.addStudyPlacePreference}
+      deleteStudyPlacePreference={DispatchFuncs.deleteStudyPlacePreference}
     />
   ),
   (state: TState, DispatchFuncs: TDispatchFuncs) => (
     <AtmosphereTemplate
       studyAtmospherePreference={state.studyAtmospherePreference}
-      setStudyAtmospherePreference={DispatchFuncs.setStudyAtmospherePreference}
+      addStudyAtmospherePreference={DispatchFuncs.addStudyAtmospherePreference}
+      deleteStudyAtmospherePreference={
+        DispatchFuncs.deleteStudyAtmospherePreference
+      }
     />
   ),
   (state: TState) => <CompleteTemplate />,
@@ -123,8 +141,10 @@ export type TDispatchFuncs = {
   deleteInterest: (interest: string) => void;
   setLevel: (interest: string, level: string) => void;
   setStudyTypePreference: (preference: string) => void;
-  setStudyPlacePreference: (region: string, location: string) => void;
-  setStudyAtmospherePreference: (atmosphere: string[]) => void;
+  addStudyPlacePreference: (region: string, location: string) => void;
+  deleteStudyPlacePreference: (region: string, location: string) => void;
+  addStudyAtmospherePreference: (atmosphere: string) => void;
+  deleteStudyAtmospherePreference: (atmosphere: string) => void;
 };
 
 function MatchingPage() {
@@ -150,20 +170,35 @@ function MatchingPage() {
     dispatch({ type: "setStudyTypePreference", payload: preference });
   };
 
-  const setStudyPlacePreference: TDispatchFuncs["setStudyPlacePreference"] = (
+  const deleteStudyPlacePreference: TDispatchFuncs["deleteStudyPlacePreference"] =
+    (region, location) => {
+      dispatch({
+        type: "deleteStudyPlacePreference",
+        payload: { region, location },
+      });
+    };
+
+  const addStudyPlacePreference: TDispatchFuncs["addStudyPlacePreference"] = (
     region,
     location
   ) => {
     dispatch({
-      type: "setStudyPlacePreference",
+      type: "addStudyPlacePreference",
       payload: { region, location },
     });
   };
 
-  const setStudyAtmospherePreference: TDispatchFuncs["setStudyAtmospherePreference"] =
-    (atmosphere) => {
+  const addStudyAtmospherePreference: TDispatchFuncs["addStudyAtmospherePreference"] =
+    (atmosphere: string) => {
       dispatch({
-        type: "setStudyAtmospherePreference",
+        type: "addStudyAtmospherePreference",
+        payload: { atmosphere },
+      });
+    };
+  const deleteStudyAtmospherePreference: TDispatchFuncs["deleteStudyAtmospherePreference"] =
+    (atmosphere: string) => {
+      dispatch({
+        type: "deleteStudyAtmospherePreference",
         payload: { atmosphere },
       });
     };
@@ -173,8 +208,10 @@ function MatchingPage() {
     deleteInterest,
     setLevel,
     setStudyTypePreference,
-    setStudyPlacePreference,
-    setStudyAtmospherePreference,
+    addStudyPlacePreference,
+    addStudyAtmospherePreference,
+    deleteStudyPlacePreference,
+    deleteStudyAtmospherePreference,
   };
 
   const router = useRouter();

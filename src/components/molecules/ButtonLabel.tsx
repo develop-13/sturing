@@ -4,6 +4,7 @@ type TButtonLabel = {
   text: string;
   icon?: React.ReactNode;
   onClick?: () => void;
+  onClose?: () => void;
   isActive?: boolean;
   theme: "primary" | "secondary" | "ordinary" | "shadow" | "kakao";
   role:
@@ -89,7 +90,7 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
           }
         >
           <span>{datas.text}</span>
-          <Icon type="CLOSE" />
+          <Icon type="CLOSE" onClick={datas.onClose} />
         </button>
       );
   }
