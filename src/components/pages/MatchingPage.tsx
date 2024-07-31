@@ -1,5 +1,4 @@
 "use client";
-import { produce, enableMapSet } from "immer";
 import React, { useReducer, useState } from "react";
 // 각 템플릿 컴포넌트를 가져옵니다.
 import InterestsTemplate from "@/components/templates/matching/InterestsTemplate";
@@ -13,117 +12,43 @@ import Progressbar from "../atoms/Progressbar";
 import CompleteTemplate from "../templates/matching/CompleteTemplate";
 import Header from "../organisms/Header";
 import { useRouter } from "next/navigation";
-
-// Immer에서 Map과 Set을 사용할 수 있도록 플러그인 활성화
-enableMapSet();
-
-export type TState = {
-  interests: string[];
-  fieldLevels: Map<string, string>;
-  studyTypePreference: string;
-  studyPlacePreference: Set<string>;
-  studyAtmospherePreference: Set<string>;
-};
-
-const initialState: TState = {
-  interests: [],
-  fieldLevels: new Map(), // 여기에 속성으로 흥미분야, 속성의 값으로 흥미분야의 레벨 들어갈 것임.
-  studyTypePreference: "",
-  studyPlacePreference: new Set(), // "경기/광주"
-  studyAtmospherePreference: new Set(),
-};
-
-type Action =
-  | { type: "addInterest"; payload: { interest: string } }
-  | { type: "deleteInterest"; payload: { interest: string } }
-  | { type: "setLevel"; payload: { interest: string; level: string } }
-  | { type: "setStudyTypePreference"; payload: string }
-  | {
-      type: "addStudyPlacePreference";
-      payload: { region: string; location: string };
-    }
-  | {
-      type: "deleteStudyPlacePreference";
-      payload: { region: string; location: string };
-    }
-  | { type: "addStudyAtmospherePreference"; payload: { atmosphere: string } }
-  | {
-      type: "deleteStudyAtmospherePreference";
-      payload: { atmosphere: string };
-    };
-
-function MatchingReducer(state: TState, action: Action): TState {
-  return produce(state, (draft) => {
-    switch (action.type) {
-      case "addInterest":
-        draft.interests.push(action.payload.interest);
-        draft.fieldLevels.set(action.payload.interest, "");
-        break;
-      case "deleteInterest":
-        draft.interests = draft.interests.filter(
-          (interest) => interest !== action.payload.interest
-        );
-        draft.fieldLevels.delete(action.payload.interest);
-        break;
-      case "setLevel":
-        draft.fieldLevels.set(action.payload.interest, action.payload.level);
-        break;
-      case "setStudyTypePreference":
-        draft.studyTypePreference = action.payload;
-        break;
-      case "addStudyPlacePreference":
-        draft.studyPlacePreference.add(
-          action.payload.region + " " + action.payload.location
-        );
-        break;
-      case "deleteStudyPlacePreference":
-        draft.studyPlacePreference.delete(
-          action.payload.region + " " + action.payload.location
-        );
-        break;
-      case "addStudyAtmospherePreference":
-        // draft.studyAtmospherePreference = new Set(action.payload.atmosphere);
-        draft.studyAtmospherePreference.add(action.payload.atmosphere);
-        break;
-      case "deleteStudyAtmospherePreference":
-        draft.studyAtmospherePreference.delete(action.payload.atmosphere);
-        break;
-      default:
-        break;
-    }
-  });
-}
+import {
+  MatchingReducer,
+  TDispatchFuncs,
+  TMatchingState,
+  initialState,
+} from "@/reducer/MatchingReducer";
 
 const steps = [
   // 각 컴포넌트가 사용하는 props 보내주기
-  (state: TState, DispatchFuncs: TDispatchFuncs) => (
+  (state: TMatchingState, DispatchFuncs: TDispatchFuncs) => (
     <InterestsTemplate
       fieldLevels={state.fieldLevels}
       deleteInterest={DispatchFuncs.deleteInterest}
       addInterest={DispatchFuncs.addInterest}
     />
   ),
-  (state: TState, DispatchFuncs: TDispatchFuncs) => (
+  (state: TMatchingState, DispatchFuncs: TDispatchFuncs) => (
     <SkilledTemplate
       interests={state.interests}
       fieldLevels={state.fieldLevels}
       setLevel={DispatchFuncs.setLevel}
     />
   ),
-  (state: TState, DispatchFuncs: TDispatchFuncs) => (
+  (state: TMatchingState, DispatchFuncs: TDispatchFuncs) => (
     <StudyTypeTemplate
       studyTypePreference={state.studyTypePreference}
       setStudyTypePreference={DispatchFuncs.setStudyTypePreference}
     />
   ),
-  (state: TState, DispatchFuncs: TDispatchFuncs) => (
+  (state: TMatchingState, DispatchFuncs: TDispatchFuncs) => (
     <StudyPlaceTemplate
       studyPlacePreference={state.studyPlacePreference}
       addStudyPlacePreference={DispatchFuncs.addStudyPlacePreference}
       deleteStudyPlacePreference={DispatchFuncs.deleteStudyPlacePreference}
     />
   ),
-  (state: TState, DispatchFuncs: TDispatchFuncs) => (
+  (state: TMatchingState, DispatchFuncs: TDispatchFuncs) => (
     <AtmosphereTemplate
       studyAtmospherePreference={state.studyAtmospherePreference}
       addStudyAtmospherePreference={DispatchFuncs.addStudyAtmospherePreference}
@@ -132,20 +57,8 @@ const steps = [
       }
     />
   ),
-  (state: TState) => <CompleteTemplate />,
+  (state: TMatchingState) => <CompleteTemplate />,
 ];
-
-// 각 dispatch 함수의 타입 정의
-export type TDispatchFuncs = {
-  addInterest: (interest: string) => void;
-  deleteInterest: (interest: string) => void;
-  setLevel: (interest: string, level: string) => void;
-  setStudyTypePreference: (preference: string) => void;
-  addStudyPlacePreference: (region: string, location: string) => void;
-  deleteStudyPlacePreference: (region: string, location: string) => void;
-  addStudyAtmospherePreference: (atmosphere: string) => void;
-  deleteStudyAtmospherePreference: (atmosphere: string) => void;
-};
 
 function MatchingPage() {
   console.log("log in MatchingPage");

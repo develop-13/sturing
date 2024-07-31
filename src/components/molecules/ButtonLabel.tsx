@@ -99,7 +99,7 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
     <button
       onClick={datas.onClick}
       className={
-        `flex font-bold justify-center items-center rounded-[3px] shrink-0 ` +
+        `flex font-bold justify-center items-center rounded-[3px] shrink-0 draggable` +
         btnTheme +
         btnType +
         activeClassName

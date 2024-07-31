@@ -1,7 +1,8 @@
+import RecruitmentPage from "@/components/pages/RecruitmentPage";
 import React from "react";
 
-function RecruitmentPage() {
-  return <div></div>;
+function page() {
+  return <RecruitmentPage />;
 }
 
-export default RecruitmentPage;
+export default page;

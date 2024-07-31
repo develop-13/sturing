@@ -7,7 +7,7 @@ import MatchingTitle from "@/components/molecules/MatchingTitle";
 import Searchbar from "@/components/molecules/Searchbar";
 import ButtonOptionDetail from "@/components/organisms/ButtonOptionDetail";
 import Suggestions from "@/components/organisms/Suggestions";
-import { TState, TDispatchFuncs } from "@/components/pages/MatchingPage";
+import { TMatchingState, TDispatchFuncs } from "@/reducer/MatchingReducer";
 import locationData from "@/data/location.json";
 import { v4 as uuidv4 } from "uuid";
 
@@ -16,7 +16,7 @@ type locationData = {
 };
 // 유지보수하기 힘들어졌다.. 액션 하나 추가할때 마다 고쳐야 할 부분이 상당함..
 type TInterestsTemplate = {
-  studyPlacePreference: TState["studyPlacePreference"];
+  studyPlacePreference: TMatchingState["studyPlacePreference"];
   addStudyPlacePreference: TDispatchFuncs["addStudyPlacePreference"];
   deleteStudyPlacePreference: TDispatchFuncs["deleteStudyPlacePreference"];
 };

@@ -36,7 +36,6 @@ function StudyDetailPage() {
   // console.log(`studyDetailPage render!`);
   const router = useRouter();
   const params = useParams<{ sid: string }>();
-  // const [selected, setSelected] = useState<null | string>(null);
   const [selectedIdx, setSelected] = useState(0);
   const [studyInfoBoxTop, setStudyInfoBoxTop] = useState(0);
   const [memberInfoBoxTop, setMemberInfoBoxTop] = useState(0);
@@ -68,7 +67,9 @@ function StudyDetailPage() {
       setInfoBoxTop(infoBoxTop);
     };
 
-  if (!studyDetail) return null;
+  if (!studyDetail) return;
+  // 한 번에 보여주기 위한 처리
+
   return (
     <div className="bg-gray-100">
       <Header

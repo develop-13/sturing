@@ -19,7 +19,7 @@ function Header({
   return (
     <header
       className={
-        "w-full h-[54px] px-[16px] flex justify-between items-center top-0 left-0 " +
+        "w-full h-[54px] flex justify-between items-center top-0 left-0 " +
         style
       }
     >

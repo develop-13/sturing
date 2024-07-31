@@ -1,13 +1,16 @@
 import ButtonOptionDetail from "@/components/organisms/ButtonOptionDetail";
 import MatchingTitle from "@/components/molecules/MatchingTitle";
 import { TabButtonGroup } from "@/components/organisms/ButtonGroup";
-import { TState, TDispatchFuncs } from "@/components/pages/MatchingPage";
+import {
+  TMatchingState,
+  TDispatchFuncs,
+} from "@/components/pages/MatchingPage";
 import { useState } from "react";
 import OptionButtonContainer from "@/components/organisms/OptionButtonContainer";
 
 type TSkilledTemplate = {
-  interests: TState["interests"];
-  fieldLevels: TState["fieldLevels"];
+  interests: TMatchingState["interests"];
+  fieldLevels: TMatchingState["fieldLevels"];
   setLevel: TDispatchFuncs["setLevel"];
 };
 const dummyUsername = "웅진";

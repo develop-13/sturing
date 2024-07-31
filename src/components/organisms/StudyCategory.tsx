@@ -5,28 +5,16 @@ import Icon from "../atoms/Icon";
 import ButtonLabel from "../molecules/ButtonLabel";
 
 export default function StudyCategory() {
-  let isDragging = true;
-  const dragging = (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
-    if (!isDragging) return;
-    e.currentTarget.scrollLeft -= e.movementX;
-  };
-
   const router = useRouter();
 
   const onClickHandler = () => {
-    router.push("search/result");
+    // router.push("search/result");
   };
 
   return (
     <>
       <div className="relative overflow-x-hidden">
-        <ul
-          className="flex gap-2 overflow-x-hidden list-none px-2"
-          onMouseMove={dragging}
-          onMouseDown={() => (isDragging = true)}
-          onMouseUp={() => (isDragging = false)}
-          onMouseLeave={() => (isDragging = false)}
-        >
+        <ul className="flex gap-2 overflow-x-hidden list-none px-2">
           <ButtonLabel
             datas={{
               text: "디자인",

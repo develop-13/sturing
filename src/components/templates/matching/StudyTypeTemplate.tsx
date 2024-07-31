@@ -1,9 +1,12 @@
 import ButtonOptionDetail from "@/components/organisms/ButtonOptionDetail";
 import MatchingTitle from "@/components/molecules/MatchingTitle";
-import { TState, TDispatchFuncs } from "@/components/pages/MatchingPage";
+import {
+  TMatchingState,
+  TDispatchFuncs,
+} from "@/components/pages/MatchingPage";
 
 type TStudyTypeTemplate = {
-  studyTypePreference: TState["studyTypePreference"];
+  studyTypePreference: TMatchingState["studyTypePreference"];
   setStudyTypePreference: TDispatchFuncs["setStudyTypePreference"];
 };
 

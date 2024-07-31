@@ -41,7 +41,7 @@ function Searchbar({ placeholder, usage, value, onChange }: TSearchbar) {
       <Icon
         type="SEARCH"
         color={searchIconColor}
-        onClick={() => router.push("/search/result")}
+        onClick={() => router.push(`/search/result?query=${value}`)}
       />
     </div>
   );

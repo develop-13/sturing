@@ -8,9 +8,17 @@ import Searchbar from "../molecules/Searchbar";
 import { NavButtonGroup } from "../organisms/ButtonGroup";
 import Header from "../organisms/Header";
 import StudyBox from "../organisms/StudyBox";
+import { useState } from "react";
 
 function SearchPage() {
   console.log("studyPage render");
+
+  const [searchgingWord, setSearchingWord] = useState("");
+
+  const onChangeSearchbar = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchingWord(e.target.value);
+  };
+
   return (
     <div>
       <Header
@@ -32,6 +40,8 @@ function SearchPage() {
         <Searchbar
           placeholder="관심 스터디 분야나 강의명을 검색해 보세요"
           usage="main"
+          onChange={onChangeSearchbar}
+          value={searchgingWord}
         />
         <article>
           <div className="flex justify-between ">

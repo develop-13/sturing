@@ -43,16 +43,20 @@ export default function RecommendPage() {
               placeholder="관심 스터디 분야나 강의명을 검색해보세요"
             />
           </div>
+          {/*  */}
           <TitleLink
-            props={{ title: "분야별 스터디 탐색하기", hasArrow: false }}
+            props={{ title: "분야별 스터디 탐색하기", hasArrow: true }}
           />
           <StudyCategory />
+          {/*  */}
           <Divider type="row" py={4} color="gray-100" />
+          {/*  */}
           <TitleLink props={{ title: "이번주 인기 스터디", hasArrow: false }} />
           <div className="flex flex-row gap-2 pl-4">
             <StudyBox props={studyDatas[0]} />
             <StudyBox props={studyDatas[1]} />
           </div>
+          {/*  */}
           <TitleLink props={{ title: "새로 개설된 스터디", hasArrow: false }} />
           <div className="flex flex-row gap-2 pl-4">
             {/* 만약 실무엣 이러면 보안 상 안좋을 것 같다. */}

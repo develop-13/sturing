@@ -1,25 +1,94 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Icon from "../atoms/Icon";
 import Searchbar from "../molecules/Searchbar";
 import Header from "../organisms/Header";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Button from "../molecules/Button";
+import Text from "../atoms/Text";
+import { v4 as uuidv4 } from "uuid";
+import Divider from "../atoms/Divider";
+import FilterModal from "../organisms/FilterModal";
+
+const filterItem = [
+  { id: "category", text: "분야" },
+  { id: "location", text: "지역" },
+  { id: "maxPeopleNum", text: "인원" },
+  { id: "duration", text: "기간" },
+  { id: "career", text: "직업" },
+  { id: "role", text: "역할" },
+];
+
+// 상태값 두 개를 두어야 할 것 같음
+// 서버에서 가져온 검색어에 해당한 스터디 객체들의 배열
+// 스터디 객체들을 목록순으로 보여줄 info 객체?
 
 function SearchResultPage() {
-  const router = useRouter();
+  let isDragging = false;
+  const dragging = (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
+    if (!isDragging) return;
+    e.currentTarget.scrollLeft -= e.movementX;
+  };
+  const searchParams = useSearchParams();
+  const query = searchParams.get("query") || "";
+  const [currentQuery, setCurrentQuery] = useState(query);
+  const onChangeCurrentQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentQuery(e.target.value);
+  };
+
+  const [studyDatas, setStudyDatas] = useState([]);
+
+  const [showFilterModal, setShowFilterModal] = useState(true);
 
   useEffect(() => {
-    alert("해당 페이지는 개발중입니다");
-    router.push("/recommend");
-    return;
-  });
+    // query에 해당하는 검색어들을 서버로부터 가져오는 통신작업이 필요
+    // const fetchedStudyDatas = fetchStudyData(query);
+    // setStudyDatas(fetchedStudyDatas);
+  }, []);
 
   return (
-    <div>
-      <Header
-        leftSlot={<Icon type="BACK" />}
-        middleSlot={<Searchbar usage="header" placeholder="" />}
-      />
+    <div className="relative">
+      {showFilterModal && <FilterModal studyDatas={studyDatas} />}
+      <section className="flex flex-col gap-3 px-4 pb-4">
+        <Header
+          leftSlot={<Icon type="BACK" />}
+          middleSlot={
+            <Searchbar
+              usage="header"
+              placeholder=""
+              onChange={onChangeCurrentQuery}
+              value={currentQuery}
+            />
+          }
+        />
+        <div className="flex ">
+          <ul
+            className="flex gap-[6px] relative overflow-hidden"
+            onMouseMove={dragging}
+            onMouseDown={() => (isDragging = true)}
+            onMouseUp={() => (isDragging = false)}
+            onMouseLeave={() => (isDragging = false)}
+          >
+            {filterItem.map((it) => (
+              <Button
+                key={uuidv4()}
+                theme="transparent-border"
+                shape="tag"
+                extraCss="px-[16px] !h-[35px] shrink-0"
+              >
+                <Text size="sm" weight="bold" color="gray-800">
+                  {it.text}
+                </Text>
+                <Icon type="DOWN" />
+              </Button>
+            ))}
+          </ul>
+          <div className="bg-white z-[99999px] flex items-center">
+            <Icon type="FILTER" />
+          </div>
+        </div>
+      </section>
+      <Divider type="row" py={3} color="gray-100" />
     </div>
   );
 }

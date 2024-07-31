@@ -2,11 +2,14 @@ import Icon from "@/components/atoms/Icon";
 import ButtonLabel from "@/components/molecules/ButtonLabel";
 import MatchingTitle from "@/components/molecules/MatchingTitle";
 import React from "react";
-import { TState, TDispatchFuncs } from "@/components/pages/MatchingPage";
+import {
+  TMatchingState,
+  TDispatchFuncs,
+} from "@/components/pages/MatchingPage";
 import { TIconData } from "@/components/atoms/Icon";
 
 type TAtmosphereTemplate = {
-  studyAtmospherePreference: TState["studyAtmospherePreference"];
+  studyAtmospherePreference: TMatchingState["studyAtmospherePreference"];
   addStudyAtmospherePreference: TDispatchFuncs["addStudyAtmospherePreference"];
   deleteStudyAtmospherePreference: TDispatchFuncs["deleteStudyAtmospherePreference"];
 };

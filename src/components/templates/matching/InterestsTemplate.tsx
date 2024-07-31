@@ -3,10 +3,13 @@ import ButtonLabel from "@/components/molecules/ButtonLabel";
 import MatchingTitle from "../../molecules/MatchingTitle";
 import Icon from "@/components/atoms/Icon";
 import { TIconData } from "@/components/atoms/Icon";
-import { TState, TDispatchFuncs } from "@/components/pages/MatchingPage";
+import {
+  TMatchingState,
+  TDispatchFuncs,
+} from "@/components/pages/MatchingPage";
 
 type TInterestsTemplate = {
-  fieldLevels: TState["fieldLevels"];
+  fieldLevels: TMatchingState["fieldLevels"];
   addInterest: TDispatchFuncs["addInterest"];
   deleteInterest: TDispatchFuncs["deleteInterest"];
 };

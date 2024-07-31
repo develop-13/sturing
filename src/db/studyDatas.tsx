@@ -251,3 +251,25 @@ export const studyDatas: TStudy[] = [
     },
   },
 ];
+
+// 구분선..
+
+const studyDetail_Participant_ExmapleData = {
+  members: [
+    {
+      id: "1",
+      name: "갓생살자",
+      role: "일정팀장",
+      progress: 90,
+      isPlaceholder: true,
+    },
+
+    {
+      id: "2",
+      name: "마스터",
+      role: "기록팀장",
+      progress: 75,
+      isPlaceholder: false,
+    },
+  ],
+};

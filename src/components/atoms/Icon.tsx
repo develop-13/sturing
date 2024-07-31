@@ -62,7 +62,9 @@ export type TIconData = {
     | "DATE_COLOR"
     | "CHECKBOX"
     | "LOCATION_COLOR"
-    | "STAR";
+    | "STAR"
+    | "DOWN"
+    | "ADD";
   onClick?: () => void;
   color?: string; // 같은 아이콘이라도 색이 다른 경우 때문에 추가하였습니다.
   size?: number;
@@ -74,6 +76,28 @@ const IconDataSet: Record<
     size?: number
   ) => { icon: React.ReactNode; size?: number; color?: string }
 > = {
+  ADD: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/ect/add.svg"
+        alt=""
+        width={size || 20}
+        height={size || 20}
+      />
+    ),
+    color,
+  }),
+  DOWN: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/ect/down.svg"
+        alt=""
+        width={size || 12}
+        height={size || 12}
+      />
+    ),
+    color,
+  }),
   STAR: (color?: string, size?: number) => ({
     icon: (
       <Image

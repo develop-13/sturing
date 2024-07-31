@@ -6,16 +6,12 @@ import Button from "../molecules/Button";
 import { usePathname } from "next/navigation";
 
 type TButtonGroup = {
-  gap: number;
   children?: React.ReactNode;
 };
 
-function ButtonGroup({ children, gap }: TButtonGroup) {
+function ButtonGroup({ children }: TButtonGroup) {
   return (
-    <div
-      className="h-[46px] px-[16px] bg-transparent border-t border-b border-gray-300 flex justify-between items-center "
-      style={{ gap: gap }}
-    >
+    <div className="h-[46px] bg-transparent border-b border-gray-300 flex gap-4 justify-between items-center  ">
       {children}
     </div>
   );
@@ -38,7 +34,7 @@ export function TabButtonGroup(props: TTabProps) {
   console.log(props.buttonGroupData);
 
   return (
-    <ButtonGroup gap={12}>
+    <div className="h-[46px] bg-transparent border-b border-gray-300 flex gap-4 justify-between items-center  ">
       {props.buttonGroupData.map((data, idx) => {
         if (data == props.buttonGroupData[props.selectedOptionIdx]) {
           return (
@@ -74,7 +70,7 @@ export function TabButtonGroup(props: TTabProps) {
           );
         }
       })}
-    </ButtonGroup>
+    </div>
   );
 }
 
@@ -87,11 +83,11 @@ export function TabButtonGroup(props: TTabProps) {
 // 하지만 이번 프로젝트에서는 NavButtonGroup안에의 내용이 다 똑같아서 그냥 컴포넌트 안에서 정의해주도록 함.
 
 export function NavButtonGroup() {
-  let btnStyle = "flex-grow basis-0 h-full ";
+  let btnStyle = "flex-grow basis-0 h-full border-gray-400 ";
   const pathname = usePathname();
 
   return (
-    <ButtonGroup gap={12}>
+    <div className="h-[46px] bg-transparent border-y border-gray-300 flex gap-4 justify-between items-center  ">
       <Button theme="transparent" extraCss={btnStyle}>
         <Link href={"/recommend"}>
           <Text
@@ -125,6 +121,6 @@ export function NavButtonGroup() {
           </Text>
         </Link>
       </Button>
-    </ButtonGroup>
+    </div>
   );
 }

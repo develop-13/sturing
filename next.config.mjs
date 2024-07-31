@@ -2,9 +2,8 @@
 const nextConfig = {
   reactStrictMode: false,
   webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.output.publicPath = "_next/";
-    }
+    config.output.publicPath = "/_next/";
+
     config.module.rules.push({
       test: /\.svg$/,
       use: ["@svgr/webpack"],

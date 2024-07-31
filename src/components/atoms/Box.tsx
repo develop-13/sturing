@@ -15,7 +15,7 @@ type TBoxColorTheme =
   | "transparent"
   | "border-bottom";
 
-type TBoxShape = "tag" | "rounded" | "button" | "imagebox";
+type TBoxShape = "tag" | "rounded" | "button" | "imagebox" | "border-dot";
 
 function BoxTheme(theme: TBoxColorTheme | undefined) {
   switch (theme) {
@@ -46,6 +46,8 @@ function BoxShape(shape: TBoxShape | undefined) {
       return "rounded-[5px] h-[42px] ";
     case "imagebox":
       return "rounded-[8px] h-[100px] w-[182px] ";
+    case "border-dot":
+      return "rounded-[5px] p-3 border-dashed ";
     default:
       return " ";
   }
