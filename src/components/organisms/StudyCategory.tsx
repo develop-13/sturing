@@ -2,7 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import Icon from "../atoms/Icon";
-import ButtonLabel from "../molecules/ButtonLabel";
+import ButtonLabel from "../molecules/IconLabelButton";
+import IconLabelButton from "../molecules/IconLabelButton/IconLabelButton";
 
 export default function StudyCategory() {
   const router = useRouter();
@@ -15,6 +16,14 @@ export default function StudyCategory() {
     <>
       <div className="relative overflow-x-hidden">
         <ul className="flex gap-2 overflow-x-hidden list-none px-2">
+          <IconLabelButton
+            datas={{
+              usage: "category",
+              text: "뉴비",
+              icon: <Icon type="DESIGN" />,
+              onClick: onClickHandler,
+            }}
+          />
           <ButtonLabel
             datas={{
               text: "디자인",

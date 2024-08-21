@@ -2,7 +2,8 @@ import React, { useState, useCallback, useEffect } from "react";
 import Icon from "@/components/atoms/Icon";
 import Text from "@/components/atoms/Text";
 import Button from "@/components/molecules/Button";
-import ButtonLabel from "@/components/molecules/ButtonLabel";
+import IconLabelButton from "@/components/molecules/IconLabelButton";
+import IconLabelButton2 from "@/components/molecules/IconLabelButton/IconLabelButton";
 import MatchingTitle from "@/components/molecules/MatchingTitle";
 import Searchbar from "@/components/molecules/Searchbar";
 import ButtonOptionDetail from "@/components/organisms/ButtonOptionDetail";
@@ -141,18 +142,34 @@ function StudyPlaceTemplate(props: TInterestsTemplate) {
       {/* 선택된 항목 */}
       <div className="flex gap-[14px] mt-[26px]">
         {Array.from(props.studyPlacePreference).map((location) => (
-          <ButtonLabel
+          // <IconLabelButton
+          //   key={uuidv4()}
+          //   datas={{
+          //     onClick: () => {
+          //       props.deleteStudyPlacePreference(
+          //         location.split(" ")[0],
+          //         location.split(" ")[1]
+          //       );
+          //     },
+          //     role: "close",
+          //     theme: "secondary",
+          //     text: location.split(" ")[1],
+          //   }}
+          // />
+
+          <IconLabelButton2
             key={uuidv4()}
             datas={{
-              onClose: () => {
+              onClick: () => {
                 props.deleteStudyPlacePreference(
                   location.split(" ")[0],
                   location.split(" ")[1]
                 );
               },
-              role: "close",
-              theme: "secondary",
               text: location.split(" ")[1],
+              usage: "close",
+              extraStyle:
+                "px-[14px] py-[9px] bg-main-100 text-mainColor rounded-[8px] border border-mainColor",
             }}
           />
         ))}

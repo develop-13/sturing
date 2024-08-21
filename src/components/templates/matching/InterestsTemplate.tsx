@@ -1,12 +1,9 @@
 "use client";
-import ButtonLabel from "@/components/molecules/ButtonLabel";
+import IconLabelButton from "@/components/molecules/IconLabelButton";
 import MatchingTitle from "../../molecules/MatchingTitle";
 import Icon from "@/components/atoms/Icon";
 import { TIconData } from "@/components/atoms/Icon";
-import {
-  TMatchingState,
-  TDispatchFuncs,
-} from "@/components/pages/MatchingPage";
+import { TMatchingState, TDispatchFuncs } from "@/reducer/MatchingReducer";
 
 type TInterestsTemplate = {
   fieldLevels: TMatchingState["fieldLevels"];
@@ -41,7 +38,7 @@ function InterestsTemplate({
       <MatchingTitle role="INTEREST" userName={dummyUsername} />
       <main className="grid grid-cols-2 gap-[15px] w-full h-[405px]">
         {interests.map((interest) => (
-          <ButtonLabel
+          <IconLabelButton
             key={interest.id}
             datas={{
               isActive: fieldLevels.has(interest.id),

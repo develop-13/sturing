@@ -3,7 +3,7 @@ import { studyDatas } from "@/db/studyDatas";
 import Icon from "../atoms/Icon";
 import Text from "../atoms/Text";
 import Button from "../molecules/Button";
-import ButtonLabel from "../molecules/ButtonLabel";
+import ButtonLabel from "../molecules/IconLabelButton";
 import Searchbar from "../molecules/Searchbar";
 import { NavButtonGroup } from "../organisms/ButtonGroup";
 import Header from "../organisms/Header";
@@ -72,27 +72,47 @@ function SearchPage() {
             추천검색어
           </Text>
           <div className="flex gap-3 flex-wrap mt-5">
-            <Button theme="secondary" shape="button" extraCss="px-[10px]">
+            <Button
+              theme="transparent-border"
+              shape="button"
+              extraCss="px-[10px] border-2"
+            >
               <Text size="sm" weight="bold" color="main">
                 스프링
               </Text>
             </Button>
-            <Button theme="secondary" shape="button" extraCss="px-[10px]">
+            <Button
+              theme="transparent-border"
+              shape="button"
+              extraCss="px-[10px] border-2"
+            >
               <Text size="sm" weight="bold" color="main">
                 AI
               </Text>
             </Button>
-            <Button theme="secondary" shape="button" extraCss="px-[10px]">
+            <Button
+              theme="transparent-border"
+              shape="button"
+              extraCss="px-[10px] border-2"
+            >
               <Text size="sm" weight="bold" color="main">
                 UIUX
               </Text>
             </Button>
-            <Button theme="secondary" shape="button" extraCss="px-[10px]">
+            <Button
+              theme="transparent-border"
+              shape="button"
+              extraCss="px-[10px] border-2"
+            >
               <Text size="sm" weight="bold" color="main">
                 CHAT GPT
               </Text>
             </Button>
-            <Button theme="secondary" shape="button" extraCss="px-[10px]">
+            <Button
+              theme="transparent-border"
+              shape="button"
+              extraCss="px-[10px] border-2"
+            >
               <Text size="sm" weight="bold" color="main">
                 JAVA
               </Text>

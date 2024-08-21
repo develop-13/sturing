@@ -1,5 +1,5 @@
 import Icon from "@/components/atoms/Icon";
-import ButtonLabel from "@/components/molecules/ButtonLabel";
+import IconLabelButton from "@/components/molecules/IconLabelButton/IconLabelButton";
 import MatchingTitle from "@/components/molecules/MatchingTitle";
 import React from "react";
 import { TMatchingState, TDispatchFuncs } from "@/reducer/MatchingReducer";
@@ -36,7 +36,7 @@ function AtmosphereTemplate(props: TAtmosphereTemplate) {
       <MatchingTitle role="ATMOSPHERE" userName={dummyUsername} />
       <main className="grid grid-cols-2 gap-[15px] w-full h-[405px]">
         {atmosphereItems.map((item) => (
-          <ButtonLabel
+          <IconLabelButton
             key={item.id}
             datas={{
               onClick: () => {
@@ -50,11 +50,10 @@ function AtmosphereTemplate(props: TAtmosphereTemplate) {
                 }
                 props.addStudyAtmospherePreference(item.id);
               },
-              isActive: props.studyAtmospherePreference.has(item.id),
               text: item.text,
+              usage: "matchingItem",
               icon: <Icon type={item.iconType} />,
-              theme: "ordinary",
-              role: "matchingItem",
+              isActive: props.studyAtmospherePreference.has(item.id),
             }}
           />
         ))}

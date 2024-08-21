@@ -8,7 +8,7 @@ type TButtonIcon = {
 };
 
 function ButtonIcon({ theme, type, onClick }: TButtonIcon) {
-  let btnIconStyle = "w-[58px] h-[58px] rounded-full";
+  let btnIconStyle = "w-[58px] h-[58px]";
 
   let icon: null | React.ReactNode = null;
 
@@ -28,7 +28,14 @@ function ButtonIcon({ theme, type, onClick }: TButtonIcon) {
   }
 
   return (
-    <Box props={{ theme: theme, extraCss: btnIconStyle, onClick: onClick }}>
+    <Box
+      props={{
+        theme: theme,
+        shape: "rounded",
+        extraCss: btnIconStyle,
+        onClick: onClick,
+      }}
+    >
       {icon}
     </Box>
   );

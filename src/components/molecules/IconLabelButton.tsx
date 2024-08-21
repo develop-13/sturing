@@ -4,7 +4,6 @@ type TButtonLabel = {
   text: string;
   icon?: React.ReactNode;
   onClick?: () => void;
-  onClose?: () => void;
   isActive?: boolean;
   theme: "primary" | "secondary" | "ordinary" | "shadow" | "kakao";
   role:
@@ -18,7 +17,8 @@ type TButtonLabel = {
     | "close";
 };
 
-function ButtonLabel({ datas }: { datas: TButtonLabel }) {
+// icon 과 라벨이 같이 있는 버튼
+function IconLabelButton({ datas }: { datas: TButtonLabel }) {
   // theme 에 따라 fontColor, backgroundColor, borderColor이 달라집니다.
   // role 에 따라 fontSize, height, width가 달라집니다.
 
@@ -90,7 +90,7 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
           }
         >
           <span>{datas.text}</span>
-          <Icon type="CLOSE" onClick={datas.onClose} />
+          <Icon type="CLOSE" onClick={datas.onClick} />
         </button>
       );
   }
@@ -111,4 +111,4 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
   );
 }
 
-export default ButtonLabel;
+export default IconLabelButton;

@@ -13,10 +13,10 @@ export type TBoxColorTheme =
   | "ordinary"
   | "transparent-border"
   | "transparent"
-  | "gray"
-  | "border-bottom";
+  | "gray";
+// | "border-bottom";
 
-type TBoxShape = "tag" | "rounded" | "button" | "imagebox" | "border-dot";
+export type TBoxShape = "tag" | "rounded" | "button" | "border-dot" | "full";
 
 function BoxTheme(theme: TBoxColorTheme | undefined) {
   switch (theme) {
@@ -27,14 +27,14 @@ function BoxTheme(theme: TBoxColorTheme | undefined) {
     case "ordinary":
       return "bg-white border border-gray-400 ";
     case "gray":
-      return "bg-gray-400 ";
+      return "bg-gray-300 ";
 
     case "transparent-border":
       return "bg-transparent border border-main-200 ";
     case "transparent":
       return "bg-transparent ";
-    case "border-bottom":
-      return "bg-transparent border-b border-gray-400 ";
+    // case "border-bottom":
+    //   return "bg-transparent border-b border-gray-400 ";
     default:
       return " ";
   }
@@ -48,8 +48,8 @@ function BoxShape(shape: TBoxShape | undefined) {
       return "rounded-full h-[50px] ";
     case "button":
       return "rounded-[5px] h-[42px] ";
-    case "imagebox":
-      return "rounded-[8px] h-[100px] w-[182px] ";
+    case "full":
+      return "rounded-[3px] w-full h-full text-[16px] gap-[10px] ";
     case "border-dot":
       return "rounded-[5px] p-3 border-dashed ";
     default:

@@ -14,7 +14,7 @@ import Header from "../organisms/Header";
 import { fetchStudyDetail } from "@/api/fetchStudyDetail";
 import { TStudy } from "@/types/study";
 import TitleLink from "../molecules/TitleLink";
-import ButtonLabel from "../molecules/ButtonLabel";
+import ButtonLabel from "../molecules/IconLabelButton";
 import UserInfoItem from "../molecules/UserInfoItem";
 
 type IconAtmosphereMapping = {
