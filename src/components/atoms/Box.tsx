@@ -7,12 +7,13 @@ export type TBox = {
   onClick?: () => void;
 };
 
-type TBoxColorTheme =
+export type TBoxColorTheme =
   | "primary"
   | "secondary"
   | "ordinary"
   | "transparent-border"
   | "transparent"
+  | "gray"
   | "border-bottom";
 
 type TBoxShape = "tag" | "rounded" | "button" | "imagebox" | "border-dot";
@@ -25,6 +26,9 @@ function BoxTheme(theme: TBoxColorTheme | undefined) {
       return "bg-white border border-mainColor ";
     case "ordinary":
       return "bg-white border border-gray-400 ";
+    case "gray":
+      return "bg-gray-400 ";
+
     case "transparent-border":
       return "bg-transparent border border-main-200 ";
     case "transparent":

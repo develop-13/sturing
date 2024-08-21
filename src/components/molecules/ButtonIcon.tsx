@@ -1,40 +1,36 @@
+import Box, { TBoxColorTheme } from "../atoms/Box";
+import Icon from "../atoms/Icon";
+
 type TButtonIcon = {
-  icon: React.ReactNode;
-  theme: "primary" | "secondary";
+  theme: TBoxColorTheme;
   type: "forward" | "backward" | "plus";
   onClick?: () => void;
 };
 
-function ButtonIcon({ icon, theme, type, onClick }: TButtonIcon) {
-  let btnTheme = "";
-  let btnType = "";
+function ButtonIcon({ theme, type, onClick }: TButtonIcon) {
+  let btnIconStyle = "w-[58px] h-[58px] rounded-full";
 
-  switch (theme) {
-    case "primary":
-      btnTheme = "bg-mainColor ";
-      break;
-
-    case "secondary":
-      btnTheme = "bg-gray-400 ";
-      break;
-  }
+  let icon: null | React.ReactNode = null;
 
   switch (type) {
     case "plus":
-      btnType = "shadow-lg ";
+      btnIconStyle += "shadow-lg ";
+      icon = <Icon type="ADD" color="text-white" />;
+      break;
+
+    case "forward":
+      icon = <Icon type="FORWARD" color="text-white" />;
+      break;
+
+    case "backward":
+      icon = <Icon type="BACK" color="text-white" />;
+      break;
   }
 
   return (
-    <button
-      className={
-        btnTheme +
-        btnType +
-        `w-[58px] h-[58px] rounded-full flex justify-center items-center`
-      }
-      onClick={onClick}
-    >
+    <Box props={{ theme: theme, extraCss: btnIconStyle, onClick: onClick }}>
       {icon}
-    </button>
+    </Box>
   );
 }
 

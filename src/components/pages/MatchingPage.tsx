@@ -66,6 +66,8 @@ function MatchingPage() {
   const [step, setStep] = useState(0);
   const [state, dispatch] = useReducer(MatchingReducer, initialState);
 
+  console.log(state);
+
   const addInterest: TDispatchFuncs["addInterest"] = (interest) => {
     dispatch({ type: "addInterest", payload: { interest } });
   };
@@ -170,18 +172,8 @@ function MatchingPage() {
       )}
       {steps[step](state, DispatchFuncs)}
       <div className="w-[375px] flex justify-between fixed left-1/2 transform -translate-x-1/2 bottom-[9px] px-[16px]">
-        <ButtonIcon
-          icon={<Icon type="BACK" color="text-white" />}
-          theme="secondary"
-          type="backward"
-          onClick={goPrevStep}
-        />
-        <ButtonIcon
-          icon={<Icon type="FORWARD" color="text-white" />}
-          theme="primary"
-          type="forward"
-          onClick={goNextStep}
-        />
+        <ButtonIcon theme="gray" type="backward" onClick={goPrevStep} />
+        <ButtonIcon theme="primary" type="forward" onClick={goNextStep} />
       </div>
     </div>
   );

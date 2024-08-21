@@ -2,10 +2,7 @@ import Icon from "@/components/atoms/Icon";
 import ButtonLabel from "@/components/molecules/ButtonLabel";
 import MatchingTitle from "@/components/molecules/MatchingTitle";
 import React from "react";
-import {
-  TMatchingState,
-  TDispatchFuncs,
-} from "@/components/pages/MatchingPage";
+import { TMatchingState, TDispatchFuncs } from "@/reducer/MatchingReducer";
 import { TIconData } from "@/components/atoms/Icon";
 
 type TAtmosphereTemplate = {

@@ -78,7 +78,7 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
       break;
 
     case "openStudy":
-      btnType = "w-auto px-[6px] h-[42px] text-[14px] gap-[10px] ";
+      btnType = "w-auto px-[12px] h-[42px] text-[14px] gap-[10px] ";
       break;
 
     case "close":
@@ -99,7 +99,7 @@ function ButtonLabel({ datas }: { datas: TButtonLabel }) {
     <button
       onClick={datas.onClick}
       className={
-        `flex font-bold justify-center items-center rounded-[3px] shrink-0 draggable` +
+        `flex font-bold justify-center items-center rounded-[3px] shrink-0 ` +
         btnTheme +
         btnType +
         activeClassName

@@ -1,3 +1,4 @@
+"use client";
 import TitleLink from "@/components/molecules/TitleLink";
 import StudyBanner from "@/components/organisms/StudyBanner";
 import StudyBox from "@/components/organisms/StudyBox";
@@ -10,8 +11,13 @@ import { NavButtonGroup } from "../organisms/ButtonGroup";
 import GoMatchingPage from "../molecules/GoMatchingPage";
 import Divider from "../atoms/Divider";
 import Searchbar from "../molecules/Searchbar";
+import Button from "../molecules/Button";
+import ButtonLabel from "../molecules/ButtonLabel";
+import { useRouter } from "next/navigation";
 
 export default function RecommendPage() {
+  const router = useRouter();
+
   return (
     <>
       <div className="flex flex-col overflow-hidden">
@@ -51,6 +57,20 @@ export default function RecommendPage() {
           {/*  */}
           <Divider type="row" py={4} color="gray-100" />
           {/*  */}
+          {/* 개설 플로팅 버튼? */}
+          <div className="flex flex-row gap-2 pl-4 fixed bottom-[9%] right-[3%]">
+            <ButtonLabel
+              datas={{
+                theme: "shadow",
+                role: "openStudy",
+                text: "내 스터디 개설하기",
+                icon: <Icon type="RLOGO" />,
+                onClick: () => {
+                  router.push("/recruitment");
+                },
+              }}
+            />
+          </div>
           <TitleLink props={{ title: "이번주 인기 스터디", hasArrow: false }} />
           <div className="flex flex-row gap-2 pl-4">
             <StudyBox props={studyDatas[0]} />
