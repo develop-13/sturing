@@ -18,7 +18,7 @@ export default function StudyCategory() {
         <ul className="flex gap-2 overflow-x-hidden list-none px-2">
           <IconLabelButton
             datas={{
-              usage: "category",
+              usage: "round",
               text: "뉴비",
               icon: <Icon type="DESIGN" />,
               onClick: onClickHandler,
@@ -27,7 +27,7 @@ export default function StudyCategory() {
           <ButtonLabel
             datas={{
               text: "디자인",
-              usage: "category",
+              usage: "round",
               onClick: onClickHandler,
               icon: <Icon type="DESIGN" />,
             }}
@@ -35,7 +35,7 @@ export default function StudyCategory() {
           <ButtonLabel
             datas={{
               text: "개발·테크",
-              usage: "category",
+              usage: "round",
               onClick: onClickHandler,
               icon: <Icon type="TECH" />,
             }}
@@ -43,7 +43,7 @@ export default function StudyCategory() {
           <ButtonLabel
             datas={{
               text: "마케팅",
-              usage: "category",
+              usage: "round",
               onClick: onClickHandler,
               icon: <Icon type="MARKETING" />,
             }}
@@ -51,7 +51,7 @@ export default function StudyCategory() {
           <ButtonLabel
             datas={{
               text: "비즈니스",
-              usage: "category",
+              usage: "round",
               onClick: onClickHandler,
               icon: <Icon type="BUSINESS" />,
             }}
@@ -59,7 +59,7 @@ export default function StudyCategory() {
           <ButtonLabel
             datas={{
               text: "경제",
-              usage: "category",
+              usage: "round",
               onClick: onClickHandler,
               icon: <Icon type="ECONOMY" />,
             }}
@@ -67,7 +67,7 @@ export default function StudyCategory() {
           <ButtonLabel
             datas={{
               text: "외국어",
-              usage: "category",
+              usage: "round",
 
               onClick: onClickHandler,
               icon: <Icon type="LANGUAGE" />,
@@ -76,7 +76,7 @@ export default function StudyCategory() {
           <ButtonLabel
             datas={{
               text: "자격증",
-              usage: "category",
+              usage: "round",
               onClick: onClickHandler,
               icon: <Icon type="CERTIFICATION" />,
             }}
@@ -84,7 +84,7 @@ export default function StudyCategory() {
           <ButtonLabel
             datas={{
               text: "자기계발",
-              usage: "category",
+              usage: "round",
               onClick: onClickHandler,
               icon: <Icon type="SELFDEVELOP" />,
             }}

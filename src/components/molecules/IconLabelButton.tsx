@@ -4,6 +4,7 @@ import Text from "@/components/atoms/Text";
 
 function WriteButton() {}
 
+// typq 별로 분리해야 srp..
 type TButtonLabel = {
   theme?: TBoxColorTheme;
   shape?: TBoxShape;
@@ -11,7 +12,7 @@ type TButtonLabel = {
   icon?: React.ReactNode;
   onClick?: () => void;
   isActive?: boolean;
-  usage: "matchingItem" | "category" | "close";
+  usage: "gridItem" | "round" | "close" | "checkBar";
   extraStyle?: string;
 };
 
@@ -23,18 +24,18 @@ function IconLabelButton({ datas }: { datas: TButtonLabel }) {
   let btnTheme: undefined | TBoxColorTheme = datas.theme;
   let btnShape: undefined | TBoxShape = datas.shape;
   let defaultBtnStyle = "inline shrink-0 font-bold text-sm ";
-  let activeClassName = "";
+  // let activeClassName = "";
 
   switch (datas.usage) {
-    case "matchingItem":
+    case "gridItem":
       btnTheme = datas.theme || "ordinary";
       btnShape = datas.shape || "full";
-      activeClassName = datas.isActive
-        ? "border border-mainColor !bg-main-100 text-mainColor "
-        : " ";
+      // activeClassName = datas.isActive
+      //   ? "border border-mainColor !bg-main-100 text-mainColor "
+      //   : " ";
       break;
 
-    case "category":
+    case "round":
       btnTheme = datas.theme || "ordinary";
       btnShape = datas.shape || "rounded";
       defaultBtnStyle += "w-auto px-[12px] gap-[8px] text-gray-700 ";
@@ -57,8 +58,25 @@ function IconLabelButton({ datas }: { datas: TButtonLabel }) {
           <Icon type="CLOSE" onClick={datas.onClick} />
         </Box>
       );
+
+    case "checkBar":
+      return (
+        <Box
+          props={{
+            isActive: datas.isActive,
+            onClick: datas.onClick,
+            theme: btnTheme,
+            shape: "bar",
+            extraCss:
+              defaultBtnStyle + `${datas.extraStyle ? datas.extraStyle : ""}`,
+          }}
+        >
+          <div className="flex justify-between"></div>
+        </Box>
+      );
+
     default:
-      return <div>없는 usage입니다</div>;
+      break;
   }
 
   return (
@@ -68,8 +86,9 @@ function IconLabelButton({ datas }: { datas: TButtonLabel }) {
         shape: btnShape,
         extraCss:
           defaultBtnStyle +
-          activeClassName +
+          // activeClassName +
           `${datas.extraStyle ? datas.extraStyle : ""}`,
+        isActive: datas.isActive,
         onClick: datas.onClick,
       }}
     >
@@ -80,3 +99,59 @@ function IconLabelButton({ datas }: { datas: TButtonLabel }) {
 }
 
 export default IconLabelButton;
+
+type TCheckBarButton = "checkOnClick" | "defaultCheck";
+
+export function CheckBarButton({
+  type,
+  isActive,
+  text,
+  onClick,
+}: {
+  type: TCheckBarButton;
+  isActive: boolean;
+  text: string;
+  onClick?: () => void;
+}) {
+  switch (type) {
+    case "checkOnClick":
+      return (
+        <Box
+          props={{
+            theme: "transparent",
+            shape: "bar",
+            isActive: isActive,
+            onClick: onClick,
+            extraCss: "h-[50px] flex justify-between ",
+          }}
+        >
+          <Text size="sm" weight="bold" color={isActive ? "main" : "gray-700"}>
+            {text}
+          </Text>
+          {isActive && <Icon type="CHECKED" />}
+        </Box>
+      );
+
+    case "defaultCheck":
+      return (
+        <Box
+          props={{
+            theme: "ordinary",
+            shape: "bar",
+            isActive: isActive,
+            extraCss: "flex justify-between ",
+            onClick: onClick,
+          }}
+        >
+          <Text
+            size="base"
+            weight="bold"
+            color={isActive ? "main" : "gray-700"}
+          >
+            {text}
+          </Text>
+          <Icon type="CHECKED" />
+        </Box>
+      );
+  }
+}

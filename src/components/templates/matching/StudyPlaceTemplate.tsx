@@ -2,11 +2,11 @@ import React, { useState, useCallback, useEffect } from "react";
 import Icon from "@/components/atoms/Icon";
 import Text from "@/components/atoms/Text";
 import Button from "@/components/molecules/Button";
-import IconLabelButton from "@/components/molecules/IconLabelButton";
-import IconLabelButton2 from "@/components/molecules/IconLabelButton";
+import IconLabelButton, {
+  CheckBarButton,
+} from "@/components/molecules/IconLabelButton";
 import MatchingTitle from "@/components/molecules/MatchingTitle";
 import Searchbar from "@/components/molecules/Searchbar";
-import ButtonOptionDetail from "@/components/organisms/ButtonOptionDetail";
 import Suggestions from "@/components/organisms/Suggestions";
 import { TMatchingState, TDispatchFuncs } from "@/reducer/MatchingReducer";
 import locationData from "@/data/location.json";
@@ -121,13 +121,12 @@ function StudyPlaceTemplate(props: TInterestsTemplate) {
           <div className="flex-grow">
             {/* 해당 도의 지역구들 */}
             {data[currentRegion].map((location) => (
-              <ButtonOptionDetail
-                role="CHECK"
-                text={location}
-                checkType="onClickCheck"
+              <CheckBarButton
+                type="checkOnClick"
                 isActive={props.studyPlacePreference.has(
                   currentRegion + " " + location
                 )}
+                text={location}
                 onClick={() => {
                   let fullName = currentRegion + " " + location;
                   onSelect(fullName);
@@ -142,22 +141,7 @@ function StudyPlaceTemplate(props: TInterestsTemplate) {
       {/* 선택된 항목 */}
       <div className="flex gap-[14px] mt-[26px]">
         {Array.from(props.studyPlacePreference).map((location) => (
-          // <IconLabelButton
-          //   key={uuidv4()}
-          //   datas={{
-          //     onClick: () => {
-          //       props.deleteStudyPlacePreference(
-          //         location.split(" ")[0],
-          //         location.split(" ")[1]
-          //       );
-          //     },
-          //     role: "close",
-          //     theme: "secondary",
-          //     text: location.split(" ")[1],
-          //   }}
-          // />
-
-          <IconLabelButton2
+          <IconLabelButton
             key={uuidv4()}
             datas={{
               onClick: () => {

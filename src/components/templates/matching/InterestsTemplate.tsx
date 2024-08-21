@@ -44,7 +44,7 @@ function InterestsTemplate({
               isActive: fieldLevels.has(interest.id),
               text: interest.text,
               icon: <Icon type={interest.iconType} />,
-              usage: "matchingItem",
+              usage: "gridItem",
               onClick: () => {
                 if (fieldLevels.has(interest.id)) {
                   deleteInterest(interest.id);

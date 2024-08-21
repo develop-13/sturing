@@ -5,6 +5,7 @@ export type TBox = {
   shape?: TBoxShape;
   extraCss?: string;
   onClick?: () => void;
+  isActive?: boolean;
 };
 
 export type TBoxColorTheme =
@@ -16,7 +17,13 @@ export type TBoxColorTheme =
   | "gray";
 // | "border-bottom";
 
-export type TBoxShape = "tag" | "rounded" | "listItem" | "border-dot" | "full";
+export type TBoxShape =
+  | "tag"
+  | "rounded"
+  | "listItem"
+  | "border-dot"
+  | "full"
+  | "bar";
 
 function BoxTheme(theme: TBoxColorTheme | undefined) {
   switch (theme) {
@@ -51,15 +58,23 @@ function BoxShape(shape: TBoxShape | undefined) {
       return "rounded-[3px] w-full h-full text-[16px] gap-[10px] ";
     case "border-dot":
       return "rounded-[5px] p-3 border-dashed ";
+    case "bar":
+      return "rounded-[5px] w-full py-5 px-6 ";
     default:
       return " ";
   }
 }
 
+let activeClassName = "border-mainColor !bg-main-100 !text-mainColor ";
+
 function Box({ props, children }: { props: TBox; children?: ReactNode }) {
   const theme = BoxTheme(props.theme) || " ";
   const shape = BoxShape(props.shape) || " ";
-  const extraCss = props.extraCss || " ";
+  let extraCss = props.extraCss || " ";
+
+  if (props.isActive) {
+    extraCss += activeClassName;
+  }
 
   return (
     <div

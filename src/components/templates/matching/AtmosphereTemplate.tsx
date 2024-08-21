@@ -51,7 +51,7 @@ function AtmosphereTemplate(props: TAtmosphereTemplate) {
                 props.addStudyAtmospherePreference(item.id);
               },
               text: item.text,
-              usage: "matchingItem",
+              usage: "gridItem",
               icon: <Icon type={item.iconType} />,
               isActive: props.studyAtmospherePreference.has(item.id),
             }}

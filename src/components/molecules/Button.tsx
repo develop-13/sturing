@@ -7,8 +7,11 @@ export default function Button({
   theme,
   shape,
   extraCss,
+  isActive,
   children,
   onClick,
 }: TButton & { children: ReactNode }) {
-  return <Box props={{ theme, shape, extraCss, onClick }}>{children}</Box>;
+  return (
+    <Box props={{ theme, shape, extraCss, isActive, onClick }}>{children}</Box>
+  );
 }
