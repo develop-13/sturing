@@ -5,6 +5,8 @@ import Text from "@/components/atoms/Text";
 function WriteButton() {}
 
 type TButtonLabel = {
+  theme?: TBoxColorTheme;
+  shape?: TBoxShape;
   text: string;
   icon?: React.ReactNode;
   onClick?: () => void;
@@ -18,34 +20,45 @@ function IconLabelButton({ datas }: { datas: TButtonLabel }) {
   // theme 에 따라 fontColor, backgroundColor, borderColor이 달라집니다.
   // usage 에 따라 fontSize, height, width가 달라집니다.
 
-  let btnTheme: "" | TBoxColorTheme = "";
-  let btnShape: "" | TBoxShape = "";
-  let btnStyle = "inline shrink-0 font-bold ";
+  let btnTheme: undefined | TBoxColorTheme = datas.theme;
+  let btnShape: undefined | TBoxShape = datas.shape;
+  let defaultBtnStyle = "inline shrink-0 font-bold text-sm ";
   let activeClassName = "";
 
   switch (datas.usage) {
     case "matchingItem":
-      btnTheme = "ordinary";
-      btnShape = "full";
+      btnTheme = datas.theme || "ordinary";
+      btnShape = datas.shape || "full";
       activeClassName = datas.isActive
         ? "border border-mainColor !bg-main-100 text-mainColor "
         : " ";
       break;
 
     case "category":
-      btnTheme = "ordinary";
-      btnShape = "rounded";
-      btnStyle += "w-auto px-[12px] text-[14px] gap-[8px] text-gray-700 ";
+      btnTheme = datas.theme || "ordinary";
+      btnShape = datas.shape || "rounded";
+      defaultBtnStyle += "w-auto px-[12px] gap-[8px] text-gray-700 ";
       break;
 
     case "close":
-      let closeStyle = "flex gap-[8px] items-center justify-center ";
+      let closeBtnStyle = "flex gap-[8px] items-center justify-center ";
       return (
-        <Box props={{ extraCss: closeStyle + btnStyle + datas.extraStyle }}>
+        <Box
+          props={{
+            theme: btnTheme,
+            shape: btnShape,
+            extraCss:
+              closeBtnStyle +
+              defaultBtnStyle +
+              `${datas.extraStyle ? datas.extraStyle : ""}`,
+          }}
+        >
           <Text>{datas.text}</Text>
           <Icon type="CLOSE" onClick={datas.onClick} />
         </Box>
       );
+    default:
+      return <div>없는 usage입니다</div>;
   }
 
   return (
@@ -53,7 +66,10 @@ function IconLabelButton({ datas }: { datas: TButtonLabel }) {
       props={{
         theme: btnTheme,
         shape: btnShape,
-        extraCss: btnStyle + activeClassName,
+        extraCss:
+          defaultBtnStyle +
+          activeClassName +
+          `${datas.extraStyle ? datas.extraStyle : ""}`,
         onClick: datas.onClick,
       }}
     >

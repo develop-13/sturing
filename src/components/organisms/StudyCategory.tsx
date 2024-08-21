@@ -27,8 +27,7 @@ export default function StudyCategory() {
           <ButtonLabel
             datas={{
               text: "디자인",
-              theme: "ordinary",
-              role: "category",
+              usage: "category",
               onClick: onClickHandler,
               icon: <Icon type="DESIGN" />,
             }}
@@ -36,8 +35,7 @@ export default function StudyCategory() {
           <ButtonLabel
             datas={{
               text: "개발·테크",
-              theme: "ordinary",
-              role: "category",
+              usage: "category",
               onClick: onClickHandler,
               icon: <Icon type="TECH" />,
             }}
@@ -45,8 +43,7 @@ export default function StudyCategory() {
           <ButtonLabel
             datas={{
               text: "마케팅",
-              theme: "ordinary",
-              role: "category",
+              usage: "category",
               onClick: onClickHandler,
               icon: <Icon type="MARKETING" />,
             }}
@@ -54,8 +51,7 @@ export default function StudyCategory() {
           <ButtonLabel
             datas={{
               text: "비즈니스",
-              theme: "ordinary",
-              role: "category",
+              usage: "category",
               onClick: onClickHandler,
               icon: <Icon type="BUSINESS" />,
             }}
@@ -63,36 +59,33 @@ export default function StudyCategory() {
           <ButtonLabel
             datas={{
               text: "경제",
-              theme: "ordinary",
+              usage: "category",
               onClick: onClickHandler,
-              role: "category",
               icon: <Icon type="ECONOMY" />,
             }}
           />
           <ButtonLabel
             datas={{
               text: "외국어",
-              theme: "ordinary",
+              usage: "category",
+
               onClick: onClickHandler,
-              role: "category",
               icon: <Icon type="LANGUAGE" />,
             }}
           />
           <ButtonLabel
             datas={{
               text: "자격증",
-              theme: "ordinary",
+              usage: "category",
               onClick: onClickHandler,
-              role: "category",
               icon: <Icon type="CERTIFICATION" />,
             }}
           />
           <ButtonLabel
             datas={{
               text: "자기계발",
-              theme: "ordinary",
+              usage: "category",
               onClick: onClickHandler,
-              role: "category",
               icon: <Icon type="SELFDEVELOP" />,
             }}
           />

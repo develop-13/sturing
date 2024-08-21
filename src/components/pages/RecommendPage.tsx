@@ -59,7 +59,7 @@ export default function RecommendPage() {
           {/*  */}
           {/* 개설 플로팅 버튼? */}
           <div className="flex flex-row gap-2 pl-4 fixed bottom-[9%] right-[3%]">
-            <ButtonLabel
+            {/* <ButtonLabel
               datas={{
                 theme: "shadow",
                 role: "openStudy",
@@ -69,7 +69,7 @@ export default function RecommendPage() {
                   router.push("/recruitment");
                 },
               }}
-            />
+            /> */}
           </div>
           <TitleLink props={{ title: "이번주 인기 스터디", hasArrow: false }} />
           <div className="flex flex-row gap-2 pl-4">

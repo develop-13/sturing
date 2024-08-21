@@ -16,7 +16,7 @@ export type TBoxColorTheme =
   | "gray";
 // | "border-bottom";
 
-export type TBoxShape = "tag" | "rounded" | "button" | "border-dot" | "full";
+export type TBoxShape = "tag" | "rounded" | "listItem" | "border-dot" | "full";
 
 function BoxTheme(theme: TBoxColorTheme | undefined) {
   switch (theme) {
@@ -28,7 +28,6 @@ function BoxTheme(theme: TBoxColorTheme | undefined) {
       return "bg-white border border-gray-400 ";
     case "gray":
       return "bg-gray-300 ";
-
     case "transparent-border":
       return "bg-transparent border border-main-200 ";
     case "transparent":
@@ -46,8 +45,8 @@ function BoxShape(shape: TBoxShape | undefined) {
       return "rounded-[3px] h-[22px] px-[6px] ";
     case "rounded":
       return "rounded-full h-[50px] ";
-    case "button":
-      return "rounded-[5px] h-[42px] ";
+    case "listItem":
+      return "rounded-[5px] py-[6px] px-[15px] ";
     case "full":
       return "rounded-[3px] w-full h-full text-[16px] gap-[10px] ";
     case "border-dot":

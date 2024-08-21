@@ -3,12 +3,12 @@ import { studyDatas } from "@/db/studyDatas";
 import Icon from "../atoms/Icon";
 import Text from "../atoms/Text";
 import Button from "../molecules/Button";
-import ButtonLabel from "../molecules/IconLabelButton";
 import Searchbar from "../molecules/Searchbar";
 import { NavButtonGroup } from "../organisms/ButtonGroup";
 import Header from "../organisms/Header";
 import StudyBox from "../organisms/StudyBox";
 import { useState } from "react";
+import IconLabelButton from "../molecules/IconLabelButton";
 
 function SearchPage() {
   console.log("studyPage render");
@@ -53,17 +53,37 @@ function SearchPage() {
             </Text>
           </div>
           <div className="flex gap-3 flex-wrap mt-5">
-            <ButtonLabel
-              datas={{ theme: "ordinary", role: "close", text: "포트폴리오" }}
+            <IconLabelButton
+              datas={{
+                theme: "ordinary",
+                shape: "listItem",
+                text: "포트폴리오",
+                usage: "close",
+              }}
             />
-            <ButtonLabel
-              datas={{ theme: "ordinary", role: "close", text: "디자이너" }}
+            <IconLabelButton
+              datas={{
+                theme: "ordinary",
+                shape: "listItem",
+                text: "디자이너",
+                usage: "close",
+              }}
             />
-            <ButtonLabel
-              datas={{ theme: "ordinary", role: "close", text: "UIUX" }}
+            <IconLabelButton
+              datas={{
+                theme: "ordinary",
+                shape: "listItem",
+                text: "UIUX",
+                usage: "close",
+              }}
             />
-            <ButtonLabel
-              datas={{ theme: "ordinary", role: "close", text: "블랜더 3DX" }}
+            <IconLabelButton
+              datas={{
+                theme: "ordinary",
+                shape: "listItem",
+                text: "블랜더 3DX",
+                usage: "close",
+              }}
             />
           </div>
         </article>
@@ -74,7 +94,7 @@ function SearchPage() {
           <div className="flex gap-3 flex-wrap mt-5">
             <Button
               theme="transparent-border"
-              shape="button"
+              shape="listItem"
               extraCss="px-[10px] border-2"
             >
               <Text size="sm" weight="bold" color="main">
@@ -83,7 +103,7 @@ function SearchPage() {
             </Button>
             <Button
               theme="transparent-border"
-              shape="button"
+              shape="listItem"
               extraCss="px-[10px] border-2"
             >
               <Text size="sm" weight="bold" color="main">
@@ -92,7 +112,7 @@ function SearchPage() {
             </Button>
             <Button
               theme="transparent-border"
-              shape="button"
+              shape="listItem"
               extraCss="px-[10px] border-2"
             >
               <Text size="sm" weight="bold" color="main">
@@ -101,7 +121,7 @@ function SearchPage() {
             </Button>
             <Button
               theme="transparent-border"
-              shape="button"
+              shape="listItem"
               extraCss="px-[10px] border-2"
             >
               <Text size="sm" weight="bold" color="main">
@@ -110,7 +130,7 @@ function SearchPage() {
             </Button>
             <Button
               theme="transparent-border"
-              shape="button"
+              shape="listItem"
               extraCss="px-[10px] border-2"
             >
               <Text size="sm" weight="bold" color="main">

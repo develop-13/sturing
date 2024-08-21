@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ButtonOptionDetail from "./ButtonOptionDetail";
-import { TDispatchFuncs, TState } from "../pages/MatchingPage";
+import { TDispatchFuncs, TMatchingState } from "@/reducer/MatchingReducer";
+
 const levels = [
   { id: "beginner", title: "비기너", text: "관련 공부를 이제 막 시작했어요" },
   {
@@ -23,7 +24,7 @@ const levels = [
 type TOptionButtonContainer = {
   interests: string[];
   selectedCategoryIdx: number;
-  fieldLevels: TState["fieldLevels"];
+  fieldLevels: TMatchingState["fieldLevels"];
   setLevel: TDispatchFuncs["setLevel"];
 };
 
