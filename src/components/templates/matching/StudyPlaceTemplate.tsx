@@ -3,7 +3,7 @@ import Icon from "@/components/atoms/Icon";
 import Text from "@/components/atoms/Text";
 import Button from "@/components/molecules/Button";
 import IconLabelButton from "@/components/molecules/IconLabelButton";
-import IconLabelButton2 from "@/components/molecules/IconLabelButton/IconLabelButton";
+import IconLabelButton2 from "@/components/molecules/IconLabelButton";
 import MatchingTitle from "@/components/molecules/MatchingTitle";
 import Searchbar from "@/components/molecules/Searchbar";
 import ButtonOptionDetail from "@/components/organisms/ButtonOptionDetail";

@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import Icon from "../atoms/Icon";
 import ButtonLabel from "../molecules/IconLabelButton";
-import IconLabelButton from "../molecules/IconLabelButton/IconLabelButton";
+import IconLabelButton from "../molecules/IconLabelButton";
 
 export default function StudyCategory() {
   const router = useRouter();

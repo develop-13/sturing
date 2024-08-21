@@ -1,113 +1,65 @@
-import Icon from "../atoms/Icon";
+import Box, { TBoxColorTheme, TBoxShape } from "@/components/atoms/Box";
+import Icon from "@/components/atoms/Icon";
+import Text from "@/components/atoms/Text";
+
+function WriteButton() {}
 
 type TButtonLabel = {
   text: string;
   icon?: React.ReactNode;
   onClick?: () => void;
   isActive?: boolean;
-  theme: "primary" | "secondary" | "ordinary" | "shadow" | "kakao";
-  role:
-    | "matchingItem"
-    | "category"
-    | "studyItem"
-    | "reset"
-    | "write"
-    | "signup"
-    | "openStudy"
-    | "close";
+  usage: "matchingItem" | "category" | "close";
+  extraStyle?: string;
 };
 
 // icon 과 라벨이 같이 있는 버튼
 function IconLabelButton({ datas }: { datas: TButtonLabel }) {
   // theme 에 따라 fontColor, backgroundColor, borderColor이 달라집니다.
-  // role 에 따라 fontSize, height, width가 달라집니다.
+  // usage 에 따라 fontSize, height, width가 달라집니다.
 
-  let btnTheme = "";
-  let btnType = "";
+  let btnTheme: "" | TBoxColorTheme = "";
+  let btnShape: "" | TBoxShape = "";
+  let btnStyle = "inline shrink-0 font-bold ";
   let activeClassName = "";
 
-  switch (datas.theme) {
-    case "primary":
-      btnTheme = "text-white bg-mainColor ";
-      break;
-
-    case "secondary":
-      btnTheme = "text-mainColor bg-white border border-mainColor ";
-      break;
-
-    case "ordinary":
-      btnTheme = "text-gray-700 bg-white border border-gray-300 ";
-      break;
-
-    case "shadow":
-      btnTheme = "text-gray-1000 bg-white shadow-md ";
-      break;
-
-    case "kakao":
-      btnTheme = "text-gray-1000 bg-yellow ";
-      break;
-  }
-
-  switch (datas.role) {
+  switch (datas.usage) {
     case "matchingItem":
-      btnType = "w-full h-full text-[16px] gap-[10px] ";
+      btnTheme = "ordinary";
+      btnShape = "full";
       activeClassName = datas.isActive
         ? "border border-mainColor !bg-main-100 text-mainColor "
-        : "";
+        : " ";
       break;
 
     case "category":
-      btnType =
-        "w-auto px-[12px] h-[50px] text-[14px] gap-[8px] rounded-[9999px] ";
-      break;
-
-    case "reset":
-      btnType = "w-full h-[50px] text-[16px] gap-[2px] ";
-      break;
-
-    case "studyItem":
-      btnType = "w-auto px-[8px] h-[33px] text-[14px] gap-[3px] ";
-      break;
-
-    case "write":
-      btnType = "w-auto px-[6px] (py-[4px] | h-[26px]) text-[12px] gap-[4px] ";
-      break;
-
-    case "signup":
-      btnType = "w-full h-[45px] text-[14px] gap-[16px] ";
-      break;
-
-    case "openStudy":
-      btnType = "w-auto px-[12px] h-[42px] text-[14px] gap-[10px] ";
+      btnTheme = "ordinary";
+      btnShape = "rounded";
+      btnStyle += "w-auto px-[12px] text-[14px] gap-[8px] text-gray-700 ";
       break;
 
     case "close":
+      let closeStyle = "flex gap-[8px] items-center justify-center ";
       return (
-        <button
-          className={
-            btnTheme +
-            `w-auto px-[14px] h-[39px] text-[14px] font-bold flex gap-[8px] items-center justify-center rounded-[3px] `
-          }
-        >
-          <span>{datas.text}</span>
+        <Box props={{ extraCss: closeStyle + btnStyle + datas.extraStyle }}>
+          <Text>{datas.text}</Text>
           <Icon type="CLOSE" onClick={datas.onClick} />
-        </button>
+        </Box>
       );
   }
 
   return (
-    <button
-      onClick={datas.onClick}
-      className={
-        `flex font-bold justify-center items-center rounded-[3px] shrink-0 ` +
-        btnTheme +
-        btnType +
-        activeClassName
-      }
+    <Box
+      props={{
+        theme: btnTheme,
+        shape: btnShape,
+        extraCss: btnStyle + activeClassName,
+        onClick: datas.onClick,
+      }}
     >
       {datas.icon}
-      <span className="">{datas.text}</span>
-    </button>
+      <Text>{datas.text}</Text>
+    </Box>
   );
 }
 

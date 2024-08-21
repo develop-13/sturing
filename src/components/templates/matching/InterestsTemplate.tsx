@@ -44,8 +44,7 @@ function InterestsTemplate({
               isActive: fieldLevels.has(interest.id),
               text: interest.text,
               icon: <Icon type={interest.iconType} />,
-              theme: "ordinary",
-              role: "matchingItem",
+              usage: "matchingItem",
               onClick: () => {
                 if (fieldLevels.has(interest.id)) {
                   deleteInterest(interest.id);
