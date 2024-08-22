@@ -50,9 +50,11 @@ function OptionButtonContainer(props: TOptionButtonContainer) {
     <div className="py-[16px] flex flex-col gap-[14px]">
       {levels.map((data) => (
         <Box
+          key={data.id}
           props={{
             theme: "ordinary",
             shape: "bar",
+            extraCss: "!justify-start ",
             onClick: onClickHandler(data.id),
             isActive:
               data.id ===

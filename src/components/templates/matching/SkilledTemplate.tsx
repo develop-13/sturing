@@ -1,4 +1,3 @@
-import ButtonOptionDetail from "@/components/organisms/ButtonOptionDetail";
 import MatchingTitle from "@/components/molecules/MatchingTitle";
 import { TabButtonGroup } from "@/components/organisms/ButtonGroup";
 import { TMatchingState, TDispatchFuncs } from "@/reducer/MatchingReducer";

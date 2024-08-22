@@ -14,6 +14,17 @@ const stateExample = {
   studyAtmospherePreference: new Set(["friendly", "serious", "free"]),
 };
 
+const stateExample2 = {
+  fieldLevels: [
+    ["design", "beginner"],
+    ["tech", "senior"],
+    ["business", "junior"],
+  ],
+  studyTypePreference: "online",
+  studyPlacePreference: new Set(["강동구", "서대문구"]),
+  studyAtmospherePreference: new Set(["friendly", "serious", "free"]),
+};
+
 export type TMatchingState = {
   interests: string[];
   fieldLevels: Map<string, string>;

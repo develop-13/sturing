@@ -24,15 +24,12 @@ function IconLabelButton({ datas }: { datas: TButtonLabel }) {
   let btnTheme: undefined | TBoxColorTheme = datas.theme;
   let btnShape: undefined | TBoxShape = datas.shape;
   let defaultBtnStyle = "inline shrink-0 font-bold text-sm ";
-  // let activeClassName = "";
 
   switch (datas.usage) {
     case "gridItem":
       btnTheme = datas.theme || "ordinary";
       btnShape = datas.shape || "full";
-      // activeClassName = datas.isActive
-      //   ? "border border-mainColor !bg-main-100 text-mainColor "
-      //   : " ";
+
       break;
 
     case "round":
