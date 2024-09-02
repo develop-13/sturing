@@ -22,13 +22,13 @@ function Divider(props: TDivider) {
         ></div>
       );
     case "row":
-      const effectiveColor = props.color || "gray-400";
+      const effectiveColor = props.color || "gray-300";
       return (
         <div
-          className={"h-[1px] bg-" + effectiveColor}
+          className={"h-[1px] bg-gray-500 "}
           style={{
-            margin: `${props.my}px 0`,
-            padding: `${props.py}px 0`,
+            margin: `${props.my || 2}px 0`,
+            padding: `${props.py || 1}px 0`,
           }}
         ></div>
       );

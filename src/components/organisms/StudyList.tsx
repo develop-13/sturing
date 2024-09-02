@@ -16,17 +16,17 @@ function StudyList() {
 
       <div className="bg-gray-100 px-[16px] pt-[20px] pb-[40px] flex flex-col gap-[16px]">
         <div className="flex gap-[12px]">
-          <Button theme="transparent-border" shape="tag">
+          <Button theme="transparent-border" shape="listItem">
             <Text size="sm" weight="bold">
               진행 중
             </Text>
           </Button>
-          <Button theme="transparent-border" shape="tag">
+          <Button theme="transparent-border" shape="listItem">
             <Text size="sm" weight="bold">
               진행 예정
             </Text>
           </Button>
-          <Button theme="transparent-border" shape="tag">
+          <Button theme="transparent-border" shape="listItem">
             <Text size="sm" weight="bold">
               종료
             </Text>
@@ -55,21 +55,21 @@ function StudyList() {
             UXUI 디자이너 본질 강화 피그마 스터디{" "}
           </Text>
           <Divider type="row" my={8} />
-          <InfoTags theme="white">
+          <InfoTags theme="white" padding={3}>
             <Button theme="transparent" shape="tag">
-              <Icon type="CHECKED" />
+              <Icon type="MEMBERS" />
               <Text size="xs" weight="bold" color="gray-700">
                 팀원 4명
               </Text>
             </Button>
             <Button theme="transparent" shape="tag">
-              <Icon type="CHECKED" />
+              <Icon type="DATE_COLOR" />
               <Text size="xs" weight="bold" color="gray-700">
                 매주 토요일
               </Text>
             </Button>
             <Button theme="transparent" shape="tag">
-              <Icon type="CHECKED" />
+              <Icon type="CHECKBOX" />
               <Text size="xs" weight="bold" color="gray-700">
                 사진인증
               </Text>
@@ -99,21 +99,21 @@ function StudyList() {
             UXUI 디자이너 본질 강화 피그마 스터디{" "}
           </Text>
           <Divider type="row" my={8} />
-          <InfoTags theme="white">
+          <InfoTags theme="white" padding={3}>
             <Button theme="transparent" shape="tag">
-              <Icon type="CHECKED" />
+              <Icon type="MEMBERS" />
               <Text size="xs" weight="bold" color="gray-700">
                 팀원 4명
               </Text>
             </Button>
             <Button theme="transparent" shape="tag">
-              <Icon type="CHECKED" />
+              <Icon type="DATE_COLOR" />
               <Text size="xs" weight="bold" color="gray-700">
                 매주 토요일
               </Text>
             </Button>
             <Button theme="transparent" shape="tag">
-              <Icon type="CHECKED" />
+              <Icon type="CHECKBOX" />
               <Text size="xs" weight="bold" color="gray-700">
                 사진인증
               </Text>

@@ -9,8 +9,8 @@ import { fetchStudyDetail } from "@/api/fetchStudyDetail";
 import { TabButtonGroup } from "../organisms/ButtonGroup";
 import Team from "../templates/studyDetailParticipate/Team";
 import Private from "../templates/studyDetailParticipate/Private";
-import Schedule from "../templates/studyDetailParticipate/schedule";
-import Feedback from "../templates/studyDetailParticipate/feedback";
+import Schedule from "../templates/studyDetailParticipate/Schedule";
+import Feedback from "../templates/studyDetailParticipate/Feedback";
 
 type TParticipationOptions = "team" | "private" | "schedule" | "feedback";
 const buttonGroupDatas: TParticipationOptions[] = [

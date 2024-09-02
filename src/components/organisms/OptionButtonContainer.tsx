@@ -1,32 +1,12 @@
 import React, { useState } from "react";
-import { TDispatchFuncs, TMatchingState } from "@/reducer/MatchingReducer";
 import Box from "../atoms/Box";
 import Text from "../atoms/Text";
-
-const levels = [
-  { id: "beginner", title: "비기너", text: "관련 공부를 이제 막 시작했어요" },
-  {
-    id: "newComer",
-    title: "신입",
-    text: "관련 분야에서 일한지 아직 1년이 안됐어요",
-  },
-  {
-    id: "junior",
-    title: "주니어",
-    text: "1-3년 정도 관련 분야 업무경험이 있어요",
-  },
-  {
-    id: "senior",
-    title: "시니어",
-    text: "4년 이상의 관련 분야 업무경험이 있어요",
-  },
-];
+import { levelData } from "@/db/levels";
+import { TLevel } from "@/types/common";
 
 type TOptionButtonContainer = {
-  interests: string[];
-  selectedCategoryIdx: number;
-  fieldLevels: TMatchingState["fieldLevels"];
-  setLevel: TDispatchFuncs["setLevel"];
+  categoryLevel: string | null;
+  onClick: (dataId: TLevel) => () => void;
 };
 
 function renderBtnContent(title: string, text: string) {
@@ -43,25 +23,20 @@ function renderBtnContent(title: string, text: string) {
 }
 
 function OptionButtonContainer(props: TOptionButtonContainer) {
-  const onClickHandler = (dataId: string) => () => {
-    props.setLevel(props.interests[props.selectedCategoryIdx], dataId);
-  };
   return (
     <div className="py-[16px] flex flex-col gap-[14px]">
-      {levels.map((data) => (
+      {levelData.map((data) => (
         <Box
-          key={data.id}
+          key={data.level}
           props={{
             theme: "ordinary",
             shape: "bar",
             extraCss: "!justify-start ",
-            onClick: onClickHandler(data.id),
-            isActive:
-              data.id ===
-              props.fieldLevels.get(props.interests[props.selectedCategoryIdx]),
+            onClick: props.onClick(data.level),
+            isActive: data.level === props.categoryLevel,
           }}
         >
-          {renderBtnContent(data.title, data.text)}
+          {renderBtnContent(data.level, data.text)}
         </Box>
       ))}
     </div>

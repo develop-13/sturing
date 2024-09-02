@@ -5,6 +5,7 @@ type TText = {
   weight?: TTextWeight;
   color?: TTextColor;
   children?: ReactNode;
+  className?: string;
 };
 
 // 받아야할 게 늘어나면 수정할 곳이
@@ -86,12 +87,16 @@ function TextColor(color: TTextColor | undefined) {
   }
 }
 
-function Text({ size, weight, color, children }: TText) {
+function Text({ size, weight, color, children, className }: TText) {
   const textSize = TextSize(size);
   const textWeight = TextWeight(weight);
   const textColor = TextColor(color);
 
-  return <span className={textSize + textWeight + textColor}>{children}</span>;
+  return (
+    <span className={textSize + textWeight + textColor + className}>
+      {children}
+    </span>
+  );
 }
 
 export default Text;

@@ -1,18 +1,8 @@
 import Icon from "@/components/atoms/Icon";
 import Text from "@/components/atoms/Text";
 import Button from "@/components/molecules/Button";
+import { categories } from "@/db/categories";
 
-const categoryDatas = [
-  { id: "design", text: "디자인" },
-  { id: "tech", text: "개발·테크" },
-  { id: "business", text: "비즈니스" },
-  { id: "marketing", text: "마케팅" },
-  { id: "economy", text: "경제" },
-  { id: "language", text: "외국어" },
-  { id: "certification", text: "자격증" },
-  { id: "selfDevelopment", text: "자기계발" },
-  { id: "custom", text: "직접 입력" },
-];
 function StudyIntro() {
   return (
     <section className="py-4 flex flex-col gap-5">
@@ -47,10 +37,10 @@ function StudyIntro() {
           카테고리
         </Text>
         <div className="flex gap-2 flex-wrap">
-          {categoryDatas.map((data, idx) => (
-            <Button theme="ordinary" shape="tag" key={idx}>
+          {categories.map((data) => (
+            <Button theme="ordinary" shape="tag" key={data.id}>
               <Text size="xs" weight="bold" color="gray-600">
-                {data.text}
+                {data.id}
               </Text>
             </Button>
           ))}

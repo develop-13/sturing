@@ -1,6 +1,6 @@
 import MatchingTitle from "@/components/molecules/MatchingTitle";
 import { TabButtonGroup } from "@/components/organisms/ButtonGroup";
-import { TMatchingState, TDispatchFuncs } from "@/reducer/MatchingReducer";
+import { TMatchingState, TDispatchFuncs } from "@/reducers/matchingReducer";
 import { useState } from "react";
 import OptionButtonContainer from "@/components/organisms/OptionButtonContainer";
 
@@ -9,6 +9,7 @@ type TSkilledTemplate = {
   fieldLevels: TMatchingState["fieldLevels"];
   setLevel: TDispatchFuncs["setLevel"];
 };
+
 const dummyUsername = "웅진";
 
 function SkilledTemplate(props: TSkilledTemplate) {
@@ -16,8 +17,15 @@ function SkilledTemplate(props: TSkilledTemplate) {
   const [selectedCategoryIdx, setSelectedCategoryIdx] = useState(0);
   // 분야
 
-  const onSelect = (selectedCategoryIdx: number) => {
+  const selectedCategory = props.interests[selectedCategoryIdx];
+  const categoryLevel = props.fieldLevels.get(selectedCategory);
+
+  const onClickButtonGroup = (selectedCategoryIdx: number) => {
     setSelectedCategoryIdx(selectedCategoryIdx);
+  };
+
+  const onClickButtonContainer = (dataId: string) => () => {
+    props.setLevel(props.interests[selectedCategoryIdx], dataId);
   };
 
   return (
@@ -27,14 +35,12 @@ function SkilledTemplate(props: TSkilledTemplate) {
         <TabButtonGroup
           selectedOptionIdx={selectedCategoryIdx}
           buttonGroupData={props.interests}
-          onClick={onSelect}
+          onClick={onClickButtonGroup}
         />
         <div className="py-[16px] flex flex-col gap-[14px]">
           <OptionButtonContainer
-            interests={props.interests}
-            selectedCategoryIdx={selectedCategoryIdx}
-            fieldLevels={props.fieldLevels}
-            setLevel={props.setLevel}
+            categoryLevel={categoryLevel}
+            onClick={onClickButtonContainer}
           />
         </div>
       </main>

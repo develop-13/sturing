@@ -22,7 +22,7 @@ export default ButtonGroup;
 // 제네릭 타입을 사용하여 유연한 타입 정의
 export type TTabProps = {
   selectedOptionIdx: number;
-  buttonGroupData: string[];
+  buttonGroupData: (string | undefined)[];
   onClick: (selectedIdx: number) => void;
 };
 

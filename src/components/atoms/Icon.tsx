@@ -60,11 +60,15 @@ export type TIconData = {
     | "LOCATION"
     | "MEMBERS"
     | "DATE_COLOR"
-    | "CHECKBOX"
+    | "CHECKBOX_COLOR"
     | "LOCATION_COLOR"
     | "STAR"
     | "DOWN"
-    | "ADD";
+    | "ADD"
+    | "CHECKBOX_CHECKED"
+    | "CHECKBOX_UNCHECKED"
+    | "PLUS"
+    | "MINUS";
   onClick?: () => void;
   color?: string; // 같은 아이콘이라도 색이 다른 경우 때문에 추가하였습니다.
   size?: number;
@@ -76,6 +80,51 @@ const IconDataSet: Record<
     size?: number
   ) => { icon: React.ReactNode; size?: number; color?: string }
 > = {
+  PLUS: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/ect/plus.svg"
+        alt=""
+        width={size || 18}
+        height={size || 18}
+      />
+    ),
+    color,
+  }),
+  MINUS: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/ect/minus.svg"
+        alt=""
+        width={size || 18}
+        height={size || 18}
+      />
+    ),
+    color,
+  }),
+  CHECKBOX_UNCHECKED: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/ect/checkbox_unchecked.svg"
+        alt=""
+        width={size || 20}
+        height={size || 20}
+      />
+    ),
+    color,
+  }),
+  CHECKBOX_CHECKED: (color?: string, size?: number) => ({
+    icon: (
+      <Image
+        src="/svg/ect/checkbox_checked.svg"
+        alt=""
+        width={size || 20}
+        height={size || 20}
+      />
+    ),
+    color,
+  }),
+
   ADD: (color?: string, size?: number) => ({
     icon: (
       <Image
@@ -120,7 +169,7 @@ const IconDataSet: Record<
     ),
     color,
   }),
-  CHECKBOX: (color?: string, size?: number) => ({
+  CHECKBOX_COLOR: (color?: string, size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/checkbox.svg"

@@ -1,29 +1,19 @@
 import { produce, enableMapSet } from "immer";
+import { Dispatch } from "react";
 
 enableMapSet();
 
-const stateExample = {
-  interests: ["design", "tech", "business"],
-  fieldLevels: {
-    design: "beginner",
-    tech: "senior",
-    business: "junior",
-  },
-  studyTypePreference: "online",
-  studyPlacePreference: new Set(["강동구", "서대문구"]),
-  studyAtmospherePreference: new Set(["friendly", "serious", "free"]),
-};
-
-const stateExample2 = {
-  fieldLevels: [
-    ["design", "beginner"],
-    ["tech", "senior"],
-    ["business", "junior"],
-  ],
-  studyTypePreference: "online",
-  studyPlacePreference: new Set(["강동구", "서대문구"]),
-  studyAtmospherePreference: new Set(["friendly", "serious", "free"]),
-};
+// const stateExample = {
+//   interests: ["design", "tech", "business"],
+//   fieldLevels: {
+//     design: "beginner",
+//     tech: "senior",
+//     business: "junior",
+//   },
+//   studyTypePreference: "online",
+//   studyPlacePreference: new Set(["강동구", "서대문구"]),
+//   studyAtmospherePreference: new Set(["friendly", "serious", "free"]),
+// };
 
 export type TMatchingState = {
   interests: string[];
@@ -116,3 +106,70 @@ export type TDispatchFuncs = {
   addStudyAtmospherePreference: (atmosphere: string) => void;
   deleteStudyAtmospherePreference: (atmosphere: string) => void;
 };
+
+export function createDispatchFuncs(
+  dispatch: Dispatch<Action>
+): TDispatchFuncs {
+  const addInterest: TDispatchFuncs["addInterest"] = (interest) => {
+    dispatch({ type: "addInterest", payload: { interest } });
+  };
+
+  const deleteInterest: TDispatchFuncs["deleteInterest"] = (interest) => {
+    dispatch({ type: "deleteInterest", payload: { interest } });
+  };
+
+  const setLevel: TDispatchFuncs["setLevel"] = (interest, level) => {
+    dispatch({ type: "setLevel", payload: { interest, level } });
+  };
+
+  const setStudyTypePreference: TDispatchFuncs["setStudyTypePreference"] = (
+    preference
+  ) => {
+    dispatch({ type: "setStudyTypePreference", payload: preference });
+  };
+
+  const addStudyPlacePreference: TDispatchFuncs["addStudyPlacePreference"] = (
+    region,
+    location
+  ) => {
+    dispatch({
+      type: "addStudyPlacePreference",
+      payload: { region, location },
+    });
+  };
+
+  const deleteStudyPlacePreference: TDispatchFuncs["deleteStudyPlacePreference"] =
+    (region, location) => {
+      dispatch({
+        type: "deleteStudyPlacePreference",
+        payload: { region, location },
+      });
+    };
+
+  const addStudyAtmospherePreference: TDispatchFuncs["addStudyAtmospherePreference"] =
+    (atmosphere) => {
+      dispatch({
+        type: "addStudyAtmospherePreference",
+        payload: { atmosphere },
+      });
+    };
+
+  const deleteStudyAtmospherePreference: TDispatchFuncs["deleteStudyAtmospherePreference"] =
+    (atmosphere) => {
+      dispatch({
+        type: "deleteStudyAtmospherePreference",
+        payload: { atmosphere },
+      });
+    };
+
+  return {
+    addInterest,
+    deleteInterest,
+    setLevel,
+    setStudyTypePreference,
+    addStudyPlacePreference,
+    deleteStudyPlacePreference,
+    addStudyAtmospherePreference,
+    deleteStudyAtmospherePreference,
+  };
+}

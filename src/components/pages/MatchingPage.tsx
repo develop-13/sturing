@@ -17,7 +17,8 @@ import {
   TDispatchFuncs,
   TMatchingState,
   initialState,
-} from "@/reducer/MatchingReducer";
+  createDispatchFuncs,
+} from "@/reducers/matchingReducer";
 
 const steps = [
   // 각 컴포넌트가 사용하는 props 보내주기
@@ -68,67 +69,6 @@ function MatchingPage() {
 
   console.log(state);
 
-  const addInterest: TDispatchFuncs["addInterest"] = (interest) => {
-    dispatch({ type: "addInterest", payload: { interest } });
-  };
-  const deleteInterest: TDispatchFuncs["addInterest"] = (interest) => {
-    dispatch({ type: "deleteInterest", payload: { interest } });
-  };
-
-  const setLevel: TDispatchFuncs["setLevel"] = (interest, level) => {
-    dispatch({ type: "setLevel", payload: { interest, level } });
-  };
-
-  const setStudyTypePreference: TDispatchFuncs["setStudyTypePreference"] = (
-    preference
-  ) => {
-    dispatch({ type: "setStudyTypePreference", payload: preference });
-  };
-
-  const deleteStudyPlacePreference: TDispatchFuncs["deleteStudyPlacePreference"] =
-    (region, location) => {
-      dispatch({
-        type: "deleteStudyPlacePreference",
-        payload: { region, location },
-      });
-    };
-
-  const addStudyPlacePreference: TDispatchFuncs["addStudyPlacePreference"] = (
-    region,
-    location
-  ) => {
-    dispatch({
-      type: "addStudyPlacePreference",
-      payload: { region, location },
-    });
-  };
-
-  const addStudyAtmospherePreference: TDispatchFuncs["addStudyAtmospherePreference"] =
-    (atmosphere: string) => {
-      dispatch({
-        type: "addStudyAtmospherePreference",
-        payload: { atmosphere },
-      });
-    };
-  const deleteStudyAtmospherePreference: TDispatchFuncs["deleteStudyAtmospherePreference"] =
-    (atmosphere: string) => {
-      dispatch({
-        type: "deleteStudyAtmospherePreference",
-        payload: { atmosphere },
-      });
-    };
-
-  const DispatchFuncs: TDispatchFuncs = {
-    addInterest,
-    deleteInterest,
-    setLevel,
-    setStudyTypePreference,
-    addStudyPlacePreference,
-    addStudyAtmospherePreference,
-    deleteStudyPlacePreference,
-    deleteStudyAtmospherePreference,
-  };
-
   const router = useRouter();
 
   const goPrevStep = () => {
@@ -170,7 +110,7 @@ function MatchingPage() {
       {step < steps.length - 1 && ( // 마지막 페이지에는 안 보이게
         <Progressbar currentPage={step} totalPage={steps.length - 1} />
       )}
-      {steps[step](state, DispatchFuncs)}
+      {steps[step](state, createDispatchFuncs(dispatch))}
       <div className="w-[375px] flex justify-between fixed left-1/2 transform -translate-x-1/2 bottom-[9px] px-[16px]">
         <ButtonIcon theme="gray" type="backward" onClick={goPrevStep} />
         <ButtonIcon theme="primary" type="forward" onClick={goNextStep} />

@@ -1,11 +1,10 @@
-import Button from "@/components/molecules/Button";
+"use client";
+import "react-calendar/dist/Calendar.css";
+import Calendar from "react-calendar";
+import { useState } from "react";
 
 function page() {
-  return (
-    <div>
-      <Button theme="transparent-border">안녕</Button>
-    </div>
-  );
+  return <></>;
 }
 
 export default page;

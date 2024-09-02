@@ -2,8 +2,8 @@ import Icon from "@/components/atoms/Icon";
 import IconLabelButton from "@/components/molecules/IconLabelButton";
 import MatchingTitle from "@/components/molecules/MatchingTitle";
 import React from "react";
-import { TMatchingState, TDispatchFuncs } from "@/reducer/MatchingReducer";
-import { TIconData } from "@/components/atoms/Icon";
+import { TMatchingState, TDispatchFuncs } from "@/reducers/matchingReducer";
+import { atmosphereData } from "@/db/atmospheres";
 
 type TAtmosphereTemplate = {
   studyAtmospherePreference: TMatchingState["studyAtmospherePreference"];
@@ -12,48 +12,30 @@ type TAtmosphereTemplate = {
 };
 const dummyUsername = "웅진";
 
-type TAtmosphereItem = {
-  id: string;
-  text: string;
-  iconType: TIconData["type"];
-};
-const atmosphereItems: TAtmosphereItem[] = [
-  { id: "friendly", text: "친근한", iconType: "FRIENDLY" },
-  { id: "professional", text: "전문적인", iconType: "PROFESSIONAL" },
-  { id: "serious", text: "진지한", iconType: "SERIOUS" },
-  { id: "systematic", text: "체계적인", iconType: "SYSTEMATIC" },
-  { id: "enthusiastic", text: "열정적인", iconType: "ENTHUSIASTIC" },
-  { id: "responsible", text: "책임감있는", iconType: "RESPONSIBLE" },
-  { id: "learning", text: "학습중심적", iconType: "LEARNING" },
-  { id: "cooperative", text: "협력적인", iconType: "COOPERATIVE" },
-  { id: "selfDirected", text: "자기주도적", iconType: "SELFDIRECTED" },
-  { id: "free", text: "자유로운", iconType: "FREE" },
-];
-
 function AtmosphereTemplate(props: TAtmosphereTemplate) {
   return (
     <section className="flex flex-col gap-[40px] py-[20px]">
       <MatchingTitle role="ATMOSPHERE" userName={dummyUsername} />
       <main className="grid grid-cols-2 gap-[15px] w-full h-[405px]">
-        {atmosphereItems.map((item) => (
+        {atmosphereData.map((item) => (
           <IconLabelButton
-            key={item.id}
+            key={item.atmosphere}
             datas={{
               onClick: () => {
-                if (props.studyAtmospherePreference.has(item.id)) {
-                  props.deleteStudyAtmospherePreference(item.id);
+                if (props.studyAtmospherePreference.has(item.atmosphere)) {
+                  props.deleteStudyAtmospherePreference(item.atmosphere);
                   return;
                 }
                 if (props.studyAtmospherePreference.size >= 3) {
                   alert("최대 3개까지만 선택 가능합니다.");
                   return;
                 }
-                props.addStudyAtmospherePreference(item.id);
+                props.addStudyAtmospherePreference(item.atmosphere);
               },
-              text: item.text,
+              text: item.atmosphere,
               usage: "gridItem",
-              icon: <Icon type={item.iconType} />,
-              isActive: props.studyAtmospherePreference.has(item.id),
+              icon: <Icon type={item.atmosphere} />,
+              isActive: props.studyAtmospherePreference.has(item.atmosphere),
             }}
           />
         ))}

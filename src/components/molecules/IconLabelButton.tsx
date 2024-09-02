@@ -1,4 +1,4 @@
-import Box, { TBoxColorTheme, TBoxShape } from "@/components/atoms/Box";
+import Box, { TBox, TBoxColorTheme, TBoxShape } from "@/components/atoms/Box";
 import Icon from "@/components/atoms/Icon";
 import Text from "@/components/atoms/Text";
 
@@ -55,23 +55,21 @@ function IconLabelButton({ datas }: { datas: TButtonLabel }) {
           <Icon type="CLOSE" onClick={datas.onClick} />
         </Box>
       );
-
-    case "checkBar":
-      return (
-        <Box
-          props={{
-            isActive: datas.isActive,
-            onClick: datas.onClick,
-            theme: btnTheme,
-            shape: "bar",
-            extraCss:
-              defaultBtnStyle + `${datas.extraStyle ? datas.extraStyle : ""}`,
-          }}
-        >
-          <div className="flex justify-between"></div>
-        </Box>
-      );
-
+    // case "checkBar":
+    //   return (
+    //     <Box
+    //       props={{
+    //         isActive: datas.isActive,
+    //         onClick: datas.onClick,
+    //         theme: btnTheme,
+    //         shape: "bar",
+    //         extraCss:
+    //           defaultBtnStyle + `${datas.extraStyle ? datas.extraStyle : ""}`,
+    //       }}
+    //     >
+    //       <div className="flex justify-between"></div>
+    //     </Box>
+    //   );
     default:
       break;
   }
@@ -100,31 +98,33 @@ export default IconLabelButton;
 type TCheckBarButton = "checkOnClick" | "defaultCheck";
 
 export function CheckBarButton({
+  theme,
   type,
   isActive,
-  text,
+  children,
   onClick,
+  className,
 }: {
   type: TCheckBarButton;
-  isActive: boolean;
-  text: string;
+  theme?: TBox["theme"];
+  isActive?: boolean;
+  children?: React.ReactNode;
   onClick?: () => void;
+  className?: string;
 }) {
   switch (type) {
     case "checkOnClick":
       return (
         <Box
           props={{
-            theme: "transparent",
+            theme: theme || "transparent",
             shape: "bar",
             isActive: isActive,
             onClick: onClick,
-            extraCss: "h-[50px] flex justify-between ",
+            extraCss: "h-[50px] flex justify-between " + className,
           }}
         >
-          <Text size="sm" weight="bold" color={isActive ? "main" : "gray-700"}>
-            {text}
-          </Text>
+          {children}
           {isActive && <Icon type="CHECKED" />}
         </Box>
       );
@@ -133,20 +133,14 @@ export function CheckBarButton({
       return (
         <Box
           props={{
-            theme: "ordinary",
+            theme: theme || "ordinary",
             shape: "bar",
             isActive: isActive,
-            extraCss: "flex justify-between ",
+            extraCss: "flex justify-between " + className,
             onClick: onClick,
           }}
         >
-          <Text
-            size="base"
-            weight="bold"
-            color={isActive ? "main" : "gray-700"}
-          >
-            {text}
-          </Text>
+          {children}
           <Icon type="CHECKED" />
         </Box>
       );

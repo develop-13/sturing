@@ -36,8 +36,8 @@ const getTags: GetTagsProps = {
   ),
 };
 
-const getTheme = (theme: TTheme, padding: number = 8): string => {
-  const baseStyle = `p-${padding} flex `;
+const getTheme = (theme: TTheme, padding: number = 1): string => {
+  const baseStyle = `py-${padding} flex `;
   switch (theme) {
     case "gray":
       return baseStyle + "bg-gray-100";
@@ -58,7 +58,7 @@ interface InfoTagsProps {
 
 const InfoTags: React.FC<InfoTagsProps> = ({
   theme,
-  padding = 8,
+  padding = 1,
   children,
 }) => {
   const tagsStyle = getTheme(theme, padding);

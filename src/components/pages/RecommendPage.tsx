@@ -11,8 +11,6 @@ import { NavButtonGroup } from "../organisms/ButtonGroup";
 import GoMatchingPage from "../molecules/GoMatchingPage";
 import Divider from "../atoms/Divider";
 import Searchbar from "../molecules/Searchbar";
-import Button from "../molecules/Button";
-import ButtonLabel from "../molecules/IconLabelButton";
 import { useRouter } from "next/navigation";
 
 export default function RecommendPage() {

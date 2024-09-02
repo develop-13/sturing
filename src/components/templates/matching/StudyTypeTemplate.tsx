@@ -1,7 +1,7 @@
-import ButtonOptionDetail from "@/components/organisms/ButtonOptionDetail";
 import MatchingTitle from "@/components/molecules/MatchingTitle";
-import { TMatchingState, TDispatchFuncs } from "@/reducer/MatchingReducer";
+import { TMatchingState, TDispatchFuncs } from "@/reducers/matchingReducer";
 import { CheckBarButton } from "@/components/molecules/IconLabelButton";
+import Text from "@/components/atoms/Text";
 
 type TStudyTypeTemplate = {
   studyTypePreference: TMatchingState["studyTypePreference"];
@@ -18,27 +18,50 @@ function StudyTypeTemplate(props: TStudyTypeTemplate) {
         <CheckBarButton
           type="defaultCheck"
           isActive={props.studyTypePreference === "online"}
-          text="온라인 스터디"
           onClick={() => {
             props.setStudyTypePreference("online");
           }}
-        />
+        >
+          <Text
+            size="base"
+            weight="bold"
+            color={props.studyTypePreference === "online" ? "main" : "gray-700"}
+          >
+            온라인 스터디
+          </Text>
+        </CheckBarButton>
         <CheckBarButton
           type="defaultCheck"
           isActive={props.studyTypePreference === "offline"}
-          text="오프라인 스터디"
           onClick={() => {
             props.setStudyTypePreference("offline");
           }}
-        />
+        >
+          <Text
+            size="base"
+            weight="bold"
+            color={
+              props.studyTypePreference === "offline" ? "main" : "gray-700"
+            }
+          >
+            오프라인 스터디
+          </Text>
+        </CheckBarButton>
         <CheckBarButton
           type="defaultCheck"
           isActive={props.studyTypePreference === "both"}
-          text="온오프라인 상관 없어요"
           onClick={() => {
             props.setStudyTypePreference("both");
           }}
-        />
+        >
+          <Text
+            size="base"
+            weight="bold"
+            color={props.studyTypePreference === "both" ? "main" : "gray-700"}
+          >
+            온오프라인 상관 없어요{" "}
+          </Text>
+        </CheckBarButton>
       </div>
     </section>
   );

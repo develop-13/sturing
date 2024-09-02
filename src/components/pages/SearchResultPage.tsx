@@ -8,16 +8,9 @@ import Button from "../molecules/Button";
 import Text from "../atoms/Text";
 import { v4 as uuidv4 } from "uuid";
 import Divider from "../atoms/Divider";
-import FilterModal from "../organisms/FilterModal";
-
-const filterItem = [
-  { id: "category", text: "분야" },
-  { id: "location", text: "지역" },
-  { id: "maxPeopleNum", text: "인원" },
-  { id: "duration", text: "기간" },
-  { id: "career", text: "직업" },
-  { id: "role", text: "역할" },
-];
+import FilterModal from "../templates/filter/FilterModal";
+import { filterDatas } from "@/db/filter";
+import getTranslation from "@/utils/getTranslation";
 
 // 상태값 두 개를 두어야 할 것 같음
 // 서버에서 가져온 검색어에 해당한 스터디 객체들의 배열
@@ -38,7 +31,7 @@ function SearchResultPage() {
 
   const [studyDatas, setStudyDatas] = useState([]);
 
-  const [showFilterModal, setShowFilterModal] = useState(true);
+  const [showFilterModal, setShowFilterModal] = useState(false);
 
   useEffect(() => {
     // query에 해당하는 검색어들을 서버로부터 가져오는 통신작업이 필요
@@ -47,8 +40,8 @@ function SearchResultPage() {
   }, []);
 
   return (
-    <div className="relative">
-      {showFilterModal && <FilterModal studyDatas={studyDatas} />}
+    <div className="relative h-full">
+      {showFilterModal && <FilterModal filterDatas={filterDatas} />}
       <section className="flex flex-col gap-3 px-4 pb-4">
         <Header
           leftSlot={<Icon type="BACK" />}
@@ -69,7 +62,7 @@ function SearchResultPage() {
             onMouseUp={() => (isDragging = false)}
             onMouseLeave={() => (isDragging = false)}
           >
-            {filterItem.map((it) => (
+            {Object.keys(filterDatas).map((it) => (
               <Button
                 key={uuidv4()}
                 theme="transparent-border"
@@ -77,7 +70,7 @@ function SearchResultPage() {
                 extraCss="px-[16px] !h-[35px] shrink-0"
               >
                 <Text size="sm" weight="bold" color="gray-800">
-                  {it.text}
+                  {getTranslation(it)}
                 </Text>
                 <Icon type="DOWN" />
               </Button>

@@ -21,3 +21,57 @@
   content: "|";
   margin: 0 2px;
 }
+
+/* .react-calendar__tile--active {
+  @apply bg-green-500 text-white rounded-full;
+}
+
+.react-calendar__tile--range {
+  @apply bg-green-300 text-white;
+}
+
+.react-calendar__tile--rangeStart {
+  @apply bg-green-700 text-white rounded-l-full;
+}
+
+.react-calendar__tile--rangeEnd {
+  @apply bg-green-700 text-white rounded-r-full;
+} */
+
+/* 시험 */
+.react-calendar {
+  @apply border-r-0 border-b-0 border-l-0 border-t-0 border-gray-300 !important;
+}
+
+.react-calendar__tile {
+  @apply p-0 w-[50px] h-[50px] !important;
+}
+
+.react-calendar__tile--active {
+  @apply bg-gray-300 text-black !important;
+}
+
+.react-calendar__tile--rangeStart {
+  @apply text-white !important;
+}
+
+.react-calendar__tile--rangeEnd {
+  @apply text-white !important;
+}
+
+.react-calendar__tile--rangeStart .tileDiv {
+  @apply h-full rounded-full bg-mainColor flex items-center justify-center;
+}
+
+.react-calendar__tile--rangeEnd .tileDiv {
+  @apply h-full rounded-full bg-mainColor flex items-center justify-center;
+}
+
+.react-calendar__tile > abbr {
+  display: none !important; /* 기본 날짜 표시 숨기기 */
+}
+
+.react-calendar__navigation__prev2-button,
+.react-calendar__navigation__next2-button {
+  display: none !important;
+}
