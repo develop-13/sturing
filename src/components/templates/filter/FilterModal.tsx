@@ -1,11 +1,7 @@
-import { useReducer, useState } from "react";
-import Text from "../../atoms/Text";
+import { useReducer, useState, forwardRef, ForwardedRef } from "react";
 import { TabButtonGroup } from "../../organisms/ButtonGroup";
 import getTranslation from "@/utils/getTranslation";
-import { TCategory, TFilterDatas } from "@/types/common";
-import CategorySetter from "@/components/organisms/CategorySetter";
-import NumberSetter from "@/components/organisms/NumberSetter";
-import LocationSetter from "@/components/organisms/LocationSetter";
+import { TFilterDatas } from "@/types/common";
 import {
   FilterReducer,
   initialState,
@@ -13,9 +9,13 @@ import {
   TDispatchFuncs,
   TFilterState,
 } from "@/reducers/filterReducer";
+import CategorySetter from "@/components/organisms/CategorySetter";
+import NumberSetter from "@/components/organisms/NumberSetter";
+import LocationSetter from "@/components/organisms/LocationSetter";
 import DurationSetter from "@/components/organisms/DurationSetter";
 import LevelSetter from "@/components/organisms/LevelSetter";
 import RoleSetter from "@/components/organisms/RoleSetter";
+import Text from "../../atoms/Text";
 import Box from "@/components/atoms/Box";
 import Icon from "@/components/atoms/Icon";
 // 여기에 reducer 필요함
@@ -63,10 +63,21 @@ const filterModalTemplates = (
   ),
 });
 
-function FilterModal({ filterDatas }: { filterDatas: TFilterDatas }) {
+const FilterModal = forwardRef(function FilterModal(
+  {
+    filterDatas,
+    closeFilterModal,
+    initialTab = 0,
+  }: {
+    filterDatas: TFilterDatas;
+    initialTab?: number;
+    closeFilterModal: () => void;
+  },
+  ref: ForwardedRef<HTMLDivElement> | null
+) {
   const [state, dispatch] = useReducer(FilterReducer, initialState);
 
-  const [currentTab, setCurrentTab] = useState(0); // 탭
+  const [currentTab, setCurrentTab] = useState(initialTab); // 탭
   const currentKey = Object.keys(filterDatas)[currentTab] as keyof TFilterDatas;
 
   const DispatchFuncs = createDispatchFuncs(dispatch);
@@ -78,10 +89,21 @@ function FilterModal({ filterDatas }: { filterDatas: TFilterDatas }) {
   )[currentKey];
 
   return (
-    <div className="w-full h-full bg-white border border-gray-300 absolute top-0 left-0 z-50 flex flex-col gap-4 px-4 py-6 rounded-[15px]">
-      <Text size="lg" weight="bold">
-        필터
-      </Text>
+    <div
+      ref={ref}
+      className="w-full h-full bg-white border border-gray-300 absolute top-0 left-0 z-50 flex flex-col gap-4 px-4 py-6 rounded-[15px]"
+    >
+      <div className="flex justify-between">
+        <Text size="lg" weight="bold">
+          필터
+        </Text>
+        <Icon
+          type="CLOSE"
+          color="text-gray-600"
+          className="hover:bg-gray-200 rounded-full flex items-center"
+          onClick={closeFilterModal}
+        />
+      </div>
       <TabButtonGroup
         buttonGroupData={Object.keys(filterDatas).map((option) =>
           getTranslation(option)
@@ -118,7 +140,7 @@ function FilterModal({ filterDatas }: { filterDatas: TFilterDatas }) {
       </div>
     </div>
   );
-}
+});
 
 export default FilterModal;
 

@@ -72,6 +72,7 @@ export type TIconData = {
   onClick?: () => void;
   color?: string; // 같은 아이콘이라도 색이 다른 경우 때문에 추가하였습니다.
   size?: number;
+  className?: string;
 };
 const IconDataSet: Record<
   TIconData["type"],
@@ -574,7 +575,7 @@ const IconDataSet: Record<
     color,
   }),
 };
-const getIcon = ({ type, onClick, color, size }: TIconData) => {
+const getIcon = ({ type, onClick, color, size, className }: TIconData) => {
   const iconData = IconDataSet[type](color, size);
   const effectiveSize = iconData.size || 24;
   return (
@@ -583,6 +584,7 @@ const getIcon = ({ type, onClick, color, size }: TIconData) => {
       size={effectiveSize}
       color={iconData.color}
       onClick={onClick}
+      className={className}
     />
   );
 };
@@ -592,14 +594,16 @@ function IconFormat({
   icon,
   onClick,
   color,
+  className,
 }: {
   size?: number;
   icon: React.ReactNode;
   onClick?: () => void;
   color?: string;
+  className?: string;
 }) {
   return (
-    <div onClick={onClick} className="shrink-0 cursor-pointer">
+    <div onClick={onClick} className={"shrink-0 cursor-pointer " + className}>
       {React.cloneElement(icon as React.ReactElement, {
         size,
         className: color,

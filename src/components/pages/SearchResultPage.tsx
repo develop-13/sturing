@@ -3,7 +3,7 @@ import { useSearchParams } from "next/navigation";
 import Icon from "../atoms/Icon";
 import Searchbar from "../molecules/Searchbar";
 import Header from "../organisms/Header";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "../molecules/Button";
 import Text from "../atoms/Text";
 import { v4 as uuidv4 } from "uuid";
@@ -32,6 +32,33 @@ function SearchResultPage() {
   const [studyDatas, setStudyDatas] = useState([]);
 
   const [showFilterModal, setShowFilterModal] = useState(false);
+  let initialTab = useRef<number>(0);
+  let filterRef = useRef<HTMLDivElement>(null);
+
+  const closeFilterModal = () => {
+    setShowFilterModal(false);
+  };
+
+  useEffect(() => {
+    const listener = (e: MouseEvent) => {
+      // 필터가 닫히는 조건: 필터 영역 밖을 클릭 했을 때,
+      // 예외조건: 필터가 없거나 (필터가 없을 수가 있나?) 필터 영역 안을 클릭 했을 때,
+
+      if (
+        !(filterRef.current instanceof HTMLElement) ||
+        !filterRef.current ||
+        (e.target instanceof Node && filterRef.current.contains(e.target))
+      )
+        return;
+      closeFilterModal();
+    };
+
+    document.addEventListener("mousedown", listener);
+
+    return () => {
+      document.removeEventListener("mousedown", listener);
+    };
+  }, [filterRef]);
 
   useEffect(() => {
     // query에 해당하는 검색어들을 서버로부터 가져오는 통신작업이 필요
@@ -41,7 +68,14 @@ function SearchResultPage() {
 
   return (
     <div className="relative h-full">
-      {showFilterModal && <FilterModal filterDatas={filterDatas} />}
+      {showFilterModal && (
+        <FilterModal
+          ref={filterRef}
+          closeFilterModal={closeFilterModal}
+          filterDatas={filterDatas}
+          initialTab={initialTab.current}
+        />
+      )}
       <section className="flex flex-col gap-3 px-4 pb-4">
         <Header
           leftSlot={<Icon type="BACK" />}
@@ -62,12 +96,16 @@ function SearchResultPage() {
             onMouseUp={() => (isDragging = false)}
             onMouseLeave={() => (isDragging = false)}
           >
-            {Object.keys(filterDatas).map((it) => (
+            {Object.keys(filterDatas).map((it, idx) => (
               <Button
                 key={uuidv4()}
                 theme="transparent-border"
                 shape="tag"
                 extraCss="px-[16px] !h-[35px] shrink-0"
+                onClick={() => {
+                  setShowFilterModal(true);
+                  initialTab.current = idx;
+                }}
               >
                 <Text size="sm" weight="bold" color="gray-800">
                   {getTranslation(it)}
@@ -77,7 +115,12 @@ function SearchResultPage() {
             ))}
           </ul>
           <div className="bg-white z-[99999px] flex items-center">
-            <Icon type="FILTER" />
+            <Icon
+              type="FILTER"
+              onClick={() => {
+                setShowFilterModal(true);
+              }}
+            />
           </div>
         </div>
       </section>
