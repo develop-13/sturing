@@ -1,5 +1,6 @@
 import React from "react";
 import Divider from "../atoms/Divider";
+import { v4 } from "uuid";
 
 type TTheme = "gray" | "transparent" | "white";
 
@@ -21,7 +22,7 @@ const getTags: GetTagsProps = {
   slot2: (tagsStyle, leftSlot, middleSlot) => (
     <div className={tagsStyle}>
       {leftSlot}
-      <Divider type="col" mx={8} />
+      <Divider type="col" />
       {middleSlot}
     </div>
   ),
@@ -37,14 +38,15 @@ const getTags: GetTagsProps = {
 };
 
 const getTheme = (theme: TTheme, padding: number = 1): string => {
+  // const baseStyle = `py-${padding} flex flex-1 justify-center `;
   const baseStyle = `py-${padding} flex `;
   switch (theme) {
     case "gray":
-      return baseStyle + "bg-gray-100";
+      return baseStyle + "bg-gray-100 ";
     case "white":
-      return baseStyle + "bg-white";
+      return baseStyle + "bg-white ";
     case "transparent":
-      return baseStyle + "bg-transparent";
+      return baseStyle + "bg-transparent ";
     default:
       return baseStyle;
   }
@@ -54,24 +56,28 @@ interface InfoTagsProps {
   theme: TTheme;
   padding?: number;
   children: React.ReactNode;
+  className?: string;
 }
 
 const InfoTags: React.FC<InfoTagsProps> = ({
   theme,
   padding = 1,
   children,
+  className,
 }) => {
   const tagsStyle = getTheme(theme, padding);
   const childrenArray = React.Children.toArray(children);
-  const [leftSlot, middleSlot, rightSlot] = childrenArray;
 
-  if (childrenArray.length > 3) {
-    console.error("InfoTags only supports up to 3 children.");
-    return null;
-  }
-
-  if (!rightSlot) return getTags.slot2(tagsStyle, leftSlot, middleSlot);
-  else return getTags.slot3(tagsStyle, leftSlot, middleSlot, rightSlot);
+  return (
+    <div className={tagsStyle + className}>
+      {childrenArray.map((children, idx) => (
+        <div className="flex" key={v4()}>
+          {children}
+          {idx < childrenArray.length - 1 ? <Divider type="col" /> : null}
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default InfoTags;

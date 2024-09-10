@@ -1,6 +1,7 @@
 type TCol = {
   type: "col";
   mx?: number;
+  color?: "gray-100" | "gray-400" | "gray-300";
 };
 
 type TRow = {
@@ -15,12 +16,9 @@ type TDivider = TCol | TRow;
 function Divider(props: TDivider) {
   switch (props.type) {
     case "col":
-      return (
-        <div
-          className="divider text-gray-400"
-          style={{ margin: `0 ${props.mx || 2}px` }}
-        ></div>
-      );
+      const effectColor = props.color || "gray-400";
+
+      return <div className="relative divider before:bg-gray-400 "></div>;
     case "row":
       const effectiveColor = props.color || "gray-300";
       return (

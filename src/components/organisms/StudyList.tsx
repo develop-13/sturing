@@ -55,7 +55,7 @@ function StudyList() {
             UXUI 디자이너 본질 강화 피그마 스터디{" "}
           </Text>
           <Divider type="row" my={8} />
-          <InfoTags theme="white" padding={3}>
+          <InfoTags theme="white" padding={3} className="justify-around">
             <Button theme="transparent" shape="tag">
               <Icon type="MEMBERS" />
               <Text size="xs" weight="bold" color="gray-700">
@@ -69,7 +69,7 @@ function StudyList() {
               </Text>
             </Button>
             <Button theme="transparent" shape="tag">
-              <Icon type="CHECKBOX" />
+              <Icon type="CHECKBOX_COLOR" />
               <Text size="xs" weight="bold" color="gray-700">
                 사진인증
               </Text>
@@ -113,7 +113,7 @@ function StudyList() {
               </Text>
             </Button>
             <Button theme="transparent" shape="tag">
-              <Icon type="CHECKBOX" />
+              <Icon type="CHECKBOX_COLOR" />
               <Text size="xs" weight="bold" color="gray-700">
                 사진인증
               </Text>

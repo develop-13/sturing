@@ -18,25 +18,15 @@
 }
 
 .divider::before {
-  content: "|";
-  margin: 0 2px;
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  display: inline-block;
+  width: 1px;
+  height: 10px;
 }
-
-/* .react-calendar__tile--active {
-  @apply bg-green-500 text-white rounded-full;
-}
-
-.react-calendar__tile--range {
-  @apply bg-green-300 text-white;
-}
-
-.react-calendar__tile--rangeStart {
-  @apply bg-green-700 text-white rounded-l-full;
-}
-
-.react-calendar__tile--rangeEnd {
-  @apply bg-green-700 text-white rounded-r-full;
-} */
 
 /* 시험 */
 .react-calendar {

@@ -1,5 +1,5 @@
 "use client";
-import { ForwardedRef, ReactElement, forwardRef, useEffect } from "react";
+import { ForwardedRef, forwardRef, useEffect } from "react";
 
 // 여기서 위치값을 어텋게 줄건데?
 type TInfoBox = {
