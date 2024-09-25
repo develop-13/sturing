@@ -1,6 +1,4 @@
 import React from "react";
-import Image from "../atoms/Image";
-import { profile } from "console";
 
 type TUserInfoItem = {
   name: string;
