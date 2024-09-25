@@ -15,6 +15,7 @@ import { PiDotsThreeOutlineFill } from "react-icons/pi";
 import { GoShare } from "react-icons/go";
 import { FaRegUser } from "react-icons/fa6";
 import { GrPowerReset } from "react-icons/gr";
+import { useRouter } from "next/navigation";
 
 export type TIconData = {
   type:
@@ -70,18 +71,19 @@ export type TIconData = {
     | "PLUS"
     | "MINUS";
   onClick?: () => void;
-  color?: string; // 같은 아이콘이라도 색이 다른 경우 때문에 추가하였습니다.
   size?: number;
   className?: string;
 };
+
 const IconDataSet: Record<
   TIconData["type"],
-  (
-    color?: string,
-    size?: number
-  ) => { icon: React.ReactNode; size?: number; color?: string }
+  (size?: number) => {
+    icon: React.ReactNode;
+    size?: number;
+    onClick?: () => void;
+  }
 > = {
-  PLUS: (color?: string, size?: number) => ({
+  PLUS: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/plus.svg"
@@ -90,9 +92,8 @@ const IconDataSet: Record<
         height={size || 18}
       />
     ),
-    color,
   }),
-  MINUS: (color?: string, size?: number) => ({
+  MINUS: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/minus.svg"
@@ -101,9 +102,8 @@ const IconDataSet: Record<
         height={size || 18}
       />
     ),
-    color,
   }),
-  CHECKBOX_UNCHECKED: (color?: string, size?: number) => ({
+  CHECKBOX_UNCHECKED: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/checkbox_unchecked.svg"
@@ -112,9 +112,8 @@ const IconDataSet: Record<
         height={size || 20}
       />
     ),
-    color,
   }),
-  CHECKBOX_CHECKED: (color?: string, size?: number) => ({
+  CHECKBOX_CHECKED: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/checkbox_checked.svg"
@@ -123,10 +122,9 @@ const IconDataSet: Record<
         height={size || 20}
       />
     ),
-    color,
   }),
 
-  ADD: (color?: string, size?: number) => ({
+  ADD: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/add.svg"
@@ -135,9 +133,8 @@ const IconDataSet: Record<
         height={size || 20}
       />
     ),
-    color,
   }),
-  DOWN: (color?: string, size?: number) => ({
+  DOWN: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/down.svg"
@@ -146,9 +143,8 @@ const IconDataSet: Record<
         height={size || 12}
       />
     ),
-    color,
   }),
-  STAR: (color?: string, size?: number) => ({
+  STAR: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/star.svg"
@@ -157,9 +153,8 @@ const IconDataSet: Record<
         height={size || 12}
       />
     ),
-    color,
   }),
-  LOCATION_COLOR: (color?: string, size?: number) => ({
+  LOCATION_COLOR: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/location_color.svg"
@@ -168,9 +163,8 @@ const IconDataSet: Record<
         height={size || 18}
       />
     ),
-    color,
   }),
-  CHECKBOX_COLOR: (color?: string, size?: number) => ({
+  CHECKBOX_COLOR: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/checkbox.svg"
@@ -179,9 +173,8 @@ const IconDataSet: Record<
         height={size || 18}
       />
     ),
-    color,
   }),
-  DATE_COLOR: (color?: string, size?: number) => ({
+  DATE_COLOR: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/date_color.svg"
@@ -190,9 +183,8 @@ const IconDataSet: Record<
         height={size || 18}
       />
     ),
-    color,
   }),
-  MEMBERS: (color?: string, size?: number) => ({
+  MEMBERS: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/members.svg"
@@ -201,9 +193,8 @@ const IconDataSet: Record<
         height={size || 18}
       />
     ),
-    color,
   }),
-  LOCATION: (color?: string, size?: number) => ({
+  LOCATION: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/location.svg"
@@ -212,9 +203,8 @@ const IconDataSet: Record<
         height={size || 15}
       />
     ),
-    color,
   }),
-  DATE: (color?: string, size?: number) => ({
+  DATE: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/date.svg"
@@ -223,9 +213,8 @@ const IconDataSet: Record<
         height={size || 18}
       />
     ),
-    color,
   }),
-  COMPLETE: (color?: string, size?: number) => ({
+  COMPLETE: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/complete.svg"
@@ -234,10 +223,9 @@ const IconDataSet: Record<
         height={size || size || 62}
       />
     ),
-    color,
   }),
 
-  FREE: (color?: string, size?: number) => ({
+  FREE: (size?: number) => ({
     icon: (
       <Image
         src="/svg/emoji/free.svg"
@@ -246,9 +234,8 @@ const IconDataSet: Record<
         height={size || 30}
       />
     ),
-    color,
   }),
-  COOPERATIVE: (color?: string, size?: number) => ({
+  COOPERATIVE: (size?: number) => ({
     icon: (
       <Image
         src="/svg/emoji/cooperative.svg"
@@ -257,9 +244,8 @@ const IconDataSet: Record<
         height={size || 30}
       />
     ),
-    color,
   }),
-  SELFDIRECTED: (color?: string, size?: number) => ({
+  SELFDIRECTED: (size?: number) => ({
     icon: (
       <Image
         src="/svg/emoji/selfDirected.svg"
@@ -268,9 +254,8 @@ const IconDataSet: Record<
         height={size || 30}
       />
     ),
-    color,
   }),
-  LEARNING: (color?: string, size?: number) => ({
+  LEARNING: (size?: number) => ({
     icon: (
       <Image
         src="/svg/emoji/learningOriented.svg"
@@ -279,9 +264,8 @@ const IconDataSet: Record<
         height={size || 30}
       />
     ),
-    color,
   }),
-  RESPONSIBLE: (color?: string, size?: number) => ({
+  RESPONSIBLE: (size?: number) => ({
     icon: (
       <Image
         src="/svg/emoji/responsible.svg"
@@ -290,9 +274,8 @@ const IconDataSet: Record<
         height={size || 30}
       />
     ),
-    color,
   }),
-  ENTHUSIASTIC: (color?: string, size?: number) => ({
+  ENTHUSIASTIC: (size?: number) => ({
     icon: (
       <Image
         src="/svg/emoji/enthusiastic.svg"
@@ -301,9 +284,8 @@ const IconDataSet: Record<
         height={size || 30}
       />
     ),
-    color,
   }),
-  SYSTEMATIC: (color?: string, size?: number) => ({
+  SYSTEMATIC: (size?: number) => ({
     icon: (
       <Image
         src="/svg/emoji/systematic.svg"
@@ -312,9 +294,8 @@ const IconDataSet: Record<
         height={size || 30}
       />
     ),
-    color,
   }),
-  SERIOUS: (color?: string, size?: number) => ({
+  SERIOUS: (size?: number) => ({
     icon: (
       <Image
         src="/svg/emoji/serious.svg"
@@ -323,9 +304,8 @@ const IconDataSet: Record<
         height={size || 30}
       />
     ),
-    color,
   }),
-  PROFESSIONAL: (color?: string, size?: number) => ({
+  PROFESSIONAL: (size?: number) => ({
     icon: (
       <Image
         src="/svg/emoji/professional.svg"
@@ -334,9 +314,8 @@ const IconDataSet: Record<
         height={size || 30}
       />
     ),
-    color,
   }),
-  FRIENDLY: (color?: string, size?: number) => ({
+  FRIENDLY: (size?: number) => ({
     icon: (
       <Image
         src="/svg/emoji/friendly.svg"
@@ -345,76 +324,65 @@ const IconDataSet: Record<
         height={size || 30}
       />
     ),
-    color,
   }),
 
-  BELL: (color?: string) => ({
+  BELL: () => ({
     icon: <VscBell />,
-    color,
+    onClick: () => {
+      alert("BELL CLICKED!");
+    },
   }),
 
-  CHECKED: (color?: string) => ({
+  CHECKED: () => ({
     icon: <IoCheckmark />,
-    color,
   }),
 
-  BACK: (color?: string) => ({
+  BACK: () => ({
     icon: <IoIosArrowBack />,
-    color,
   }),
 
-  BOOKMARK: (color?: string) => ({
+  BOOKMARK: () => ({
     icon: <CiBookmark />,
-    color,
   }),
 
-  FORWARD: (color?: string) => ({
+  FORWARD: () => ({
     icon: <IoIosArrowForward />,
-    color,
   }),
 
-  CLOSE: (color?: string) => ({
+  CLOSE: () => ({
     icon: <IoMdClose />,
-    color,
   }),
 
-  SEARCH: (color?: string) => ({
+  SEARCH: () => ({
     icon: <IoSearchOutline />,
-    color,
   }),
 
-  CHATBOX: (color?: string) => ({
+  CHATBOX: () => ({
     icon: <BsChatSquareDots />,
-    color,
   }),
 
-  LOGO: (color?: string) => ({
+  LOGO: () => ({
     icon: <Icon_Logo />,
-    color,
   }),
 
-  MENU: (color?: string) => ({
+  MENU: () => ({
     icon: <SlMenu />,
-    color,
   }),
 
-  MORE: (color?: string) => ({
+  MORE: () => ({
     icon: <PiDotsThreeOutlineFill />,
     size: 20,
-    color,
   }),
 
-  SHARE: (color?: string) => ({
+  SHARE: () => ({
     icon: <GoShare />,
-    color,
   }),
 
-  USER: (color?: string) => ({
+  USER: () => ({
     icon: <FaRegUser />,
-    color,
   }),
 
-  CAMERA: (color?: string, size?: number) => ({
+  CAMERA: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/camera.svg"
@@ -423,10 +391,9 @@ const IconDataSet: Record<
         height={size || 24}
       />
     ),
-    color,
   }),
 
-  FILTER: (color?: string, size?: number) => ({
+  FILTER: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/filter.svg"
@@ -435,10 +402,9 @@ const IconDataSet: Record<
         height={size || 24}
       />
     ),
-    color,
   }),
 
-  DESIGN: (color?: string, size?: number) => ({
+  DESIGN: (size?: number) => ({
     icon: (
       <Image
         src="/svg/interests/design.svg"
@@ -447,10 +413,9 @@ const IconDataSet: Record<
         height={size || 28}
       />
     ),
-    color,
   }),
 
-  TECH: (color?: string, size?: number) => ({
+  TECH: (size?: number) => ({
     icon: (
       <Image
         src="/svg/interests/tech.svg"
@@ -459,10 +424,9 @@ const IconDataSet: Record<
         height={size || 28}
       />
     ),
-    color,
   }),
 
-  BUSINESS: (color?: string, size?: number) => ({
+  BUSINESS: () => ({
     icon: (
       <Image
         src="/svg/interests/business.svg"
@@ -471,10 +435,9 @@ const IconDataSet: Record<
         height={22.5}
       />
     ),
-    color,
   }),
 
-  ECONOMY: (color?: string, size?: number) => ({
+  ECONOMY: (size?: number) => ({
     icon: (
       <Image
         src="/svg/interests/economy.svg"
@@ -483,10 +446,9 @@ const IconDataSet: Record<
         height={size || 26}
       />
     ),
-    color,
   }),
 
-  LANGUAGE: (color?: string, size?: number) => ({
+  LANGUAGE: (size?: number) => ({
     icon: (
       <Image
         src="/svg/interests/language.svg"
@@ -495,10 +457,9 @@ const IconDataSet: Record<
         height={size || 20}
       />
     ),
-    color,
   }),
 
-  CERTIFICATION: (color?: string, size?: number) => ({
+  CERTIFICATION: (size?: number) => ({
     icon: (
       <Image
         src="/svg/interests/certification.svg"
@@ -507,10 +468,9 @@ const IconDataSet: Record<
         height={size || 19}
       />
     ),
-    color,
   }),
 
-  SELFDEVELOP: (color?: string, size?: number) => ({
+  SELFDEVELOP: (size?: number) => ({
     icon: (
       <Image
         src="/svg/interests/selfDevelop.svg"
@@ -519,10 +479,9 @@ const IconDataSet: Record<
         height={size || 28}
       />
     ),
-    color,
   }),
 
-  MARKETING: (color?: string, size?: number) => ({
+  MARKETING: (size?: number) => ({
     icon: (
       <Image
         src="/svg/interests/marketing.svg"
@@ -531,15 +490,13 @@ const IconDataSet: Record<
         height={size || 28}
       />
     ),
-    color,
   }),
 
-  RESET: (color?: string) => ({
+  RESET: () => ({
     icon: <GrPowerReset />,
-    color,
   }),
 
-  WRITE: (color?: string, size?: number) => ({
+  WRITE: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/write.svg"
@@ -548,10 +505,9 @@ const IconDataSet: Record<
         height={size || 16}
       />
     ),
-    color,
   }),
 
-  KAKAO: (color?: string, size?: number) => ({
+  KAKAO: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/kakao.svg"
@@ -560,10 +516,9 @@ const IconDataSet: Record<
         height={size || 17}
       />
     ),
-    color,
   }),
 
-  RLOGO: (color?: string, size?: number) => ({
+  RLOGO: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/logo.svg"
@@ -572,18 +527,20 @@ const IconDataSet: Record<
         height={size || 17}
       />
     ),
-    color,
   }),
 };
-const getIcon = ({ type, onClick, color, size, className }: TIconData) => {
-  const iconData = IconDataSet[type](color, size);
+
+const getIcon = ({ type, onClick, size, className }: TIconData) => {
+  // 하고자 하는 것: 여기서 onClick을 받으면 그 onClick을 쓰게끔 하고
+  // onClick을 받지 않으면 타입별로 정의되어 있는 onClick을 쓰게끔 하기
+  const iconData = IconDataSet[type](size);
   const effectiveSize = iconData.size || 24;
+  const effecttiveOnclick = iconData.onClick || onClick;
   return (
     <IconFormat
       icon={iconData.icon}
       size={effectiveSize}
-      color={iconData.color}
-      onClick={onClick}
+      onClick={effecttiveOnclick}
       className={className}
     />
   );
@@ -593,20 +550,17 @@ function IconFormat({
   size,
   icon,
   onClick,
-  color,
   className,
 }: {
   size?: number;
   icon: React.ReactNode;
   onClick?: () => void;
-  color?: string;
   className?: string;
 }) {
   return (
     <div onClick={onClick} className={"shrink-0 cursor-pointer " + className}>
       {React.cloneElement(icon as React.ReactElement, {
         size,
-        className: color,
       })}{" "}
     </div>
   );

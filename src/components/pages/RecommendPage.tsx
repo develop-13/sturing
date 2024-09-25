@@ -1,4 +1,3 @@
-"use client";
 import TitleLink from "@/components/molecules/TitleLink";
 import StudyBanner from "@/components/organisms/StudyBanner";
 import StudyBox from "@/components/organisms/StudyBox";
@@ -11,11 +10,8 @@ import { NavButtonGroup } from "../organisms/ButtonGroup";
 import GoMatchingPage from "../molecules/GoMatchingPage";
 import Divider from "../atoms/Divider";
 import Searchbar from "../molecules/Searchbar";
-import { useRouter } from "next/navigation";
 
 export default function RecommendPage() {
-  const router = useRouter();
-
   return (
     <>
       <div className="flex flex-col overflow-hidden">
