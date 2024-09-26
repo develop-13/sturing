@@ -15,8 +15,6 @@ export default function StudyCategory() {
 
   return (
     <>
-      {/* <div className="relative overflow-x-hidden"> */}
-      {/* <ul className="flex gap-2 relative overflow-x-scroll list-none px-2"> */}
       {categories.map((category) => (
         <IconLabelButton
           key={category}
@@ -28,8 +26,6 @@ export default function StudyCategory() {
           }}
         />
       ))}
-      {/* </ul> */}
-      {/* </div> */}
     </>
   );
 }

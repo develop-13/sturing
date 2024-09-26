@@ -1,10 +1,2 @@
-commit명
+commit명: StudyBanner에 swiper.js 적용
 
-작업내용
-
-- pathname 
-- GoMatchingPage
-- Icon.tsx 매개변수에 color 실제로 지운거 다시 추가
-- SearchbarWrapper 추가: RecommendPage를 서버 컴포넌트로 유지하려고 RecommendPage에 있던 state값을
-SearchbarWrapper 함수에다가 정의하고 SearchbarWrapper는 Searbar을 반환할 때 props로 state값과 chageState함수를 전해줬는데 이거 맞냐
-- SlideContentList.tsx 추가

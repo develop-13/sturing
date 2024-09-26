@@ -1,8 +1,15 @@
 "use client";
 import { TStudyBanner } from "@/db/studyBanners";
-import Image from "next/image";
+import Image from "../atoms/Image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Pagination, Navigation } from "swiper/modules";
 
 export default function StudyBanner({ props }: { props: TStudyBanner[] }) {
+  console.log(props);
+
   return (
     <>
       <div
@@ -11,22 +18,22 @@ export default function StudyBanner({ props }: { props: TStudyBanner[] }) {
           alert("해당 이벤트페이지는 아직 준비되지 않았습니다.");
         }}
       >
-        {props.map((data) => {
-          return data.src === "" ? (
-            <div
-              key={data.id}
-              className="flex bg-mainColor w-full h-full"
-            ></div>
-          ) : (
-            <Image
-              key={data.id}
-              src={data.src}
-              width={375}
-              height={194}
-              alt=""
-            ></Image>
-          );
-        })}
+        <Swiper
+          pagination={{
+            type: "fraction",
+          }}
+          navigation={true}
+          modules={[Pagination, Navigation]}
+          className="mySwiper"
+        >
+          {props.map((data) => {
+            return (
+              <SwiperSlide key={data.id}>
+                <Image key={data.id} src={data.src} width={375} height={194} />
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
       </div>
     </>
   );

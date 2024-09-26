@@ -65,3 +65,23 @@
 .react-calendar__navigation__next2-button {
   display: none !important;
 }
+
+/* swiper 커스터미이징 */
+.swiper-button-prev:after,
+.swiper-rtl .swiper-button-next:after,
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  display: none;
+}
+
+.swiper-pagination-fraction {
+  font-size: 11px;
+  width: 45px !important;
+  height: 20px !important;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  border-radius: 20px;
+  position: relative !important;
+  bottom: 16% !important;
+  left: 85% !important;
+}

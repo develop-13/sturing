@@ -1,4 +1,3 @@
-import TitleLink from "@/components/molecules/TitleLink";
 import StudyBanner from "@/components/organisms/StudyBanner";
 import StudyBox from "@/components/organisms/StudyBox";
 import StudyCategory from "@/components/organisms/StudyCategory";
@@ -9,7 +8,7 @@ import Icon from "../atoms/Icon";
 import { NavButtonGroup } from "../organisms/ButtonGroup";
 import GoMatchingPage from "../molecules/GoMatchingPage";
 import Divider from "../atoms/Divider";
-import Searchbar, { SearchbarWrapper } from "../molecules/Searchbar";
+import { SearchbarWrapper } from "../molecules/Searchbar";
 import SlideContentList from "../organisms/SlideContentList";
 
 export default function RecommendPage() {
@@ -18,23 +17,21 @@ export default function RecommendPage() {
   return (
     <>
       <div className="flex flex-col overflow-hidden">
-        <div>
-          <Header
-            leftSlot={
-              <div className="flex gap-[12px]">
-                <Icon type="MENU" />
-                <Icon type="LOGO" />
-              </div>
-            }
-            rightSlot={
-              <div className="flex gap-[12px]">
-                <Icon type="BELL" />
-                <Icon type="USER" />
-              </div>
-            }
-          />
-          <NavButtonGroup pathname={pathname} />
-        </div>
+        <Header
+          leftSlot={
+            <div className="flex gap-[12px]">
+              <Icon type="MENU" />
+              <Icon type="LOGO" />
+            </div>
+          }
+          rightSlot={
+            <div className="flex gap-[12px]">
+              <Icon type="BELL" />
+              <Icon type="USER" />
+            </div>
+          }
+        />
+        <NavButtonGroup pathname={pathname} />
         <div>
           <StudyBanner props={studyBanners} />
           <GoMatchingPage />

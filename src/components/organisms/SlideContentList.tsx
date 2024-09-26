@@ -15,8 +15,6 @@ function SlideContentList(props: TSlideContentList) {
   const scrollRef = useRef<HTMLUListElement | null>(null);
 
   const scrollRight = () => {
-    console.log("scrollRight work!");
-
     if (scrollRef.current) {
       const maxScrollLeft =
         scrollRef.current.scrollWidth - scrollRef.current.clientWidth;
