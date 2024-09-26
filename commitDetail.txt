@@ -1,11 +1,10 @@
-아이콘 컴포넌트 onClick 조정
+commit명
 
-Icon.tsx 에서
-각 타입별로 onClick을 정의 하도록 함 
+작업내용
 
-왜냐하면 하나의 아이콘이 여기 저기서 쓰이는 경우 부모 컴포넌트에서 계속해서
-같은 함수를 만들어서 onClick으로 전달해줘야 하기 때문에 번거로워질 수 있어서 각자 개별로 정의해두고 쓰도록
-
-다만 onClick을 매개변수로 받는 경우 받은 onClick을 쓰게끔 하기
-
-각 아이콘의 onClick은 천천히 추가할 예정
+- pathname 
+- GoMatchingPage
+- Icon.tsx 매개변수에 color 실제로 지운거 다시 추가
+- SearchbarWrapper 추가: RecommendPage를 서버 컴포넌트로 유지하려고 RecommendPage에 있던 state값을
+SearchbarWrapper 함수에다가 정의하고 SearchbarWrapper는 Searbar을 반환할 때 props로 state값과 chageState함수를 전해줬는데 이거 맞냐
+- SlideContentList.tsx 추가

@@ -72,6 +72,7 @@ export type TIconData = {
     | "MINUS";
   onClick?: () => void;
   size?: number;
+  color?: string;
   className?: string;
 };
 
@@ -530,7 +531,7 @@ const IconDataSet: Record<
   }),
 };
 
-const getIcon = ({ type, onClick, size, className }: TIconData) => {
+const getIcon = ({ type, onClick, size, className, color }: TIconData) => {
   // 하고자 하는 것: 여기서 onClick을 받으면 그 onClick을 쓰게끔 하고
   // onClick을 받지 않으면 타입별로 정의되어 있는 onClick을 쓰게끔 하기
   const iconData = IconDataSet[type](size);
@@ -542,6 +543,7 @@ const getIcon = ({ type, onClick, size, className }: TIconData) => {
       size={effectiveSize}
       onClick={effecttiveOnclick}
       className={className}
+      color={color}
     />
   );
 };
@@ -550,17 +552,20 @@ function IconFormat({
   size,
   icon,
   onClick,
+  color,
   className,
 }: {
   size?: number;
   icon: React.ReactNode;
   onClick?: () => void;
+  color?: string;
   className?: string;
 }) {
   return (
     <div onClick={onClick} className={"shrink-0 cursor-pointer " + className}>
       {React.cloneElement(icon as React.ReactElement, {
         size,
+        className: color,
       })}{" "}
     </div>
   );

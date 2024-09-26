@@ -8,9 +8,16 @@ type TSearchbar = {
   usage: "header" | "main";
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
 };
 
-function Searchbar({ placeholder, usage, value, onChange }: TSearchbar) {
+function Searchbar({
+  placeholder,
+  usage,
+  value,
+  onChange,
+  className,
+}: TSearchbar) {
   const router = useRouter();
   let searchbarSize = "";
   let searchIconColor = "";
@@ -28,7 +35,9 @@ function Searchbar({ placeholder, usage, value, onChange }: TSearchbar) {
     <div
       className={
         "w-full flex items-center gap-[10px] bg-main-100 rounded-full " +
-        searchbarSize
+        searchbarSize +
+        " " +
+        className
       }
     >
       <input
@@ -48,3 +57,15 @@ function Searchbar({ placeholder, usage, value, onChange }: TSearchbar) {
 }
 
 export default Searchbar;
+
+type TSearchbarWrapper = Omit<TSearchbar, "value" | "onChange">;
+
+export function SearchbarWrapper(props: TSearchbarWrapper) {
+  const [query, setQuery] = useState("");
+
+  const onChangeQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  };
+
+  return <Searchbar {...props} onChange={onChangeQuery} value={query} />;
+}

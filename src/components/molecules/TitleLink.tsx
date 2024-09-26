@@ -10,7 +10,7 @@ type TTitleLink = {
   onClick?: () => void;
 };
 
-export default function TitleLink({ props }: { props: TTitleLink }) {
+export default function TitleLink(props: TTitleLink) {
   return (
     <>
       <div className="flex items-center justify-between text-lg font-bold px-4">

@@ -15,21 +15,21 @@ export default function StudyCategory() {
 
   return (
     <>
-      <div className="relative overflow-x-hidden">
-        <ul className="flex gap-2 overflow-x-hidden list-none px-2">
-          {categories.map((category) => (
-            <IconLabelButton
-              key={category}
-              datas={{
-                usage: "round",
-                text: category,
-                icon: <Icon type={iconAdapter(category)} />,
-                onClick: onClickHandler,
-              }}
-            />
-          ))}
-        </ul>
-      </div>
+      {/* <div className="relative overflow-x-hidden"> */}
+      {/* <ul className="flex gap-2 relative overflow-x-scroll list-none px-2"> */}
+      {categories.map((category) => (
+        <IconLabelButton
+          key={category}
+          datas={{
+            usage: "round",
+            text: category,
+            icon: <Icon type={iconAdapter(category)} />,
+            onClick: onClickHandler,
+          }}
+        />
+      ))}
+      {/* </ul> */}
+      {/* </div> */}
     </>
   );
 }

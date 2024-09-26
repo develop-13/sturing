@@ -26,7 +26,6 @@ function Header({
       {leftSlot}
       {middleSlot}
       {rightSlot}
-      {/* <Text props={{}}></Text> */}
     </header>
   );
 }

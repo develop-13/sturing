@@ -82,9 +82,8 @@ export function TabButtonGroup(props: TTabProps) {
 // 재사용성 면에서는 1이 나은듯. 왜냐하면 페이지별로 NavButtonGroup안에의 내용들이 다르면 각 페이지별로 경로값을 이 컴포넌트로 전해주면 되니까.
 // 하지만 이번 프로젝트에서는 NavButtonGroup안에의 내용이 다 똑같아서 그냥 컴포넌트 안에서 정의해주도록 함.
 
-export function NavButtonGroup() {
+export function NavButtonGroup({ pathname }: { pathname?: string }) {
   let btnStyle = "flex-grow basis-0 h-full border-gray-400 ";
-  const pathname = usePathname();
 
   return (
     <div className="h-[46px] bg-transparent border-y border-gray-300 flex gap-4 justify-between items-center  ">
