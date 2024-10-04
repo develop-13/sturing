@@ -1,5 +1,8 @@
+"use client";
 import { ReactNode } from "react";
 import Box, { TBox } from "../atoms/Box";
+import Text from "../atoms/Text";
+import { signIn } from "next-auth/react";
 
 type TButton = TBox;
 

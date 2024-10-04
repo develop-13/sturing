@@ -11,7 +11,7 @@ import { TabButtonGroup } from "../organisms/ButtonGroup";
 import InfoBox from "../organisms/InfoBox";
 import StudyOverview from "../organisms/StudyOverview";
 import Header from "../organisms/Header";
-import { fetchStudyDetail } from "@/api/fetchStudyDetail";
+import { fetchStudyDetail } from "@/app/api/fetchStudyDetail";
 import { TStudy } from "@/types/study";
 import TitleLink from "../molecules/TitleLink";
 import ButtonLabel from "../molecules/IconLabelButton";
@@ -115,7 +115,7 @@ function StudyDetailPage() {
             }
           />
           <StudyOverviewItem
-            icon={<Icon type="CHECKBOX" />}
+            icon={<Icon type="CHECKBOX_COLOR" />}
             name="과제"
             content="스터디 게시판 사진 인증"
           />
@@ -131,11 +131,9 @@ function StudyDetailPage() {
           ref={boxRef.info}
         >
           <TitleLink
-            props={{
-              title: "스터디 정보",
-              hasArrow: true,
-              arrowColor: "gray-300",
-            }}
+            title="스터디 정보"
+            hasArrow={true}
+            arrowColor="gray-300"
           />
           <Divider type="row" />
           <div className="flex gap-[4px]">
@@ -172,8 +170,8 @@ function StudyDetailPage() {
                 datas={{
                   theme: "secondary",
                   icon: iconAtmosphereMapping[it][1],
-                  role: "studyItem",
                   text: iconAtmosphereMapping[it][0],
+                  usage: "listItem",
                 }}
               />
             ))}
@@ -194,7 +192,7 @@ function StudyDetailPage() {
                 key={uuidv4()}
                 datas={{
                   theme: "secondary",
-                  role: "studyItem",
+                  usage: "listItem",
                   text: studyDetail?.desiredMember.ageRange,
                 }}
               />
@@ -204,7 +202,7 @@ function StudyDetailPage() {
                 key={uuidv4()}
                 datas={{
                   theme: "secondary",
-                  role: "studyItem",
+                  usage: "listItem",
                   text: studyDetail?.desiredMember.studyLevel,
                 }}
               />
@@ -217,7 +215,7 @@ function StudyDetailPage() {
                   key={uuidv4()}
                   datas={{
                     theme: "secondary",
-                    role: "studyItem",
+                    usage: "listItem",
                     text: role,
                   }}
                 />

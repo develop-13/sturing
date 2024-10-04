@@ -5,7 +5,7 @@ import Header from "../organisms/Header";
 import StudyOverview from "../organisms/StudyOverview";
 import { TStudy } from "@/types/study";
 import { useParams, useRouter } from "next/navigation";
-import { fetchStudyDetail } from "@/api/fetchStudyDetail";
+import { fetchStudyDetail } from "@/app/api/fetchStudyDetail";
 import { TabButtonGroup } from "../organisms/ButtonGroup";
 import Team from "../templates/studyDetailParticipate/Team";
 import Private from "../templates/studyDetailParticipate/Private";

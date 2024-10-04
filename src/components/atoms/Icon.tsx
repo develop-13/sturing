@@ -536,7 +536,7 @@ const getIcon = ({ type, onClick, size, className, color }: TIconData) => {
   // onClick을 받지 않으면 타입별로 정의되어 있는 onClick을 쓰게끔 하기
   const iconData = IconDataSet[type](size);
   const effectiveSize = iconData.size || 24;
-  const effecttiveOnclick = iconData.onClick || onClick;
+  const effecttiveOnclick = onClick || iconData.onClick;
   return (
     <IconFormat
       icon={iconData.icon}

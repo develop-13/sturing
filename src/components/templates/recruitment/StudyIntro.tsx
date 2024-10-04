@@ -38,9 +38,9 @@ function StudyIntro() {
         </Text>
         <div className="flex gap-2 flex-wrap">
           {categories.map((data) => (
-            <Button theme="ordinary" shape="tag" key={data.id}>
+            <Button theme="ordinary" shape="tag" key={data}>
               <Text size="xs" weight="bold" color="gray-600">
-                {data.id}
+                {data}
               </Text>
             </Button>
           ))}

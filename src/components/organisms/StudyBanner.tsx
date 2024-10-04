@@ -8,8 +8,6 @@ import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
 
 export default function StudyBanner({ props }: { props: TStudyBanner[] }) {
-  console.log(props);
-
   return (
     <>
       <div

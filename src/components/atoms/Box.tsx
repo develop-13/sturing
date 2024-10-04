@@ -30,7 +30,7 @@ function BoxTheme(theme: TBoxColorTheme | undefined) {
     case "primary":
       return "bg-mainColor ";
     case "secondary":
-      return "bg-white border border-mainColor ";
+      return "bg-white border border-mainColor text-mainColor ";
     case "ordinary":
       return "bg-white border border-gray-400 ";
     case "gray":

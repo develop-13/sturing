@@ -78,6 +78,8 @@ export function MatchingReducer(
         );
         break;
       case "deleteStudyPlacePreference":
+        console.log(`region=${action.payload.region}`);
+        console.log(`location=${action.payload.location}`);
         draft.studyPlacePreference.delete(
           action.payload.region + " " + action.payload.location
         );

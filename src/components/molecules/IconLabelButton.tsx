@@ -12,7 +12,7 @@ type TButtonLabel = {
   icon?: React.ReactNode;
   onClick?: () => void;
   isActive?: boolean;
-  usage: "gridItem" | "round" | "close" | "checkBar";
+  usage: "gridItem" | "round" | "close" | "checkBar" | "listItem";
   extraStyle?: string;
 };
 
@@ -29,7 +29,6 @@ function IconLabelButton({ datas }: { datas: TButtonLabel }) {
     case "gridItem":
       btnTheme = datas.theme || "ordinary";
       btnShape = datas.shape || "full";
-
       break;
 
     case "round":
@@ -38,6 +37,10 @@ function IconLabelButton({ datas }: { datas: TButtonLabel }) {
       defaultBtnStyle += "w-auto px-[12px] gap-[8px] text-gray-700 ";
       break;
 
+    case "listItem":
+      btnTheme = datas.theme || "ordinary";
+      btnShape = datas.shape || "listItem";
+      break;
     case "close":
       let closeBtnStyle = "flex gap-[8px] items-center justify-center ";
       return (

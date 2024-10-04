@@ -1,3 +1,4 @@
+"use client";
 import locationData from "@/db/locations";
 // 후에 서버통신으로 가져옴
 import { useEffect, useState } from "react";

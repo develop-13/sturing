@@ -10,9 +10,27 @@ import GoMatchingPage from "../molecules/GoMatchingPage";
 import Divider from "../atoms/Divider";
 import { SearchbarWrapper } from "../molecules/Searchbar";
 import SlideContentList from "../organisms/SlideContentList";
+import { Session } from "next-auth"; // NextAuth에서 제공하는 Session 타입
+import Link from "next/link";
+import LoginButton from "../molecules/auth-components/LoginButton";
 
-export default function RecommendPage() {
+async function getBannerDatas() {}
+async function getHotStudies() {}
+async function getNewStudies() {}
+async function getInterestingStudies() {}
+async function getNewStudiesAround() {}
+
+export default async function RecommendPage({
+  session,
+}: {
+  session: Session | null;
+}) {
+  console.log(session);
+
   const pathname = "/recommend";
+
+  // const studyBanners = await getStudyDatas();
+  // const studyDatas = await getBannerDatas();
 
   return (
     <>
@@ -25,10 +43,16 @@ export default function RecommendPage() {
             </div>
           }
           rightSlot={
-            <div className="flex gap-[12px]">
-              <Icon type="BELL" />
-              <Icon type="USER" />
-            </div>
+            session ? (
+              <div className="flex gap-[12px]">
+                <Icon type="BELL" />
+                <Link href={"#"}>
+                  <Icon type="USER" />
+                </Link>
+              </div>
+            ) : (
+              <LoginButton session={session} />
+            )
           }
         />
         <NavButtonGroup pathname={pathname} />
