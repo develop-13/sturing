@@ -28,7 +28,7 @@ export type TBoxShape =
 function BoxTheme(theme: TBoxColorTheme | undefined) {
   switch (theme) {
     case "primary":
-      return "bg-mainColor ";
+      return "bg-mainColor text-white ";
     case "secondary":
       return "bg-white border border-mainColor text-mainColor ";
     case "ordinary":

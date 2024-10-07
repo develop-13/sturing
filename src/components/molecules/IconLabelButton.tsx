@@ -58,21 +58,7 @@ function IconLabelButton({ datas }: { datas: TButtonLabel }) {
           <Icon type="CLOSE" onClick={datas.onClick} />
         </Box>
       );
-    // case "checkBar":
-    //   return (
-    //     <Box
-    //       props={{
-    //         isActive: datas.isActive,
-    //         onClick: datas.onClick,
-    //         theme: btnTheme,
-    //         shape: "bar",
-    //         extraCss:
-    //           defaultBtnStyle + `${datas.extraStyle ? datas.extraStyle : ""}`,
-    //       }}
-    //     >
-    //       <div className="flex justify-between"></div>
-    //     </Box>
-    //   );
+
     default:
       break;
   }

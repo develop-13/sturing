@@ -17,13 +17,7 @@ export default function TitleLink(props: TTitleLink) {
         <Text size="lg" weight="bold">
           {props.title}
         </Text>
-        {props.hasArrow && (
-          <Icon
-            type="FORWARD"
-            onClick={props.onClick}
-            color={"text-" + props.arrowColor}
-          />
-        )}
+        {props.hasArrow && <Icon type="FORWARD" onClick={props.onClick} />}
       </div>
     </>
   );

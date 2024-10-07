@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Image from "next/image";
+import Image from "@/components/atoms/Image";
 import { IoCheckmark } from "react-icons/io5";
 import { VscBell } from "react-icons/vsc";
 import { IoIosArrowBack } from "react-icons/io";
@@ -9,7 +9,7 @@ import { IoMdClose } from "react-icons/io";
 import { CiBookmark } from "react-icons/ci";
 import { IoSearchOutline } from "react-icons/io5";
 import { BsChatSquareDots } from "react-icons/bs";
-import Icon_Logo from "@/public/svg/ect/Icon-logo";
+// import Icon_Logo from "@/public/svg/ect/Icon-logo";
 import { SlMenu } from "react-icons/sl";
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
 import { GoShare } from "react-icons/go";
@@ -69,12 +69,558 @@ export type TIconData = {
     | "CHECKBOX_CHECKED"
     | "CHECKBOX_UNCHECKED"
     | "PLUS"
-    | "MINUS";
+    | "MINUS"
+    | "GITHUB";
   onClick?: () => void;
-  size?: number;
-  color?: string;
+  width?: number;
+  height?: number;
   className?: string;
 };
+
+// IconDataSetExampleType 정의
+export type IconDataSetExampleType = Record<
+  TIconData["type"],
+  (
+    onClick?: () => void,
+    width?: number,
+    height?: number,
+    className?: string
+  ) => React.ReactNode
+>;
+const IconDataSetExample: IconDataSetExampleType = {
+  // EXAMPLE: (onClick, width, height, className) => {
+  //   const effectiveWidth = width || 15;
+  //   const effectiveHeight = height || 18;
+  //   const defaultOnclick = () => {};
+  //   const effectiveOnClick = onClick || defaultOnclick;
+  //   return (
+  //     <Image
+  //       src=""
+  //
+  //       width={effectiveWidth}
+  //       height={effectiveHeight}
+  //       onClick={effectiveOnClick}
+  //       className={className}
+  //     />
+  //   );
+  // },
+
+  GITHUB: (onClick, width = 18, height = 18, className) => (
+    <Image
+      src="/svg/ect/github_logo.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+  PLUS: (onClick, width = 18, height = 18, className) => (
+    <Image
+      src="/svg/ect/plus.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  MINUS: (onClick, width = 18, height = 18, className) => (
+    <Image
+      src="/svg/ect/minus.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  CHECKBOX_UNCHECKED: (onClick, width = 20, height = 20, className) => (
+    <Image
+      src="/svg/ect/checkbox_unchecked.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  CHECKBOX_CHECKED: (onClick, width = 20, height = 20, className) => (
+    <Image
+      src="/svg/ect/checkbox_checked.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  ADD: (onClick, width = 20, height = 20, className) => (
+    <Image
+      src="/svg/ect/add.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  DOWN: (onClick, width = 12, height = 12, className) => (
+    <Image
+      src="/svg/ect/down.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  STAR: (onClick, width = 12, height = 12, className) => (
+    <Image
+      src="/svg/ect/star.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  LOCATION_COLOR: (onClick, width = 18, height = 18, className) => (
+    <Image
+      src="/svg/ect/location_color.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  CHECKBOX_COLOR: (onClick, width = 18, height = 18, className) => (
+    <Image
+      src="/svg/ect/checkbox.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  DATE_COLOR: (onClick, width = 18, height = 18, className) => (
+    <Image
+      src="/svg/ect/date_color.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  MEMBERS: (onClick, width = 18, height = 18, className) => (
+    <Image
+      src="/svg/ect/members.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  LOCATION: (onClick, width = 12, height = 15, className) => (
+    <Image
+      src="/svg/ect/location.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  DATE: (onClick, width = 18, height = 18, className) => (
+    <Image
+      src="/svg/ect/date.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  COMPLETE: (onClick, width = 62, height = 62, className) => (
+    <Image
+      src="/svg/ect/complete.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  FREE: (onClick, width = 30, height = 30, className) => (
+    <Image
+      src="/svg/emoji/free.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  COOPERATIVE: (onClick, width = 30, height = 30, className) => (
+    <Image
+      src="/svg/emoji/cooperative.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  SELFDIRECTED: (onClick, width = 30, height = 30, className) => (
+    <Image
+      src="/svg/emoji/selfDirected.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  LEARNING: (onClick, width = 30, height = 30, className) => (
+    <Image
+      src="/svg/emoji/learningOriented.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  RESPONSIBLE: (onClick, width = 30, height = 30, className) => (
+    <Image
+      src="/svg/emoji/responsible.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  ENTHUSIASTIC: (onClick, width = 30, height = 30, className) => (
+    <Image
+      src="/svg/emoji/enthusiastic.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  SYSTEMATIC: (onClick, width = 30, height = 30, className) => (
+    <Image
+      src="/svg/emoji/systematic.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  SERIOUS: (onClick, width = 30, height = 30, className) => (
+    <Image
+      src="/svg/emoji/serious.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  PROFESSIONAL: (onClick, width = 30, height = 30, className) => (
+    <Image
+      src="/svg/emoji/professional.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  FRIENDLY: (onClick, width = 30, height = 30, className) => (
+    <Image
+      src="/svg/emoji/friendly.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  BELL: (onClick, width = 24, height = 24, className) => (
+    <Image
+      src="/svg/ect/bell.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  CHECKED: (onClick, width, height, className) => (
+    <IoCheckmark onClick={onClick} className={className} />
+  ),
+
+  BACK: (onClick, width = 10, height = 17, className) => (
+    <Image
+      src="/svg/ect/back.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  BOOKMARK: (onClick, width = 12, height = 16, className) => (
+    <Image
+      src="/svg/ect/bookmark.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  FORWARD: (onClick, width = 10, height = 17, className) => (
+    <Image
+      src="/svg/ect/forward.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  CLOSE: (onClick, width = 10, height = 10, className) => (
+    <Image
+      src="/svg/ect/close.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  SEARCH: (onClick, width = 24, height = 24, className) => (
+    <Image
+      src="/svg/ect/search.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  CHATBOX: (onClick, width = 20, height = 19, className) => (
+    <Image
+      src="/svg/ect/chatbox.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  LOGO: (onClick, width = 78, height = 24, className) => (
+    // <Icon_Logo width={width} height={height} onClick={onClick} />
+    <Image
+      src="/svg/ect/text-logo.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  MENU: (onClick, width = 24, height = 24, className) => (
+    <Image
+      src="/svg/ect/menu.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  MORE: (onClick, width = 20, height = 20, className) => (
+    <Image
+      src="/svg/ect/dots.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  SHARE: (onClick, width = 24, height = 24, className) => (
+    <Image
+      src="/svg/ect/share.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  USER: (onClick, width = 24, height = 24, className) => (
+    <Image
+      src="/svg/ect/user.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  CAMERA: (onClick, width = 24, height = 24, className) => (
+    <Image
+      src="/svg/ect/camera.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  FILTER: (onClick, width = 24, height = 24, className) => (
+    <Image
+      src="/svg/ect/filter.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  DESIGN: (onClick, width = 28, height = 28, className) => (
+    <Image
+      src="/svg/interests/design.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  TECH: (onClick, width = 28, height = 28, className) => (
+    <Image
+      src="/svg/interests/tech.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  BUSINESS: (onClick, width = 30, height = 22.5, className) => (
+    <Image
+      src="/svg/interests/business.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  ECONOMY: (onClick, width = 26, height = 26, className) => (
+    <Image
+      src="/svg/interests/economy.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  LANGUAGE: (onClick, width = 33, height = 20, className) => (
+    <Image
+      src="/svg/interests/language.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  CERTIFICATION: (onClick, width = 28, height = 19, className) => (
+    <Image
+      src="/svg/interests/certification.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  SELFDEVELOP: (onClick, width = 25.2, height = 28, className) => (
+    <Image
+      src="/svg/interests/selfDevelop.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  MARKETING: (onClick, width = 25.2, height = 28, className) => (
+    <Image
+      src="/svg/interests/marketing.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  RESET: (onClick, width = 19, height = 19, className) => (
+    <Image
+      src="/svg/interests/rotate-right.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  WRITE: (onClick, width = 16, height = 16, className) => (
+    <Image
+      src="/svg/ect/write.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  KAKAO: (onClick, width = 18, height = 17, className) => (
+    <Image
+      src="/svg/ect/kakao.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  RLOGO: (onClick, width = 18, height = 17, className) => (
+    <Image
+      src="/svg/ect/logo.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+};
+
+// -------------------------------------------------
 
 const IconDataSet: Record<
   TIconData["type"],
@@ -86,29 +632,18 @@ const IconDataSet: Record<
 > = {
   PLUS: (size?: number) => ({
     icon: (
-      <Image
-        src="/svg/ect/plus.svg"
-        alt=""
-        width={size || 18}
-        height={size || 18}
-      />
+      <Image src="/svg/ect/plus.svg" width={size || 18} height={size || 18} />
     ),
   }),
   MINUS: (size?: number) => ({
     icon: (
-      <Image
-        src="/svg/ect/minus.svg"
-        alt=""
-        width={size || 18}
-        height={size || 18}
-      />
+      <Image src="/svg/ect/minus.svg" width={size || 18} height={size || 18} />
     ),
   }),
   CHECKBOX_UNCHECKED: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/checkbox_unchecked.svg"
-        alt=""
         width={size || 20}
         height={size || 20}
       />
@@ -118,7 +653,6 @@ const IconDataSet: Record<
     icon: (
       <Image
         src="/svg/ect/checkbox_checked.svg"
-        alt=""
         width={size || 20}
         height={size || 20}
       />
@@ -127,39 +661,23 @@ const IconDataSet: Record<
 
   ADD: (size?: number) => ({
     icon: (
-      <Image
-        src="/svg/ect/add.svg"
-        alt=""
-        width={size || 20}
-        height={size || 20}
-      />
+      <Image src="/svg/ect/add.svg" width={size || 20} height={size || 20} />
     ),
   }),
   DOWN: (size?: number) => ({
     icon: (
-      <Image
-        src="/svg/ect/down.svg"
-        alt=""
-        width={size || 12}
-        height={size || 12}
-      />
+      <Image src="/svg/ect/down.svg" width={size || 12} height={size || 12} />
     ),
   }),
   STAR: (size?: number) => ({
     icon: (
-      <Image
-        src="/svg/ect/star.svg"
-        alt=""
-        width={size || 12}
-        height={size || 12}
-      />
+      <Image src="/svg/ect/star.svg" width={size || 12} height={size || 12} />
     ),
   }),
   LOCATION_COLOR: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/location_color.svg"
-        alt=""
         width={size || 18}
         height={size || 18}
       />
@@ -169,7 +687,6 @@ const IconDataSet: Record<
     icon: (
       <Image
         src="/svg/ect/checkbox.svg"
-        alt=""
         width={size || 18}
         height={size || 18}
       />
@@ -179,7 +696,6 @@ const IconDataSet: Record<
     icon: (
       <Image
         src="/svg/ect/date_color.svg"
-        alt=""
         width={size || 18}
         height={size || 18}
       />
@@ -189,7 +705,6 @@ const IconDataSet: Record<
     icon: (
       <Image
         src="/svg/ect/members.svg"
-        alt=""
         width={size || 18}
         height={size || 18}
       />
@@ -199,7 +714,6 @@ const IconDataSet: Record<
     icon: (
       <Image
         src="/svg/ect/location.svg"
-        alt=""
         width={size || 12}
         height={size || 15}
       />
@@ -207,19 +721,13 @@ const IconDataSet: Record<
   }),
   DATE: (size?: number) => ({
     icon: (
-      <Image
-        src="/svg/ect/date.svg"
-        alt=""
-        width={size || 18}
-        height={size || 18}
-      />
+      <Image src="/svg/ect/date.svg" width={size || 18} height={size || 18} />
     ),
   }),
   COMPLETE: (size?: number) => ({
     icon: (
       <Image
         src="/svg/ect/complete.svg"
-        alt=""
         width={size || 62}
         height={size || size || 62}
       />
@@ -228,19 +736,13 @@ const IconDataSet: Record<
 
   FREE: (size?: number) => ({
     icon: (
-      <Image
-        src="/svg/emoji/free.svg"
-        alt=""
-        width={size || 30}
-        height={size || 30}
-      />
+      <Image src="/svg/emoji/free.svg" width={size || 30} height={size || 30} />
     ),
   }),
   COOPERATIVE: (size?: number) => ({
     icon: (
       <Image
         src="/svg/emoji/cooperative.svg"
-        alt=""
         width={size || 30}
         height={size || 30}
       />
@@ -250,7 +752,6 @@ const IconDataSet: Record<
     icon: (
       <Image
         src="/svg/emoji/selfDirected.svg"
-        alt=""
         width={size || 30}
         height={size || 30}
       />
@@ -260,7 +761,6 @@ const IconDataSet: Record<
     icon: (
       <Image
         src="/svg/emoji/learningOriented.svg"
-        alt=""
         width={size || 30}
         height={size || 30}
       />
@@ -270,7 +770,6 @@ const IconDataSet: Record<
     icon: (
       <Image
         src="/svg/emoji/responsible.svg"
-        alt=""
         width={size || 30}
         height={size || 30}
       />
@@ -280,7 +779,6 @@ const IconDataSet: Record<
     icon: (
       <Image
         src="/svg/emoji/enthusiastic.svg"
-        alt=""
         width={size || 30}
         height={size || 30}
       />
@@ -290,7 +788,6 @@ const IconDataSet: Record<
     icon: (
       <Image
         src="/svg/emoji/systematic.svg"
-        alt=""
         width={size || 30}
         height={size || 30}
       />
@@ -300,7 +797,6 @@ const IconDataSet: Record<
     icon: (
       <Image
         src="/svg/emoji/serious.svg"
-        alt=""
         width={size || 30}
         height={size || 30}
       />
@@ -310,7 +806,6 @@ const IconDataSet: Record<
     icon: (
       <Image
         src="/svg/emoji/professional.svg"
-        alt=""
         width={size || 30}
         height={size || 30}
       />
@@ -320,7 +815,6 @@ const IconDataSet: Record<
     icon: (
       <Image
         src="/svg/emoji/friendly.svg"
-        alt=""
         width={size || 30}
         height={size || 30}
       />
@@ -385,23 +879,13 @@ const IconDataSet: Record<
 
   CAMERA: (size?: number) => ({
     icon: (
-      <Image
-        src="/svg/ect/camera.svg"
-        alt=""
-        width={size || 24}
-        height={size || 24}
-      />
+      <Image src="/svg/ect/camera.svg" width={size || 24} height={size || 24} />
     ),
   }),
 
   FILTER: (size?: number) => ({
     icon: (
-      <Image
-        src="/svg/ect/filter.svg"
-        alt=""
-        width={size || 24}
-        height={size || 24}
-      />
+      <Image src="/svg/ect/filter.svg" width={size || 24} height={size || 24} />
     ),
   }),
 
@@ -409,7 +893,6 @@ const IconDataSet: Record<
     icon: (
       <Image
         src="/svg/interests/design.svg"
-        alt=""
         width={size || 28}
         height={size || 28}
       />
@@ -420,7 +903,6 @@ const IconDataSet: Record<
     icon: (
       <Image
         src="/svg/interests/tech.svg"
-        alt=""
         width={size || 28}
         height={size || 28}
       />
@@ -428,21 +910,13 @@ const IconDataSet: Record<
   }),
 
   BUSINESS: () => ({
-    icon: (
-      <Image
-        src="/svg/interests/business.svg"
-        alt=""
-        width={30}
-        height={22.5}
-      />
-    ),
+    icon: <Image src="/svg/interests/business.svg" width={30} height={22.5} />,
   }),
 
   ECONOMY: (size?: number) => ({
     icon: (
       <Image
         src="/svg/interests/economy.svg"
-        alt=""
         width={size || 26}
         height={size || 26}
       />
@@ -453,7 +927,6 @@ const IconDataSet: Record<
     icon: (
       <Image
         src="/svg/interests/language.svg"
-        alt=""
         width={size || 33}
         height={size || 20}
       />
@@ -464,7 +937,6 @@ const IconDataSet: Record<
     icon: (
       <Image
         src="/svg/interests/certification.svg"
-        alt=""
         width={size || 28}
         height={size || 19}
       />
@@ -475,7 +947,6 @@ const IconDataSet: Record<
     icon: (
       <Image
         src="/svg/interests/selfDevelop.svg"
-        alt=""
         width={size || 25.2}
         height={size || 28}
       />
@@ -486,7 +957,6 @@ const IconDataSet: Record<
     icon: (
       <Image
         src="/svg/interests/marketing.svg"
-        alt=""
         width={size || 25.2}
         height={size || 28}
       />
@@ -499,53 +969,50 @@ const IconDataSet: Record<
 
   WRITE: (size?: number) => ({
     icon: (
-      <Image
-        src="/svg/ect/write.svg"
-        alt=""
-        width={size || 16}
-        height={size || 16}
-      />
+      <Image src="/svg/ect/write.svg" width={size || 16} height={size || 16} />
     ),
   }),
 
   KAKAO: (size?: number) => ({
     icon: (
-      <Image
-        src="/svg/ect/kakao.svg"
-        alt=""
-        width={size || 18}
-        height={size || 17}
-      />
+      <Image src="/svg/ect/kakao.svg" width={size || 18} height={size || 17} />
     ),
   }),
 
   RLOGO: (size?: number) => ({
     icon: (
-      <Image
-        src="/svg/ect/logo.svg"
-        alt=""
-        width={size || 18}
-        height={size || 17}
-      />
+      <Image src="/svg/ect/logo.svg" width={size || 18} height={size || 17} />
     ),
   }),
 };
 
-const getIcon = ({ type, onClick, size, className, color }: TIconData) => {
+const getIcon = ({ type, onClick, width, height, className }: TIconData) => {
+  // const getIcon = (props: TIconData) => {
+
+  // const { type, ...restProps } = props;
+  // const IconComponent = IconDataSet[type](restProps)
+  // return <IconComponent/>
+
   // 하고자 하는 것: 여기서 onClick을 받으면 그 onClick을 쓰게끔 하고
   // onClick을 받지 않으면 타입별로 정의되어 있는 onClick을 쓰게끔 하기
-  const iconData = IconDataSet[type](size);
-  const effectiveSize = iconData.size || 24;
-  const effecttiveOnclick = onClick || iconData.onClick;
-  return (
-    <IconFormat
-      icon={iconData.icon}
-      size={effectiveSize}
-      onClick={effecttiveOnclick}
-      className={className}
-      color={color}
-    />
+  const defaultClassName = "shrink-0 cursor-pointer ";
+  return IconDataSetExample[type](
+    onClick,
+    width,
+    height,
+    defaultClassName + className
   );
+
+  // const effectiveSize = iconData.size || 24;
+  // const effecttiveOnclick = onClick || iconData.onClick;
+  // return (
+  //   <IconFormat
+  //     icon={iconData.icon}
+  //     size={effectiveSize}
+  //     onClick={effecttiveOnclick}
+  //     className={className}
+  //   />
+  // );
 };
 
 function IconFormat({
@@ -570,6 +1037,9 @@ function IconFormat({
     </div>
   );
 }
+
+// 하려고 하는 것: size 대신 width,height를 전달하도록 함.
+//
 
 function Icon(props: TIconData) {
   return getIcon(props);

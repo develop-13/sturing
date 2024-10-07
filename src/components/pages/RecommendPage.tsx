@@ -13,6 +13,7 @@ import SlideContentList from "../organisms/SlideContentList";
 import { Session } from "next-auth"; // NextAuth에서 제공하는 Session 타입
 import Link from "next/link";
 import LoginButton from "../molecules/auth-components/LoginButton";
+import LogoutButton_temp from "../molecules/auth-components/LogoutButton_temp";
 
 async function getBannerDatas() {}
 async function getHotStudies() {}
@@ -33,57 +34,56 @@ export default async function RecommendPage({
   // const studyDatas = await getBannerDatas();
 
   return (
-    <>
-      <div className="flex flex-col overflow-hidden">
-        <Header
-          leftSlot={
+    <div id="recommendPage" className="flex flex-col overflow-hidden">
+      <Header
+        leftSlot={
+          <div className="flex gap-[12px]">
+            <Icon type="MENU" />
+            <Icon type="LOGO" />
+          </div>
+        }
+        rightSlot={
+          session ? (
             <div className="flex gap-[12px]">
-              <Icon type="MENU" />
-              <Icon type="LOGO" />
+              <Icon type="BELL" />
+              <Link href={"#"}>
+                <Icon type="USER" />
+              </Link>
+              <LogoutButton_temp />
             </div>
-          }
-          rightSlot={
-            session ? (
-              <div className="flex gap-[12px]">
-                <Icon type="BELL" />
-                <Link href={"#"}>
-                  <Icon type="USER" />
-                </Link>
-              </div>
-            ) : (
-              <LoginButton session={session} />
-            )
-          }
-        />
-        <NavButtonGroup pathname={pathname} />
-        <div>
-          <StudyBanner props={studyBanners} />
-          <GoMatchingPage />
-        </div>
-        <div className="flex flex-col gap-5 py-5">
-          <SearchbarWrapper
-            usage="main"
-            placeholder="관심 스터디 분야나 강의명을 검색해보세요"
-            className="px-4 "
-          />
-          <SlideContentList title="분야별 스터디 탐색하기" hasArrow={true}>
-            <StudyCategory />
-          </SlideContentList>
-          <Divider type="row" py={4} color="gray-100" />
-          <SlideContentList title="이번주 인기 스터디" hasArrow={true}>
-            <div className="flex flex-row gap-2 pl-4">
-              <StudyBox props={studyDatas[0]} />
-              <StudyBox props={studyDatas[1]} />
-            </div>
-          </SlideContentList>
-          <SlideContentList title="새로 개설된 스터디" hasArrow={true}>
-            <div className="flex flex-row gap-2 pl-4">
-              <StudyBox props={studyDatas[2]} />
-              <StudyBox props={studyDatas[3]} />
-            </div>
-          </SlideContentList>
-        </div>
+          ) : (
+            <LoginButton />
+          )
+        }
+      />
+      <NavButtonGroup pathname={pathname} />
+      <div>
+        <StudyBanner props={studyBanners} />
+        <GoMatchingPage session={session} />
       </div>
-    </>
+      <div className="flex flex-col gap-5 py-5">
+        <SearchbarWrapper
+          usage="main"
+          placeholder="관심 스터디 분야나 강의명을 검색해보세요"
+          className="px-4 "
+        />
+        <SlideContentList title="분야별 스터디 탐색하기" hasArrow={true}>
+          <StudyCategory />
+        </SlideContentList>
+        <Divider type="row" py={4} color="gray-100" />
+        <SlideContentList title="이번주 인기 스터디" hasArrow={true}>
+          <div className="flex flex-row gap-2 pl-4">
+            <StudyBox props={studyDatas[0]} />
+            <StudyBox props={studyDatas[1]} />
+          </div>
+        </SlideContentList>
+        <SlideContentList title="새로 개설된 스터디" hasArrow={true}>
+          <div className="flex flex-row gap-2 pl-4">
+            <StudyBox props={studyDatas[2]} />
+            <StudyBox props={studyDatas[3]} />
+          </div>
+        </SlideContentList>
+      </div>
+    </div>
   );
 }
