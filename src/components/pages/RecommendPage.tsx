@@ -1,3 +1,7 @@
+"use client";
+import { useSession } from "next-auth/react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import StudyBanner from "@/components/organisms/StudyBanner";
 import StudyBox from "@/components/organisms/StudyBox";
 import StudyCategory from "@/components/organisms/StudyCategory";
@@ -10,28 +14,51 @@ import GoMatchingPage from "../molecules/GoMatchingPage";
 import Divider from "../atoms/Divider";
 import { SearchbarWrapper } from "../molecules/Searchbar";
 import SlideContentList from "../organisms/SlideContentList";
-import { Session } from "next-auth"; // NextAuth에서 제공하는 Session 타입
 import Link from "next/link";
 import LoginButton from "../molecules/auth-components/LoginButton";
 import LogoutButton_temp from "../molecules/auth-components/LogoutButton_temp";
+import LoginModal from "../organisms/LoginModal";
 
-async function getBannerDatas() {}
-async function getHotStudies() {}
-async function getNewStudies() {}
-async function getInterestingStudies() {}
-async function getNewStudiesAround() {}
+export default function RecommendPage() {
+  const { data: session, status } = useSession();
+  const [shouldShowLoginModal, setShouldShowLoginModal] = useState(false); // 이름 변경
+  const recommendPageRef = useRef<Element | null>(null);
+  const modalRef = useRef<HTMLDivElement | null>(null); // 모달 창 참조
 
-export default async function RecommendPage({
-  session,
-}: {
-  session: Session | null;
-}) {
-  console.log(session);
+  const closeModal = () => setShouldShowLoginModal(false);
 
-  const pathname = "/recommend";
+  const openModal = () => {
+    if (status === "unauthenticated") {
+      setShouldShowLoginModal(true);
+    }
+  };
 
-  // const studyBanners = await getStudyDatas();
-  // const studyDatas = await getBannerDatas();
+  useEffect(() => {
+    recommendPageRef.current = document.getElementById("recommendPage");
+  }, []);
+
+  // 모달 외부 클릭 및 ESC 키 이벤트 처리
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        closeModal();
+      }
+    };
+
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []);
 
   return (
     <div id="recommendPage" className="flex flex-col overflow-hidden">
@@ -52,11 +79,11 @@ export default async function RecommendPage({
               <LogoutButton_temp />
             </div>
           ) : (
-            <LoginButton />
+            <LoginButton onClick={openModal} />
           )
         }
       />
-      <NavButtonGroup pathname={pathname} />
+      <NavButtonGroup pathname="/recommend" />
       <div>
         <StudyBanner props={studyBanners} />
         <GoMatchingPage session={session} />
@@ -65,7 +92,7 @@ export default async function RecommendPage({
         <SearchbarWrapper
           usage="main"
           placeholder="관심 스터디 분야나 강의명을 검색해보세요"
-          className="px-4 "
+          className="px-4"
         />
         <SlideContentList title="분야별 스터디 탐색하기" hasArrow={true}>
           <StudyCategory />
@@ -84,6 +111,15 @@ export default async function RecommendPage({
           </div>
         </SlideContentList>
       </div>
+      {status === "unauthenticated" &&
+        shouldShowLoginModal &&
+        recommendPageRef.current &&
+        createPortal(
+          <div className="w-[375px] h-full fixed z-50 flex items-center bg-black bg-opacity-70">
+            <LoginModal ref={modalRef} />
+          </div>,
+          recommendPageRef.current
+        )}
     </div>
   );
 }

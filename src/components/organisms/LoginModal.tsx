@@ -71,8 +71,3 @@ const LoginModal = forwardRef<HTMLDivElement, {}>(function LoginModal(
 });
 
 export default LoginModal;
-
-// export const MatchingModal = forwardRef<HTMLDivElement, {}>(function (
-//   props,
-//   ref
-// ) {});
