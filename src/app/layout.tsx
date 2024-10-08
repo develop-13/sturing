@@ -24,7 +24,11 @@ export default async function RootLayout({
     <html lang="en">
       <AuthWrapper session={session}>
         <body className="flex justify-center">
-          <div className={`relative w-[375px] h-screen ` + roboto.className}>
+          <div
+            className={
+              `relative w-[375px] overflow-x-hidden ` + roboto.className
+            }
+          >
             {children}
           </div>
         </body>

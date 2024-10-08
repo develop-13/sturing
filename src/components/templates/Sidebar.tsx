@@ -1,68 +1,28 @@
-"use client";
-import Divider from "@/components/atoms/Divider";
-import Icon from "@/components/atoms/Icon";
-import Text from "@/components/atoms/Text";
-import React from "react";
-const ProfileCard = () => {
+import { Session } from "next-auth";
+import Divider from "../atoms/Divider";
+import Icon from "../atoms/Icon";
+import Text from "../atoms/Text";
+
+const Sidebar = ({
+  isSidebarOpen,
+  onCloseSidebar,
+}: {
+  isSidebarOpen: boolean;
+  onCloseSidebar: () => void;
+}) => {
   return (
-    <div className="border p-4 rounded-lg flex items-center justify-between">
-      <div>
-        <h2 className="text-xl font-bold">웅진님</h2>
-        <p className="text-gray-500">turing@kakao.com</p>
-        <p className="text-blue-500">스터링 프로필</p>
-      </div>
-      <div className="w-10 h-10 bg-gray-200 flex items-center justify-center rounded-full">
-        {/* 아이콘 자리 */}
-        <span>🔗</span>
-      </div>
-    </div>
-  );
-};
-
-// components/MenuList.tsx
-
-const MenuList = () => {
-  return (
-    <div className="border-t border-b py-4">
-      <ul className="space-y-4">
-        <li className="font-bold">추천</li>
-        <li className="font-bold">검색</li>
-        <li className="flex justify-between items-center">
-          <span className="font-bold">내 스터디</span>
-          <span>▼</span>
-        </li>
-        <li className="flex justify-between items-center">
-          <span className="font-bold">분야</span>
-          <span>▼</span>
-        </li>
-      </ul>
-    </div>
-  );
-};
-
-const OtherLinks = () => {
-  return (
-    <div className="py-4">
-      <ul className="space-y-2 text-gray-600">
-        <li>공지사항</li>
-        <li>고객센터</li>
-        <li>설정</li>
-      </ul>
-    </div>
-  );
-};
-
-// components/ProfileCard.tsx
-
-const Overall = () => {
-  return (
-    <div className="w-[323px] bg-green-500 pt-10 pb-14 px-6 flex flex-col gap-10 container">
+    <div
+      className={`w-[375px] absolute h-[100%] top-0 z-40 pt-10 pb-14 px-6 flex flex-col gap-10 bg-white transition-all duration-500 ease-in-out transform ${
+        isSidebarOpen ? "left-0" : "-left-[375px]"
+      }`}
+    >
       <div className="relative Xbtn">
         <Icon
           type="CLOSE"
           width={12}
           height={12}
           className="absolute right-0"
+          onClick={onCloseSidebar}
         />
       </div>
 
@@ -131,8 +91,4 @@ const Overall = () => {
   );
 };
 
-function page() {
-  return <Overall />;
-}
-
-export default page;
+export default Sidebar;

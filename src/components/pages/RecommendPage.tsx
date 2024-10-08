@@ -18,10 +18,21 @@ import Link from "next/link";
 import LoginButton from "../molecules/auth-components/LoginButton";
 import LogoutButton_temp from "../molecules/auth-components/LogoutButton_temp";
 import LoginModal from "../organisms/LoginModal";
+import Sidebar from "../templates/Sidebar";
 
+// 추후에 srp 에 맞게 리팩토링할 것
 export default function RecommendPage() {
   const { data: session, status } = useSession();
   const [shouldShowLoginModal, setShouldShowLoginModal] = useState(false); // 이름 변경
+  const [isSidebarOpen, setIsSidebarOepn] = useState(false);
+
+  const openSidebar = () => {
+    setIsSidebarOepn(true);
+  };
+  const closeSidebar = () => {
+    setIsSidebarOepn(false);
+  };
+
   const recommendPageRef = useRef<Element | null>(null);
   const modalRef = useRef<HTMLDivElement | null>(null); // 모달 창 참조
 
@@ -62,10 +73,11 @@ export default function RecommendPage() {
 
   return (
     <div id="recommendPage" className="flex flex-col overflow-hidden">
+      <Sidebar isSidebarOpen={isSidebarOpen} onCloseSidebar={closeSidebar} />
       <Header
         leftSlot={
           <div className="flex gap-[12px]">
-            <Icon type="MENU" />
+            <Icon type="MENU" onClick={openSidebar} />
             <Icon type="LOGO" />
           </div>
         }
