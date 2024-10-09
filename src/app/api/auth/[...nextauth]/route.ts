@@ -8,6 +8,8 @@ const KakaoClientId = process.env.KAKAO_CLIENT_ID;
 const KakaoClientSecret = process.env.KAKAO_CLIENT_SECRET;
 
 if (!GithubClientId || !GithubClientSecret) {
+  console.log(GithubClientId);
+  console.log(GithubClientSecret);
   throw new Error("missing clientId or clientSecret");
 }
 

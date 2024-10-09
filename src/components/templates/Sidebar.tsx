@@ -1,17 +1,22 @@
-import { Session } from "next-auth";
 import Divider from "../atoms/Divider";
 import Icon from "../atoms/Icon";
 import Text from "../atoms/Text";
+import { forwardRef } from "react";
 
-const Sidebar = ({
-  isSidebarOpen,
-  onCloseSidebar,
-}: {
+// Sidebar 컴포넌트의 props 타입 정의
+interface SidebarProps {
   isSidebarOpen: boolean;
   onCloseSidebar: () => void;
-}) => {
+}
+
+// forwardRef를 올바르게 사용하는 코드
+const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(function Sidebar(
+  { isSidebarOpen, onCloseSidebar }, // props
+  ref // ref
+) {
   return (
     <div
+      ref={ref}
       className={`w-[375px] absolute h-[100%] top-0 z-40 pt-10 pb-14 px-6 flex flex-col gap-10 bg-white transition-all duration-500 ease-in-out transform ${
         isSidebarOpen ? "left-0" : "-left-[375px]"
       }`}
@@ -43,7 +48,7 @@ const Sidebar = ({
         </div>
         <Text size="lg" weight="bold">
           스터디 프로필
-        </Text>{" "}
+        </Text>
       </div>
 
       <Divider type="row" />
@@ -89,6 +94,6 @@ const Sidebar = ({
       </ul>
     </div>
   );
-};
+});
 
 export default Sidebar;

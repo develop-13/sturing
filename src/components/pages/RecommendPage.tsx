@@ -1,4 +1,3 @@
-"use client";
 import { useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -19,65 +18,70 @@ import LoginButton from "../molecules/auth-components/LoginButton";
 import LogoutButton_temp from "../molecules/auth-components/LogoutButton_temp";
 import LoginModal from "../organisms/LoginModal";
 import Sidebar from "../templates/Sidebar";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import MenuBtn from "../molecules/MenuBtn";
 
 // 추후에 srp 에 맞게 리팩토링할 것
-export default function RecommendPage() {
-  const { data: session, status } = useSession();
-  const [shouldShowLoginModal, setShouldShowLoginModal] = useState(false); // 이름 변경
-  const [isSidebarOpen, setIsSidebarOepn] = useState(false);
+export default async function RecommendPage() {
+  const session = await getServerSession(authOptions); // 동적처리 => ssr
 
-  const openSidebar = () => {
-    setIsSidebarOepn(true);
-  };
-  const closeSidebar = () => {
-    setIsSidebarOepn(false);
-  };
+  // const { data: session, status } = useSession();
+  // const [shouldShowLoginModal, setShouldShowLoginModal] = useState(false); // 이름 변경
+  // const [isSidebarOpen, setIsSidebarOepn] = useState(false);
 
-  const recommendPageRef = useRef<Element | null>(null);
-  const modalRef = useRef<HTMLDivElement | null>(null); // 모달 창 참조
+  // const openSidebar = () => {
+  //   setIsSidebarOepn(true);
+  // };
+  // const closeSidebar = () => {
+  //   setIsSidebarOepn(false);
+  // };
 
-  const closeModal = () => setShouldShowLoginModal(false);
+  // const recommendPageRef = useRef<Element | null>(null);
+  // const modalRef = useRef<HTMLDivElement | null>(null); // 모달 창 참조
 
-  const openModal = () => {
-    if (status === "unauthenticated") {
-      setShouldShowLoginModal(true);
-    }
-  };
+  // const closeModal = () => setShouldShowLoginModal(false);
 
-  useEffect(() => {
-    recommendPageRef.current = document.getElementById("recommendPage");
-  }, []);
+  // const openModal = () => {
+  //   if (status === "unauthenticated") {
+  //     setShouldShowLoginModal(true);
+  //   }
+  // };
 
-  // 모달 외부 클릭 및 ESC 키 이벤트 처리
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-        closeModal();
-      }
-    };
+  // useEffect(() => {
+  //   recommendPageRef.current = document.getElementById("recommendPage");
+  // }, []);
 
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        closeModal();
-      }
-    };
+  // // 모달 외부 클릭 및 ESC 키 이벤트 처리
+  // useEffect(() => {
+  //   const handleClickOutside = (e: MouseEvent) => {
+  //     if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+  //       closeModal();
+  //     }
+  //   };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleKeyPress);
+  //   const handleKeyPress = (e: KeyboardEvent) => {
+  //     if (e.key === "Escape") {
+  //       closeModal();
+  //     }
+  //   };
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleKeyPress);
-    };
-  }, []);
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   document.addEventListener("keydown", handleKeyPress);
+
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //     document.removeEventListener("keydown", handleKeyPress);
+  //   };
+  // }, []);
 
   return (
     <div id="recommendPage" className="flex flex-col overflow-hidden">
-      <Sidebar isSidebarOpen={isSidebarOpen} onCloseSidebar={closeSidebar} />
+      {/* <Sidebar isSidebarOpen={isSidebarOpen} onCloseSidebar={closeSidebar} /> */}
       <Header
         leftSlot={
           <div className="flex gap-[12px]">
-            <Icon type="MENU" onClick={openSidebar} />
+            <MenuBtn />
             <Icon type="LOGO" />
           </div>
         }
@@ -91,7 +95,7 @@ export default function RecommendPage() {
               <LogoutButton_temp />
             </div>
           ) : (
-            <LoginButton onClick={openModal} />
+            <LoginButton />
           )
         }
       />
@@ -123,15 +127,6 @@ export default function RecommendPage() {
           </div>
         </SlideContentList>
       </div>
-      {status === "unauthenticated" &&
-        shouldShowLoginModal &&
-        recommendPageRef.current &&
-        createPortal(
-          <div className="w-[375px] h-full fixed z-50 flex items-center bg-black bg-opacity-70">
-            <LoginModal ref={modalRef} />
-          </div>,
-          recommendPageRef.current
-        )}
     </div>
   );
 }

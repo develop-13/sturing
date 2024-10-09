@@ -18,21 +18,17 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession(authOptions); // 동적처리 => ssr
+  // const session = await getServerSession(authOptions); // 동적처리 => ssr
 
   return (
     <html lang="en">
-      <AuthWrapper session={session}>
-        <body className="flex justify-center">
-          <div
-            className={
-              `relative w-[375px] overflow-x-hidden ` + roboto.className
-            }
-          >
-            {children}
-          </div>
-        </body>
-      </AuthWrapper>
+      <body className="flex justify-center">
+        <div
+          className={`relative w-[375px] overflow-x-hidden ` + roboto.className}
+        >
+          {children}
+        </div>
+      </body>
     </html>
   );
 }
