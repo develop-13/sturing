@@ -16,11 +16,8 @@ type TDivider = TCol | TRow;
 function Divider(props: TDivider) {
   switch (props.type) {
     case "col":
-      const effectColor = props.color || "gray-400";
-
-      return <div className="relative divider before:bg-gray-400 "></div>;
+      return <div className="relative divider before:bg-gray-400 mx-3 "></div>;
     case "row":
-      const effectiveColor = props.color || "gray-300";
       return (
         <div
           className={"h-[1px] bg-gray-500 "}

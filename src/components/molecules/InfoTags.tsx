@@ -4,38 +4,38 @@ import { v4 } from "uuid";
 
 type TTheme = "gray" | "transparent" | "white";
 
-interface GetTagsProps {
-  slot2: (
-    tagsStyle: string,
-    leftSlot: React.ReactNode,
-    middleSlot: React.ReactNode
-  ) => JSX.Element;
-  slot3: (
-    tagsStyle: string,
-    leftSlot: React.ReactNode,
-    middleSlot: React.ReactNode,
-    rightSlot: React.ReactNode
-  ) => JSX.Element;
-}
+// interface GetTagsProps {
+//   slot2: (
+//     tagsStyle: string,
+//     leftSlot: React.ReactNode,
+//     middleSlot: React.ReactNode
+//   ) => JSX.Element;
+//   slot3: (
+//     tagsStyle: string,
+//     leftSlot: React.ReactNode,
+//     middleSlot: React.ReactNode,
+//     rightSlot: React.ReactNode
+//   ) => JSX.Element;
+// }
 
-const getTags: GetTagsProps = {
-  slot2: (tagsStyle, leftSlot, middleSlot) => (
-    <div className={tagsStyle}>
-      {leftSlot}
-      <Divider type="col" />
-      {middleSlot}
-    </div>
-  ),
-  slot3: (tagsStyle, leftSlot, middleSlot, rightSlot) => (
-    <div className={tagsStyle}>
-      {leftSlot}
-      <Divider type="col" />
-      {middleSlot}
-      <Divider type="col" />
-      {rightSlot}
-    </div>
-  ),
-};
+// const getTags: GetTagsProps = {
+//   slot2: (tagsStyle, leftSlot, middleSlot) => (
+//     <div className={tagsStyle}>
+//       {leftSlot}
+//       <Divider type="col" />
+//       {middleSlot}
+//     </div>
+//   ),
+//   slot3: (tagsStyle, leftSlot, middleSlot, rightSlot) => (
+//     <div className={tagsStyle}>
+//       {leftSlot}
+//       <Divider type="col" />
+//       {middleSlot}
+//       <Divider type="col" />
+//       {rightSlot}
+//     </div>
+//   ),
+// };
 
 const getTheme = (theme: TTheme, padding: number = 1): string => {
   // const baseStyle = `py-${padding} flex flex-1 justify-center `;

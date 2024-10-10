@@ -27,6 +27,8 @@ if (!cached) {
   cached = global.mongooseCache = { conn: null, promise: null };
 }
 
+mongoose.set("debug", true); // 디버그 활성화
+
 async function dbConnect(): Promise<Mongoose> {
   if (cached.conn) {
     return cached.conn;
@@ -38,6 +40,8 @@ async function dbConnect(): Promise<Mongoose> {
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+      console.log("Connected to MongoDB with DB:", mongoose.connection.name);
+
       return mongoose;
     });
   }

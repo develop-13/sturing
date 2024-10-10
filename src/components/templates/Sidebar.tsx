@@ -1,3 +1,4 @@
+"use client";
 import Divider from "../atoms/Divider";
 import Icon from "../atoms/Icon";
 import Text from "../atoms/Text";

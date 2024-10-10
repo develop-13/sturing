@@ -1,11 +1,8 @@
-import { useSession } from "next-auth/react";
-import { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
 import StudyBanner from "@/components/organisms/StudyBanner";
 import StudyBox from "@/components/organisms/StudyBox";
 import StudyCategory from "@/components/organisms/StudyCategory";
 import { studyBanners } from "@/db/studyBanners";
-import { studyDatas } from "@/db/studyDatas";
+import { getPopularStudies, getNewStudies } from "@/lib/studyUtils";
 import Header from "../organisms/Header";
 import Icon from "../atoms/Icon";
 import { NavButtonGroup } from "../organisms/ButtonGroup";
@@ -16,8 +13,6 @@ import SlideContentList from "../organisms/SlideContentList";
 import Link from "next/link";
 import LoginButton from "../molecules/auth-components/LoginButton";
 import LogoutButton_temp from "../molecules/auth-components/LogoutButton_temp";
-import LoginModal from "../organisms/LoginModal";
-import Sidebar from "../templates/Sidebar";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import MenuBtn from "../molecules/MenuBtn";
@@ -26,58 +21,11 @@ import MenuBtn from "../molecules/MenuBtn";
 export default async function RecommendPage() {
   const session = await getServerSession(authOptions); // 동적처리 => ssr
 
-  // const { data: session, status } = useSession();
-  // const [shouldShowLoginModal, setShouldShowLoginModal] = useState(false); // 이름 변경
-  // const [isSidebarOpen, setIsSidebarOepn] = useState(false);
-
-  // const openSidebar = () => {
-  //   setIsSidebarOepn(true);
-  // };
-  // const closeSidebar = () => {
-  //   setIsSidebarOepn(false);
-  // };
-
-  // const recommendPageRef = useRef<Element | null>(null);
-  // const modalRef = useRef<HTMLDivElement | null>(null); // 모달 창 참조
-
-  // const closeModal = () => setShouldShowLoginModal(false);
-
-  // const openModal = () => {
-  //   if (status === "unauthenticated") {
-  //     setShouldShowLoginModal(true);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   recommendPageRef.current = document.getElementById("recommendPage");
-  // }, []);
-
-  // // 모달 외부 클릭 및 ESC 키 이벤트 처리
-  // useEffect(() => {
-  //   const handleClickOutside = (e: MouseEvent) => {
-  //     if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-  //       closeModal();
-  //     }
-  //   };
-
-  //   const handleKeyPress = (e: KeyboardEvent) => {
-  //     if (e.key === "Escape") {
-  //       closeModal();
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   document.addEventListener("keydown", handleKeyPress);
-
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //     document.removeEventListener("keydown", handleKeyPress);
-  //   };
-  // }, []);
+  const popularStudies = await getPopularStudies();
+  const newStudies = await getNewStudies();
 
   return (
     <div id="recommendPage" className="flex flex-col overflow-hidden">
-      {/* <Sidebar isSidebarOpen={isSidebarOpen} onCloseSidebar={closeSidebar} /> */}
       <Header
         leftSlot={
           <div className="flex gap-[12px]">
@@ -115,15 +63,18 @@ export default async function RecommendPage() {
         </SlideContentList>
         <Divider type="row" py={4} color="gray-100" />
         <SlideContentList title="이번주 인기 스터디" hasArrow={true}>
+          {/* 이런식으로 클라이언트 컴포넌트 안에 서버 컴포넌트를 자식으로 넣어주는 구조 */}
           <div className="flex flex-row gap-2 pl-4">
-            <StudyBox props={studyDatas[0]} />
-            <StudyBox props={studyDatas[1]} />
+            {popularStudies.map((study) => (
+              <StudyBox props={study} key={study.id} />
+            ))}
           </div>
         </SlideContentList>
         <SlideContentList title="새로 개설된 스터디" hasArrow={true}>
           <div className="flex flex-row gap-2 pl-4">
-            <StudyBox props={studyDatas[2]} />
-            <StudyBox props={studyDatas[3]} />
+            {newStudies.map((study) => (
+              <StudyBox props={study} key={study.id} />
+            ))}
           </div>
         </SlideContentList>
       </div>

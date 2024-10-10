@@ -1,5 +1,4 @@
-"use client";
-import { useRouter } from "next/navigation";
+import Link from "next/link"; // Link 컴포넌트 import
 import Divider from "../atoms/Divider";
 import Icon from "../atoms/Icon";
 import Text from "../atoms/Text";
@@ -9,57 +8,62 @@ import StudyImageBox from "../molecules/StudyImageBox";
 import { TStudy } from "@/types/study";
 
 export default function StudyBox({ props }: { props: TStudy }) {
-  const router = useRouter();
+  let startDateMonth = new Date(props.period.startDate).getMonth() + 1; // 월은 0부터 시작하므로 1을 더합니다.
+  let startDate = new Date(props.period.startDate).getDate();
+  let endDateMonth = new Date(props.period.endDate).getMonth() + 1;
+  let endDate = new Date(props.period.endDate).getDate();
+
   return (
-    <div
-      className="cursor-pointer"
-      onClick={() => {
-        router.push(`/study/${props.id}`);
-      }}
-    >
-      <div className="flex flex-col">
-        <StudyImageBox
-          src={props.src}
-          dayOfWeek={props.dayOfWeek}
-          startTime={props.startTime}
-        />
-        <div className="flex flex-row gap-2 pt-3">
-          <Button theme="primary" shape="tag">
-            <Text size="xs" weight="bold" color="white">
-              {props.type}
-            </Text>
-          </Button>
-          <Button theme="secondary" shape="tag">
-            <Text size="xs" weight="bold" color="main">
-              {props.category}
-            </Text>{" "}
-          </Button>
-        </div>
-        <h1 className="text-[16px] font-bold pt-2">{props.title}</h1>
-        <div className="pt-2">
-          <InfoTags theme="transparent">
-            <div className="flex items-center gap-[2px]">
-              <Icon type="DATE" />
-              <Text size="xs" weight="bold" color="gray-600">
-                {props.startDate + "~" + props.endDate}
+    <Link href={`/study/${props.id}`}>
+      <div className="cursor-pointer">
+        <div className="flex flex-col w-[182px]">
+          <StudyImageBox
+            src={props.imgSrc || "/img/studyItem/studyItemImg1.png"}
+            dayOfWeek={props.dayOfWeek}
+            startTime={props.time?.startTime}
+          />
+          <div className="flex flex-row gap-2 pt-3">
+            <Button theme="primary" shape="tag">
+              <Text size="xs" weight="bold" color="white">
+                {props.type}
               </Text>
-            </div>
-            <div className="flex items-center gap-[1px]">
-              <Icon type="LOCATION" />
-              <Text size="xs" weight="bold" color="gray-600">
-                {props.location}
-              </Text>
-            </div>
-          </InfoTags>
+            </Button>
+            {props.categories.map((category) => (
+              <Button theme="secondary" shape="tag" key={category}>
+                <Text size="xs" weight="bold" color="main">
+                  {category}
+                </Text>
+              </Button>
+            ))}
+          </div>
+          <h1 className="text-[16px] font-bold pt-2 whitespace-nowrap overflow-hidden text-ellipsis">
+            {props.title}
+          </h1>
+          <div className="pt-2">
+            <InfoTags theme="transparent">
+              <div className="flex items-center gap-[2px]">
+                <Icon type="DATE" />
+                <Text size="xs" weight="bold" color="gray-600">
+                  {`${startDateMonth}.${startDate}~${endDateMonth}.${endDate}`}
+                </Text>
+              </div>
+              <div className="flex items-center gap-[1px]">
+                <Icon type="LOCATION" />
+                <Text size="xs" weight="bold" color="gray-600">
+                  {props.location}
+                </Text>
+              </div>
+            </InfoTags>
+          </div>
+          <Divider type="row" color="gray-400" my={8} />
+          <Text size="xs" weight="bold" color="gray-700">
+            {"모집 중 " +
+              props.currentMembers.length +
+              "/" +
+              props.maxMembersNum}
+          </Text>
         </div>
-        <Divider type="row" color="gray-400" my={8} />
-        <Text size="xs" weight="bold" color="gray-700">
-          {"모집 중 " +
-            props.currentParticipants.length +
-            "/" +
-            props.maxParticipants}
-        </Text>
       </div>
-    </div>
+    </Link>
   );
 }
