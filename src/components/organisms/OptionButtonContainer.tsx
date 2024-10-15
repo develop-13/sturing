@@ -5,7 +5,7 @@ import { levelData } from "@/db/levels";
 import { TLevel } from "@/types/common";
 
 type TOptionButtonContainer = {
-  categoryLevel: string | null;
+  categoryLevel?: TLevel | "";
   onClick: (dataId: TLevel) => () => void;
 };
 

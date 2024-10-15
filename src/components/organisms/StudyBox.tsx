@@ -5,9 +5,9 @@ import Text from "../atoms/Text";
 import Button from "../molecules/Button";
 import InfoTags from "../molecules/InfoTags";
 import StudyImageBox from "../molecules/StudyImageBox";
-import { TStudy } from "@/types/study";
+import { TStudyItem } from "@/types/study";
 
-export default function StudyBox({ props }: { props: TStudy }) {
+export default function StudyBox({ props }: { props: TStudyItem }) {
   let startDateMonth = new Date(props.period.startDate).getMonth() + 1; // 월은 0부터 시작하므로 1을 더합니다.
   let startDate = new Date(props.period.startDate).getDate();
   let endDateMonth = new Date(props.period.endDate).getMonth() + 1;

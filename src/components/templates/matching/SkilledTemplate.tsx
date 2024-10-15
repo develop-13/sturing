@@ -3,6 +3,7 @@ import { TabButtonGroup } from "@/components/organisms/ButtonGroup";
 import { TMatchingState, TDispatchFuncs } from "@/reducers/matchingReducer";
 import { useState } from "react";
 import OptionButtonContainer from "@/components/organisms/OptionButtonContainer";
+import { TLevel } from "@/types/common";
 
 type TSkilledTemplate = {
   interests: TMatchingState["interests"];
@@ -18,13 +19,13 @@ function SkilledTemplate(props: TSkilledTemplate) {
   // 분야
 
   const selectedCategory = props.interests[selectedCategoryIdx];
-  const categoryLevel = props.fieldLevels.get(selectedCategory);
+  const categoryLevel = props.fieldLevels[selectedCategory];
 
   const onClickButtonGroup = (selectedCategoryIdx: number) => {
     setSelectedCategoryIdx(selectedCategoryIdx);
   };
 
-  const onClickButtonContainer = (dataId: string) => () => {
+  const onClickButtonContainer = (dataId: TLevel) => () => {
     props.setLevel(props.interests[selectedCategoryIdx], dataId);
   };
 

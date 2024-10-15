@@ -1,30 +1,53 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { NextResponse } from "next/server";
 import dbConnect from "@/lib/mongodb";
-import Study from "@/models/Study";
-import { getPopularStudies, getNewStudies } from "@/lib/studyUtils";
-import { getBanners } from "@/lib/bannerUtils";
+import User from "@/models/User";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method === "GET") {
-    try {
-      const [popularStudies, newStudies, banners] = await Promise.all([
-        getPopularStudies(dbConnect, Study),
-        getNewStudies(dbConnect, Study),
-        getBanners(),
-      ]);
+export async function GET() {
+  await dbConnect(); // MongoDB 연결
 
-      res.status(200).json({
-        popularStudies,
-        newStudies,
-        banners,
-      });
-    } catch (error) {
-      res.status(500).json({ message: "서버 오류 발생", error });
-    }
-  } else {
-    res.status(405).json({ message: "Method Not Allowed" });
+  const session = await getServerSession(authOptions);
+  // next auth에서는 로그인이 성공할 시 세션이 자동으로 업데이트 되므로
+  // 따로 post로 사용자 정보를 보내줄 필요가 없다고 함ㄴ
+
+  if (!session) {
+    console.log("session 없음");
+    return NextResponse.json({ message: "로그인 필요" }, { status: 401 });
   }
+
+  const userEmail = session.user?.email;
+
+  console.log("api permitted");
+
+  const existingUser = await User.findOne({ email: userEmail });
+
+  if (!existingUser) {
+    // 새로운 사용자 추가
+    const newUser = new User({
+      email: userEmail,
+      name: session.user?.name,
+      // 필요한 추가 필드들을 설정
+      createdAt: new Date(),
+      matchingInfo: {
+        interests: [],
+        fieldLevels: {},
+        studyTypePreference: "not_decided",
+        studyPlacePreference: {},
+        studyAtmospherePreference: {},
+      },
+      recentQueries: [],
+      recentViewedStudies: [],
+      study_in_participants: [],
+      schedules: [],
+      watchList: [],
+      Accepted_applies: [],
+      applies: [],
+    });
+
+    await newUser.save();
+    console.log(newUser);
+    return NextResponse.json(newUser);
+  }
+  console.log(existingUser);
 }

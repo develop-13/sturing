@@ -24,7 +24,9 @@ export default async function RootLayout({
     <html lang="en">
       <body className="flex justify-center">
         <div
-          className={`relative w-[375px] overflow-x-hidden ` + roboto.className}
+          className={
+            `relative w-[375px] h-screen overflow-x-hidden ` + roboto.className
+          }
         >
           {children}
         </div>

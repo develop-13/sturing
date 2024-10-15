@@ -10,7 +10,7 @@ import Text from "../atoms/Text";
 import IconLabelButton, { CheckBarButton } from "../molecules/IconLabelButton";
 
 type TLocationSetter = {
-  selectedLocations: Set<string>;
+  selectedLocations: Record<string, boolean>;
   addLocation: (region: string, location: string) => void;
   deleteLocation: (region: string, location: string) => void;
 };
@@ -34,11 +34,11 @@ function LocationSetter({
   const onSelect = (word: string) => {
     console.log("onSelect occurred");
     const [region, location] = word.split(" ");
-    if (selectedLocations.has(region + " " + location)) {
+    if (selectedLocations[region + " " + location]) {
       alert("이미 선택하신 지역입니다");
       return;
     }
-    if (selectedLocations.size >= 3) {
+    if (Object.keys(selectedLocations).length >= 3) {
       alert("최대 3개까지만 선택 가능합니다.");
       return;
     }
@@ -113,7 +113,9 @@ function LocationSetter({
             {locationData[currentRegion].map((location) => (
               <CheckBarButton
                 type="checkOnClick"
-                isActive={selectedLocations.has(currentRegion + " " + location)}
+                isActive={Boolean(
+                  selectedLocations[currentRegion + " " + location]
+                )}
                 onClick={() => {
                   let fullName = currentRegion + " " + location;
                   onSelect(fullName);
@@ -124,7 +126,7 @@ function LocationSetter({
                   size="sm"
                   weight="bold"
                   color={
-                    selectedLocations.has(currentRegion + " " + location)
+                    selectedLocations[currentRegion + " " + location]
                       ? "main"
                       : "gray-1000"
                   }
@@ -137,8 +139,8 @@ function LocationSetter({
         </div>
       </article>{" "}
       {/* 선택된 항목 */}
-      <div className="flex gap-[14px] mt-[26px]">
-        {Array.from(selectedLocations).map((location) => (
+      <div className="flex gap-[14px] mt-[26px] h-[35px]">
+        {Array.from(Object.keys(selectedLocations)).map((location) => (
           <IconLabelButton
             key={uuidv4()}
             datas={{

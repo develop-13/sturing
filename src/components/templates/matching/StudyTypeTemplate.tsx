@@ -4,16 +4,15 @@ import { CheckBarButton } from "@/components/molecules/IconLabelButton";
 import Text from "@/components/atoms/Text";
 
 type TStudyTypeTemplate = {
+  userName?: string | null;
   studyTypePreference: TMatchingState["studyTypePreference"];
   setStudyTypePreference: TDispatchFuncs["setStudyTypePreference"];
 };
 
 function StudyTypeTemplate(props: TStudyTypeTemplate) {
-  const dummyUsername = "웅진";
-
   return (
     <section className="flex flex-col gap-[60px] py-[20px]">
-      <MatchingTitle role="TYPE" userName={dummyUsername} />
+      <MatchingTitle role="TYPE" userName={props.userName} />
       <div className="flex flex-col gap-[14px]">
         <CheckBarButton
           type="defaultCheck"

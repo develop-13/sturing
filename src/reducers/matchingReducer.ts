@@ -1,41 +1,26 @@
-import { produce, enableMapSet } from "immer";
+import { TAtmosphere, TCategory, TLevel } from "@/types/common";
 import { Dispatch } from "react";
+import { produce } from "immer";
+import { NewTMatching } from "@/types/user";
 
-enableMapSet();
-
-// const stateExample = {
-//   interests: ["design", "tech", "business"],
-//   fieldLevels: {
-//     design: "beginner",
-//     tech: "senior",
-//     business: "junior",
-//   },
-//   studyTypePreference: "online",
-//   studyPlacePreference: new Set(["강동구", "서대문구"]),
-//   studyAtmospherePreference: new Set(["friendly", "serious", "free"]),
-// };
-
-export type TMatchingState = {
-  interests: string[];
-  fieldLevels: Map<string, string>;
-  studyTypePreference: string;
-  studyPlacePreference: Set<string>;
-  studyAtmospherePreference: Set<string>;
-};
+export type TMatchingState = NewTMatching;
 
 export const initialState: TMatchingState = {
   interests: [],
-  fieldLevels: new Map(), // 여기에 속성으로 흥미분야, 속성의 값으로 흥미분야의 레벨 들어갈 것임.
-  studyTypePreference: "",
-  studyPlacePreference: new Set(), // "경기/광주"
-  studyAtmospherePreference: new Set(),
+  fieldLevels: {} as Record<TCategory, TLevel | "">,
+  studyTypePreference: "not_decided",
+  studyPlacePreference: {} as Record<string, boolean>,
+  studyAtmospherePreference: {} as Record<TAtmosphere, boolean>,
 };
 
 export type Action =
-  | { type: "addInterest"; payload: { interest: string } }
-  | { type: "deleteInterest"; payload: { interest: string } }
-  | { type: "setLevel"; payload: { interest: string; level: string } }
-  | { type: "setStudyTypePreference"; payload: string }
+  | { type: "addInterest"; payload: { interest: TCategory } }
+  | { type: "deleteInterest"; payload: { interest: TCategory } }
+  | { type: "setLevel"; payload: { interest: TCategory; level: TLevel } }
+  | {
+      type: "setStudyTypePreference";
+      payload: "online" | "offline" | "not_decided" | "both";
+    }
   | {
       type: "addStudyPlacePreference";
       payload: { region: string; location: string };
@@ -44,10 +29,13 @@ export type Action =
       type: "deleteStudyPlacePreference";
       payload: { region: string; location: string };
     }
-  | { type: "addStudyAtmospherePreference"; payload: { atmosphere: string } }
+  | {
+      type: "addStudyAtmospherePreference";
+      payload: { atmosphere: TAtmosphere };
+    }
   | {
       type: "deleteStudyAtmospherePreference";
-      payload: { atmosphere: string };
+      payload: { atmosphere: TAtmosphere };
     };
 
 export function MatchingReducer(
@@ -58,38 +46,35 @@ export function MatchingReducer(
     switch (action.type) {
       case "addInterest":
         draft.interests.push(action.payload.interest);
-        draft.fieldLevels.set(action.payload.interest, "");
+        draft.fieldLevels[action.payload.interest] = "" as TLevel;
         break;
       case "deleteInterest":
         draft.interests = draft.interests.filter(
           (interest) => interest !== action.payload.interest
         );
-        draft.fieldLevels.delete(action.payload.interest);
+        delete draft.fieldLevels[action.payload.interest];
         break;
       case "setLevel":
-        draft.fieldLevels.set(action.payload.interest, action.payload.level);
+        draft.fieldLevels[action.payload.interest] = action.payload.level;
         break;
       case "setStudyTypePreference":
         draft.studyTypePreference = action.payload;
         break;
       case "addStudyPlacePreference":
-        draft.studyPlacePreference.add(
+        draft.studyPlacePreference[
           action.payload.region + " " + action.payload.location
-        );
+        ] = true;
         break;
       case "deleteStudyPlacePreference":
-        console.log(`region=${action.payload.region}`);
-        console.log(`location=${action.payload.location}`);
-        draft.studyPlacePreference.delete(
+        delete draft.studyPlacePreference[
           action.payload.region + " " + action.payload.location
-        );
+        ];
         break;
       case "addStudyAtmospherePreference":
-        // draft.studyAtmospherePreference = new Set(action.payload.atmosphere);
-        draft.studyAtmospherePreference.add(action.payload.atmosphere);
+        draft.studyAtmospherePreference[action.payload.atmosphere] = true;
         break;
       case "deleteStudyAtmospherePreference":
-        draft.studyAtmospherePreference.delete(action.payload.atmosphere);
+        delete draft.studyAtmospherePreference[action.payload.atmosphere];
         break;
       default:
         break;
@@ -97,16 +82,17 @@ export function MatchingReducer(
   });
 }
 
-// 각 dispatch 함수의 타입 정의
 export type TDispatchFuncs = {
-  addInterest: (interest: string) => void;
-  deleteInterest: (interest: string) => void;
-  setLevel: (interest: string, level: string) => void;
-  setStudyTypePreference: (preference: string) => void;
+  addInterest: (interest: TCategory) => void;
+  deleteInterest: (interest: TCategory) => void;
+  setLevel: (interest: TCategory, level: TLevel) => void;
+  setStudyTypePreference: (
+    preference: "online" | "offline" | "not_decided" | "both"
+  ) => void;
   addStudyPlacePreference: (region: string, location: string) => void;
   deleteStudyPlacePreference: (region: string, location: string) => void;
-  addStudyAtmospherePreference: (atmosphere: string) => void;
-  deleteStudyAtmospherePreference: (atmosphere: string) => void;
+  addStudyAtmospherePreference: (atmosphere: TAtmosphere) => void;
+  deleteStudyAtmospherePreference: (atmosphere: TAtmosphere) => void;
 };
 
 export function createDispatchFuncs(

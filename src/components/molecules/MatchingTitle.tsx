@@ -2,11 +2,13 @@ import Text from "../atoms/Text";
 
 type TMatchingTitle = {
   role: "INTEREST" | "LEVEL" | "TYPE" | "PLACE" | "ATMOSPHERE" | "COMPLETE";
-  userName?: string;
+  userName?: string | null;
 };
 
 function MatchingTitle({ role, userName }: TMatchingTitle) {
   const commonMargin = "";
+
+  const effectiveUserName = userName || "사용자";
 
   switch (role) {
     case "INTEREST":
@@ -14,7 +16,7 @@ function MatchingTitle({ role, userName }: TMatchingTitle) {
         <>
           <div className={"flex flex-col gap-[11px] " + commonMargin}>
             <Text size="xl" weight="bold">
-              {userName}님 안녕하세요 <br />
+              {effectiveUserName}님 안녕하세요 <br />
               현재 관심있는 분야는 무엇인가요?
             </Text>
             <Text size="sm" weight="regular" color="gray-700">
@@ -39,7 +41,7 @@ function MatchingTitle({ role, userName }: TMatchingTitle) {
         <>
           <div className={commonMargin}>
             <Text size="xl" weight="bold">
-              {userName}님이 선호하는
+              {effectiveUserName}님이 선호하는
               <br />
               스터디 유형을 선택해 주세요.
             </Text>
@@ -51,7 +53,7 @@ function MatchingTitle({ role, userName }: TMatchingTitle) {
         <>
           <div className={"flex flex-col gap-[11px] " + commonMargin}>
             <Text size="xl" weight="bold">
-              {userName}님이 선호하는
+              {effectiveUserName}님이 선호하는
               <br />
               스터디 장소를 선택해 주세요.
             </Text>
@@ -66,7 +68,7 @@ function MatchingTitle({ role, userName }: TMatchingTitle) {
         <>
           <div className={"flex flex-col gap-[11px] " + commonMargin}>
             <Text size="xl" weight="bold">
-              {userName}님이 선호하는
+              {effectiveUserName}님이 선호하는
               <br />
               스터디 분위기를 선택해 주세요.
             </Text>

@@ -22,6 +22,7 @@
 import { TAtmosphere, TCategory, TLevel, TRoleText } from "./common";
 
 export type TStudy = {
+  // db의 Study 모델과 일치
   id: string;
   title: string;
   createdAt: string;
@@ -41,7 +42,7 @@ export type TStudy = {
   type: "online" | "offline";
   categories: TCategory[];
   status: "string"; // 진행중이거나 모집중이거나
-  studyPlacePreference: string[]; // 선호 장소 (오프라인의 경우)
+  studyPlacePreference: string[]; // 모집하려는 팀원의 선호 장소 (오프라인의 경우)
   currentMembers: []; // userId가 담김
   maxMembersNum: number;
   necessaryRoles: TRoleText[]; // 역할 목록 ex) 팀장, 부팀장
@@ -85,6 +86,31 @@ export type TStudy = {
     type: "notice" | "free" | "task";
   }[];
 
+  viewCount: number; // 조회 수
+  applyCount: number; // 지원 수
+  score: number; // 스터디의 인기도 점수 (자동 계산될 값
+};
+
+export type TStudyItem = {
+  id: string;
+  title: string;
+  createdAt: string;
+  period: {
+    startDate: string;
+    endDate: string;
+  };
+  time: {
+    startTime: string;
+    endTime: string;
+  };
+  atmosphere: TAtmosphere[];
+  dayOfWeek: string;
+  location: string;
+  imgSrc: string;
+  type: "online" | "offline";
+  categories: TCategory[];
+  currentMembers: []; // userId가 담김
+  maxMembersNum: number;
   viewCount: number; // 조회 수
   applyCount: number; // 지원 수
   score: number; // 스터디의 인기도 점수 (자동 계산될 값

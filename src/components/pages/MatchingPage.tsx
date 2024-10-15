@@ -19,11 +19,20 @@ import {
   initialState,
   createDispatchFuncs,
 } from "@/reducers/matchingReducer";
+import { Session } from "next-auth";
+import { TCategory, TLevel } from "@/types/common";
 
+// 최적화 가능 할 듯? InterestTemplate 단위의 컴포넌트를 매개변수로 받아서
+// state나 DispatchFuncs, userName 주입해주는 식으로. 근데 일단 나중에 하자.
 const steps = [
   // 각 컴포넌트가 사용하는 props 보내주기
-  (state: TMatchingState, DispatchFuncs: TDispatchFuncs) => (
+  (
+    state: TMatchingState,
+    DispatchFuncs: TDispatchFuncs,
+    userName?: string | null
+  ) => (
     <InterestsTemplate
+      userName={userName}
       fieldLevels={state.fieldLevels}
       deleteInterest={DispatchFuncs.deleteInterest}
       addInterest={DispatchFuncs.addInterest}
@@ -36,21 +45,36 @@ const steps = [
       setLevel={DispatchFuncs.setLevel}
     />
   ),
-  (state: TMatchingState, DispatchFuncs: TDispatchFuncs) => (
+  (
+    state: TMatchingState,
+    DispatchFuncs: TDispatchFuncs,
+    userName?: string | null
+  ) => (
     <StudyTypeTemplate
+      userName={userName}
       studyTypePreference={state.studyTypePreference}
       setStudyTypePreference={DispatchFuncs.setStudyTypePreference}
     />
   ),
-  (state: TMatchingState, DispatchFuncs: TDispatchFuncs) => (
+  (
+    state: TMatchingState,
+    DispatchFuncs: TDispatchFuncs,
+    userName?: string | null
+  ) => (
     <StudyPlaceTemplate
+      userName={userName}
       studyPlacePreference={state.studyPlacePreference}
       addStudyPlacePreference={DispatchFuncs.addStudyPlacePreference}
       deleteStudyPlacePreference={DispatchFuncs.deleteStudyPlacePreference}
     />
   ),
-  (state: TMatchingState, DispatchFuncs: TDispatchFuncs) => (
+  (
+    state: TMatchingState,
+    DispatchFuncs: TDispatchFuncs,
+    userName?: string | null
+  ) => (
     <AtmosphereTemplate
+      userName={userName}
       studyAtmospherePreference={state.studyAtmospherePreference}
       addStudyAtmospherePreference={DispatchFuncs.addStudyAtmospherePreference}
       deleteStudyAtmospherePreference={
@@ -58,60 +82,95 @@ const steps = [
       }
     />
   ),
-  (state: TMatchingState) => <CompleteTemplate />,
+  (
+    state: TMatchingState,
+    DispatchFuncs: TDispatchFuncs,
+    userName?: string | null
+  ) => <CompleteTemplate state={state} userName={userName} />,
 ];
 
-function MatchingPage() {
-  console.log("log in MatchingPage");
+const validateStep = (step: number, state: TMatchingState) => {
+  // 0단계에서 관심분야 선택
+  if (step >= 0 && !Object.keys(state.fieldLevels).length) {
+    alert("최소 1개 이상의 관심분야를 선택해 주세요");
+    return false;
+  }
 
+  if (step >= 1) {
+    // 1단계에서 관심분야별 수준 선택
+    Object.values(state.fieldLevels).forEach((value: TLevel | "") => {
+      if (value === "") {
+        alert("선택하신 관심분야들에 대한 수준을 모두 선택해주세요");
+        return false;
+      }
+    });
+  }
+
+  //2단계에서 스터디 유형 선택
+  if (step >= 2 && !state.studyTypePreference) {
+    alert("스터디 선호 유형을 선택해주세요");
+    return false;
+  }
+
+  // 3단계에서 스터디 선호 지역 선택
+  if (step >= 3 && !Object.keys(state.studyPlacePreference).length) {
+    alert("스터디 선호지역을 선택해주세요");
+    return false;
+  }
+
+  // 4단계에서 선호하는 분위기 선택
+  if (step >= 4 && !Object.keys(state.studyAtmospherePreference).length) {
+    alert("선호하시는 스터디 분위기를 선택해주세요");
+    return false;
+  }
+  return true;
+};
+
+function MatchingPage({ session }: { session: Session | null }) {
   const [step, setStep] = useState(0);
   const [state, dispatch] = useReducer(MatchingReducer, initialState);
 
-  console.log(state);
+  // console.log(session?.user?.name);
+
+  let userName = session?.user?.name;
+
+  console.log(userName);
+  // 애초에 서버에서 한 번 렌더링 되고 그 다음에 클라이언트에서 한 번 더 렌더링됨
 
   const router = useRouter();
 
   const goPrevStep = () => {
     if (step === 0) {
-      // 홈으로 가게 하기
+      // 홈으로 가게 하기'
+      router.back();
       return;
     }
     setStep(step - 1);
   };
 
   const goNextStep = () => {
-    if (!state.fieldLevels.size) {
-      alert("최소 1개 이상의 관심분야를 선택해 주세요");
-      return;
-    }
-
-    let levelSelectionDone = true;
-
-    state.fieldLevels.forEach((value, key) => {
-      if (step === 1 && value === "") {
-        alert("선택하신 관심분야들에 대한 수준을 모두 선택해주세요");
-        levelSelectionDone = false;
-        return;
-      }
-    });
-
-    if (!levelSelectionDone) return;
+    //4단계까지 모두 완료된 상태에서 화살표를 누르면 전송
 
     if (step >= steps.length - 1) {
-      // 홈으로 가게 하기
+      router.push("/");
       return;
     }
-    setStep(step + 1);
+
+    let flag = validateStep(step, state);
+    if (flag) {
+      setStep(step + 1);
+    }
   };
 
   return (
-    <div className="px-[16px]">
+    <div className="px-[16px] h-[100vh] flex flex-col">
       <Header leftSlot={<Icon type="BACK" onClick={() => router.back()} />} />
       {step < steps.length - 1 && ( // 마지막 페이지에는 안 보이게
         <Progressbar currentPage={step} totalPage={steps.length - 1} />
       )}
-      {steps[step](state, createDispatchFuncs(dispatch))}
-      <div className="w-[375px] flex justify-between fixed left-1/2 transform -translate-x-1/2 bottom-[9px] px-[16px]">
+      {steps[step](state, createDispatchFuncs(dispatch), userName)}
+
+      <div className="flex justify-between mt-auto">
         <ButtonIcon theme="gray" type="backward" onClick={goPrevStep} />
         <ButtonIcon theme="primary" type="forward" onClick={goNextStep} />
       </div>
