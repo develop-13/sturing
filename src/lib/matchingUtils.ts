@@ -99,7 +99,7 @@ export async function getRecommendedStudies(
     return obj;
   });
 
-  console.log(studiesItemsData);
+  // console.log(studiesItemsData);
 
   // 2. 각 스터디의 점수를 계산합니다.
   const studiesWithScores = studiesItemsData.map((study) => ({

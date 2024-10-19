@@ -2,11 +2,24 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import Kakao from "next-auth/providers/kakao";
 import { Account, Profile, User, Session } from "next-auth";
+import dbConnect from "@/lib/mongodb";
+import UserCollection from "@/models/User";
+import { JWT } from "next-auth/jwt";
 
 const GithubClientId = process.env.GITHUB_ID;
 const GithubClientSecret = process.env.GITHUB_SECRET;
 const KakaoClientId = process.env.KAKAO_CLIENT_ID;
 const KakaoClientSecret = process.env.KAKAO_CLIENT_SECRET;
+
+declare module "next-auth" {
+  interface Session {
+    user: {
+      name: string;
+      email: string;
+      image?: string;
+    };
+  }
+}
 
 if (!GithubClientId || !GithubClientSecret) {
   console.log(GithubClientId);
@@ -44,6 +57,13 @@ export const authOptions = {
   },
 
   callbacks: {
+    async jwt({ token, user }: { token: JWT; user: User }) {
+      if (user) {
+        token.email = user.email; // user.email을 token에 저장
+      }
+      return token;
+    },
+
     async signIn({
       user,
       account,
@@ -86,13 +106,33 @@ export const authOptions = {
 
     async session({ session, user }: { session: Session; user: User }) {
       // session.user가 있는지 먼저 확인
+      // console.log("User 이메일 정보:", user?.email); // User 객체의 이메일 확인
 
-      console.log("User 이메일 정보:", user?.email); // User 객체의 이메일 확인
+      console.log("session 요청을 받아 callbacks의 session 호출");
 
       if (session.user && user?.email) {
         session.user.email = user.email;
         console.log("세션에 이메일이 추가되었습니다:", session.user.email); // 세션에 추가된 이메일 확인
       }
+
+      await dbConnect();
+
+      // 사용자의 이메일로 DB에서 유저 찾기
+      const existingUser = await UserCollection.findOne({
+        email: session.user?.email,
+      });
+
+      if (existingUser) {
+        console.log("db에 존재하는 사용자 입니다.");
+      } else {
+        console.log("db에 존재하는 사용자가 아닙니다. ");
+      }
+
+      console.log(`existingUser=${existingUser}`);
+
+      // 세션에 userCreated 여부 추가. 처음 로그인 한 경우 user컬렉션에 유저 생성하기 위해
+      console.log(`session 콜백에서 보내는 session=`);
+      console.log(session);
       return session;
     },
   },

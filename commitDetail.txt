@@ -1,1 +1,32 @@
-commit 사항: SessionProvider로 클라이언트 애플리케이션으로 전환 및 StudyBox skeleton  ui 만듦
+session 관점으로 보기
+
+/recommend 시 동작
+
+로그인 전이므로 session = null
+
+
+로그인 직후 /recommend로 리다이렉션 되었을 때,
+
+session = 사용자 정보 
+
+session.user && !session.user.userCreated
+인 상황이므로,  createUserDocRequest 호출 
+
+사용자 정보 만들어지고
+session.user.userCreated = true 로 갱신 
+
+session && !session.user.matchingInfo 이므로 
+모달창이 뜸 
+
+/matching 에서 사용자 매칭정보 설정 후 /recommed로 
+리다이렉션 되었을 떄, 
+
+session.user.matchingInfo = true
+session.user.userCreated = true 이므로 
+모달창이 안뜸 
+
+
+
+
+
+ 

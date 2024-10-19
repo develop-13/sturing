@@ -19,8 +19,8 @@ import {
   initialState,
   createDispatchFuncs,
 } from "@/reducers/matchingReducer";
-import { Session } from "next-auth";
 import { TCategory, TLevel } from "@/types/common";
+import { useSession } from "next-auth/react";
 
 // 최적화 가능 할 듯? InterestTemplate 단위의 컴포넌트를 매개변수로 받아서
 // state나 DispatchFuncs, userName 주입해주는 식으로. 근데 일단 나중에 하자.
@@ -85,8 +85,11 @@ const steps = [
   (
     state: TMatchingState,
     DispatchFuncs: TDispatchFuncs,
-    userName?: string | null
-  ) => <CompleteTemplate state={state} userName={userName} />,
+    userName?: string | null,
+    userEmail?: string | null
+  ) => (
+    <CompleteTemplate state={state} userName={userName} userEmail={userEmail} />
+  ),
 ];
 
 const validateStep = (step: number, state: TMatchingState) => {
@@ -98,12 +101,15 @@ const validateStep = (step: number, state: TMatchingState) => {
 
   if (step >= 1) {
     // 1단계에서 관심분야별 수준 선택
+    let flag = true;
+
     Object.values(state.fieldLevels).forEach((value: TLevel | "") => {
       if (value === "") {
         alert("선택하신 관심분야들에 대한 수준을 모두 선택해주세요");
-        return false;
+        flag = false;
       }
     });
+    return flag;
   }
 
   //2단계에서 스터디 유형 선택
@@ -126,13 +132,15 @@ const validateStep = (step: number, state: TMatchingState) => {
   return true;
 };
 
-function MatchingPage({ session }: { session: Session | null }) {
+function MatchingPage() {
   const [step, setStep] = useState(0);
   const [state, dispatch] = useReducer(MatchingReducer, initialState);
 
   // console.log(session?.user?.name);
+  const { data: session, status } = useSession();
 
   let userName = session?.user?.name;
+  let userEmail = session?.user?.email;
 
   console.log(userName);
   // 애초에 서버에서 한 번 렌더링 되고 그 다음에 클라이언트에서 한 번 더 렌더링됨
@@ -152,7 +160,7 @@ function MatchingPage({ session }: { session: Session | null }) {
     //4단계까지 모두 완료된 상태에서 화살표를 누르면 전송
 
     if (step >= steps.length - 1) {
-      router.push("/");
+      router.push("/recommend");
       return;
     }
 
@@ -168,7 +176,7 @@ function MatchingPage({ session }: { session: Session | null }) {
       {step < steps.length - 1 && ( // 마지막 페이지에는 안 보이게
         <Progressbar currentPage={step} totalPage={steps.length - 1} />
       )}
-      {steps[step](state, createDispatchFuncs(dispatch), userName)}
+      {steps[step](state, createDispatchFuncs(dispatch), userName, userEmail)}
 
       <div className="flex justify-between mt-auto">
         <ButtonIcon theme="gray" type="backward" onClick={goPrevStep} />

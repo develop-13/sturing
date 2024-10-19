@@ -3,7 +3,7 @@ import Text from "@/components/atoms/Text";
 import Button from "../Button";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import LoginModal from "@/components/organisms/LoginModal";
+import LoginModal from "@/components/organisms/auth-components/LoginModal";
 
 export default function LoginButton() {
   const [upModal, setUpModal] = useState(false);

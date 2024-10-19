@@ -25,7 +25,6 @@ function MenuBtn() {
 
     if (recommendPageRef.current) {
       setIsPageReady(true); // 페이지가 준비되었음을 알림
-      console.log("sideBar ready");
     }
   }, []);
 

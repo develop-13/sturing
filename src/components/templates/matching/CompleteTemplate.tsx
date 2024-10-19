@@ -9,22 +9,30 @@ import { ErrorBoundary } from "react-error-boundary";
 import FadeLoader from "react-spinners/FadeLoader";
 import Loading from "../Loading";
 import { createPortal } from "react-dom";
+import { getSession, signIn } from "next-auth/react";
 
 const dummyUserName = "웅진";
 
 type TCompleteTemplate = {
   userName?: string | null;
+  userEmail?: string | null;
   state: TMatchingState;
 };
 
-const postMatchingInfo = async (state: TMatchingState) => {
+const postMatchingInfo = async (
+  state: TMatchingState,
+  userEmail?: string | null
+) => {
   try {
     const response = await fetch("/matching/api", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(state),
+      body: JSON.stringify({
+        userMatchingInfo: state, // 클라이언트에서 설정한 매칭 정보
+        email: userEmail, // 사용자의 이메일 정보
+      }),
     });
     const data = await response.json();
     return data;
@@ -44,7 +52,7 @@ function CompleteTemplate(props: TCompleteTemplate) {
   useEffect(() => {
     const getRecommendations = async () => {
       setIsLoading(true); // 로딩 상태 설정
-      const data = await postMatchingInfo(props.state);
+      const data = await postMatchingInfo(props.state, props.userEmail);
       if (data) {
         setRecommendations(data); // 추천 데이터를 상태에 저장
       }

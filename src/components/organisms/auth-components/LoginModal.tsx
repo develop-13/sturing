@@ -1,9 +1,9 @@
 "use client";
 import { signIn } from "next-auth/react";
 import React, { forwardRef, useState } from "react";
-import Icon from "../atoms/Icon";
-import Text from "../atoms/Text";
-import Box from "../atoms/Box";
+import Icon from "../../atoms/Icon";
+import Text from "../../atoms/Text";
+import Box from "../../atoms/Box";
 
 const LoginModal = forwardRef<HTMLDivElement, {}>(function LoginModal(
   props,

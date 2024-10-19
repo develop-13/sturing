@@ -13,16 +13,14 @@ type TInterestsTemplate = {
   deleteInterest: TDispatchFuncs["deleteInterest"];
 };
 
-const dummyUsername = "웅진";
-
 function InterestsTemplate({
   userName,
   fieldLevels,
   deleteInterest,
   addInterest,
 }: TInterestsTemplate) {
-  console.log(`userName=${userName}`);
   console.log("logging in InterestsTemplate");
+  console.log(fieldLevels);
 
   return (
     <section className="flex flex-col gap-[40px] py-[20px]">
@@ -38,7 +36,7 @@ function InterestsTemplate({
               icon: <Icon type={iconAdapter(interest)} />,
               usage: "gridItem",
               onClick: () => {
-                if (fieldLevels[interest]) {
+                if (fieldLevels[interest] === "") {
                   deleteInterest(interest);
                   return;
                 }

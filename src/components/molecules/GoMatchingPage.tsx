@@ -5,17 +5,21 @@ import Link from "next/link";
 import { Session } from "next-auth";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import LoginModal from "../organisms/LoginModal";
+import GoMatchingModal from "../organisms/GoMatchingModal";
 
-//GoMatchingPage를 TitleLink랑 합치고 싶었음
-// 왜냐하면 디자인도 >로 겹치는 부분이 있어서
-// 하지만 역할이 다름. GoMatchingPage는 라우팅 기능, TitleLink는 슬라이딩 기능
-function GoMatchingPage({ session }: { session: Session | null }) {
-  const [Modalup, setModalUp] = useState(!!session);
-
-  console.log(session);
+function GoMatchingPage({
+  isMatchingModalUp,
+}: {
+  isMatchingModalUp?: boolean;
+}) {
+  console.log(`isMatchingModalUp = ${isMatchingModalUp}`);
+  // const [Modalup, setModalUp] = useState(!!isMatchingModalUp);
+  const [Modalup, setModalUp] = useState(false);
+  // 매칭 모달이 뜨는 경우: 로그인은 했지만 사용자 매칭 정보는 설정 안한 경우
+  // state값 조정필요
 
   const [recommendPage, setRecommendPage] = useState<Element | null>(null);
+  console.log(`modalUp = ${Modalup}`);
 
   const closeModal = () => {
     setModalUp(false);
@@ -25,6 +29,7 @@ function GoMatchingPage({ session }: { session: Session | null }) {
   useEffect(() => {
     const page = document.getElementById("recommendPage");
     setRecommendPage(page);
+    console.log("page useEffect in GoMatchingPage");
   }, []);
 
   const modalRef = useRef<HTMLDivElement | null>(null); // 타입을 명시적으로 설정
@@ -49,13 +54,23 @@ function GoMatchingPage({ session }: { session: Session | null }) {
     document.addEventListener("mousedown", clickListener);
     document.addEventListener("keydown", keyboardListener);
 
+    console.log("eventListener useEffect in GoMatchingPage");
+
     // 이벤트 리스너 제거 (clean up)
     return () => {
       document.removeEventListener("mousedown", clickListener);
       document.removeEventListener("keydown", keyboardListener);
     };
-  }, [modalRef, closeModal]);
+  }, [modalRef]);
   // 겹치니까 훅으로 뺄것
+
+  useEffect(() => {
+    if (isMatchingModalUp) {
+      setModalUp(true); // 모달 띄우기
+    } else {
+      setModalUp(false); // 모달 숨기기
+    }
+  }, [isMatchingModalUp]);
 
   return (
     <div>
@@ -74,7 +89,7 @@ function GoMatchingPage({ session }: { session: Session | null }) {
         recommendPage &&
         createPortal(
           <div className="w-[375px] h-full fixed z-50 flex items-center bg-black bg-opacity-70">
-            <LoginModal ref={modalRef} />
+            <GoMatchingModal ref={modalRef} />
           </div>,
           recommendPage
         )}
