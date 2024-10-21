@@ -21,7 +21,7 @@ import { Session } from "next-auth";
 import {
   UserStatusContext,
   UserStatusContextProps,
-} from "../organisms/auth-components/userStatusProvider";
+} from "../organisms/auth-components/UserStatusProvider";
 
 // 추후에 srp 에 맞게 리팩토링할 것
 function RecommendPage() {

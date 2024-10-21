@@ -40,3 +40,6 @@ session.user.userCreated = true 이므로
 현재는 useContext를 사용
 
  
+zustand 대신 context api쓰기로함
+zustand 쓰면 상태관리값에 세션 넣어주는 부분에서 렌더링이 더 들어가서
+context api 쓰고 최적화 하는 편이 나을 것 같다.
