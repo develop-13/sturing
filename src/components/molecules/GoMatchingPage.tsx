@@ -7,14 +7,12 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import GoMatchingModal from "../organisms/GoMatchingModal";
 
-function GoMatchingPage({
-  isMatchingModalUp,
-}: {
-  isMatchingModalUp?: boolean;
-}) {
+function GoMatchingPage() {
+  let isMatchingModalUp = true;
+
   console.log(`isMatchingModalUp = ${isMatchingModalUp}`);
   // const [Modalup, setModalUp] = useState(!!isMatchingModalUp);
-  const [Modalup, setModalUp] = useState(false);
+  const [Modalup, setModalUp] = useState(true);
   // 매칭 모달이 뜨는 경우: 로그인은 했지만 사용자 매칭 정보는 설정 안한 경우
   // state값 조정필요
 
@@ -64,13 +62,13 @@ function GoMatchingPage({
   }, [modalRef]);
   // 겹치니까 훅으로 뺄것
 
-  useEffect(() => {
-    if (isMatchingModalUp) {
-      setModalUp(true); // 모달 띄우기
-    } else {
-      setModalUp(false); // 모달 숨기기
-    }
-  }, [isMatchingModalUp]);
+  // useEffect(() => {
+  //   if (isMatchingModalUp) {
+  //     setModalUp(true); // 모달 띄우기
+  //   } else {
+  //     setModalUp(false); // 모달 숨기기
+  //   }
+  // }, [isMatchingModalUp]);
 
   return (
     <div>

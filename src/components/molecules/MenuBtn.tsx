@@ -4,8 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import Icon from "../atoms/Icon";
 import { createPortal } from "react-dom";
 import Sidebar from "../templates/Sidebar";
+import { Session } from "next-auth";
 
-function MenuBtn() {
+function MenuBtn({ session }: { session: Session | null }) {
   const [upSidebar, setUpSidebar] = useState(false);
   const [isPageReady, setIsPageReady] = useState(false); // 페이지 준비 상태 관리
   const recommendPageRef = useRef<Element | null>(null); // useRef로 관리
@@ -35,6 +36,7 @@ function MenuBtn() {
         recommendPageRef.current && // recommendPage가 준비된 후에만 포털 렌더링
         createPortal(
           <Sidebar
+            session={session}
             ref={sidebarRef}
             isSidebarOpen={upSidebar}
             onCloseSidebar={closeSidebar}

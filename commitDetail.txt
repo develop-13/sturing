@@ -25,8 +25,18 @@ session.user.matchingInfo = true
 session.user.userCreated = true 이므로 
 모달창이 안뜸 
 
+상황
+세션에 사용자의 정보가 db에 존재하는지(userCreated)
+사용자가 매칭정보를 설정했는지 (hasMatchingInfo)
+에 대한 정보를 세션에다 넣어서 세션이 필요한 페이지가 공유하게끔 하려고 했는데 문제점이 생김
+
+묹제점: 매칭페이지와 추천페이지 각각 useSession으로 세션을 백엔드로부터 가져와서 쓴다고 했을 때,
+클라이언트에서 두 페이지의 세션의 정보가 빨리빨리 동기화가 되지 않았다.
 
 
-
+대안:
+전역적으로 userCreated과 hasMatchingInfo에 대한 정보를 전역에서 상태로써 관리하끔 함 
+으로써 각 페이지마다 공유할 수 있게끔 함. 
+현재는 useContext를 사용
 
  

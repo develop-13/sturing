@@ -1,18 +1,22 @@
 "use client";
+import { Session } from "next-auth";
 import Divider from "../atoms/Divider";
 import Icon from "../atoms/Icon";
 import Text from "../atoms/Text";
 import { forwardRef } from "react";
+import Image from "../atoms/Image";
+import { signOut } from "next-auth/react";
 
 // Sidebar 컴포넌트의 props 타입 정의
 interface SidebarProps {
   isSidebarOpen: boolean;
   onCloseSidebar: () => void;
+  session: Session | null;
 }
 
 // forwardRef를 올바르게 사용하는 코드
 const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(function Sidebar(
-  { isSidebarOpen, onCloseSidebar }, // props
+  { isSidebarOpen, onCloseSidebar, session }, // props
   ref // ref
 ) {
   return (
@@ -36,16 +40,17 @@ const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(function Sidebar(
         <div className="flex justify-between profileInfo">
           <div className="flex flex-col gap-[6px] nameEmail">
             <Text size="2xl" weight="bold">
-              웅진님
+              {session?.user.name + " 님"}
             </Text>
             <Text size="sm" weight="bold" color="gray-600">
-              sturing@kakao.com
+              {session?.user.email}
             </Text>
           </div>
-          <div className="bg-blue-500 rounded-full w-[60px] h-[60px] flex items-center justify-center profileImage">
-            {/* 프로필 이미지를 넣거나 기본 아이콘으로 대체 */}
-            <span className="text-white">사진</span>
-          </div>
+          <Image
+            src={session?.user.image || "/example.svg"}
+            height={60}
+            width={60}
+          />
         </div>
         <Text size="lg" weight="bold">
           스터디 프로필
@@ -91,6 +96,18 @@ const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(function Sidebar(
           <Text size="lg" color="gray-600">
             설정
           </Text>
+        </li>
+        <li>
+          <div
+            className="cursor-pointer"
+            onClick={() => {
+              signOut();
+            }}
+          >
+            <Text size="lg" color="gray-600">
+              로그아웃
+            </Text>
+          </div>
         </li>
       </ul>
     </div>
