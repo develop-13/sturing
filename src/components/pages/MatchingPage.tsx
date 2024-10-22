@@ -1,5 +1,5 @@
 "use client";
-import React, { useReducer, useState } from "react";
+import React, { useContext, useReducer, useState } from "react";
 // 각 템플릿 컴포넌트를 가져옵니다.
 import InterestsTemplate from "@/components/templates/matching/InterestsTemplate";
 import SkilledTemplate from "@/components/templates/matching/SkilledTemplate";
@@ -21,6 +21,7 @@ import {
 } from "@/reducers/matchingReducer";
 import { TCategory, TLevel } from "@/types/common";
 import { useSession } from "next-auth/react";
+import { UserStatusContext } from "../organisms/auth-components/UserStatusProvider";
 
 // 최적화 가능 할 듯? InterestTemplate 단위의 컴포넌트를 매개변수로 받아서
 // state나 DispatchFuncs, userName 주입해주는 식으로. 근데 일단 나중에 하자.
@@ -133,11 +134,9 @@ const validateStep = (step: number, state: TMatchingState) => {
 };
 
 function MatchingPage() {
+  const { session, handleHasMatchingInfo } = useContext(UserStatusContext);
   const [step, setStep] = useState(0);
   const [state, dispatch] = useReducer(MatchingReducer, initialState);
-
-  // console.log(session?.user?.name);
-  const { data: session, status } = useSession();
 
   let userName = session?.user?.name;
   let userEmail = session?.user?.email;

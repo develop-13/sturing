@@ -11,14 +11,26 @@ import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
 
 export type UserStatusContextProps = {
-  session: Session | null;
+  session?: Session | null;
   status: string;
   userCreated: boolean;
   hasMatchingInfo: boolean;
+  handleHasMatchingInfo: () => void;
 };
 
-export const UserStatusContext = createContext<
-  UserStatusContextProps | undefined
+const initialStateContext = {
+  session: undefined,
+  status: "loading", // 기본값 설정
+  userCreated: false,
+  hasMatchingInfo: false,
+  handleHasMatchingInfo: () => {},
+};
+
+export const UserStatusContext =
+  createContext<UserStatusContextProps>(initialStateContext);
+
+export const UserStatusFunctionContext = createContext<
+  undefined | { handleHasMatchingInfo: () => void }
 >(undefined);
 
 export const UserStatusProvider = ({
@@ -31,8 +43,8 @@ export const UserStatusProvider = ({
   const [hasMatchingInfo, setHasMatchingInfo] = useState(false);
 
   const handleHasMatchingInfo = useCallback(() => {
-    setHasMatchingInfo(!hasMatchingInfo);
-  }, [hasMatchingInfo]);
+    setHasMatchingInfo(true);
+  }, []);
 
   useEffect(() => {
     async function getUserStatus() {
@@ -58,14 +70,26 @@ export const UserStatusProvider = ({
     if (status === "authenticated" && !userCreated && !hasMatchingInfo) {
       // 로그인을 했는데 db에 사용자 정보가 없으면 만들기
       getUserStatus();
+    } else if (status === "unauthenticated") {
+      // 로그인이 안되어 있으면 사용자 정보 false
+      setUserCreated(false);
+      setHasMatchingInfo(false);
     }
   }, [session?.user]);
 
   return (
     <UserStatusContext.Provider
-      value={{ session, status, userCreated, hasMatchingInfo }}
+      value={{
+        session,
+        status,
+        userCreated,
+        hasMatchingInfo,
+        handleHasMatchingInfo,
+      }}
     >
+      {/* <UserStatusFunctionContext.Provider value={{ handleHasMatchingInfo }}> */}
       {children}
+      {/* </UserStatusFunctionContext.Provider> */}
     </UserStatusContext.Provider>
   );
 };

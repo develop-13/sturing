@@ -6,7 +6,7 @@ import { createPortal } from "react-dom";
 import Sidebar from "../templates/Sidebar";
 import { Session } from "next-auth";
 
-function MenuBtn({ session }: { session: Session | null }) {
+function MenuBtn({ session }: { session?: Session | null }) {
   const [upSidebar, setUpSidebar] = useState(false);
   const [isPageReady, setIsPageReady] = useState(false); // 페이지 준비 상태 관리
   const recommendPageRef = useRef<Element | null>(null); // useRef로 관리

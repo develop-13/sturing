@@ -3,13 +3,14 @@ import TitleLink from "@/components/molecules/TitleLink";
 import MatchingTitle from "@/components/molecules/MatchingTitle";
 import StudyBox from "@/components/organisms/StudyBox";
 import { TMatchingState } from "@/reducers/matchingReducer";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TStudyItem } from "@/types/study";
 import { ErrorBoundary } from "react-error-boundary";
 import FadeLoader from "react-spinners/FadeLoader";
 import Loading from "../Loading";
 import { createPortal } from "react-dom";
 import { getSession, signIn } from "next-auth/react";
+import { UserStatusContext } from "@/components/organisms/auth-components/UserStatusProvider";
 
 const dummyUserName = "웅진";
 
@@ -45,6 +46,8 @@ const postMatchingInfo = async (
 function CompleteTemplate(props: TCompleteTemplate) {
   const effectiveUserName = props.userName || "사용자";
 
+  const { handleHasMatchingInfo } = useContext(UserStatusContext);
+
   const [recommendations, setRecommendations] = useState<TStudyItem[]>([]); // 추천 데이터를 배열로 가정
 
   const [isLoading, setIsLoading] = useState(false);
@@ -55,6 +58,7 @@ function CompleteTemplate(props: TCompleteTemplate) {
       const data = await postMatchingInfo(props.state, props.userEmail);
       if (data) {
         setRecommendations(data); // 추천 데이터를 상태에 저장
+        handleHasMatchingInfo();
       }
       setIsLoading(false); // 로딩 상태 해제
     };

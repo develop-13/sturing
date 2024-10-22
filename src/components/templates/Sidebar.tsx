@@ -11,7 +11,7 @@ import { signOut } from "next-auth/react";
 interface SidebarProps {
   isSidebarOpen: boolean;
   onCloseSidebar: () => void;
-  session: Session | null;
+  session?: Session | null;
 }
 
 // forwardRef를 올바르게 사용하는 코드
