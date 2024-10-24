@@ -103,7 +103,6 @@ export type TStudyItem = {
     startTime: string;
     endTime: string;
   };
-  atmosphere: TAtmosphere[];
   dayOfWeek: string;
   location: string;
   imgSrc: string;

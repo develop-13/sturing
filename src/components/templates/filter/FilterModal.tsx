@@ -18,6 +18,7 @@ import RoleSetter from "@/components/organisms/RoleSetter";
 import Text from "../../atoms/Text";
 import Box from "@/components/atoms/Box";
 import Icon from "@/components/atoms/Icon";
+import { TStudyItem } from "@/types/study";
 // 여기에 reducer 필요함
 
 const filterModalTemplates = (
@@ -68,10 +69,14 @@ const FilterModal = forwardRef(function FilterModal(
     filterDatas,
     closeFilterModal,
     initialTab = 0,
+    handleSetSearchResults,
+    query,
   }: {
     filterDatas: TFilterDatas;
     initialTab?: number;
     closeFilterModal: () => void;
+    handleSetSearchResults: (studies: TStudyItem[]) => void;
+    query: string;
   },
   ref: ForwardedRef<HTMLDivElement> | null
 ) {
@@ -88,6 +93,23 @@ const FilterModal = forwardRef(function FilterModal(
     DispatchFuncs
   )[currentKey];
 
+  const fetchSearchResults = async () => {
+    // 결과를 가져오는 함수이지만.. Post로 보내는 편이 나을 것 같다.
+
+    const fetchedDatas = await fetch(`/search/result/api?query=${query}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(state),
+    }).then((res) => res.json());
+
+    console.log(`fetchedDatas=${fetchedDatas}`);
+
+    handleSetSearchResults(fetchedDatas);
+    closeFilterModal();
+  };
+
   return (
     <div
       ref={ref}
@@ -99,7 +121,6 @@ const FilterModal = forwardRef(function FilterModal(
         </Text>
         <Icon
           type="CLOSE"
-          color="text-gray-600"
           className="hover:bg-gray-200 rounded-full flex items-center"
           onClick={closeFilterModal}
         />
@@ -133,6 +154,7 @@ const FilterModal = forwardRef(function FilterModal(
             theme: "primary",
             shape: "full",
             extraCss: "text-white ",
+            onClick: fetchSearchResults,
           }}
         >
           <Text weight="bold">결과보기</Text>

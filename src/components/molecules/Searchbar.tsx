@@ -6,18 +6,19 @@ import { useState } from "react";
 type TSearchbar = {
   placeholder?: string;
   usage: "header" | "main";
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value: string;
   className?: string;
 };
 
-function Searchbar({
-  placeholder,
-  usage,
-  value,
-  onChange,
-  className,
-}: TSearchbar) {
+function Searchbar({ placeholder, usage, className, value }: TSearchbar) {
+  const [qeury, setQuery] = useState(value);
+  // state값을 자체적으로 갖게끔 함
+
+  const onChangeQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+    console.log(e.target.value);
+  };
+
   const router = useRouter();
   let searchbarSize = "";
   let searchIconColor = "";
@@ -44,28 +45,15 @@ function Searchbar({
         type="text"
         placeholder={placeholder}
         className="flex-1 border-none outline-none bg-transparent text-[14px] text-gray-1000 font-bold placeholder:text-gray-700"
-        value={value}
-        onChange={onChange}
+        value={qeury}
+        onChange={onChangeQuery}
       />
       <Icon
         type="SEARCH"
-        color={searchIconColor}
-        onClick={() => router.push(`/search/result?query=${value}`)}
+        onClick={() => router.push(`/search/result?query=${qeury}`)}
       />
     </div>
   );
 }
 
 export default Searchbar;
-
-type TSearchbarWrapper = Omit<TSearchbar, "value" | "onChange">;
-
-export function SearchbarWrapper(props: TSearchbarWrapper) {
-  const [query, setQuery] = useState("");
-
-  const onChangeQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-  };
-
-  return <Searchbar {...props} onChange={onChangeQuery} value={query} />;
-}

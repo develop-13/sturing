@@ -48,7 +48,7 @@ export const UserStatusProvider = ({
 
   useEffect(() => {
     async function getUserStatus() {
-      const userResponse = await fetch("api/user", {
+      const userResponse = await fetch("/api/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

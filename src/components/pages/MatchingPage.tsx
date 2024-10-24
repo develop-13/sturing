@@ -20,7 +20,6 @@ import {
   createDispatchFuncs,
 } from "@/reducers/matchingReducer";
 import { TCategory, TLevel } from "@/types/common";
-import { useSession } from "next-auth/react";
 import { UserStatusContext } from "../organisms/auth-components/UserStatusProvider";
 
 // 최적화 가능 할 듯? InterestTemplate 단위의 컴포넌트를 매개변수로 받아서

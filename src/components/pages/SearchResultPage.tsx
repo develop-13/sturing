@@ -11,10 +11,31 @@ import Divider from "../atoms/Divider";
 import FilterModal from "../templates/filter/FilterModal";
 import { filterDatas } from "@/db/filter";
 import getTranslation from "@/utils/getTranslation";
+import StudyBox from "../organisms/StudyBox";
+import { TStudyItem } from "@/types/study";
+import StudyBoxSkeleton from "../molecules/skeletonUI/StudyBoxSkeleton";
+import SortSelector from "../molecules/SortSelector";
 
 // 상태값 두 개를 두어야 할 것 같음
 // 서버에서 가져온 검색어에 해당한 스터디 객체들의 배열
 // 스터디 객체들을 목록순으로 보여줄 info 객체?
+
+async function fetchSearchResults(query: string) {
+  try {
+    const fetchedStudyDatas = await fetch(`/search/result/api?query=${query}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({}),
+    }).then((res) => res.json());
+    console.log(fetchedStudyDatas);
+    return fetchedStudyDatas;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
 
 function SearchResultPage() {
   let isDragging = false;
@@ -24,12 +45,13 @@ function SearchResultPage() {
   };
   const searchParams = useSearchParams();
   const query = searchParams.get("query") || "";
-  const [currentQuery, setCurrentQuery] = useState(query);
-  const onChangeCurrentQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentQuery(e.target.value);
-  };
+  const [isFetchingDatas, setIsFetchingDatas] = useState(false);
 
-  const [studyDatas, setStudyDatas] = useState([]);
+  const [searchResults, setSearchResults] = useState<TStudyItem[]>([]);
+
+  const handleSetSearchResults = (studies: TStudyItem[]) => {
+    setSearchResults(studies);
+  };
 
   const [showFilterModal, setShowFilterModal] = useState(false);
   let initialTab = useRef<number>(0);
@@ -62,30 +84,33 @@ function SearchResultPage() {
 
   useEffect(() => {
     // query에 해당하는 검색어들을 서버로부터 가져오는 통신작업이 필요
-    // const fetchedStudyDatas = fetchStudyData(query);
-    // setStudyDatas(fetchedStudyDatas);
-  }, []);
+    async function dataSetterFunc() {
+      setIsFetchingDatas(true);
+      const fetchedStudyDatas = await fetchSearchResults(query);
+      handleSetSearchResults(fetchedStudyDatas);
+      setIsFetchingDatas(false);
+    }
+    dataSetterFunc();
+  }, [query]);
+  // 요청안가는 이유. 여기서 초기에 한 번만 발생해서
 
   return (
-    <div className="relative h-full">
+    <div className="relative h-full flex flex-col gap-3">
       {showFilterModal && (
         <FilterModal
           ref={filterRef}
           closeFilterModal={closeFilterModal}
           filterDatas={filterDatas}
           initialTab={initialTab.current}
+          handleSetSearchResults={handleSetSearchResults}
+          query={query}
         />
       )}
-      <section className="flex flex-col gap-3 px-4 pb-4">
+      <section className="flex flex-col gap-3 px-4">
         <Header
           leftSlot={<Icon type="BACK" />}
           middleSlot={
-            <Searchbar
-              usage="header"
-              placeholder=""
-              onChange={onChangeCurrentQuery}
-              value={currentQuery}
-            />
+            <Searchbar usage="header" placeholder="" value={query || ""} />
           }
         />
         <div className="flex ">
@@ -125,6 +150,25 @@ function SearchResultPage() {
         </div>
       </section>
       <Divider type="row" py={3} color="gray-100" />
+      <section className="">
+        <SortSelector
+          searchResults={searchResults}
+          handleSetSearchResults={handleSetSearchResults}
+        />
+        <div className="flex gap-2 flex-wrap ">
+          {isFetchingDatas ? (
+            Array(4)
+              .fill(null)
+              .map((_, idx) => <StudyBoxSkeleton key={idx} />)
+          ) : searchResults.length ? (
+            searchResults.map((study: TStudyItem) => (
+              <StudyBox props={study} key={study.id} />
+            ))
+          ) : (
+            <div>검색결과가 업습니다</div>
+          )}
+        </div>
+      </section>
     </div>
   );
 }

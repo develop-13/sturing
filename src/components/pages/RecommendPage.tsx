@@ -7,7 +7,7 @@ import LoginButton from "../molecules/auth-components/LoginButton";
 import { NavButtonGroup } from "../organisms/ButtonGroup";
 import StudyBanner from "../organisms/StudyBanner";
 import GoMatchingPage from "../molecules/GoMatchingPage";
-import { SearchbarWrapper } from "../molecules/Searchbar";
+import Searchbar from "../molecules/Searchbar";
 import SlideContentList from "../organisms/SlideContentList";
 import StudyCategory from "../organisms/StudyCategory";
 import Divider from "../atoms/Divider";
@@ -111,11 +111,17 @@ function RecommendPage() {
         {userCreated && !hasMatchingInfo && <GoMatchingPage />}
       </div>
       <div className="flex flex-col gap-5 py-5">
-        <SearchbarWrapper
+        <Searchbar
           usage="main"
           placeholder="관심 스터디 분야나 강의명을 검색해보세요"
           className="px-4"
+          value=""
         />
+        {/* <SearchbarWrapper
+          usage="main"
+          placeholder="관심 스터디 분야나 강의명을 검색해보세요"
+          className="px-4"
+        /> */}
         <SlideContentList title="분야별 스터디 탐색하기" hasArrow={true}>
           <StudyCategory />
         </SlideContentList>

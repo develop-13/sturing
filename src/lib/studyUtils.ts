@@ -3,6 +3,22 @@ import Study from "@/models/Study"; // Study 모델
 import { TStudyItem } from "@/types/study";
 import { NewTMatching } from "@/types/user";
 
+export const getStudiesWithId = (studies: any[]) => {
+  return studies.map((study) => {
+    const obj = study.toObject(); // Mongoose 도큐먼트를 평범한 객체로 변환
+    obj.id = obj._id.toString(); // _id를 문자열로 변환하여 id로 설정
+    delete obj._id; // _id 필드를 완전히 제거
+
+    // 스코어 계산
+    obj.score = calculatePopularStudyScore(study);
+
+    // 날짜를 ISO 형식으로 변환
+    obj.period.startDate = new Date(obj.period.startDate).toISOString();
+    obj.period.endDate = new Date(obj.period.endDate).toISOString();
+    return obj;
+  });
+};
+
 // 스코어 계산 함수
 export function calculatePopularStudyScore(study: any): number {
   const memberWeight = 0.5;
@@ -10,13 +26,22 @@ export function calculatePopularStudyScore(study: any): number {
   const applyWeight = 0.2;
   const rateWeight = 0.1;
 
-  const memberScore = study.currentMembers.length * memberWeight;
+  const memberScore = study.currentMembers?.length * memberWeight;
   const viewScore = study.viewCount * viewWeight;
   const applyScore = study.applyCount * applyWeight;
   const rateScore = study.rate * rateWeight;
 
   return memberScore + viewScore + applyScore + rateScore;
 }
+
+const getStudiesWithPopularStudyScore = (
+  studies: TStudyItem[]
+): TStudyItem[] => {
+  return studies.map((study) => {
+    study.score = calculatePopularStudyScore(study);
+    return study;
+  });
+};
 
 // 인기 스터디 가져오기
 export async function getPopularStudies() {
@@ -44,23 +69,24 @@ export async function getPopularStudies() {
     _id: 1, // _id 필드를 제외하고 싶을 경우
   });
 
-  // console.log("getPopularStudies");
-  // console.log(fetchedStudies);
-
   // _id를 문자열로 변환하고, score를 계산한 객체 반환
-  const studiesWithScores: TStudyItem[] = fetchedStudies.map((study) => {
-    const obj = study.toObject(); // Mongoose 도큐먼트를 평범한 객체로 변환
-    obj.id = obj._id.toString(); // _id를 문자열로 변환하여 id로 설정
-    delete obj._id; // _id 필드를 완전히 제거
+  const studiesWithScores: TStudyItem[] = getStudiesWithPopularStudyScore(
+    getStudiesWithId(fetchedStudies)
+  );
 
-    // 스코어 계산
-    obj.score = calculatePopularStudyScore(study);
+  // const studiesWithScores: TStudyItem[] = fetchedStudies.map((study) => {
+  //   const obj = study.toObject(); // Mongoose 도큐먼트를 평범한 객체로 변환
+  //   obj.id = obj._id.toString(); // _id를 문자열로 변환하여 id로 설정
+  //   delete obj._id; // _id 필드를 완전히 제거
 
-    // 날짜를 ISO 형식으로 변환
-    obj.period.startDate = new Date(obj.period.startDate).toISOString();
-    obj.period.endDate = new Date(obj.period.endDate).toISOString();
-    return obj;
-  });
+  //   // 스코어 계산
+  //   obj.score = calculatePopularStudyScore(study);
+
+  //   // 날짜를 ISO 형식으로 변환
+  //   obj.period.startDate = new Date(obj.period.startDate).toISOString();
+  //   obj.period.endDate = new Date(obj.period.endDate).toISOString();
+  //   return obj;
+  // });
 
   // 스코어 순으로 정렬
   studiesWithScores.sort((a, b) => b.score - a.score);
@@ -103,17 +129,19 @@ export async function getNewStudies() {
       _id: 1, // _id 필드를 제외하고 싶을 경우
     });
 
-  const studiesWithId: TStudyItem[] = fetchedStudies.map((study) => {
-    const obj = study.toObject();
-    obj.id = obj._id.toString();
-    delete obj._id;
+  const studiesWithId: TStudyItem[] = getStudiesWithId(fetchedStudies);
 
-    // 날짜를 ISO 형식으로 변환
-    obj.period.startDate = new Date(obj.period.startDate).toISOString();
-    obj.period.endDate = new Date(obj.period.endDate).toISOString();
+  // const studiesWithId: TStudyItem[] = fetchedStudies.map((study) => {
+  //   const obj = study.toObject();
+  //   obj.id = obj._id.toString();
+  //   delete obj._id;
 
-    return obj;
-  });
+  //   // 날짜를 ISO 형식으로 변환
+  //   obj.period.startDate = new Date(obj.period.startDate).toISOString();
+  //   obj.period.endDate = new Date(obj.period.endDate).toISOString();
+
+  //   return obj;
+  // });
 
   return studiesWithId;
 }
@@ -154,17 +182,19 @@ export async function getUserInterestStudies(userMatchingInfo: NewTMatching) {
     .limit(5) // 상위 5개만 가져오기
     .exec();
 
-  const studiesWithId: TStudyItem[] = userInterestStudies.map((study) => {
-    const obj = study.toObject();
-    obj.id = obj._id.toString();
-    delete obj._id;
+  // const studiesWithId: TStudyItem[] = userInterestStudies.map((study) => {
+  //   const obj = study.toObject();
+  //   obj.id = obj._id.toString();
+  //   delete obj._id;
 
-    // 날짜를 ISO 형식으로 변환
-    obj.period.startDate = new Date(obj.period.startDate).toISOString();
-    obj.period.endDate = new Date(obj.period.endDate).toISOString();
+  //   // 날짜를 ISO 형식으로 변환
+  //   obj.period.startDate = new Date(obj.period.startDate).toISOString();
+  //   obj.period.endDate = new Date(obj.period.endDate).toISOString();
 
-    return obj;
-  });
+  //   return obj;
+  // });
+
+  const studiesWithId: TStudyItem[] = getStudiesWithId(userInterestStudies);
 
   console.log(`usrInterestStudies=${studiesWithId}`);
 
@@ -207,8 +237,7 @@ export async function getUserCloseStudies(userMatchingInfo: NewTMatching) {
     })
     .limit(5) // 상위 5개만 가져오기
     .exec();
-
-  console.log(`userCloseStudies=${userCloseStudies}`);
-
-  return userCloseStudies;
+  const studiesWithId = getStudiesWithId(userCloseStudies);
+  console.log(`userCloseStudies=${studiesWithId}`);
+  return studiesWithId;
 }

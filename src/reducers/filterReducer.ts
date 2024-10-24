@@ -1,5 +1,5 @@
 import { produce, enableMapSet } from "immer";
-import { TCategory, TLevel, TRole } from "@/types/common";
+import { TCategory, TLevel, TRoleText } from "@/types/common";
 import { Dispatch } from "react";
 
 enableMapSet();
@@ -10,13 +10,13 @@ enableMapSet();
 export type TFilterState = {
   selectedCategories: Set<TCategory>;
   memberNum: number;
-  locations: Set<string>;
+  locations: Record<string, boolean>;
   duration: {
     startDate: Date | null;
     endDate: Date | null;
   };
   levels: TLevel | null;
-  roles: Set<TRole>;
+  roles: Set<TRoleText>;
 };
 
 // const stateExample: filterState = {
@@ -37,10 +37,10 @@ export type TFilterState = {
 export const initialState: TFilterState = {
   selectedCategories: new Set([]),
   memberNum: 0,
-  locations: new Set([]),
+  locations: {},
   duration: {
-    startDate: new Date(),
-    endDate: new Date(),
+    startDate: null,
+    endDate: null,
   },
   levels: null,
   roles: new Set([]),
@@ -50,7 +50,7 @@ export const initialState: TFilterState = {
 const resetState: TFilterState = {
   selectedCategories: new Set([]),
   memberNum: 0,
-  locations: new Set([]),
+  locations: {},
   duration: {
     startDate: new Date(),
     endDate: new Date(),
@@ -75,8 +75,8 @@ export type TFilterAction =
     }
   | { type: "setDate"; payload: { startDate: Date; endDate: Date } }
   | { type: "setLevel"; payload: { level: TLevel | null } }
-  | { type: "setRole"; payload: { role: TRole } }
-  | { type: "cancelRole"; payload: { role: TRole } }
+  | { type: "setRole"; payload: { role: TRoleText } }
+  | { type: "cancelRole"; payload: { role: TRoleText } }
   | { type: "resetFilterData" };
 
 export function FilterReducer(
@@ -109,14 +109,19 @@ export function FilterReducer(
         break;
 
       case "addLocation":
-        draft.locations.add(
-          action.payload.region + " " + action.payload.location
-        );
+        // draft.locations.add(
+        //   action.payload.region + " " + action.payload.location
+        // );
+        draft.locations[action.payload.region + " " + action.payload.location] =
+          true;
         break;
       case "deleteLocation":
-        draft.locations.delete(
+        // draft.locations.delete(
+        //   action.payload.region + " " + action.payload.location
+        // );
+        delete draft.locations[
           action.payload.region + " " + action.payload.location
-        );
+        ];
         break;
 
       case "setRole":
@@ -146,8 +151,8 @@ export type TDispatchFuncs = {
   deleteLocation: (region: string, location: string) => void;
   setDate: (startDate: Date, endDate: Date) => void;
   setLevel: (level: TLevel | null) => void;
-  setRole: (role: TRole) => void;
-  cancelRole: (role: TRole) => void;
+  setRole: (role: TRoleText) => void;
+  cancelRole: (role: TRoleText) => void;
   resetFilterData: () => void;
 };
 // 각 액션 함수 정의
@@ -190,7 +195,7 @@ export function createDispatchFuncs(
     });
   };
 
-  const setRole = (role: TRole) => {
+  const setRole = (role: TRoleText) => {
     dispatch({
       type: "setRole",
       payload: { role },
@@ -207,7 +212,7 @@ export function createDispatchFuncs(
       type: "increaseMemberNum",
     });
   };
-  const cancelRole = (role: TRole) => {
+  const cancelRole = (role: TRoleText) => {
     dispatch({
       type: "cancelRole",
       payload: { role },

@@ -144,8 +144,8 @@ function SearchPage() {
             최근 본 스터디
           </Text>
           <div className="flex gap-4 mt-5">
-            <StudyBox props={studyDatas[2]} />
-            <StudyBox props={studyDatas[3]} />
+            {/* <StudyBox props={studyDatas[2]} />
+            <StudyBox props={studyDatas[3]} /> */}
           </div>
         </article>
       </section>

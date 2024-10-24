@@ -37,18 +37,6 @@ export type TRoleText =
 
 export type TLocation = Record<string, string[]>;
 
-export type TFilterDatas = {
-  categories: TCategory[];
-  locations: TLocation;
-  membernum: number;
-  duration: {
-    from: Date;
-    to: Date;
-  };
-  levels: TLevelItem[];
-  roles: TRoleItem[];
-};
-
 export type TSchedule = {
   studyId: string;
   date: Date;
@@ -68,3 +56,15 @@ export type applyInfos = {
   desiredRole: TRoleText;
   status: "rejected" | "accepted" | "pending" | "done";
 }[];
+
+export type TFilterDatas = {
+  categories: TCategory[];
+  locations: TLocation;
+  membernum: number;
+  duration: {
+    from: Date;
+    to: Date;
+  };
+  levels: TLevelItem[];
+  roles: TRoleItem[];
+};

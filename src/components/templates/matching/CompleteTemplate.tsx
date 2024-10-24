@@ -6,10 +6,8 @@ import { TMatchingState } from "@/reducers/matchingReducer";
 import { useContext, useEffect, useState } from "react";
 import { TStudyItem } from "@/types/study";
 import { ErrorBoundary } from "react-error-boundary";
-import FadeLoader from "react-spinners/FadeLoader";
 import Loading from "../Loading";
 import { createPortal } from "react-dom";
-import { getSession, signIn } from "next-auth/react";
 import { UserStatusContext } from "@/components/organisms/auth-components/UserStatusProvider";
 
 const dummyUserName = "웅진";

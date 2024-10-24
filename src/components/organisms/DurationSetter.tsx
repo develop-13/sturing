@@ -37,41 +37,6 @@ const renderTitle = (duration: TFilterState["duration"]) => {
     );
   }
 };
-// const renderTitle = (dates: Value) => {
-//   if (!Array.isArray(dates)) {
-//     return null;
-//   }
-//   const [startDate, endDate] = dates;
-//   if (!startDate && !endDate) {
-//     return (
-//       <Text size="sm" weight="bold" color="gray-500">
-//         진행기간을 선택해 주세요
-//       </Text>
-//     );
-//   } else if (endDate && !startDate) {
-//     return (
-//       <div>
-//         <Text size="sm" weight="bold" color="gray-500">
-//           {endDate.toLocaleDateString()}
-//         </Text>
-//       </div>
-//     );
-//   } else {
-//     return (
-//       <div>
-//         <Text size="sm" weight="bold" color="gray-500">
-//           {startDate?.toLocaleDateString()}
-//         </Text>
-//         <Text size="sm" weight="bold" color="gray-500">
-//           {" ~ "}
-//         </Text>
-//         <Text size="sm" weight="bold" color="gray-500">
-//           {endDate?.toLocaleDateString()}
-//         </Text>
-//       </div>
-//     );
-//   }
-// };
 
 function DurationSetter({
   duration,
