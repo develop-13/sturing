@@ -47,6 +47,8 @@ function studyInfoPage() {
       study.currentMembers = userEmailRoleMap;
       setStudyInfo(study);
       console.log(study);
+      console.log("Scroll Height:", document.body.scrollHeight);
+      console.log("Client Height--:", document.documentElement.clientHeight);
     }
 
     fetchstudyInfo();
@@ -61,13 +63,8 @@ function studyInfoPage() {
         break;
       case "member":
         window.scrollTo({ top: studyInfoBoxTop, behavior: "smooth" });
-        console.log(buttonGroupData[selectedOptionIdx]);
-        console.log(`studyInfoBoxTop=${studyInfoBoxTop}`);
-        console.log(`memberInfoBoxTop=${memberInfoBoxTop}`);
         break;
     }
-    console.log("haha");
-    console.log(document.documentElement.scrollTop);
   };
 
   const getInfoBoxTop =
