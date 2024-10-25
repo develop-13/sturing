@@ -1,7 +1,7 @@
-import { TRole } from "@/types/common";
+import { TRoleText } from "@/types/common";
 
 export type TRoleItem = {
-  role: TRole;
+  role: TRoleText;
   title: string;
   text: string;
 };

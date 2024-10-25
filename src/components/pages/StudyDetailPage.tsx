@@ -11,55 +11,63 @@ import { TabButtonGroup } from "../organisms/ButtonGroup";
 import InfoBox from "../organisms/InfoBox";
 import StudyOverview from "../organisms/StudyOverview";
 import Header from "../organisms/Header";
-import { fetchStudyDetail } from "@/app/api/fetchStudyDetail";
-import { TStudy } from "@/types/study";
+import { TStudyDetail } from "@/types/study";
 import TitleLink from "../molecules/TitleLink";
 import ButtonLabel from "../molecules/IconLabelButton";
 import UserInfoItem from "../molecules/UserInfoItem";
 
-type IconAtmosphereMapping = {
-  [key: string]: [string, JSX.Element];
-};
-
-const iconAtmosphereMapping: IconAtmosphereMapping = {
-  serious: ["진지한", <Icon type="SERIOUS" size={16} key={uuidv4()} />],
-  friendly: ["친근한", <Icon type="FRIENDLY" size={16} key={uuidv4()} />],
-  professional: [
-    "전문적인",
-    <Icon type="PROFESSIONAL" size={16} key={uuidv4()} />,
-  ],
-};
-
 const buttonGroupData = ["info", "member"];
 
-function StudyDetailPage() {
-  // console.log(`studyDetailPage render!`);
+function studyInfoPage() {
+  // console.log(`studyInfoPage render!`);
   const router = useRouter();
   const params = useParams<{ sid: string }>();
   const [selectedIdx, setSelected] = useState(0);
   const [studyInfoBoxTop, setStudyInfoBoxTop] = useState(0);
   const [memberInfoBoxTop, setMemberInfoBoxTop] = useState(0);
-  const [studyDetail, setStudyDetail] = useState<TStudy | undefined>(undefined);
+  const [studyInfo, setStudyInfo] = useState<TStudyDetail | undefined>(
+    undefined
+  );
   const boxRef = {
     info: useRef<HTMLDivElement>(null),
     member: useRef<HTMLDivElement>(null),
   };
 
+  // console.log(boxRef.info.current);
+  // console.log(boxRef.member.current);
+
   useEffect(() => {
-    const data = fetchStudyDetail(params.sid);
-    setStudyDetail(data);
+    // 스터디를 가져옴
+
+    async function fetchstudyInfo() {
+      const fetchedStudyInfo = await fetch(
+        `/study/[sid]/api?sid=${params.sid}`
+      ).then((res) => res.json());
+      const { study, userEmailRoleMap } = fetchedStudyInfo;
+      study.currentMembers = userEmailRoleMap;
+      setStudyInfo(study);
+      console.log(study);
+    }
+
+    fetchstudyInfo();
   }, [params.sid]);
 
   const onClickBtn = (selectedOptionIdx: number) => {
     setSelected(selectedOptionIdx);
+
     switch (buttonGroupData[selectedOptionIdx]) {
       case "info":
-        window.scrollTo({ top: studyInfoBoxTop, behavior: "smooth" });
-        break;
-      case "member":
         window.scrollTo({ top: memberInfoBoxTop, behavior: "smooth" });
         break;
+      case "member":
+        window.scrollTo({ top: studyInfoBoxTop, behavior: "smooth" });
+        console.log(buttonGroupData[selectedOptionIdx]);
+        console.log(`studyInfoBoxTop=${studyInfoBoxTop}`);
+        console.log(`memberInfoBoxTop=${memberInfoBoxTop}`);
+        break;
     }
+    console.log("haha");
+    console.log(document.documentElement.scrollTop);
   };
 
   const getInfoBoxTop =
@@ -67,7 +75,7 @@ function StudyDetailPage() {
       setInfoBoxTop(infoBoxTop);
     };
 
-  if (!studyDetail) return;
+  if (!studyInfo) return;
   // 한 번에 보여주기 위한 처리
 
   return (
@@ -77,7 +85,6 @@ function StudyDetailPage() {
         leftSlot={
           <Icon
             type="BACK"
-            color="text-white"
             onClick={() => {
               router.back();
             }}
@@ -85,14 +92,19 @@ function StudyDetailPage() {
         }
         rightSlot={
           <div className="flex gap-[12px] items-center">
-            <Icon type="SHARE" color="text-white" />
-            <Icon type="MORE" color="text-white" />
+            <Icon type="SHARE" />
+            <Icon type="MORE" />
           </div>
         }
       />
       <StudyOverview
         props={{
-          ...studyDetail,
+          type: studyInfo.type,
+          categories: studyInfo.categories,
+          title: studyInfo.title,
+          startDate: studyInfo.period.startDate,
+          endDate: studyInfo.period.endDate,
+          src: studyInfo.imgSrc,
         }}
       />
       <TabButtonGroup
@@ -105,13 +117,13 @@ function StudyDetailPage() {
           <StudyOverviewItem
             icon={<Icon type="MEMBERS" />}
             name="팀원"
-            content={"최대 " + studyDetail?.maxParticipants + "명"}
+            content={"최대 " + studyInfo?.maxMembersNum + "명"}
           />
           <StudyOverviewItem
             icon={<Icon type="DATE_COLOR" />}
             name="일정"
             content={
-              studyDetail?.dayOfWeek + "요일" + " " + studyDetail?.startTime
+              studyInfo?.dayOfWeek + "요일" + " " + studyInfo?.time.startTime
             }
           />
           <StudyOverviewItem
@@ -122,7 +134,7 @@ function StudyDetailPage() {
           <StudyOverviewItem
             icon={<Icon type="LOCATION_COLOR" />}
             name="위치"
-            content={studyDetail?.location + ""}
+            content={studyInfo?.location + ""}
           />
         </ul>
         <InfoBox
@@ -139,23 +151,25 @@ function StudyDetailPage() {
           <div className="flex gap-[4px]">
             <Button theme="primary" shape="tag">
               <Text size="xs" weight="bold" color="white">
-                {studyDetail?.type}
+                {studyInfo?.type}
               </Text>
             </Button>
-            <Button theme="secondary" shape="tag">
-              <Text size="xs" weight="bold" color="main">
-                {studyDetail?.category}
-              </Text>
-            </Button>
+            {studyInfo.categories.map((category) => (
+              <Button theme="secondary" shape="tag" key={category}>
+                <Text size="xs" weight="bold" color="main">
+                  {category}
+                </Text>
+              </Button>
+            ))}
             <Button theme="secondary" shape="tag">
               <Icon type="STAR" />
               <Text size="xs" weight="bold" color="main">
-                {studyDetail?.rate}
+                {studyInfo?.rate}
               </Text>
             </Button>
           </div>
           <Text size="sm" weight="bold">
-            {studyDetail?.title}
+            {studyInfo?.title}
           </Text>
         </InfoBox>
         <InfoBox theme="white">
@@ -164,13 +178,13 @@ function StudyDetailPage() {
           </Text>
           <Divider type="row" />
           <div className="flex gap-[6px]">
-            {studyDetail?.atmosphere.map((it, idx) => (
+            {studyInfo?.atmospheres.map((atmosphere, idx) => (
               <ButtonLabel
                 key={uuidv4()}
                 datas={{
                   theme: "secondary",
-                  icon: iconAtmosphereMapping[it][1],
-                  text: iconAtmosphereMapping[it][0],
+                  icon: <Icon type={atmosphere} />,
+                  text: atmosphere,
                   usage: "listItem",
                 }}
               />
@@ -187,30 +201,30 @@ function StudyDetailPage() {
           </Text>
           <Divider type="row" />
           <div className="flex gap-[6px]">
-            {studyDetail?.desiredMember.ageRange && (
+            {studyInfo?.preferentialAge && (
               <ButtonLabel
                 key={uuidv4()}
                 datas={{
                   theme: "secondary",
                   usage: "listItem",
-                  text: studyDetail?.desiredMember.ageRange,
+                  text: studyInfo?.preferentialAge as string,
                 }}
               />
             )}
-            {studyDetail?.desiredMember.studyLevel && (
+            {studyInfo?.preferentialLevel && (
               <ButtonLabel
                 key={uuidv4()}
                 datas={{
                   theme: "secondary",
                   usage: "listItem",
-                  text: studyDetail?.desiredMember.studyLevel,
+                  text: studyInfo?.preferentialLevel,
                 }}
               />
             )}
           </div>
           <div className="flex gap-[6px]">
-            {studyDetail?.desiredMember.roles &&
-              studyDetail?.desiredMember.roles.map((role) => (
+            {studyInfo?.necessaryRoles &&
+              studyInfo?.necessaryRoles.map((role) => (
                 <ButtonLabel
                   key={uuidv4()}
                   datas={{
@@ -228,25 +242,28 @@ function StudyDetailPage() {
               팀원 프로필
             </Text>
             <Text size="sm" weight="bold" color="main">
-              {studyDetail?.currentParticipants.length +
+              {studyInfo?.currentMembers.length +
                 "/" +
-                studyDetail?.maxParticipants}
+                studyInfo?.maxMembersNum}
             </Text>
           </div>
           <Divider type="row" />
           <div className="flex flex-col gap-2">
-            {studyDetail?.currentParticipants?.map((participant) => (
-              <UserInfoItem
-                key={uuidv4()}
-                name={participant.userName}
-                role={participant.role}
-                isCreator={participant.userId === studyDetail.creatorId}
-                profileImage={
-                  participant.profileImage ||
-                  "/img/profile/defaultProfileImage.png"
-                }
-              />
-            ))}
+            {/* {studyInfo?.currentMembers &&
+              Object.entries(studyInfo.currentMembers).map(
+                ([key, participant]) => (
+                  <UserInfoItem
+                    key={uuidv4()}
+                    name={participant.name}
+                    role={participant.role}
+                    isCreator={participant.email === studyInfo.creatorEmail}
+                    profileImage={
+                      participant.imgSrc ||
+                      "/img/profile/defaultProfileImage.png"
+                    }
+                  />
+                )
+              )} */}
           </div>
         </InfoBox>
       </section>
@@ -254,4 +271,4 @@ function StudyDetailPage() {
   );
 }
 
-export default StudyDetailPage;
+export default studyInfoPage;

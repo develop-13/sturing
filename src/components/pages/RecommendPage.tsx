@@ -117,11 +117,6 @@ function RecommendPage() {
           className="px-4"
           value=""
         />
-        {/* <SearchbarWrapper
-          usage="main"
-          placeholder="관심 스터디 분야나 강의명을 검색해보세요"
-          className="px-4"
-        /> */}
         <SlideContentList title="분야별 스터디 탐색하기" hasArrow={true}>
           <StudyCategory />
         </SlideContentList>

@@ -4,8 +4,8 @@ import Button from "../molecules/Button";
 import InfoTags from "../molecules/InfoTags";
 
 type TStudyOverView = {
-  type: "온라인" | "오프라인";
-  category: string;
+  type: "online" | "offline";
+  categories: string[];
   title: string;
   startDate: string;
   endDate: string;
@@ -40,11 +40,15 @@ function StudyOverview({ props }: { props: TStudyOverView }) {
               {props.type}
             </Text>
           </Button>
-          <Button theme="secondary" shape="tag">
-            <Text size="xs" weight="bold" color="main">
-              {props.category}
-            </Text>
-          </Button>
+          {props.categories.map((category) => {
+            return (
+              <Button theme="secondary" shape="tag" key={category}>
+                <Text size="xs" weight="bold" color="main">
+                  {category}
+                </Text>
+              </Button>
+            );
+          })}
         </div>
         <Text size="xl" weight="bold" color="white">
           {props.title}

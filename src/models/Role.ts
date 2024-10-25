@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const RoleSchema = new mongoose.Schema({
   studyId: { type: String, required: true },
-  userId: { type: String, required: true },
+  userEmail: { type: String, required: true },
   role: { type: String, required: true },
 });
 

@@ -1,4 +1,4 @@
-import { TAtmosphere, TCategory, TLevel } from "./common";
+import { TAtmosphere, TCategory, TLevel, TRoleText } from "./common";
 
 export type TMatching = {
   interests: TCategory[];
@@ -28,4 +28,10 @@ export type TUser = {
   watchList: string[];
   Accepted_applies: string[];
   applies: string[];
+};
+
+export type TProfile_simple = {
+  imgSrc?: string;
+  name: string;
+  role: null | TRoleText; // 기본 값 설정
 };

@@ -208,7 +208,7 @@ export async function POST(req: NextRequest) {
     const studiesWithIds: TStudyItem[] = studies.map((study) => {
       const obj = study.toObject();
       obj.id = obj._id.toString();
-      delete obj._id;
+      // delete obj._id;
       obj.period.startDate = new Date(obj.period.startDate).toISOString();
       obj.period.endDate = new Date(obj.period.endDate).toISOString();
       return obj;

@@ -4,11 +4,10 @@ import { TStudyItem } from "@/types/study";
 import { NewTMatching } from "@/types/user";
 
 export const getStudiesWithId = (studies: any[]) => {
-  return studies.map((study) => {
+  const studiesWithId = studies.map((study) => {
     const obj = study.toObject(); // Mongoose 도큐먼트를 평범한 객체로 변환
     obj.id = obj._id.toString(); // _id를 문자열로 변환하여 id로 설정
-    delete obj._id; // _id 필드를 완전히 제거
-
+    // delete obj._id; // _id 필드를 완전히 제거
     // 스코어 계산
     obj.score = calculatePopularStudyScore(study);
 
@@ -17,6 +16,12 @@ export const getStudiesWithId = (studies: any[]) => {
     obj.period.endDate = new Date(obj.period.endDate).toISOString();
     return obj;
   });
+  // 애초에 스터디 모집에서 스터디 생성할 때 _id필드를 명시하여 insert 할 거니까
+  // 나중에는 필요없어짐
+
+  console.log("studiesWithId");
+  console.log(studiesWithId);
+  return studiesWithId;
 };
 
 // 스코어 계산 함수
@@ -48,7 +53,7 @@ export async function getPopularStudies() {
   await dbConnect(); // MongoDB와 연결
 
   const fetchedStudies = await Study.find({
-    status: "모집중",
+    status: "recruiting",
   }).select({
     title: 1,
     createdAt: 1,
@@ -69,24 +74,16 @@ export async function getPopularStudies() {
     _id: 1, // _id 필드를 제외하고 싶을 경우
   });
 
+  console.log("fetchedStudies");
+  console.log(fetchedStudies);
+
   // _id를 문자열로 변환하고, score를 계산한 객체 반환
   const studiesWithScores: TStudyItem[] = getStudiesWithPopularStudyScore(
     getStudiesWithId(fetchedStudies)
   );
 
-  // const studiesWithScores: TStudyItem[] = fetchedStudies.map((study) => {
-  //   const obj = study.toObject(); // Mongoose 도큐먼트를 평범한 객체로 변환
-  //   obj.id = obj._id.toString(); // _id를 문자열로 변환하여 id로 설정
-  //   delete obj._id; // _id 필드를 완전히 제거
-
-  //   // 스코어 계산
-  //   obj.score = calculatePopularStudyScore(study);
-
-  //   // 날짜를 ISO 형식으로 변환
-  //   obj.period.startDate = new Date(obj.period.startDate).toISOString();
-  //   obj.period.endDate = new Date(obj.period.endDate).toISOString();
-  //   return obj;
-  // });
+  console.log("studiesWithScores");
+  console.log(studiesWithScores);
 
   // 스코어 순으로 정렬
   studiesWithScores.sort((a, b) => b.score - a.score);
@@ -106,7 +103,7 @@ export async function getNewStudies() {
 
   const fetchedStudies = await Study.find({
     createdAt: { $gte: sevenDaysAgo },
-    status: "모집중",
+    status: "recruiting",
   })
     .sort({ createdAt: -1 })
     .select({
@@ -131,18 +128,6 @@ export async function getNewStudies() {
 
   const studiesWithId: TStudyItem[] = getStudiesWithId(fetchedStudies);
 
-  // const studiesWithId: TStudyItem[] = fetchedStudies.map((study) => {
-  //   const obj = study.toObject();
-  //   obj.id = obj._id.toString();
-  //   delete obj._id;
-
-  //   // 날짜를 ISO 형식으로 변환
-  //   obj.period.startDate = new Date(obj.period.startDate).toISOString();
-  //   obj.period.endDate = new Date(obj.period.endDate).toISOString();
-
-  //   return obj;
-  // });
-
   return studiesWithId;
 }
 
@@ -158,7 +143,9 @@ export async function getUserInterestStudies(userMatchingInfo: NewTMatching) {
   const firstInterest = interests[0];
 
   // MongoDB에서 사용자의 첫 번째 관심사에 해당하는 스터디 가져오기
-  const userInterestStudies = await Study.find({ categories: firstInterest })
+  const userInterestStudies = await Study.find({
+    categories: { $elemMatch: { $eq: firstInterest } },
+  })
     .sort({ score: -1 }) // 평점(score) 기준으로 내림차순 정렬
     .select({
       title: 1,
@@ -182,21 +169,7 @@ export async function getUserInterestStudies(userMatchingInfo: NewTMatching) {
     .limit(5) // 상위 5개만 가져오기
     .exec();
 
-  // const studiesWithId: TStudyItem[] = userInterestStudies.map((study) => {
-  //   const obj = study.toObject();
-  //   obj.id = obj._id.toString();
-  //   delete obj._id;
-
-  //   // 날짜를 ISO 형식으로 변환
-  //   obj.period.startDate = new Date(obj.period.startDate).toISOString();
-  //   obj.period.endDate = new Date(obj.period.endDate).toISOString();
-
-  //   return obj;
-  // });
-
   const studiesWithId: TStudyItem[] = getStudiesWithId(userInterestStudies);
-
-  console.log(`usrInterestStudies=${studiesWithId}`);
 
   return studiesWithId; // 평점순 상위 5개의 스터디 반환
 }
@@ -238,6 +211,5 @@ export async function getUserCloseStudies(userMatchingInfo: NewTMatching) {
     .limit(5) // 상위 5개만 가져오기
     .exec();
   const studiesWithId = getStudiesWithId(userCloseStudies);
-  console.log(`userCloseStudies=${studiesWithId}`);
   return studiesWithId;
 }

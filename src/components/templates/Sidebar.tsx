@@ -47,7 +47,7 @@ const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(function Sidebar(
             </Text>
           </div>
           <Image
-            src={session?.user.image || "/example.svg"}
+            src={session?.user.image || "/img/profile/example1.png"}
             height={60}
             width={60}
           />

@@ -41,10 +41,10 @@ export type TStudy = {
   schedule: []; // 스케쥴 id 가담겨 있음
   type: "online" | "offline";
   categories: TCategory[];
-  status: "string"; // 진행중이거나 모집중이거나
+  status: string; // 진행중이거나 모집중이거나
   studyPlacePreference: string[]; // 모집하려는 팀원의 선호 장소 (오프라인의 경우)
-  currentMembers: []; // userId가 담김
   maxMembersNum: number;
+  currentMembers: []; // email이 담김
   necessaryRoles: TRoleText[]; // 역할 목록 ex) 팀장, 부팀장
   preferentialAge: number | string; // 모집하는 팀원의 희망 나잇대
   preferentialLevel: TLevel; // 모집하는 팀원의 희망 수준 ex) 비기너, 신입 등
@@ -88,9 +88,37 @@ export type TStudy = {
 
   viewCount: number; // 조회 수
   applyCount: number; // 지원 수
-  score: number; // 스터디의 인기도 점수 (자동 계산될 값
+  score: number; // 스터디의 인기도 점수 (자동 계산될 값)
 };
 
+export type TStudyDetail = {
+  _id: string;
+  id?: string;
+  type: "online" | "offline";
+  categories: TCategory[];
+  title: string;
+  period: {
+    startDate: string;
+    endDate: string;
+  };
+  imgSrc: string;
+  dayOfWeek: string;
+  maxMembersNum: number;
+  time: {
+    startTime: string;
+    endTime: string;
+  };
+  tasks: string[]; // 스터디에서 다룰 과제 목록
+  location: string;
+  atmospheres: TAtmosphere[]; // 스터디 분위기
+  currentMembers: []; // email이 담김
+  necessaryRoles: TRoleText[]; // 역할 목록 ex) 팀장, 부팀장
+  preferentialAge: number | string; // 모집하는 팀원의 희망 나잇대
+  preferentialLevel: TLevel; // 모집하는 팀원의 희망 수준 ex) 비기너, 신입 등
+  rate: number; // 스터디 평가 점수
+};
+
+//----------------------------------------------------------------------------
 export type TStudyItem = {
   id: string;
   title: string;
@@ -114,6 +142,8 @@ export type TStudyItem = {
   applyCount: number; // 지원 수
   score: number; // 스터디의 인기도 점수 (자동 계산될 값
 };
+
+export type TStudyDetail_participating = {};
 
 // type TTeamMemberProfile = {
 //   userId: string;

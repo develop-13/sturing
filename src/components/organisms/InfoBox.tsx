@@ -15,6 +15,7 @@ const InfoBox = forwardRef<HTMLDivElement, TInfoBox>(function InfoBox(
   useEffect(() => {
     if (props.getInfoBoxTop && ref && typeof ref === "object" && ref.current) {
       props.getInfoBoxTop(ref.current.getBoundingClientRect().top);
+      console.log("hey");
     }
   });
   // 여기서 getInfoBoxTop 의 값을 구해서 상위 컴포넌트의 infoBoxTop의 값을 결정
