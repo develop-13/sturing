@@ -3,6 +3,7 @@ import Text from "../atoms/Text";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { TDispatchFuncs, TFilterState } from "@/reducers/filterReducer";
+import { TStudyRecruitment } from "@/types/study";
 
 type ValuePiece = Date | null;
 
@@ -38,13 +39,12 @@ const renderTitle = (duration: TFilterState["duration"]) => {
   }
 };
 
-function DurationSetter({
-  duration,
-  setDate,
-}: {
-  duration: TFilterState["duration"];
-  setDate: TDispatchFuncs["setDate"];
-}) {
+type TDurationSetter = {
+  period: TStudyRecruitment["period"];
+  setDate: (startDate: Date, endDate: Date) => void;
+};
+
+function DurationSetter({ period, setDate }: TDurationSetter) {
   const [dates, setDates] = useState<Value>([null, null]);
 
   useEffect(() => {
@@ -64,7 +64,7 @@ function DurationSetter({
   return (
     <div className="flex flex-col items-center justify-center border border-gray-500 rounded-[5px]">
       <div className=" h-[50px] w-[88%] border-b-2 border-gray-500 flex items-center">
-        {renderTitle(duration)}
+        {renderTitle(period)}
       </div>
       <Calendar
         locale="ko"

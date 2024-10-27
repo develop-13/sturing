@@ -22,13 +22,12 @@
 import { TAtmosphere, TCategory, TLevel, TRoleText } from "./common";
 
 export type TStudy = {
-  // db의 Study 모델과 일치
   id: string;
   title: string;
   createdAt: string;
   period: {
-    startDate: string;
-    endDate: string;
+    startDate: Date;
+    endDate: Date;
   };
   creatorId: string;
   time: {
@@ -38,21 +37,21 @@ export type TStudy = {
   dayOfWeek: string;
   location: string;
   imgSrc: string;
-  schedule: []; // 스케쥴 id 가담겨 있음
-  type: "online" | "offline";
+  schedule: string[]; // 스케쥴 id 가담겨 있음
+  type: "online" | "offline" | "";
   categories: TCategory[];
   status: string; // 진행중이거나 모집중이거나
   studyPlacePreference: string[]; // 모집하려는 팀원의 선호 장소 (오프라인의 경우)
   maxMembersNum: number;
-  currentMembers: []; // email이 담김
+  currentMembers: string[]; // email이 담김
   necessaryRoles: TRoleText[]; // 역할 목록 ex) 팀장, 부팀장
   preferentialAge: number | string; // 모집하는 팀원의 희망 나잇대
-  preferentialLevel: TLevel; // 모집하는 팀원의 희망 수준 ex) 비기너, 신입 등
+  preferentialLevel?: TLevel; // 모집하는 팀원의 희망 수준 ex) 비기너, 신입 등
   tasks: string[]; // 스터디에서 다룰 과제 목록
   rate: number; // 스터디 평가 점수
   atmospheres: TAtmosphere[]; // 스터디 분위기
   schedules: string[];
-  noticesBoard: {
+  noticesBoard: Array<{
     reading_requried: boolean;
     view: number;
     date: string;
@@ -60,88 +59,99 @@ export type TStudy = {
     content: string;
     imgSrc: string;
     writer: string; // userId
-    comments: {
+    comments: Array<{
       writer: string;
       text: string;
-    }[];
-  }[]; // 어떤 스터디의 공지사항
-  studyBoards: {
+    }>;
+  }>;
+  studyBoards: Array<{
     title: string;
     content: string;
     imgSrc: string;
     writer: string; // userId
-    comments: {
+    comments: Array<{
       writer: string;
       text: string;
-    }[];
-  }[]; // 과제게시판
-  board: {
+    }>;
+  }>;
+  board: Array<{
     userId: string;
     createdAt: string;
     view: number;
     title: string;
     text: string;
     imgSrc: string;
-    comment: { userId: string; createdAt: string; text: string }[];
+    comment: Array<{
+      userId: string;
+      createdAt: string;
+      text: string;
+    }>;
     type: "notice" | "free" | "task";
-  }[];
-
+  }>;
   viewCount: number; // 조회 수
   applyCount: number; // 지원 수
   score: number; // 스터디의 인기도 점수 (자동 계산될 값)
 };
 
-export type TStudyDetail = {
-  _id: string;
-  id?: string;
-  type: "online" | "offline";
-  categories: TCategory[];
-  title: string;
-  period: {
-    startDate: string;
-    endDate: string;
-  };
-  imgSrc: string;
-  dayOfWeek: string;
-  maxMembersNum: number;
-  time: {
-    startTime: string;
-    endTime: string;
-  };
-  tasks: string[]; // 스터디에서 다룰 과제 목록
-  location: string;
-  atmospheres: TAtmosphere[]; // 스터디 분위기
-  currentMembers: []; // email이 담김
-  necessaryRoles: TRoleText[]; // 역할 목록 ex) 팀장, 부팀장
-  preferentialAge: number | string; // 모집하는 팀원의 희망 나잇대
-  preferentialLevel: TLevel; // 모집하는 팀원의 희망 수준 ex) 비기너, 신입 등
-  rate: number; // 스터디 평가 점수
+export type TStudyRecruitment = Pick<
+  TStudy,
+  | "id"
+  | "imgSrc"
+  | "title"
+  | "categories"
+  | "type"
+  | "location"
+  | "period"
+  | "dayOfWeek"
+  | "time"
+  | "maxMembersNum"
+  | "preferentialAge"
+  | "preferentialLevel"
+  | "necessaryRoles"
+  | "atmospheres"
+> & {
+  description: string;
 };
 
-//----------------------------------------------------------------------------
-export type TStudyItem = {
-  id: string;
-  title: string;
-  createdAt: string;
-  period: {
-    startDate: string;
-    endDate: string;
-  };
-  time: {
-    startTime: string;
-    endTime: string;
-  };
-  dayOfWeek: string;
-  location: string;
-  imgSrc: string;
-  type: "online" | "offline";
-  categories: TCategory[];
-  currentMembers: []; // userId가 담김
-  maxMembersNum: number;
-  viewCount: number; // 조회 수
-  applyCount: number; // 지원 수
-  score: number; // 스터디의 인기도 점수 (자동 계산될 값
-};
+export type TStudyDetail = Pick<
+  TStudy,
+  | "id"
+  | "type"
+  | "categories"
+  | "title"
+  | "period"
+  | "imgSrc"
+  | "dayOfWeek"
+  | "maxMembersNum"
+  | "time"
+  | "tasks"
+  | "location"
+  | "atmospheres"
+  | "currentMembers"
+  | "necessaryRoles"
+  | "preferentialAge"
+  | "preferentialLevel"
+  | "rate"
+>;
+
+export type TStudyItem = Pick<
+  TStudy,
+  | "id"
+  | "title"
+  | "createdAt"
+  | "period"
+  | "time"
+  | "dayOfWeek"
+  | "location"
+  | "imgSrc"
+  | "type"
+  | "categories"
+  | "currentMembers"
+  | "maxMembersNum"
+  | "viewCount"
+  | "applyCount"
+  | "score"
+>;
 
 export type TStudyDetail_participating = {};
 

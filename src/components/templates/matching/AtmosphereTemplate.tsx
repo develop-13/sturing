@@ -4,6 +4,7 @@ import MatchingTitle from "@/components/molecules/MatchingTitle";
 import React from "react";
 import { TMatchingState, TDispatchFuncs } from "@/reducers/matchingReducer";
 import { atmosphereData } from "@/db/atmospheres";
+import { iconAdapter } from "@/utils/adapters/adapters";
 
 type TAtmosphereTemplate = {
   userName?: string | null;
@@ -20,23 +21,23 @@ function AtmosphereTemplate(props: TAtmosphereTemplate) {
       <main className="grid grid-cols-2 gap-[15px] w-full h-[405px]">
         {atmosphereData.map((item) => (
           <IconLabelButton
-            key={item.atmosphere}
+            key={item}
             datas={{
               onClick: () => {
-                if (props.studyAtmospherePreference[item.atmosphere]) {
-                  props.deleteStudyAtmospherePreference(item.atmosphere);
+                if (props.studyAtmospherePreference[item]) {
+                  props.deleteStudyAtmospherePreference(item);
                   return;
                 }
                 if (Object.keys(props.studyAtmospherePreference).length >= 3) {
                   alert("최대 3개까지만 선택 가능합니다.");
                   return;
                 }
-                props.addStudyAtmospherePreference(item.atmosphere);
+                props.addStudyAtmospherePreference(item);
               },
-              text: item.atmosphere,
+              text: item,
               usage: "gridItem",
-              icon: <Icon type={item.atmosphere} />,
-              isActive: props.studyAtmospherePreference[item.atmosphere],
+              icon: <Icon type={iconAdapter(item)} />,
+              isActive: props.studyAtmospherePreference[item],
             }}
           />
         ))}

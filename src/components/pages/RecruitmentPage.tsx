@@ -9,6 +9,8 @@ import StudyIntro from "../templates/recruitment/StudyIntro";
 import StudyDetail from "../templates/recruitment/StudyDetail";
 import MemberPreference from "../templates/recruitment/MemberPreference";
 import Complete from "../templates/recruitment/Complete";
+import { v4 } from "uuid";
+import { TStudyRecruitment } from "@/types/study";
 const steps = [
   <StudyIntro />,
   <StudyDetail />,
@@ -17,6 +19,41 @@ const steps = [
 ];
 
 function RecruitmentPage() {
+  const [studyData, setStudyData] = useState<TStudyRecruitment>({
+    id: v4(),
+    imgSrc: "",
+    title: "",
+    categories: [],
+    description: "",
+    type: "",
+    location: "",
+    period: {
+      startDate: new Date(),
+      endDate: new Date(),
+    },
+    dayOfWeek: "",
+    time: {
+      startTime: "",
+      endTime: "",
+    },
+    maxMembersNum: 0,
+    preferentialAge: "",
+    preferentialLevel: undefined,
+    necessaryRoles: [],
+    atmospheres: [],
+  });
+
+  // 입력값 업데이트 핸들러
+  const handleInputChange = <K extends keyof TStudyRecruitment>(
+    field: K,
+    value: TStudyRecruitment[K]
+  ) => {
+    setStudyData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+  };
+
   const [step, setStep] = useState(0);
 
   const router = useRouter();

@@ -95,7 +95,7 @@ function SearchResultPage() {
   // 요청안가는 이유. 여기서 초기에 한 번만 발생해서
 
   return (
-    <div className="relative h-full flex flex-col gap-3">
+    <div className="relative h-screen flex flex-col gap-3">
       {showFilterModal && (
         <FilterModal
           ref={filterRef}

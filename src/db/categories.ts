@@ -1,6 +1,6 @@
 import { TIconData } from "@/components/atoms/Icon";
 import { TCategory } from "@/types/common";
-export type TCategoryItem = { category: TCategory; icon: TIconData["type"] };
+// export type TCategoryItem = { category: TCategory; icon: TIconData["type"] };
 
 export const categories: TCategory[] = [
   "DESIGN",

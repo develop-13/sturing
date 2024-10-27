@@ -6,11 +6,11 @@ import { useState } from "react";
 type TSearchbar = {
   placeholder?: string;
   usage: "header" | "main";
-  value: string;
+  value?: string;
   className?: string;
 };
 
-function Searchbar({ placeholder, usage, className, value }: TSearchbar) {
+function Searchbar({ placeholder, usage, className, value = "" }: TSearchbar) {
   const [qeury, setQuery] = useState(value);
   // state값을 자체적으로 갖게끔 함
 

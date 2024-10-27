@@ -236,3 +236,9 @@ export function createDispatchFuncs(
     resetFilterData,
   };
 }
+
+// 액션 하나 수정해야 할 때 마다 고칠 곳이 여러 곳 타입,DispatchFunc 등..
+//이어서 오히려 유지보수가 어려운 것 같다.
+// 아니면 액션을 여러개로 나누지 말고 setState처럼 전체 state를 업데이는 함수 하나만
+// 만들고 디테일한 조작들은 하위 컴포넌트에서 하는 게 나을 수도?
+// 근데 그럴거면 useReducer 쓸 필요가 있나? useState면 충분할 듯 싶음..

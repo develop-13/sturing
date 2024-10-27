@@ -22,8 +22,59 @@ import {
 import { TCategory, TLevel } from "@/types/common";
 import { UserStatusContext } from "../organisms/auth-components/UserStatusProvider";
 
-// 최적화 가능 할 듯? InterestTemplate 단위의 컴포넌트를 매개변수로 받아서
-// state나 DispatchFuncs, userName 주입해주는 식으로. 근데 일단 나중에 하자.
+// // 각 Board 컴포넌트 타입을 정의합니다.
+// type StudyBoardProps = { title: string; content: string };
+// type MembersBoardProps = { members: string[] };
+
+// // board의 가능한 컴포넌트 타입들을 제네릭으로 정의합니다.
+// type BoardProps = StudyBoardProps | MembersBoardProps;
+
+// // 컴포넌트 타입 지정: BoardProps에 따라 props가 달라질 수 있습니다.
+// type BoardComponent<T extends BoardProps> = React.ComponentType<T>;
+
+// // boardWrapper 함수 정의
+// function boardWrapper<T extends BoardProps>(
+//   BoardComponent: BoardComponent<T>,
+//   boardProps: T
+// ) {
+//   const newProps = {
+//     ...boardProps,
+//     additionalProp: "새로운 속성 값", // 추가 속성 예시
+//   };
+
+//   return <BoardComponent {...newProps} />;
+// }
+
+// // 예시로 사용할 두 컴포넌트
+// const StudyBoard: React.FC<StudyBoardProps> = ({ title, content }) => (
+//   <div>
+//     <h2>{title}</h2>
+//     <p>{content}</p>
+//   </div>
+// );
+
+// const MembersBoard: React.FC<MembersBoardProps> = ({ members }) => (
+//   <div>
+//     <h2>Members</h2>
+//     <ul>
+//       {members.map((member, index) => (
+//         <li key={index}>{member}</li>
+//       ))}
+//     </ul>
+//   </div>
+// );
+
+// // 사용 예시
+// const Example = () => (
+//   <>
+//     {boardWrapper(StudyBoard, { title: "스터디 게시판", content: "내용" })}
+//     {boardWrapper(MembersBoard, { members: ["Alice", "Bob"] })}
+//   </>
+// );
+
+// export default Example;
+// 나중에 이런 식으로 리팩토링하기
+
 const steps = [
   // 각 컴포넌트가 사용하는 props 보내주기
   (

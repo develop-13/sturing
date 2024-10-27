@@ -1,5 +1,4 @@
 "use client";
-import { studyDatas } from "@/db/studyDatas";
 import Icon from "../atoms/Icon";
 import Text from "../atoms/Text";
 import Button from "../molecules/Button";
@@ -12,12 +11,6 @@ import IconLabelButton from "../molecules/IconLabelButton";
 
 function SearchPage() {
   console.log("studyPage render");
-
-  const [searchgingWord, setSearchingWord] = useState("");
-
-  const onChangeSearchbar = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchingWord(e.target.value);
-  };
 
   return (
     <div>
@@ -40,8 +33,6 @@ function SearchPage() {
         <Searchbar
           placeholder="관심 스터디 분야나 강의명을 검색해 보세요"
           usage="main"
-          onChange={onChangeSearchbar}
-          value={searchgingWord}
         />
         <article>
           <div className="flex justify-between ">

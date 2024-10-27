@@ -75,7 +75,7 @@ function LocationSetter({
           usage="main"
           placeholder="스터디 선호지역을 입력해 주세요"
           value={query}
-          onChange={onChangeQuery}
+          // onChange={onChangeQuery}
         />
         <Suggestions
           currentQuery={query}
