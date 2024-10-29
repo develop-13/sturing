@@ -10,7 +10,7 @@ type TText = {
 
 // 받아야할 게 늘어나면 수정할 곳이
 
-type TTextSize = "xs" | "sm" | "base" | "lg" | "xl" | "2xl";
+type TTextSize = "xxs" | "xs" | "sm" | "base" | "lg" | "xl" | "2xl";
 type TTextWeight = "bold" | "regular";
 type TTextColor =
   | "gray-100"
@@ -28,6 +28,8 @@ type TTextColor =
 
 function TextSize(size: TTextSize | undefined) {
   switch (size) {
+    case "xxs":
+      return "text-[8px]";
     case "xs":
       return "text-xs ";
     case "sm":

@@ -1,7 +1,5 @@
 import { roleData } from "@/db/roles";
 import { CheckBarButton } from "../molecules/IconLabelButton";
-import Text from "../atoms/Text";
-import { TRole } from "@/types/common";
 import { TDispatchFuncs, TFilterState } from "@/reducers/filterReducer";
 
 function RoleSetter({

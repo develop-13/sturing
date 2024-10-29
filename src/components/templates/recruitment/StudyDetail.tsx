@@ -1,7 +1,6 @@
 import Divider from "@/components/atoms/Divider";
 import Icon from "@/components/atoms/Icon";
 import Text from "@/components/atoms/Text";
-import Button from "@/components/molecules/Button";
 import IconLabelButton from "@/components/molecules/IconLabelButton";
 import DurationSetter from "@/components/organisms/DurationSetter";
 import { atmosphereData } from "@/db/atmospheres";
@@ -16,7 +15,7 @@ function StudyDetail() {
       <div className="flex flex-col gap-3">
         <Text>스터디 진행 기간</Text>
         <DurationSetter
-          period={{ startDate: new Date(), endDate: new Date() }}
+          duration={{ startDate: new Date(), endDate: new Date() }}
           setDate={(startDate, endDate) => console.log()}
         />
       </div>
@@ -76,20 +75,22 @@ function StudyDetail() {
             </div>
           </div>
         </div>
-        {/* select 영역 */}
         <div>
           <Text>스터디 분위기 키워드(선택)</Text>
-          {atmosphereData.map((atmosphere) => (
-            <IconLabelButton
-              key={atmosphere}
-              datas={{
-                text: atmosphere,
-                usage: "listItem",
-                icon: <Icon type={atmosphere} width={16} height={16} />,
-                theme: "ordinary",
-              }}
-            />
-          ))}
+          <div className="flex gap-2 flex-wrap mt-3">
+            {atmosphereData.map((atmosphere) => (
+              <IconLabelButton
+                key={atmosphere}
+                datas={{
+                  text: atmosphere,
+                  usage: "listItem",
+                  icon: <Icon type={atmosphere} width={16} height={16} />,
+                  theme: "ordinary",
+                  extraStyle: "text-xs !p-1",
+                }}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

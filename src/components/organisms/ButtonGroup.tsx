@@ -5,19 +5,19 @@ import Text from "../atoms/Text";
 import Button from "../molecules/Button";
 import { usePathname } from "next/navigation";
 
-type TButtonGroup = {
-  children?: React.ReactNode;
-};
+// type TButtonGroup = {
+//   children?: React.ReactNode;
+// };
 
-function ButtonGroup({ children }: TButtonGroup) {
-  return (
-    <div className="h-[46px] bg-transparent border-b border-gray-300 flex gap-4 justify-between items-center  ">
-      {children}
-    </div>
-  );
-}
+// function ButtonGroup({ children }: TButtonGroup) {
+//   return (
+//     <div className="h-[46px] bg-transparent border-b border-gray-300 flex gap-4 justify-between items-center  ">
+//       {children}
+//     </div>
+//   );
+// }
 
-export default ButtonGroup;
+// export default ButtonGroup;
 
 // 제네릭 타입을 사용하여 유연한 타입 정의
 export type TTabProps = {
@@ -26,6 +26,8 @@ export type TTabProps = {
   onClick: (selectedIdx: number) => void;
 };
 
+// 데이터들 (buttonGroupData) 중에서 현재 선택된 (selectedOptionIdx) idx를 표시하고
+// 눌렀을 때 이벤트를 받아라.
 export function TabButtonGroup(props: TTabProps) {
   let commonStyle = "flex-grow basis-0 h-full ";
   let selectedStyle = commonStyle + "border-b-2 border-mainColor";
@@ -48,7 +50,6 @@ export function TabButtonGroup(props: TTabProps) {
               // 선택된 값과 data가 같으면 selectedStyle 적용하게 하기
             >
               <Text size="sm" weight="bold" color="main">
-                {/* {global[data]} */}
                 {data}
               </Text>
             </Button>
@@ -85,6 +86,8 @@ export function TabButtonGroup(props: TTabProps) {
 export function NavButtonGroup({ pathname }: { pathname?: string }) {
   let btnStyle = "flex-grow basis-0 h-full border-gray-400 ";
 
+  console.log(`pathname=${pathname}`);
+
   return (
     <div className="h-[46px] bg-transparent border-y border-gray-300 flex gap-4 justify-between items-center  ">
       <Button theme="transparent" extraCss={btnStyle}>
@@ -120,6 +123,46 @@ export function NavButtonGroup({ pathname }: { pathname?: string }) {
           </Text>
         </Link>
       </Button>
+    </div>
+  );
+}
+
+// 매개변수 받는 방식 같도록 해서 하나의 컴포넌트로 여러 부분 처리하기?
+type TButtonGroupCommon = {
+  selectedOptionIdx?: number;
+  buttonGroupData: (string | undefined)[];
+  onClick: (selectedIdx: number) => void;
+  gap: number;
+};
+
+type ItemButtonGroupGrid = TButtonGroupCommon & {
+  type: "grid";
+  gridCol: number;
+};
+
+type ItemButtonGroupFlex = TButtonGroupCommon & {
+  type: "flex";
+};
+
+export function ItemButtonGroup(
+  props: ItemButtonGroupGrid | ItemButtonGroupFlex
+) {
+  let classname = `gap-${props.gap} `;
+
+  switch (props.type) {
+    case "flex":
+      classname += `flex flex-wrap `;
+      break;
+
+    case "grid":
+      classname += `gird grid-cols-${props.gridCol} `;
+  }
+
+  return (
+    <div className={classname}>
+      {props.buttonGroupData.map((data, idx) => {
+        return <Button>null</Button>;
+      })}
     </div>
   );
 }

@@ -11,12 +11,11 @@ import MemberPreference from "../templates/recruitment/MemberPreference";
 import Complete from "../templates/recruitment/Complete";
 import { v4 } from "uuid";
 import { TStudyRecruitment } from "@/types/study";
-const steps = [
-  <StudyIntro />,
-  <StudyDetail />,
-  <MemberPreference />,
-  <Complete />,
-];
+
+export type HandleStateChange<T> = <K extends keyof T>(
+  field: K,
+  value: T[K]
+) => void;
 
 function RecruitmentPage() {
   const [studyData, setStudyData] = useState<TStudyRecruitment>({
@@ -44,7 +43,9 @@ function RecruitmentPage() {
   });
 
   // 입력값 업데이트 핸들러
-  const handleInputChange = <K extends keyof TStudyRecruitment>(
+  const handleStateChange: HandleStateChange<TStudyRecruitment> = <
+    K extends keyof TStudyRecruitment
+  >(
     field: K,
     value: TStudyRecruitment[K]
   ) => {
@@ -53,6 +54,15 @@ function RecruitmentPage() {
       [field]: value,
     }));
   };
+  // 어차피 계속 생성되니까 컴포넌트로 쪼개주는 의미가 없다...
+
+  const steps = [
+    // 안에다 놓는 것 vs 밖으로 빼는 것... 현재는 유지보수하기 쉽게 안에다가..
+    <StudyIntro state={studyData} handleStateChange={handleStateChange} />,
+    <StudyDetail />,
+    <MemberPreference />,
+    <Complete />,
+  ];
 
   const [step, setStep] = useState(0);
 
@@ -67,6 +77,7 @@ function RecruitmentPage() {
     setStep(step + 1);
   };
   const goPrevStep = () => {
+    console.log("prev Step clicked");
     if (step <= 0) {
       router.back();
       return;
@@ -75,10 +86,15 @@ function RecruitmentPage() {
   };
 
   return (
-    <div className="px-4">
+    <div className="px-4 h-screen">
       <Header
         leftSlot={
-          <Button theme="transparent">
+          <Button
+            theme="transparent"
+            onClick={() => {
+              router.back();
+            }}
+          >
             <Text size="sm" color="gray-600">
               취소
             </Text>
@@ -95,15 +111,18 @@ function RecruitmentPage() {
       <Progressbar currentPage={step} totalPage={steps.length} />
       {steps[step]}
       <div className="h-[50px] flex gap-[11px] my-3">
-        <Button
-          theme="ordinary"
-          extraCss="w-full h-full basis-0 flex-grow rounded-[5px] "
-          onClick={goPrevStep}
-        >
-          <Text size="base" weight="bold" color="gray-700">
-            이전
-          </Text>
-        </Button>
+        {step < steps.length - 1 && (
+          <Button
+            theme="ordinary"
+            extraCss="w-full h-full basis-0 flex-grow rounded-[5px] "
+            onClick={goPrevStep}
+          >
+            <Text size="base" weight="bold" color="gray-700">
+              이전
+            </Text>
+          </Button>
+        )}
+
         <Button
           theme="primary"
           onClick={goNextStep}
@@ -117,5 +136,6 @@ function RecruitmentPage() {
     </div>
   );
 }
+// 다음을 눌렀을 때 setState?
 
 export default RecruitmentPage;

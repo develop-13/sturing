@@ -69,9 +69,7 @@ function IconLabelButton({ datas }: { datas: TButtonLabel }) {
         theme: btnTheme,
         shape: btnShape,
         extraCss:
-          defaultBtnStyle +
-          // activeClassName +
-          `${datas.extraStyle ? datas.extraStyle : ""}`,
+          defaultBtnStyle + `${datas.extraStyle ? datas.extraStyle : ""}`,
         isActive: datas.isActive,
         onClick: datas.onClick,
       }}

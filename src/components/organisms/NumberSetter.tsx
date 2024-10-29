@@ -3,13 +3,13 @@ import Icon from "../atoms/Icon";
 import Text from "../atoms/Text";
 
 function NumberSetter({
-  memberNum,
+  memberNum = 0,
   increaseFunc,
   decreaseFunc,
 }: {
-  memberNum: number;
-  increaseFunc: TDispatchFuncs["increaseMemberNum"];
-  decreaseFunc: TDispatchFuncs["decreaseMemberNum"];
+  memberNum?: number;
+  increaseFunc: () => void;
+  decreaseFunc: () => void;
 }) {
   return (
     <article className="flex flex-col gap-3">

@@ -40,11 +40,11 @@ const renderTitle = (duration: TFilterState["duration"]) => {
 };
 
 type TDurationSetter = {
-  period: TStudyRecruitment["period"];
+  duration: TStudyRecruitment["period"];
   setDate: (startDate: Date, endDate: Date) => void;
 };
 
-function DurationSetter({ period, setDate }: TDurationSetter) {
+function DurationSetter({ duration, setDate }: TDurationSetter) {
   const [dates, setDates] = useState<Value>([null, null]);
 
   useEffect(() => {
@@ -64,7 +64,7 @@ function DurationSetter({ period, setDate }: TDurationSetter) {
   return (
     <div className="flex flex-col items-center justify-center border border-gray-500 rounded-[5px]">
       <div className=" h-[50px] w-[88%] border-b-2 border-gray-500 flex items-center">
-        {renderTitle(period)}
+        {renderTitle(duration)}
       </div>
       <Calendar
         locale="ko"

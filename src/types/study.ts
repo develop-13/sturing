@@ -26,8 +26,8 @@ export type TStudy = {
   title: string;
   createdAt: string;
   period: {
-    startDate: Date;
-    endDate: Date;
+    startDate: Date | null;
+    endDate: Date | null;
   };
   creatorId: string;
   time: {

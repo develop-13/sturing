@@ -1,52 +1,58 @@
 import Icon from "@/components/atoms/Icon";
 import Text from "@/components/atoms/Text";
 import Button from "@/components/molecules/Button";
-import { categories } from "@/db/categories";
+import { ItemButtonGroup } from "@/components/organisms/ButtonGroup";
+import CategoriesSetter from "@/components/organisms/recruitmentComponents/CategoriesSetter";
+import TitleSetter from "@/components/organisms/recruitmentComponents/TitleSetter";
+import { HandleStateChange } from "@/components/pages/RecruitmentPage";
+import { TCategory } from "@/types/common";
+import { TStudyRecruitment } from "@/types/study";
+import { useCallback, useRef } from "react";
 
-function StudyIntro() {
+function StudyIntro({
+  state,
+  handleStateChange,
+}: {
+  state: TStudyRecruitment;
+  handleStateChange: HandleStateChange<TStudyRecruitment>;
+}) {
+  const handleSetImgSrc = useCallback(
+    (inputContent: string) => {
+      handleStateChange("imgSrc", inputContent);
+    },
+    [state.imgSrc]
+  );
+
+  const handleSetCategory = useCallback(
+    (selectedCategory: TCategory) => {
+      const isSelected = state.categories.includes(selectedCategory);
+      const updatedCategories = isSelected
+        ? state.categories.filter((category) => category !== selectedCategory) // 이미 있으면 제거
+        : [...state.categories, selectedCategory]; // 없으면 추가
+
+      handleStateChange("categories", updatedCategories);
+
+      return isSelected ? "unSelected" : "selected";
+    },
+    [state.categories]
+  );
+
   return (
     <section className="py-4 flex flex-col gap-5">
       <Text size="xl" weight="bold">
         스터디에 대해 소개해 주세요
       </Text>
-
       <div className="flex flex-col gap-3 thumbnail">
         <Text size="sm" weight="bold">
           스터디 대표 사진
         </Text>
         <div className="w-[70px] h-[70px] rounded-[5px] border border-gray-300 flex items-center justify-center">
-          <Icon type="CAMERA" size={30} />
+          <Icon type="CAMERA" height={30} width={30} />
         </div>
       </div>
       {/*  */}
-      <div className="flex flex-col gap-3 title">
-        <Text size="sm" weight="bold">
-          스터디 모집글 제목
-        </Text>
-        <div className="w-full border border-gray-300 rounded-[5px] px-4 py-3 flex items-center">
-          <input
-            type="text"
-            placeholder="내 스터디를 돋보이게 하는 한마디 (최소 5자 이상)"
-            className="w-full h-full border-none outline-none text-[14px] placeholder:font-medium placeholder:text-gray-600"
-          />
-        </div>
-      </div>
-      {/*  */}
-      <div className="flex flex-col gap-3 categories">
-        <Text size="sm" weight="bold">
-          카테고리
-        </Text>
-        <div className="flex gap-2 flex-wrap">
-          {categories.map((data) => (
-            <Button theme="ordinary" shape="tag" key={data}>
-              <Text size="xs" weight="bold" color="gray-600">
-                {data}
-              </Text>
-            </Button>
-          ))}
-        </div>
-      </div>
-      {/*  */}
+      <TitleSetter handleSetImgSrc={handleSetImgSrc} />
+      <CategoriesSetter handleSetCategory={handleSetCategory} />
       <div className="flex flex-col gap-3 intro">
         <label htmlFor="intro">
           <Text size="sm" weight="bold">

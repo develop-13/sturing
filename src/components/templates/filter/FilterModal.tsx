@@ -82,6 +82,8 @@ const FilterModal = forwardRef(function FilterModal(
 ) {
   const [state, dispatch] = useReducer(FilterReducer, initialState);
 
+  console.log(state);
+
   const [currentTab, setCurrentTab] = useState(initialTab); // 탭
   const currentKey = Object.keys(filterDatas)[currentTab] as keyof TFilterDatas;
 
