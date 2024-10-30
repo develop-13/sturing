@@ -1,3 +1,3 @@
 커밋 사항: 
 Suggestion 이 안보이는 문제점이 생김. 
-코드 손보기 이전 상태
+=> Suggestion + Searchbar 없애기로 함. 있는게 오히려 ux 적으로 불편함 

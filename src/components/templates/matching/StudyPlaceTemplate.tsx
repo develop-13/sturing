@@ -13,7 +13,7 @@ type TPlaceTemplate = {
 
 function StudyPlaceTemplate(props: TPlaceTemplate) {
   return (
-    <section className="flex flex-col py-[20px]">
+    <section className="flex flex-col gap-3 py-[20px]">
       <MatchingTitle role="PLACE" userName={props.userName} />
       <LocationSetter
         addLocation={props.addStudyPlacePreference}

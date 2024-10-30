@@ -24,14 +24,8 @@ function LocationSetter({
     Object.keys(locationData)[0] // 서울
   );
 
-  const [query, setQuery] = useState("");
-  const [suggestions, setSuggestions] = useState<string[]>([]);
-
-  const onChangeQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-  };
-
   const onSelect = (word: string) => {
+    // 지역 클릭
     console.log("onSelect occurred");
     const [region, location] = word.split(" ");
     if (selectedLocations[region + " " + location]) {
@@ -44,47 +38,12 @@ function LocationSetter({
       return;
     }
 
-    setQuery(""); // 선택 후 query를 초기화합니다.
-    addLocation(region, location);
+    addLocation(region, location); // state에 지역 추가
   };
-
-  useEffect(() => {
-    if (query === "") {
-      if (suggestions.length === 0) {
-        return;
-      }
-      setSuggestions([]);
-      return;
-    }
-
-    const results: string[] = [];
-    for (const [region, districts] of Object.entries(locationData)) {
-      districts.forEach((district) => {
-        let fullName = region + " " + district;
-        if (fullName.includes(query)) {
-          results.push(`${region} ${district}`);
-        }
-      });
-    }
-    setSuggestions(results);
-  }, [query]);
 
   return (
     // <section className="flex flex-col py-[20px]">
     <div>
-      <div className="mt-[19px] mb-[14px] relative">
-        <Searchbar
-          usage="main"
-          placeholder="스터디 선호지역을 입력해 주세요"
-          value={query}
-          // onChange={onChangeQuery}
-        />
-        <Suggestions
-          currentQuery={query}
-          suggestions={suggestions}
-          onSelect={onSelect}
-        />
-      </div>
       <article className="h-[333px] overflow-y-scroll mx-[-16px] border-t border-gray-300">
         <div className="flex">
           <div className="w-[133px] pl-[16px] bg-gray-200 ">

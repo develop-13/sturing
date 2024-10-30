@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import Icon from "../atoms/Icon";
 import { useState } from "react";
+import Suggestions from "../organisms/Suggestions";
 
 type TSearchbar = {
   placeholder?: string;
@@ -11,7 +12,7 @@ type TSearchbar = {
 };
 
 function Searchbar({ placeholder, usage, className, value = "" }: TSearchbar) {
-  const [qeury, setQuery] = useState(value);
+  const [query, setQuery] = useState(value);
   // state값을 자체적으로 갖게끔 함
 
   const onChangeQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,12 +47,12 @@ function Searchbar({ placeholder, usage, className, value = "" }: TSearchbar) {
         type="text"
         placeholder={placeholder}
         className="flex-1 border-none outline-none bg-transparent text-[14px] text-gray-1000 font-bold placeholder:text-gray-700"
-        value={qeury}
+        value={query}
         onChange={onChangeQuery}
       />
       <Icon
         type="SEARCH"
-        onClick={() => router.push(`/search/result?query=${qeury}`)}
+        onClick={() => router.push(`/search/result?query=${query}`)}
       />
     </div>
   );
