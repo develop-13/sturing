@@ -30,6 +30,7 @@ function Searchbar({ placeholder, usage, className, value = "" }: TSearchbar) {
     case "main":
       searchbarSize = "px-[20px] h-[48px]";
       searchIconColor = "text-mainColor";
+      break;
   }
 
   return (

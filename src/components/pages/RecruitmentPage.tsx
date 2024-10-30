@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useReducer, useState } from "react";
 import Progressbar from "../atoms/Progressbar";
 import Text from "../atoms/Text";
 import Button from "../molecules/Button";
@@ -11,6 +11,10 @@ import MemberPreference from "../templates/recruitment/MemberPreference";
 import Complete from "../templates/recruitment/Complete";
 import { v4 } from "uuid";
 import { TStudyRecruitment } from "@/types/study";
+import {
+  initialState,
+  recruitmentReducer,
+} from "@/reducers/recruitmentReducer";
 
 export type HandleStateChange<T> = <K extends keyof T>(
   field: K,
@@ -18,44 +22,18 @@ export type HandleStateChange<T> = <K extends keyof T>(
 ) => void;
 
 function RecruitmentPage() {
-  const [studyData, setStudyData] = useState<TStudyRecruitment>({
-    id: v4(),
-    imgSrc: "",
-    title: "",
-    categories: [],
-    description: "",
-    type: "",
-    location: "",
-    period: {
-      startDate: new Date(),
-      endDate: new Date(),
-    },
-    dayOfWeek: "",
-    time: {
-      startTime: "",
-      endTime: "",
-    },
-    maxMembersNum: 0,
-    preferentialAge: "",
-    preferentialLevel: undefined,
-    necessaryRoles: [],
-    atmospheres: [],
-  });
+  const [studyData, dispatch] = useReducer(recruitmentReducer, initialState);
 
   // 입력값 업데이트 핸들러
-  const handleStateChange: HandleStateChange<TStudyRecruitment> = <
-    K extends keyof TStudyRecruitment
-  >(
-    field: K,
-    value: TStudyRecruitment[K]
-  ) => {
-    setStudyData((prevData) => ({
-      ...prevData,
-      [field]: value,
-    }));
-  };
-  // 어차피 계속 생성되니까 컴포넌트로 쪼개주는 의미가 없다...
-
+  const handleStateChange = useCallback(
+    <K extends keyof TStudyRecruitment>(
+      field: K,
+      value: TStudyRecruitment[K]
+    ) => {
+      dispatch({ type: "UPDATE_FIELD", field, value });
+    },
+    [dispatch]
+  );
   const steps = [
     // 안에다 놓는 것 vs 밖으로 빼는 것... 현재는 유지보수하기 쉽게 안에다가..
     <StudyIntro state={studyData} handleStateChange={handleStateChange} />,

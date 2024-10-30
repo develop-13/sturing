@@ -220,7 +220,7 @@ function MatchingPage() {
   };
 
   return (
-    <div className="px-[16px] h-[100vh] flex flex-col">
+    <div className="px-[16px] h-auto flex flex-col">
       <Header leftSlot={<Icon type="BACK" onClick={() => router.back()} />} />
       {step < steps.length - 1 && ( // 마지막 페이지에는 안 보이게
         <Progressbar currentPage={step} totalPage={steps.length - 1} />

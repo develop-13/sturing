@@ -38,10 +38,12 @@ function LocationSetter({
       alert("이미 선택하신 지역입니다");
       return;
     }
+
     if (Object.keys(selectedLocations).length >= 3) {
       alert("최대 3개까지만 선택 가능합니다.");
       return;
     }
+
     setQuery(""); // 선택 후 query를 초기화합니다.
     addLocation(region, location);
   };

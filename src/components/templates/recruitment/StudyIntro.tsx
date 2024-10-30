@@ -3,6 +3,8 @@ import Text from "@/components/atoms/Text";
 import Button from "@/components/molecules/Button";
 import { ItemButtonGroup } from "@/components/organisms/ButtonGroup";
 import CategoriesSetter from "@/components/organisms/recruitmentComponents/CategoriesSetter";
+import LocationShowSetter from "@/components/organisms/recruitmentComponents/LocationShowSetter";
+import TextSetter from "@/components/organisms/recruitmentComponents/TextSetter";
 import TitleSetter from "@/components/organisms/recruitmentComponents/TitleSetter";
 import { HandleStateChange } from "@/components/pages/RecruitmentPage";
 import { TCategory } from "@/types/common";
@@ -16,11 +18,11 @@ function StudyIntro({
   state: TStudyRecruitment;
   handleStateChange: HandleStateChange<TStudyRecruitment>;
 }) {
-  const handleSetImgSrc = useCallback(
+  const handleSetTitle = useCallback(
     (inputContent: string) => {
-      handleStateChange("imgSrc", inputContent);
+      handleStateChange("title", inputContent);
     },
-    [state.imgSrc]
+    [state.title]
   );
 
   const handleSetCategory = useCallback(
@@ -37,6 +39,13 @@ function StudyIntro({
     [state.categories]
   );
 
+  const handleSetIntrouduceText = useCallback(
+    (text: string) => {
+      handleStateChange("description", text);
+    },
+    [state.description]
+  );
+
   return (
     <section className="py-4 flex flex-col gap-5">
       <Text size="xl" weight="bold">
@@ -51,22 +60,9 @@ function StudyIntro({
         </div>
       </div>
       {/*  */}
-      <TitleSetter handleSetImgSrc={handleSetImgSrc} />
+      <TitleSetter handleSetTitle={handleSetTitle} />
       <CategoriesSetter handleSetCategory={handleSetCategory} />
-      <div className="flex flex-col gap-3 intro">
-        <label htmlFor="intro">
-          <Text size="sm" weight="bold">
-            자기소개
-          </Text>
-        </label>
-        <textarea
-          id="intro"
-          placeholder="소개글을 입력해 주세요 (최소 20자 필수)"
-          cols={30}
-          rows={10}
-          className="px-4 py-3 border border-gray-300 resize-none outline-none rounded-[5px] placeholder: text-[14px] placeholder:font-medium placeholder:text-gray-600"
-        ></textarea>
-      </div>
+      <TextSetter handleSetIntrouduceText={handleSetIntrouduceText} />
       {/*  */}
       <div className="flex flex-col gap-3">
         <div className="flex gap-2">
@@ -81,7 +77,7 @@ function StudyIntro({
             </Text>
           </Button>
         </div>
-        <div className="flex items-center p-3 gap-1 w-full rounded-[5px] border border-gray-300">
+        {/* <div className="flex items-center p-3 gap-1 w-full rounded-[5px] border border-gray-300">
           <Icon type="LOCATION" />
           <Text size="sm" weight="bold" color="gray-600">
             희망 스터디 위치를 등록해 주세요
@@ -92,7 +88,8 @@ function StudyIntro({
           <Text size="sm" weight="bold" color="gray-600">
             추가하기
           </Text>
-        </Button>
+        </Button> */}
+        <LocationShowSetter />
       </div>
     </section>
   );

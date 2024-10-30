@@ -62,7 +62,7 @@ function SuggestionItem({
       onClick={onClick}
       className="w-full h-[41px] flex items-start gap-2 cursor-pointer hover:bg-main-100"
     >
-      <Icon type="SEARCH" color="text-gray-500" size={13} />
+      <Icon type="SEARCH" height={13} width={13} />
       {highlightQuery(suggestion, currentQuery)}
     </div>
   );
