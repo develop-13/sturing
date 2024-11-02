@@ -3,8 +3,10 @@ import React from "react";
 
 const TextSetter = React.memo(
   ({
+    description,
     handleSetIntrouduceText,
   }: {
+    description: string;
     handleSetIntrouduceText: (text: string) => void;
   }) => {
     const onChangeTextArea = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -27,6 +29,7 @@ const TextSetter = React.memo(
           placeholder="소개글을 입력해 주세요 (최소 20자 필수)"
           cols={30}
           rows={10}
+          value={description}
           className="px-4 py-3 border border-gray-300 resize-none outline-none rounded-[5px] placeholder: text-[14px] placeholder:font-medium placeholder:text-gray-600"
         ></textarea>
       </div>

@@ -1,4 +1,3 @@
-import { TDispatchFuncs } from "@/reducers/filterReducer";
 import Icon from "../atoms/Icon";
 import Text from "../atoms/Text";
 

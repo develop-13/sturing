@@ -22,21 +22,20 @@
 import { TAtmosphere, TCategory, TLevel, TRoleText } from "./common";
 
 export type TStudy = {
-  id: string;
   title: string;
   createdAt: string;
   period: {
     startDate: Date | null;
     endDate: Date | null;
   };
-  creatorId: string;
+  creatorEmail: string;
   time: {
     startTime: string;
     endTime: string;
   };
   dayOfWeek: string;
   location: string;
-  imgSrc: string;
+  imgSrc: Blob | null;
   schedule: string[]; // 스케쥴 id 가담겨 있음
   type: "online" | "offline" | "";
   categories: TCategory[];
@@ -45,7 +44,7 @@ export type TStudy = {
   maxMembersNum: number;
   currentMembers: string[]; // email이 담김
   necessaryRoles: TRoleText[]; // 역할 목록 ex) 팀장, 부팀장
-  preferentialAge: number | string; // 모집하는 팀원의 희망 나잇대
+  preferentialAge: number[];
   preferentialLevel?: TLevel; // 모집하는 팀원의 희망 수준 ex) 비기너, 신입 등
   tasks: string[]; // 스터디에서 다룰 과제 목록
   rate: number; // 스터디 평가 점수
@@ -95,7 +94,7 @@ export type TStudy = {
 
 export type TStudyRecruitment = Pick<
   TStudy,
-  | "id"
+  | "creatorEmail"
   | "imgSrc"
   | "title"
   | "categories"
@@ -115,7 +114,6 @@ export type TStudyRecruitment = Pick<
 
 export type TStudyDetail = Pick<
   TStudy,
-  | "id"
   | "type"
   | "categories"
   | "title"
@@ -136,7 +134,6 @@ export type TStudyDetail = Pick<
 
 export type TStudyItem = Pick<
   TStudy,
-  | "id"
   | "title"
   | "createdAt"
   | "period"

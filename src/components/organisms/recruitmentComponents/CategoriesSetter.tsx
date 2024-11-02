@@ -6,24 +6,12 @@ import { TCategory } from "@/types/common";
 
 const CategoriesSetter = React.memo(
   ({
+    selectedCategories,
     handleSetCategory,
   }: {
-    handleSetCategory: (
-      selectedCategory: TCategory
-    ) => "selected" | "unSelected";
+    selectedCategories: TCategory[];
+    handleSetCategory: (selectedCategory: TCategory) => void;
   }) => {
-    const [selectedIdxes, setSelectedIdxes] = useState<number[]>([]);
-
-    const onClickHandler = (idx: number) => {
-      const res = handleSetCategory(categories[idx]);
-      if (res === "selected") {
-        setSelectedIdxes([...selectedIdxes, idx]);
-      } else {
-        const updatedSelectedIdxes = selectedIdxes.filter((i) => i !== idx);
-        setSelectedIdxes(updatedSelectedIdxes);
-      }
-    };
-
     return (
       <div className="flex flex-col gap-3 categories">
         <Text size="sm" weight="bold">
@@ -35,9 +23,9 @@ const CategoriesSetter = React.memo(
               theme="ordinary"
               shape="tag"
               key={data}
-              isActive={selectedIdxes.includes(idx)}
+              isActive={selectedCategories.includes(data)}
               onClick={() => {
-                onClickHandler(idx);
+                handleSetCategory(data);
               }}
             >
               <Text size="xs" weight="bold">

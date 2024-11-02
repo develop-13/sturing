@@ -1,11 +1,11 @@
 import Icon from "@/components/atoms/Icon";
 import Text from "@/components/atoms/Text";
-import Button from "@/components/molecules/Button";
-import { ItemButtonGroup } from "@/components/organisms/ButtonGroup";
 import CategoriesSetter from "@/components/organisms/recruitmentComponents/CategoriesSetter";
+import ImageSetter from "@/components/organisms/recruitmentComponents/ImageSetter";
 import LocationShowSetter from "@/components/organisms/recruitmentComponents/LocationShowSetter";
 import TextSetter from "@/components/organisms/recruitmentComponents/TextSetter";
 import TitleSetter from "@/components/organisms/recruitmentComponents/TitleSetter";
+import TypeSetter from "@/components/organisms/recruitmentComponents/TypeSetter";
 import { HandleStateChange } from "@/components/pages/RecruitmentPage";
 import { TCategory } from "@/types/common";
 import { TStudyRecruitment } from "@/types/study";
@@ -18,6 +18,13 @@ function StudyIntro({
   state: TStudyRecruitment;
   handleStateChange: HandleStateChange<TStudyRecruitment>;
 }) {
+  const handleSetImage = useCallback(
+    (imageSrc: Blob) => {
+      handleStateChange("imgSrc", imageSrc);
+    },
+    [state.imgSrc]
+  );
+
   const handleSetTitle = useCallback(
     (inputContent: string) => {
       handleStateChange("title", inputContent);
@@ -33,8 +40,6 @@ function StudyIntro({
         : [...state.categories, selectedCategory]; // 없으면 추가
 
       handleStateChange("categories", updatedCategories);
-
-      return isSelected ? "unSelected" : "selected";
     },
     [state.categories]
   );
@@ -46,50 +51,43 @@ function StudyIntro({
     [state.description]
   );
 
+  const handleSetLocation = useCallback(
+    (text: string) => {
+      handleStateChange("location", text);
+    },
+    [state.location]
+  );
+
+  const handleSetType = useCallback(
+    (text: "online" | "offline") => {
+      handleStateChange("type", text);
+    },
+    [state.location]
+  );
+
   return (
     <section className="py-4 flex flex-col gap-5">
       <Text size="xl" weight="bold">
         스터디에 대해 소개해 주세요
       </Text>
-      <div className="flex flex-col gap-3 thumbnail">
-        <Text size="sm" weight="bold">
-          스터디 대표 사진
-        </Text>
-        <div className="w-[70px] h-[70px] rounded-[5px] border border-gray-300 flex items-center justify-center">
-          <Icon type="CAMERA" height={30} width={30} />
-        </div>
-      </div>
+      <ImageSetter handleSetImage={handleSetImage} imgSrc={state.imgSrc} />
       {/*  */}
-      <TitleSetter handleSetTitle={handleSetTitle} />
-      <CategoriesSetter handleSetCategory={handleSetCategory} />
-      <TextSetter handleSetIntrouduceText={handleSetIntrouduceText} />
+      <TitleSetter title={state.title} handleSetTitle={handleSetTitle} />
+      <CategoriesSetter
+        selectedCategories={state.categories}
+        handleSetCategory={handleSetCategory}
+      />
+      <TextSetter
+        description={state.description}
+        handleSetIntrouduceText={handleSetIntrouduceText}
+      />
       {/*  */}
       <div className="flex flex-col gap-3">
-        <div className="flex gap-2">
-          <Button theme="ordinary" shape="tag">
-            <Text size="xs" weight="bold" color="gray-600">
-              온라인
-            </Text>
-          </Button>
-          <Button theme="ordinary" shape="tag">
-            <Text size="xs" weight="bold" color="gray-600">
-              오프라인
-            </Text>
-          </Button>
-        </div>
-        {/* <div className="flex items-center p-3 gap-1 w-full rounded-[5px] border border-gray-300">
-          <Icon type="LOCATION" />
-          <Text size="sm" weight="bold" color="gray-600">
-            희망 스터디 위치를 등록해 주세요
-          </Text>
-        </div>
-        <Button theme="ordinary" shape="border-dot">
-          <Icon type="ADD" />
-          <Text size="sm" weight="bold" color="gray-600">
-            추가하기
-          </Text>
-        </Button> */}
-        <LocationShowSetter />
+        <TypeSetter handleSetType={handleSetType} type={state.type} />
+        <LocationShowSetter
+          currentLocation={state.location}
+          handleSetLocation={handleSetLocation}
+        />
       </div>
     </section>
   );

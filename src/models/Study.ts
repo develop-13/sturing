@@ -1,8 +1,6 @@
 import { TAtmosphere, TCategory, TLevel, TRoleText } from "@/types/common";
 import mongoose, { Schema, Document, model, models } from "mongoose";
 
-//
-
 // TypeScript 인터페이스 정의 (Document 확장)
 interface IStudy extends Document {
   id: string;
@@ -12,7 +10,7 @@ interface IStudy extends Document {
     startDate: Date;
     endDate: Date;
   };
-  creatorId: string;
+  creatorEmail: string;
   time: {
     startTime: string;
     endTime: string;
@@ -28,7 +26,7 @@ interface IStudy extends Document {
   currentMembers: string[]; // userId 배열
   maxMembersNum: number;
   necessaryRoles: TRoleText[]; // 특정 역할
-  preferentialAge: number | string; // 나이
+  preferentialAge: number[];
   preferentialLevel: TLevel;
   tasks: string[]; // 과제 목록
   rate: number; // 평가 점수
@@ -81,7 +79,7 @@ const StudySchema: Schema = new Schema(
       startDate: { type: Date, required: true },
       endDate: { type: Date, required: true },
     },
-    creatorId: { type: String, required: true },
+    creatorEmail: { type: String, required: true },
     time: {
       startTime: { type: String, required: true },
       endTime: { type: String, required: true },

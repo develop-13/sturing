@@ -15,19 +15,13 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "via.placeholder.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
         hostname: "avatars.githubusercontent.com", // GitHub Avatars 호스트 추가
         port: "",
         pathname: "/**",
       },
       {
         protocol: "https",
-        hostname: "example.com",
+        hostname: "picsum.photos",
         port: "",
         pathname: "/**",
       },

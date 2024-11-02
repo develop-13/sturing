@@ -2,7 +2,13 @@ import Text from "@/components/atoms/Text";
 import React, { useRef } from "react";
 
 const TitleSetter = React.memo(
-  ({ handleSetTitle }: { handleSetTitle: (inputContent: string) => void }) => {
+  ({
+    handleSetTitle,
+    title,
+  }: {
+    handleSetTitle: (inputContent: string) => void;
+    title: string;
+  }) => {
     const onChangeInput = (evt: React.ChangeEvent<HTMLInputElement>) => {
       const value = evt.target.value;
       handleSetTitle(value);
@@ -18,6 +24,7 @@ const TitleSetter = React.memo(
             onChange={(e) => {
               onChangeInput(e);
             }}
+            value={title}
             type="text"
             placeholder="내 스터디를 돋보이게 하는 한마디 (최소 5자 이상)"
             className="w-full h-full border-none outline-none text-[14px] placeholder:font-medium placeholder:text-gray-600"

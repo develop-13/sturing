@@ -4,8 +4,8 @@ import { v4 } from "uuid";
 
 // 초기 상태
 export const initialState: TStudyRecruitment = {
-  id: v4(),
-  imgSrc: "",
+  creatorEmail: "",
+  imgSrc: null,
   title: "",
   categories: [],
   description: "",
@@ -21,7 +21,7 @@ export const initialState: TStudyRecruitment = {
     endTime: "",
   },
   maxMembersNum: 0,
-  preferentialAge: "",
+  preferentialAge: [],
   preferentialLevel: undefined,
   necessaryRoles: [],
   atmospheres: [],

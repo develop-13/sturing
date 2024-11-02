@@ -1,6 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useCallback, useReducer, useState } from "react";
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import Progressbar from "../atoms/Progressbar";
 import Text from "../atoms/Text";
 import Button from "../molecules/Button";
@@ -9,12 +15,12 @@ import StudyIntro from "../templates/recruitment/StudyIntro";
 import StudyDetail from "../templates/recruitment/StudyDetail";
 import MemberPreference from "../templates/recruitment/MemberPreference";
 import Complete from "../templates/recruitment/Complete";
-import { v4 } from "uuid";
 import { TStudyRecruitment } from "@/types/study";
 import {
   initialState,
   recruitmentReducer,
 } from "@/reducers/recruitmentReducer";
+import { UserStatusContext } from "../organisms/auth-components/UserStatusProvider";
 
 export type HandleStateChange<T> = <K extends keyof T>(
   field: K,
@@ -23,6 +29,18 @@ export type HandleStateChange<T> = <K extends keyof T>(
 
 function RecruitmentPage() {
   const [studyData, dispatch] = useReducer(recruitmentReducer, initialState);
+  const { session, handleHasMatchingInfo } = useContext(UserStatusContext);
+  let userEmail = session?.user.email;
+  console.log(userEmail);
+
+  useEffect(() => {
+    if (userEmail) {
+      handleStateChange("creatorEmail", userEmail);
+    }
+  }, [userEmail]);
+
+  console.log(session);
+  console.log(studyData);
 
   // 입력값 업데이트 핸들러
   const handleStateChange = useCallback(
@@ -37,9 +55,12 @@ function RecruitmentPage() {
   const steps = [
     // 안에다 놓는 것 vs 밖으로 빼는 것... 현재는 유지보수하기 쉽게 안에다가..
     <StudyIntro state={studyData} handleStateChange={handleStateChange} />,
-    <StudyDetail />,
-    <MemberPreference />,
-    <Complete />,
+    <StudyDetail state={studyData} handleStateChange={handleStateChange} />,
+    <MemberPreference
+      state={studyData}
+      handleStateChange={handleStateChange}
+    />,
+    <Complete state={studyData} />,
   ];
 
   const [step, setStep] = useState(0);
@@ -64,7 +85,7 @@ function RecruitmentPage() {
   };
 
   return (
-    <div className="px-4 h-screen">
+    <div id="recruitmentPage" className="px-4 h-screen">
       <Header
         leftSlot={
           <Button

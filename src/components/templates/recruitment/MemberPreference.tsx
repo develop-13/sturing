@@ -1,86 +1,81 @@
 import Text from "@/components/atoms/Text";
-import Button from "@/components/molecules/Button";
 import NumberSetter from "@/components/organisms/NumberSetter";
-import { levelData } from "@/db/levels";
-import { v4 } from "uuid";
-import { roleData } from "@/db/roles";
-import { CheckBarButton } from "@/components/molecules/IconLabelButton";
+import LevelSetter from "@/components/organisms/recruitmentComponents/LevelSetter";
+import AgeSetter from "@/components/organisms/recruitmentComponents/AgeSetter";
+import RoleSetter from "@/components/organisms/recruitmentComponents/RoleSetter";
+import { TStudyRecruitment } from "@/types/study";
+import { HandleStateChange } from "@/components/pages/RecruitmentPage";
+import React, { useCallback } from "react";
+import { TRoleText } from "@/types/common";
 
-function MemberPreference() {
+type TMemberPreference = {
+  state: TStudyRecruitment;
+  handleStateChange: HandleStateChange<TStudyRecruitment>;
+};
+
+function MemberPreference(props: TMemberPreference) {
+  const { state, handleStateChange } = props;
+
+  const increaseMaxMemberNum = useCallback(() => {
+    const increasedMaxMemberNum = state.maxMembersNum + 1;
+    handleStateChange("maxMembersNum", increasedMaxMemberNum);
+  }, [state.maxMembersNum]);
+
+  const decreaseMaxMemberNum = useCallback(() => {
+    let decreasedMaxMemberNum = state.maxMembersNum - 1;
+    decreasedMaxMemberNum =
+      decreasedMaxMemberNum >= 0 ? decreasedMaxMemberNum : 0;
+    handleStateChange("maxMembersNum", decreasedMaxMemberNum);
+  }, [state.maxMembersNum]);
+
+  const handleSetAge = useCallback(
+    (selectedAge: number) => {
+      const isSelected = state.preferentialAge.includes(selectedAge);
+      const updatedAges = isSelected
+        ? state.preferentialAge.filter((age) => age !== selectedAge) // 이미 있으면 제거
+        : [...state.preferentialAge, selectedAge]; // 없으면 추가
+
+      handleStateChange("preferentialAge", updatedAges);
+    },
+    [state.preferentialAge]
+  );
+
+  const handleSetRole = useCallback(
+    (selectedRole: TRoleText) => {
+      const isSelected = state.necessaryRoles.includes(selectedRole);
+      const updatedRoles = isSelected
+        ? state.necessaryRoles.filter((role) => role !== selectedRole) // 이미 있으면 제거
+        : [...state.necessaryRoles, selectedRole]; // 없으면 추가
+
+      handleStateChange("necessaryRoles", updatedRoles);
+    },
+    [state.necessaryRoles]
+  );
+
   return (
     <div className="px-4 py-5">
       <Text>원하는 팀원의 정보를 입력해 주세요</Text>
       <section className="flex flex-col gap-[60px]">
-        <div className="flex flex-col gap-[13px]">
-          <Text>함께하고 싶은 팀원</Text>
-          <div className="flex flex-wrap gap-2">
-            {levelData.map((el) => (
-              <Button theme="ordinary" shape="tag" key={el.level}>
-                <Text size="xs" color="gray-600">
-                  {el.level + el.experience}
-                </Text>
-              </Button>
-            ))}
-          </div>
-        </div>
-        <NumberSetter />
-
-        <div className="flex flex-col gap-[13px]">
-          <Text>함께하고 싶은 팀원의 연령대</Text>
-          <div className="flex gap-2 flex-wrap">
-            <Button theme="ordinary" shape="listItem" key={v4()}>
-              <Text size="xs" color="gray-600">
-                누구나
-              </Text>
-            </Button>
-            <Button theme="ordinary" shape="listItem" key={v4()}>
-              <Text size="xs" color="gray-600">
-                20대
-              </Text>
-            </Button>
-            <Button theme="ordinary" shape="listItem" key={v4()}>
-              <Text size="xs" color="gray-600">
-                30대
-              </Text>
-            </Button>
-            <Button theme="ordinary" shape="listItem" key={v4()}>
-              <Text size="xs" color="gray-600">
-                40대
-              </Text>
-            </Button>
-            <Button theme="ordinary" shape="listItem" key={v4()}>
-              <Text size="xs" color="gray-600">
-                50대
-              </Text>
-            </Button>
-          </div>
-        </div>
-        <div className="flex flex-col gap-[13px]">
-          <Text>스터디에서 필요한 역할 선택</Text>
-          <div className="grid grid-cols-2 gap-2">
-            {roleData.map((el) => (
-              <CheckBarButton
-                key={el.role}
-                type="checkOnClick"
-                theme="ordinary"
-                className="!p-2 "
-              >
-                {" "}
-                <div>
-                  <Text size="xs" weight="bold">
-                    {el.title}
-                  </Text>
-                  <Text size="xs" weight="bold" className="!text-gray-600">
-                    {el.text}
-                  </Text>
-                </div>
-              </CheckBarButton>
-            ))}
-          </div>
-        </div>
+        <LevelSetter
+          level={state.preferentialLevel}
+          handleStateChange={handleStateChange}
+        />
+        <NumberSetter
+          memberNum={state.maxMembersNum}
+          increaseFunc={increaseMaxMemberNum}
+          decreaseFunc={decreaseMaxMemberNum}
+        />
+        <AgeSetter
+          selectedAges={state.preferentialAge}
+          handleSetAge={handleSetAge}
+        />
+        <RoleSetter
+          selectedRoles={state.necessaryRoles}
+          handleSetRole={handleSetRole}
+        />
       </section>
     </div>
   );
 }
 
-export default MemberPreference;
+export default React.memo(MemberPreference);
