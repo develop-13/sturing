@@ -31,7 +31,7 @@ function RecruitmentPage() {
   const [studyData, dispatch] = useReducer(recruitmentReducer, initialState);
   const { session, handleHasMatchingInfo } = useContext(UserStatusContext);
   let userEmail = session?.user.email;
-  console.log(userEmail);
+  // console.log(userEmail);
 
   useEffect(() => {
     if (userEmail) {
@@ -40,7 +40,7 @@ function RecruitmentPage() {
   }, [userEmail]);
 
   console.log(session);
-  console.log(studyData);
+  // console.log(studyData);
 
   // 입력값 업데이트 핸들러
   const handleStateChange = useCallback(

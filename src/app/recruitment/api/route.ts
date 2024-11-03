@@ -145,8 +145,12 @@ export async function POST(req: NextRequest) {
     console.log("studyDocument");
     console.log(studyDocument);
 
-    const savedStudy = await studyDocument.save().catch((error) => {
-      console.error("Error saving study document:", error);
+    const savedStudy = await studyDocument.save().catch((error: unknown) => {
+      if (error instanceof Error) {
+        console.error("Error saving study document:", error.message);
+      } else {
+        console.error("Unknown error:", error);
+      }
       // 추가적인 에러 핸들링
     });
     console.log("savedStudy");

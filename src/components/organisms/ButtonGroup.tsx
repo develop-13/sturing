@@ -86,8 +86,6 @@ export function TabButtonGroup(props: TTabProps) {
 export function NavButtonGroup({ pathname }: { pathname?: string }) {
   let btnStyle = "flex-grow basis-0 h-full border-gray-400 ";
 
-  console.log(`pathname=${pathname}`);
-
   return (
     <div className="h-[46px] bg-transparent border-y border-gray-300 flex gap-4 justify-between items-center  ">
       <Button theme="transparent" extraCss={btnStyle}>

@@ -191,7 +191,6 @@ function MatchingPage() {
   let userName = session?.user?.name;
   let userEmail = session?.user?.email;
 
-  console.log(userName);
   // 애초에 서버에서 한 번 렌더링 되고 그 다음에 클라이언트에서 한 번 더 렌더링됨
 
   const router = useRouter();

@@ -21,6 +21,8 @@ import {
   UserStatusContextProps,
 } from "../organisms/auth-components/UserStatusProvider";
 
+//
+
 // 추후에 srp 에 맞게 리팩토링할 것
 function RecommendPage() {
   const {
@@ -31,9 +33,9 @@ function RecommendPage() {
   }: UserStatusContextProps = useContext(UserStatusContext);
 
   console.log(session);
-  console.log(`status=${status}`);
-  console.log(`userCreated=${userCreated}`);
-  console.log(`hasMatchingInfo=${hasMatchingInfo}`);
+  // console.log(`status=${status}`);
+  // console.log(`userCreated=${userCreated}`);
+  // console.log(`hasMatchingInfo=${hasMatchingInfo}`);
 
   const [studies, setStudies] = useState({
     firstStudies: [],
@@ -61,7 +63,7 @@ function RecommendPage() {
           `recommend/api?studyType=${studyType}&userEmail=${session?.user.email}`
         ).then((res) => res.json());
 
-        console.log(fetchedStudies);
+        // console.log(fetchedStudies);
 
         const { firstStudies, secondStudies } = fetchedStudies;
         setStudies({
@@ -80,6 +82,7 @@ function RecommendPage() {
       getStudies("userMatching");
     } else {
       getStudies("common");
+      console.log("getStudies common called");
     }
   }, []);
 
@@ -155,4 +158,5 @@ function RecommendPage() {
   );
 }
 
-export default React.memo(RecommendPage);
+// export default React.memo(RecommendPage);
+export default RecommendPage;

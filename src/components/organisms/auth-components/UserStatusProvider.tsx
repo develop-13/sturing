@@ -77,6 +77,8 @@ export const UserStatusProvider = ({
     }
   }, [session?.user]);
 
+  // console.log(session);
+
   return (
     <UserStatusContext.Provider
       value={{
