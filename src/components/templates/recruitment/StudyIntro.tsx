@@ -1,4 +1,3 @@
-import Icon from "@/components/atoms/Icon";
 import Text from "@/components/atoms/Text";
 import CategoriesSetter from "@/components/organisms/recruitmentComponents/CategoriesSetter";
 import ImageSetter from "@/components/organisms/recruitmentComponents/ImageSetter";
@@ -25,7 +24,7 @@ function StudyIntro({
     [state.imgSrc]
   );
 
-  const handleSetTitle = useCallback(
+  const handleSetInputText = useCallback(
     (inputContent: string) => {
       handleStateChange("title", inputContent);
     },
@@ -44,7 +43,7 @@ function StudyIntro({
     [state.categories]
   );
 
-  const handleSetIntrouduceText = useCallback(
+  const handleSetTextareaText = useCallback(
     (text: string) => {
       handleStateChange("description", text);
     },
@@ -66,20 +65,28 @@ function StudyIntro({
   );
 
   return (
+    // template 기본 넓이도 공통 컴포넌트로 만들어서 빼는게 좋을듯
     <section className="py-4 flex flex-col gap-5">
       <Text size="xl" weight="bold">
         스터디에 대해 소개해 주세요
       </Text>
       <ImageSetter handleSetImage={handleSetImage} imgSrc={state.imgSrc} />
       {/*  */}
-      <TitleSetter title={state.title} handleSetTitle={handleSetTitle} />
+      <TitleSetter
+        text={state.title}
+        placeholder="내 스터디를 돋보이게 하는 한마디 (최소 5자 이상)"
+        handleSetInputText={handleSetInputText}
+        intro={"스터디 모집글 제목"}
+      />
       <CategoriesSetter
         selectedCategories={state.categories}
         handleSetCategory={handleSetCategory}
       />
       <TextSetter
+        intro="자기 소개"
+        placeholder="소개글을 입력해 주세요 (최소 20자 필수)"
         description={state.description}
-        handleSetIntrouduceText={handleSetIntrouduceText}
+        handleSetTextareaText={handleSetTextareaText}
       />
       {/*  */}
       <div className="flex flex-col gap-3">

@@ -3,7 +3,7 @@ import mongoose, { Schema, Document, model, models } from "mongoose";
 
 // TypeScript 인터페이스 정의 (Document 확장)
 interface IStudy extends Document {
-  id: string;
+  _id: string;
   title: string;
   createdAt: Date;
   period: {
@@ -205,7 +205,10 @@ const StudySchema: Schema = new Schema(
     applyCount: { type: Number, default: 0 },
     score: { type: Number, default: 0 },
   },
-  { timestamps: true } // 이 옵션으로 createdAt과 updatedAt이 자동 추가
+  {
+    timestamps: true,
+    _id: true, // 이 옵션이 기본값이나 명시적으로 설정할 수 있음
+  } // 이 옵션으로 createdAt과 updatedAt이 자동 추가
 );
 
 // 모델 생성

@@ -1,31 +1,39 @@
+import { TStudyOverview } from "@/types/study";
 import Image from "../atoms/Image";
 import Text from "../atoms/Text";
 import Button from "../molecules/Button";
 import InfoTags from "../molecules/InfoTags";
 
-type TStudyOverView = {
-  type: "online" | "offline";
-  categories: string[];
-  title: string;
-  startDate: string;
-  endDate: string;
-  src: string;
-};
-
 const getPeriod = (startDate: string, endDate: string): number => {
   const currentYear = new Date().getFullYear();
-  const start = new Date(`${currentYear}-${startDate}`);
-  const end = new Date(`${currentYear}-${endDate}`);
 
-  // 날짜 차이를 밀리초로 계산 (number 타입으로 변환)
+  // startDate와 endDate를 MM-DD 형식에서 월과 일로 분리
+  const [startMonth, startDay] = startDate.split("-").map(Number);
+  const [endMonth, endDay] = endDate.split("-").map(Number);
+
+  // 현재 연도와 분리된 월, 일로 Date 객체 생성
+  const start = new Date(currentYear, startMonth - 1, startDay); // 월은 0부터 시작하므로 -1
+  const end = new Date(currentYear, endMonth - 1, endDay);
+
+  console.log(`start=${start} end=${end}`); // 확인용 로그
+
+  // 날짜 차이를 밀리초로 계산
   const diffTime = Math.abs(end.getTime() - start.getTime());
   // 밀리초를 일 단위로 변환
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   // 일 단위를 주 단위로 변환
   const diffWeeks = Math.ceil(diffDays / 7);
+
   return diffWeeks;
 };
-function StudyOverview({ props }: { props: TStudyOverView }) {
+
+function StudyOverview({ props }: { props: TStudyOverview }) {
+  console.log(props);
+  console.log(typeof props.period.startDate);
+  console.log(typeof props.period.endDate);
+
+  const { startDate, endDate } = props.period;
+
   return (
     <div
       className="h-[287px] bg-cover bg-center flex items-center justify-center "
@@ -56,12 +64,12 @@ function StudyOverview({ props }: { props: TStudyOverView }) {
         <InfoTags theme="transparent" padding={0}>
           <Button theme="transparent" shape="tag">
             <Text size="xs" weight="bold" color="gray-400">
-              {getPeriod(props.startDate, props.endDate)}주 진행
+              {getPeriod(startDate, endDate)}주 진행
             </Text>
           </Button>
           <Button theme="transparent" shape="tag">
             <Text size="xs" weight="bold" color="gray-400">
-              {`${props.startDate}부터 시작`}
+              {`${startDate}부터 시작`}
             </Text>
           </Button>
         </InfoTags>

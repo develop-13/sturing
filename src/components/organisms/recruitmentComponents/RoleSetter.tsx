@@ -5,15 +5,16 @@ import { roleData } from "@/db/roles";
 import { TRoleText } from "@/types/common";
 
 type TRoleSetter = {
+  intro: string;
   selectedRoles: TRoleText[];
   handleSetRole: (selectedRole: TRoleText) => void;
 };
 
 function RoleSetter(props: TRoleSetter) {
-  const { selectedRoles, handleSetRole } = props;
+  const { intro, selectedRoles, handleSetRole } = props;
   return (
     <div className="flex flex-col gap-[13px]">
-      <Text>스터디에서 필요한 역할 선택</Text>
+      <Text>{intro}</Text>
       <div className="grid grid-cols-2 gap-2">
         {roleData.map((el) => (
           <CheckBarButton

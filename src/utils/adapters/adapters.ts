@@ -7,3 +7,7 @@ export const iconAdapter = (text: string): TIconData["type"] => {
     return "ADD";
   }
 };
+
+export const getBlobStringAdapter = (imgSrc: Blob) => {
+  return URL.createObjectURL(imgSrc);
+};

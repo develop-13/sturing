@@ -3,22 +3,26 @@ import React from "react";
 
 const TextSetter = React.memo(
   ({
+    intro,
     description,
-    handleSetIntrouduceText,
+    handleSetTextareaText,
+    placeholder,
   }: {
+    intro: string;
+    placeholder: string;
     description: string;
-    handleSetIntrouduceText: (text: string) => void;
+    handleSetTextareaText: (text: string) => void;
   }) => {
     const onChangeTextArea = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
       const value = evt.target.value;
-      handleSetIntrouduceText(value);
+      handleSetTextareaText(value);
     };
 
     return (
       <div className="flex flex-col gap-3 intro">
         <label htmlFor="intro">
           <Text size="sm" weight="bold">
-            자기소개
+            {intro}
           </Text>
         </label>
         <textarea
@@ -26,7 +30,7 @@ const TextSetter = React.memo(
             onChangeTextArea(e);
           }}
           id="intro"
-          placeholder="소개글을 입력해 주세요 (최소 20자 필수)"
+          placeholder={placeholder}
           cols={30}
           rows={10}
           value={description}

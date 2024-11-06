@@ -41,7 +41,7 @@ const UserSchema = new mongoose.Schema(
     schedules: [String],
     watchList: [String],
     Accepted_applies: [String],
-    applies: [String],
+    applies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Apply" }],
   },
   { minimize: false, strict: false }
 );

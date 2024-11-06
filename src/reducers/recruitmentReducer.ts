@@ -1,9 +1,10 @@
 import { TStudyRecruitment } from "@/types/study";
-import { useReducer } from "react";
-import { v4 } from "uuid";
 
 // 초기 상태
-export const initialState: TStudyRecruitment = {
+
+export type TStudyRecruitmentReducer = TStudyRecruitment;
+
+export const initialState: TStudyRecruitmentReducer = {
   creatorEmail: "",
   imgSrc: null,
   title: "",
@@ -28,17 +29,17 @@ export const initialState: TStudyRecruitment = {
 };
 
 // 액션 타입 정의
-type Action<K extends keyof TStudyRecruitment> = {
+type Action<K extends keyof TStudyRecruitmentReducer> = {
   type: "UPDATE_FIELD";
   field: K;
-  value: TStudyRecruitment[K];
+  value: TStudyRecruitmentReducer[K];
 };
 
 // 리듀서 함수
-export const recruitmentReducer = <K extends keyof TStudyRecruitment>(
-  state: TStudyRecruitment,
+export const recruitmentReducer = <K extends keyof TStudyRecruitmentReducer>(
+  state: TStudyRecruitmentReducer,
   action: Action<K>
-): TStudyRecruitment => {
+): TStudyRecruitmentReducer => {
   switch (action.type) {
     case "UPDATE_FIELD":
       return {

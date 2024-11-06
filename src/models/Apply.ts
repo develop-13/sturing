@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
 const ApplySchema = new mongoose.Schema({
-  userId: { type: String, required: true },
-  studyId: { type: String, required: true },
+  userEmail: { type: String, required: true },
+  studyId: { type: mongoose.Schema.Types.ObjectId, required: true },
   title: { type: String, required: true },
   content: { type: String, required: true },
-  desiredRole: String,
+  desiredRole: { type: [String] },
   status: { type: String, enum: ["rejected", "accepted", "pending", "done"] },
 });
 

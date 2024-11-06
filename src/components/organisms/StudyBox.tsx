@@ -8,13 +8,15 @@ import StudyImageBox from "../molecules/StudyImageBox";
 import { TStudyItem } from "@/types/study";
 
 export default function StudyBox({ props }: { props: TStudyItem }) {
+  console.log(props);
+
   let startDateMonth = new Date(props.period.startDate).getMonth() + 1; // 월은 0부터 시작하므로 1을 더합니다.
   let startDate = new Date(props.period.startDate).getDate();
   let endDateMonth = new Date(props.period.endDate).getMonth() + 1;
   let endDate = new Date(props.period.endDate).getDate();
 
   return (
-    <Link href={`/study/${props.id}`}>
+    <Link href={`/study/${props._id}`}>
       <div className="cursor-pointer">
         <div className="flex flex-col w-[182px]">
           <StudyImageBox

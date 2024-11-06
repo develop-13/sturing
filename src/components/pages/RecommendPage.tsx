@@ -20,6 +20,7 @@ import {
   UserStatusContext,
   UserStatusContextProps,
 } from "../organisms/auth-components/UserStatusProvider";
+import Loading from "../templates/Loading";
 
 //
 
@@ -33,14 +34,12 @@ function RecommendPage() {
   }: UserStatusContextProps = useContext(UserStatusContext);
 
   console.log(session);
-  // console.log(`status=${status}`);
-  // console.log(`userCreated=${userCreated}`);
-  // console.log(`hasMatchingInfo=${hasMatchingInfo}`);
 
   const [studies, setStudies] = useState({
     firstStudies: [],
     secondStudies: [],
   });
+  // console.log(studies);
 
   const [isFetchingStudies, setIsFetchingStudies] = useState(false);
 
@@ -85,6 +84,10 @@ function RecommendPage() {
       console.log("getStudies common called");
     }
   }, []);
+
+  if (status == "loading") {
+    return <Loading />;
+  }
 
   return (
     <div id="recommendPage" className="flex flex-col overflow-hidden">
@@ -132,7 +135,7 @@ function RecommendPage() {
                   .map((_, index) => <StudyBoxSkeleton key={index} />) // 스켈레톤 UI를 3개 렌더링
               : studies.firstStudies.length
               ? studies.firstStudies.map((study: TStudyItem) => (
-                  <StudyBox props={study} key={study.id} />
+                  <StudyBox props={study} key={study._id} />
                 ))
               : "인기 스터디가 없습니다."}
           </div>
@@ -148,7 +151,7 @@ function RecommendPage() {
                   .map((_, index) => <StudyBoxSkeleton key={index} />) // 스켈레톤 UI를 3개 렌더링
               : studies.secondStudies.length
               ? studies.secondStudies.map((study: TStudyItem) => (
-                  <StudyBox props={study} key={study.id} />
+                  <StudyBox props={study} key={study._id} />
                 ))
               : "내 주변 스터디가 없습니다."}
           </div>

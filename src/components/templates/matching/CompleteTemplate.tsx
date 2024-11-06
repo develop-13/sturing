@@ -10,8 +10,6 @@ import Loading from "../Loading";
 import { createPortal } from "react-dom";
 import { UserStatusContext } from "@/components/organisms/auth-components/UserStatusProvider";
 
-const dummyUserName = "웅진";
-
 type TCompleteTemplate = {
   userName?: string | null;
   userEmail?: string | null;

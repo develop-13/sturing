@@ -6,7 +6,7 @@ function StudyDurationSetter({
   currentDuration,
   handleSetStudyDuration,
 }: {
-  currentDuration: { startDate: Date | null; endDate: Date | null };
+  currentDuration: { startDate: Date; endDate: Date };
   handleSetStudyDuration: (startDate: Date, endDate: Date) => void;
 }) {
   return (

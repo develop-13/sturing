@@ -2,8 +2,6 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/mongodb";
 import { getRecommendedStudies } from "@/lib/matchingUtils";
 import User from "@/models/User";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 // POST 요청 처리 함수
 export async function POST(req: Request) {

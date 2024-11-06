@@ -3,27 +3,6 @@ import Study from "@/models/Study"; // Study 모델
 import { TStudyItem } from "@/types/study";
 import { NewTMatching } from "@/types/user";
 
-export const getStudiesWithId = (studies: any[]) => {
-  const studiesWithId = studies.map((study) => {
-    const obj = study.toObject(); // Mongoose 도큐먼트를 평범한 객체로 변환
-    obj.id = obj._id.toString(); // _id를 문자열로 변환하여 id로 설정
-    // delete obj._id; // _id 필드를 완전히 제거
-    // 스코어 계산
-    obj.score = calculatePopularStudyScore(study);
-
-    // 날짜를 ISO 형식으로 변환
-    obj.period.startDate = new Date(obj.period.startDate).toISOString();
-    obj.period.endDate = new Date(obj.period.endDate).toISOString();
-    return obj;
-  });
-  // 애초에 스터디 모집에서 스터디 생성할 때 _id필드를 명시하여 insert 할 거니까
-  // 나중에는 필요없어짐
-
-  console.log("studiesWithId");
-  console.log(studiesWithId);
-  return studiesWithId;
-};
-
 // 스코어 계산 함수
 export function calculatePopularStudyScore(study: any): number {
   const memberWeight = 0.5;
@@ -71,19 +50,12 @@ export async function getPopularStudies() {
     viewCount: 1,
     applyCount: 1,
     score: 1,
-    _id: 1, // _id 필드를 제외하고 싶을 경우
+    _id: 1,
   });
 
-  console.log("fetchedStudies");
-  console.log(fetchedStudies);
-
   // _id를 문자열로 변환하고, score를 계산한 객체 반환
-  const studiesWithScores: TStudyItem[] = getStudiesWithPopularStudyScore(
-    getStudiesWithId(fetchedStudies)
-  );
-
-  console.log("studiesWithScores");
-  console.log(studiesWithScores);
+  const studiesWithScores: TStudyItem[] =
+    getStudiesWithPopularStudyScore(fetchedStudies);
 
   // 스코어 순으로 정렬
   studiesWithScores.sort((a, b) => b.score - a.score);
@@ -100,6 +72,9 @@ export async function getNewStudies() {
   const sevenDaysAgo = new Date();
   sevenDaysAgo.setDate(today.getDate() - 7);
   sevenDaysAgo.setHours(0, 0, 0, 0); // 시, 분, 초를 0으로 설정
+
+  // console.log("sevenDaysAgo");
+  // console.log(sevenDaysAgo);
 
   const fetchedStudies = await Study.find({
     createdAt: { $gte: sevenDaysAgo },
@@ -123,12 +98,13 @@ export async function getNewStudies() {
       viewCount: 1,
       applyCount: 1,
       score: 1,
-      _id: 1, // _id 필드를 제외하고 싶을 경우
+      _id: 1,
     });
 
-  const studiesWithId: TStudyItem[] = getStudiesWithId(fetchedStudies);
+  // console.log("fetchedStudies");
+  // console.log(fetchedStudies);
 
-  return studiesWithId;
+  return fetchedStudies;
 }
 
 export async function getUserInterestStudies(userMatchingInfo: NewTMatching) {
@@ -148,6 +124,7 @@ export async function getUserInterestStudies(userMatchingInfo: NewTMatching) {
   })
     .sort({ score: -1 }) // 평점(score) 기준으로 내림차순 정렬
     .select({
+      _id: 1,
       title: 1,
       createdAt: 1,
       "period.startDate": 1,
@@ -164,14 +141,11 @@ export async function getUserInterestStudies(userMatchingInfo: NewTMatching) {
       viewCount: 1,
       applyCount: 1,
       score: 1,
-      _id: 1, // _id 필드를 제외하고 싶을 경우
     })
     .limit(5) // 상위 5개만 가져오기
     .exec();
 
-  const studiesWithId: TStudyItem[] = getStudiesWithId(userInterestStudies);
-
-  return studiesWithId; // 평점순 상위 5개의 스터디 반환
+  return userInterestStudies; // 평점순 상위 5개의 스터디 반환
 }
 
 export async function getUserCloseStudies(userMatchingInfo: NewTMatching) {
@@ -210,6 +184,5 @@ export async function getUserCloseStudies(userMatchingInfo: NewTMatching) {
     })
     .limit(5) // 상위 5개만 가져오기
     .exec();
-  const studiesWithId = getStudiesWithId(userCloseStudies);
-  return studiesWithId;
+  return userCloseStudies;
 }

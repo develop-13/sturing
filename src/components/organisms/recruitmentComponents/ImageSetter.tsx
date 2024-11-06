@@ -1,14 +1,12 @@
 import Icon from "@/components/atoms/Icon";
 import Text from "@/components/atoms/Text";
+import { TStudyRecruitmentReducer } from "@/reducers/recruitmentReducer";
+import { getBlobStringAdapter } from "@/utils/adapters/adapters";
 import React from "react";
 
 type TImageSetter = {
-  imgSrc: Blob | null;
+  imgSrc: TStudyRecruitmentReducer["imgSrc"];
   handleSetImage: (imageSrc: Blob) => void;
-};
-
-const getImgUrlObject = (imgSrc: Blob) => {
-  return URL.createObjectURL(imgSrc);
 };
 
 function ImageSetter(props: TImageSetter) {
@@ -47,7 +45,7 @@ function ImageSetter(props: TImageSetter) {
       >
         {imgSrc ? (
           <img
-            src={getImgUrlObject(imgSrc)}
+            src={getBlobStringAdapter(imgSrc)}
             alt="Thumbnail"
             className="w-full h-full object-cover rounded-[5px]"
           />

@@ -19,21 +19,6 @@ export type TFilterState = {
   roles: Set<TRoleText>;
 };
 
-// const stateExample: filterState = {
-//   category: "BUSINESS",
-//   // 검색어를 검색했다는 가정하에, 검색어에 해당하는 스터디들 중에서 카테고리가 비즈니스인 것
-//   memberNum: 4,
-//   // 위에서 필터링 된 스터디들 중에 스터디 인원이 4명인 스터디,
-//   locations: new Set(["서울특별시 서대문구", "충청남도 예산군"]),
-//   // 위에서 필터링 된 각 스터디에 대해서 모임 장소중에 서대문구와 예산군 모두를 포함하는 스터디
-//   duration: {
-//     startDate: new Date(),
-//     endDate: new Date(),
-//   }, // 필터링 된 각 스터디에 대해서 스터디 기간이 해당 날짜 내에 있는 스터디들을 필터링함
-//   levels: "beginner",
-//   roles: new Set(["team_leader"]),
-// };
-
 export const initialState: TFilterState = {
   selectedCategories: new Set([]),
   memberNum: 0,

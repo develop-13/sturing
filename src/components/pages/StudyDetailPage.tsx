@@ -15,6 +15,7 @@ import { TStudyDetail } from "@/types/study";
 import TitleLink from "../molecules/TitleLink";
 import ButtonLabel from "../molecules/IconLabelButton";
 import UserInfoItem from "../molecules/UserInfoItem";
+import Link from "next/link";
 
 const buttonGroupData = ["info", "member"];
 
@@ -99,9 +100,8 @@ function studyInfoPage() {
           type: studyInfo.type,
           categories: studyInfo.categories,
           title: studyInfo.title,
-          startDate: studyInfo.period.startDate,
-          endDate: studyInfo.period.endDate,
-          src: studyInfo.imgSrc,
+          period: studyInfo.period,
+          imgSrc: studyInfo.imgSrc,
         }}
       />
       <TabButtonGroup
@@ -198,16 +198,17 @@ function studyInfoPage() {
           </Text>
           <Divider type="row" />
           <div className="flex gap-[6px]">
-            {studyInfo?.preferentialAge && (
-              <ButtonLabel
-                key={uuidv4()}
-                datas={{
-                  theme: "secondary",
-                  usage: "listItem",
-                  text: studyInfo?.preferentialAge as string,
-                }}
-              />
-            )}
+            {studyInfo?.preferentialAge &&
+              studyInfo?.preferentialAge.map((age) => (
+                <ButtonLabel
+                  key={uuidv4()}
+                  datas={{
+                    theme: "secondary",
+                    usage: "listItem",
+                    text: String(age),
+                  }}
+                />
+              ))}
             {studyInfo?.preferentialLevel && (
               <ButtonLabel
                 key={uuidv4()}
@@ -263,6 +264,8 @@ function studyInfoPage() {
               )} */}
           </div>
         </InfoBox>
+
+        <Link href={`/apply/${params.sid}`}>스터디 이동</Link>
       </section>
     </div>
   );

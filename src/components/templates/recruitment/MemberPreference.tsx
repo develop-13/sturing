@@ -70,6 +70,7 @@ function MemberPreference(props: TMemberPreference) {
           handleSetAge={handleSetAge}
         />
         <RoleSetter
+          intro={"스터디에서 필요한 역할 선택"}
           selectedRoles={state.necessaryRoles}
           handleSetRole={handleSetRole}
         />

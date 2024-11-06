@@ -3,6 +3,7 @@ import Study from "@/models/Study";
 import { NextRequest } from "next/server";
 import User from "@/models/User";
 import Role from "@/models/Role";
+import mongoose from "mongoose";
 
 export async function GET(req: NextRequest) {
   await dbConnect();
@@ -12,10 +13,18 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const studyId = searchParams.get("sid") || "";
 
+  console.log(`studyId=${studyId}`);
+  console.log(typeof studyId);
+
   try {
+    const objectId = new mongoose.Types.ObjectId(studyId);
+
     const study = await Study.findOne({
-      _id: studyId,
+      _id: objectId,
     });
+
+    console.log("study");
+    console.log(study);
 
     const studyMembersEmails = study.currentMembers;
 

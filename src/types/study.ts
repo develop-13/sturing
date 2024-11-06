@@ -1,32 +1,12 @@
-// export type TStudy = {
-//   id: string;
-//   src: string;
-//   type: "온라인" | "오프라인";
-//   dayOfWeek: string;
-//   category: string;
-//   // dayOfWeek: string[];
-//   startTime: string;
-//   endTime: string;
-//   title: string;
-//   startDate: string;
-//   endDate: string;
-//   location: string;
-//   maxParticipants: number;
-//   rate: number;
-//   currentParticipants: TTeamMemberProfile[];
-//   atmosphere: string[];
-//   desiredMember: TDesiredMember;
-//   creatorId: string;
-// };
-
 import { TAtmosphere, TCategory, TLevel, TRoleText } from "./common";
 
 export type TStudy = {
+  _id: any;
   title: string;
   createdAt: string;
   period: {
-    startDate: Date | null;
-    endDate: Date | null;
+    startDate: Date;
+    endDate: Date;
   };
   creatorEmail: string;
   time: {
@@ -92,6 +72,16 @@ export type TStudy = {
   score: number; // 스터디의 인기도 점수 (자동 계산될 값)
 };
 
+export type TStudyOverview = Pick<
+  TStudy,
+  "type" | "categories" | "title" | "imgSrc"
+> & {
+  period: {
+    startDate: string;
+    endDate: string;
+  };
+};
+
 export type TStudyRecruitment = Pick<
   TStudy,
   | "creatorEmail"
@@ -114,10 +104,10 @@ export type TStudyRecruitment = Pick<
 
 export type TStudyDetail = Pick<
   TStudy,
+  | "_id"
   | "type"
   | "categories"
   | "title"
-  | "period"
   | "imgSrc"
   | "dayOfWeek"
   | "maxMembersNum"
@@ -130,10 +120,16 @@ export type TStudyDetail = Pick<
   | "preferentialAge"
   | "preferentialLevel"
   | "rate"
->;
+> & {
+  period: {
+    startDate: string;
+    endDate: string;
+  };
+};
 
 export type TStudyItem = Pick<
   TStudy,
+  | "_id"
   | "title"
   | "createdAt"
   | "period"

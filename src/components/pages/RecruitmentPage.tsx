@@ -14,7 +14,7 @@ import Header from "../organisms/Header";
 import StudyIntro from "../templates/recruitment/StudyIntro";
 import StudyDetail from "../templates/recruitment/StudyDetail";
 import MemberPreference from "../templates/recruitment/MemberPreference";
-import Complete from "../templates/recruitment/Complete";
+import Complete from "../templates/recruitment/RecruitmentComplete";
 import { TStudyRecruitment } from "@/types/study";
 import {
   initialState,
@@ -39,7 +39,7 @@ function RecruitmentPage() {
     }
   }, [userEmail]);
 
-  console.log(session);
+  // console.log(session);
   // console.log(studyData);
 
   // 입력값 업데이트 핸들러

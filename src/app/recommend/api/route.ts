@@ -8,19 +8,15 @@ import {
 import User from "@/models/User";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import { NextApiResponse } from "next";
 
 export async function GET(request: Request, res: NextResponse) {
-  // const popularStudies = await getPopularStudies();
-  // const newStudies = await getNewStudies();
-
   await dbConnect();
 
   const { searchParams } = new URL(request.url);
   const studyType = searchParams.get("studyType"); // 'studyType' 쿼리 파라미터 가져오기
   const email = searchParams.get("userEmail"); // 'email' 쿼리 파라미터 가져오기
 
-  console.log(`studyType=${studyType} email=${email}`);
+  // console.log(`studyType=${studyType} email=${email}`);
 
   if (studyType === "common") {
     // common 스터디를 가져옴 (인기 스터디와 새로 개설된 스터디)

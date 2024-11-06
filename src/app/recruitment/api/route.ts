@@ -11,8 +11,6 @@ import dbConnect from "@/lib/mongodb";
 import Study from "@/models/Study";
 
 // Multer 설정
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
 
 // 비동기 스트림 파이프라인
 const pump = promisify(pipeline);
@@ -48,6 +46,10 @@ export async function POST(req: NextRequest) {
     // file의 타입은 FormDataEntryValue | null
     //FormDataEntryValue 는 string 과 File 타입
     // 즉, file의 타입은 string | File | null
+
+    if (file) {
+      // 이미지 파일 설정 안한 경우도 고려.. 대체 기본 이미지를 설정
+    }
 
     console.log("file");
     console.log(file);
