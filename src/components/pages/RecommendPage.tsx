@@ -13,7 +13,7 @@ import StudyCategory from "../organisms/StudyCategory";
 import Divider from "../atoms/Divider";
 import StudyBox from "../organisms/StudyBox";
 import { studyBanners } from "@/db/studyBanners";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { TStudyItem } from "@/types/study";
 import StudyBoxSkeleton from "../molecules/skeletonUI/StudyBoxSkeleton";
 import {
@@ -39,7 +39,6 @@ function RecommendPage() {
     firstStudies: [],
     secondStudies: [],
   });
-  // console.log(studies);
 
   const [isFetchingStudies, setIsFetchingStudies] = useState(false);
 
@@ -92,6 +91,7 @@ function RecommendPage() {
   return (
     <div id="recommendPage" className="flex flex-col overflow-hidden">
       <Header
+        className="px-4"
         leftSlot={
           <div className="flex gap-[12px]">
             <MenuBtn session={session} />
@@ -116,7 +116,7 @@ function RecommendPage() {
         <StudyBanner props={studyBanners} />
         {userCreated && !hasMatchingInfo && <GoMatchingPage />}
       </div>
-      <div className="flex flex-col gap-5 py-5">
+      <div className="flex flex-col gap-5 py-5 px-4">
         <Searchbar
           usage="main"
           placeholder="관심 스터디 분야나 강의명을 검색해보세요"
@@ -126,7 +126,7 @@ function RecommendPage() {
         <SlideContentList title="분야별 스터디 탐색하기" hasArrow={true}>
           <StudyCategory />
         </SlideContentList>
-        <Divider type="row" py={4} color="gray-100" />
+        <Divider type="row" py={4} color="bg-gray-300" />
         <SlideContentList title={studyPlaceHolder.firstStudies} hasArrow={true}>
           <div className="flex flex-row gap-2 pl-4 h-[250px] justify-center">
             {isFetchingStudies
@@ -144,7 +144,7 @@ function RecommendPage() {
           title={studyPlaceHolder.secondStudies}
           hasArrow={true}
         >
-          <div className="flex flex-row gap-2 pl-4 h-[250px] justify-center">
+          <div className="flex flex-row gap-2 h-[250px] justify-center">
             {isFetchingStudies
               ? Array(3)
                   .fill(null)

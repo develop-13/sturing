@@ -1,16 +1,27 @@
+"use client";
+import { useContext, useEffect, useState } from "react";
 import Icon from "../atoms/Icon";
+import MenuBtn from "../molecules/MenuBtn";
 import { NavButtonGroup } from "../organisms/ButtonGroup";
 import Header from "../organisms/Header";
-import StudyList from "../organisms/StudyList";
-import UpcomingStudies from "../organisms/UpcomingStudies";
+import StudyList from "../templates/mystudy/StudyListContainer";
+import UpcomingStudies from "../templates/mystudy/UpcomingStudies";
+import {
+  UserStatusContext,
+  UserStatusContextProps,
+} from "../organisms/auth-components/UserStatusProvider";
 
 function MyStudyPage() {
+  const { session, status }: UserStatusContextProps =
+    useContext(UserStatusContext);
+  // console.log(session);
+
   return (
     <div className="flex flex-col">
       <Header
         leftSlot={
           <div className="flex gap-[12px] items-center">
-            <Icon type="MENU" />
+            <MenuBtn session={session} />
             <Icon type="LOGO" />
           </div>
         }
@@ -22,8 +33,12 @@ function MyStudyPage() {
         }
       />
       <NavButtonGroup />
-      <UpcomingStudies />
-      <StudyList />
+      {session?.user.email && (
+        <div>
+          <UpcomingStudies userEmail={session?.user.email} />
+          <StudyList userEmail={session?.user.email} />
+        </div>
+      )}
     </div>
   );
 }

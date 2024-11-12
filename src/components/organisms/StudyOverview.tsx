@@ -27,21 +27,28 @@ const getPeriod = (startDate: string, endDate: string): number => {
   return diffWeeks;
 };
 
-function StudyOverview({ props }: { props: TStudyOverview }) {
-  console.log(props);
-  console.log(typeof props.period.startDate);
-  console.log(typeof props.period.endDate);
+const getDateText = (date: string) => {
+  const dateObj = new Date(date);
+  const [year, month, dateSpecific] = [
+    dateObj.getFullYear(),
+    dateObj.getMonth(),
+    dateObj.getDate(),
+  ];
 
+  return `${year}년 ${month}월 ${dateSpecific}일`;
+};
+
+function StudyOverview({ props }: { props: TStudyOverview }) {
   const { startDate, endDate } = props.period;
 
   return (
     <div
       className="h-[287px] bg-cover bg-center flex items-center justify-center "
       style={{
-        backgroundImage: `linear-gradient(to bottom right, rgba(21, 21, 21, 0.1), rgba(21, 21, 21, 1)), url(${props.src})`,
+        backgroundImage: `linear-gradient(to bottom right, rgba(21, 21, 21, 0.1), rgba(21, 21, 21, 1)), url(${props.imgSrc})`,
       }}
     >
-      <div className="w-[75%] flex flex-col items-center gap-[12px] text-center 	">
+      <div className="flex flex-col items-center gap-[12px] text-center 	">
         <div className="flex gap-[4px]">
           <Button theme="primary" shape="tag">
             <Text size="xs" weight="bold" color="white">
@@ -69,7 +76,7 @@ function StudyOverview({ props }: { props: TStudyOverview }) {
           </Button>
           <Button theme="transparent" shape="tag">
             <Text size="xs" weight="bold" color="gray-400">
-              {`${startDate}부터 시작`}
+              {`${getDateText(startDate)}부터 시작`}
             </Text>
           </Button>
         </InfoTags>

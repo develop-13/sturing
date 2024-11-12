@@ -1,4 +1,4 @@
-import { TRoleText } from "@/types/common";
+import { TLevel, TRoleText } from "@/types/common";
 
 export type TApplyState = {
   applicationTitle: string;

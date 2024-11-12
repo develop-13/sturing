@@ -9,11 +9,10 @@ import { Session } from "next-auth";
 function MenuBtn({ session }: { session?: Session | null }) {
   const [upSidebar, setUpSidebar] = useState(false);
   const [isPageReady, setIsPageReady] = useState(false); // 페이지 준비 상태 관리
-  const recommendPageRef = useRef<Element | null>(null); // useRef로 관리
+  const rootLayout = useRef<Element | null>(null); // useRef로 관리
   const sidebarRef = useRef<HTMLDivElement | null>(null); // 모달 Ref
 
   const openSidebar = () => {
-    console.log("sidebar Clicked");
     setUpSidebar(true);
   };
 
@@ -22,9 +21,8 @@ function MenuBtn({ session }: { session?: Session | null }) {
   };
 
   useEffect(() => {
-    recommendPageRef.current = document.getElementById("recommendPage");
-
-    if (recommendPageRef.current) {
+    rootLayout.current = document.getElementById("rootLayout");
+    if (rootLayout.current) {
       setIsPageReady(true); // 페이지가 준비되었음을 알림
     }
   }, []);
@@ -33,7 +31,7 @@ function MenuBtn({ session }: { session?: Session | null }) {
     <div>
       <Icon type="MENU" onClick={openSidebar} />
       {isPageReady &&
-        recommendPageRef.current && // recommendPage가 준비된 후에만 포털 렌더링
+        rootLayout.current &&
         createPortal(
           <Sidebar
             session={session}
@@ -41,7 +39,7 @@ function MenuBtn({ session }: { session?: Session | null }) {
             isSidebarOpen={upSidebar}
             onCloseSidebar={closeSidebar}
           />,
-          recommendPageRef.current // useRef로 관리된 recommendPage 참조
+          rootLayout.current // useRef로 관리된 최상단page 참조
         )}
     </div>
   );

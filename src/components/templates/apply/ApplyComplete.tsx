@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 
 type TApplyComplete = {
   userEmail: string;
+  name: string;
   state: TApplyState;
 };
 
@@ -29,6 +30,7 @@ function ApplyComplete({ userEmail, state }: TApplyComplete) {
           body: JSON.stringify({
             applyInfo: state, // TApplyState 타입의 객체
             userEmail: userEmail, // 유저 이메일
+            userName: name,
           }),
         });
 

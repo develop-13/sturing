@@ -53,7 +53,7 @@ function BoxShape(shape: TBoxShape | undefined) {
     case "rounded":
       return "rounded-full h-[50px] ";
     case "listItem":
-      return "rounded-[5px] py-[6px] px-[15px] ";
+      return "rounded-[5px] py-[4px] px-[8px] ";
     case "full":
       return "rounded-[3px] w-full h-full text-[16px] gap-[10px] ";
     case "border-dot":
@@ -80,7 +80,7 @@ function Box({ props, children }: { props: TBox; children?: ReactNode }) {
     <div
       onClick={props.onClick}
       className={
-        "flex justify-center items-center cursor-pointer " +
+        "flex justify-center items-center cursor-pointer gap-[5px] " +
         theme +
         shape +
         extraCss

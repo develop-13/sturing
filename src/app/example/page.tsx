@@ -1,13 +1,23 @@
+"use client";
+import RoleSetter from "@/components/organisms/RoleSetter";
+import RoleSetterS from "@/components/organisms/recruitmentComponents/RoleSetter";
+import { TRoleText } from "@/types/common";
 import React from "react";
 
 function page() {
   return (
-    <div className="w-[182px] flex flex-col gap-2 animate-pulse">
-      <div className="h-[100px] bg-slate-200 rounded-md"></div>
-      <div className="h-[12px] bg-slate-200  rounded-md"></div>
-      <div className="h-[12px] w-[55%] bg-slate-200  rounded-md"></div>
-      <div className="h-[12px] w-[80%] bg-slate-200  rounded-md"></div>
-      <div className="h-[12px]  bg-slate-200  rounded-md"></div>
+    <div>
+      <RoleSetterS
+        intro=""
+        handleSetRole={() => {}}
+        selectedRoles={["attendance_checker", "notification_leader"]}
+      />
+      <div className="h-5"> divider</div>
+      <RoleSetter
+        cancelRole={() => {}}
+        addRole={() => {}}
+        selectedRoles={new Set(["team_leader" as TRoleText])}
+      />
     </div>
   );
 }

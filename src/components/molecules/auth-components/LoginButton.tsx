@@ -7,7 +7,8 @@ import LoginModal from "@/components/organisms/auth-components/LoginModal";
 
 export default function LoginButton() {
   const [upModal, setUpModal] = useState(false);
-  const recommendPageRef = useRef<Element | null>(null); // useRef로 관리
+  const modalRef = useRef<HTMLDivElement | null>(null); // 모달 Ref
+  const rootLayout = useRef<Element | null>(null); // useRef로 관리
 
   const openModal = () => {
     setUpModal(true);
@@ -17,11 +18,9 @@ export default function LoginButton() {
     setUpModal(false);
   };
 
-  const modalRef = useRef<HTMLDivElement | null>(null); // 모달 Ref
-
   useEffect(() => {
-    // 클라이언트 측에서 document에 접근하여 recommendPage 참조 설정
-    recommendPageRef.current = document.getElementById("recommendPage");
+    // 클라이언트 측에서 document에 접근하여 rootLayout 참조 설정
+    rootLayout.current = document.getElementById("rootLayout");
 
     // 모달 바깥 클릭했을 때 닫히게 하기
     const clickListener = (e: MouseEvent) => {
@@ -48,6 +47,9 @@ export default function LoginButton() {
     };
   }, []);
 
+  console.log(upModal);
+  console.log(rootLayout.current);
+
   return (
     <Button
       theme="secondary"
@@ -55,14 +57,14 @@ export default function LoginButton() {
       onClick={openModal}
     >
       <Text weight="bold">간편 로그인</Text>
-      {/* recommendPageRef.current가 null이 아닌 경우에만 createPortal 실행 */}
+      {/* rootLayout.current가 null이 아닌 경우에만 createPortal 실행 */}
       {upModal &&
-        recommendPageRef.current &&
+        rootLayout.current &&
         createPortal(
-          <div className="w-[375px] h-full fixed z-50 flex items-center bg-black bg-opacity-70">
+          <div className="w-[375px] h-full fixed top-0 z-50 flex items-center bg-black bg-opacity-70">
             <LoginModal ref={modalRef} />
           </div>,
-          recommendPageRef.current // useRef로 관리된 recommendPage 참조
+          rootLayout.current // useRef로 관리된 rootLayout 참조
         )}
     </Button>
   );

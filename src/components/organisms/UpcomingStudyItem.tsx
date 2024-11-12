@@ -1,7 +1,7 @@
 import Text from "../atoms/Text";
 import Button from "../molecules/Button";
 import InfoTags from "../molecules/InfoTags";
-import StudyInfoItem from "./InfoBox";
+import StudyInfoItem from "./infoBox/InfoBox";
 
 function UpcomingStudyItem() {
   return (

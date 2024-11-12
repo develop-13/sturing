@@ -33,7 +33,11 @@ function ApplyPage() {
   const steps = [
     <ApplyText state={applyData} handleStateChange={handleStateChange} />,
     <RoleSelectTemp state={applyData} handleStateChange={handleStateChange} />,
-    <ApplyComplete state={applyData} userEmail={session?.user.email || ""} />,
+    <ApplyComplete
+      state={applyData}
+      userEmail={session?.user.email || ""}
+      name={session?.user.name || ""}
+    />,
   ];
 
   const goNextStep = () => {
@@ -54,7 +58,7 @@ function ApplyPage() {
   };
 
   return (
-    <div id="recruitmentPage" className="mx-4 h-screen">
+    <div className="mx-4 h-screen">
       <Header
         leftSlot={
           <Button

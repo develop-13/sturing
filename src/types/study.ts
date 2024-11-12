@@ -136,7 +136,6 @@ export type TStudyItem = Pick<
   | "time"
   | "dayOfWeek"
   | "location"
-  | "imgSrc"
   | "type"
   | "categories"
   | "currentMembers"
@@ -144,7 +143,9 @@ export type TStudyItem = Pick<
   | "viewCount"
   | "applyCount"
   | "score"
->;
+> & {
+  imgSrc: string;
+};
 
 export type TStudyDetail_participating = {};
 

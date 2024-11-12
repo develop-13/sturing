@@ -1,21 +1,20 @@
 import React from "react";
 import OptionButtonContainer from "./OptionButtonContainer";
 import { TDispatchFuncs, TFilterState } from "@/reducers/filterReducer";
+import { TLevel } from "@/types/common";
 
 function LevelSetter({
   level,
   setLevel,
 }: {
-  level: TFilterState["levels"];
-  setLevel: TDispatchFuncs["setLevel"];
+  level: TLevel;
+  setLevel: (level: TLevel | null) => void;
 }) {
-  console.log(level);
-
   return (
     <div>
       <OptionButtonContainer
-        categoryLevel={level}
-        onClick={(word: TFilterState["levels"]) => () => {
+        level={level}
+        onClick={(word: TLevel) => () => {
           if (level === word) {
             setLevel(null);
           } else {

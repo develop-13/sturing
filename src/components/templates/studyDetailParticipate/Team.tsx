@@ -1,6 +1,6 @@
 import Divider from "@/components/atoms/Divider";
 import Text from "@/components/atoms/Text";
-import InfoBox from "@/components/organisms/InfoBox";
+import InfoBox from "@/components/organisms/infoBox/InfoBox";
 import React from "react";
 
 function Team() {

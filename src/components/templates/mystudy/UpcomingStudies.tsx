@@ -3,7 +3,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
-import UpcomingStudyItem from "./UpcomingStudyItem";
+import UpcomingStudyItem from "../../organisms/UpcomingStudyItem";
+import { useEffect, useState } from "react";
 
 // 서버로부터 불러온 다가오는 스터디 리스트의 예상 포멧
 type TUpcomingStudy = {
@@ -34,7 +35,13 @@ const UpcomingStudyList_dummy: TUpcomingStudy[] = [
   },
 ];
 
-function UpcomingStudies() {
+function UpcomingStudies({ userEmail }: { userEmail: string | undefined }) {
+  const [schedules, setSchedules] = useState([]);
+
+  useEffect(() => {
+    // 사용자 스케쥴 가져오는 로직
+  }, []);
+
   return (
     <div className="">
       <Swiper

@@ -25,6 +25,7 @@
     "react-icons": "^5.2.1",
     "react-spinners": "^0.14.1",
     "swiper": "^11.1.4",
+    "tailwind-merge": "^2.5.4",
     "ts-node": "^10.9.2",
     "uuid": "^10.0.0"
   },

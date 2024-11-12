@@ -6,6 +6,7 @@ type TInfoBox = {
   theme: "white" | "gradient";
   children?: React.ReactNode;
   getInfoBoxTop?: (InfoBoxTop: number) => void;
+  id?: string;
 };
 
 const InfoBox = forwardRef<HTMLDivElement, TInfoBox>(function InfoBox(
@@ -15,7 +16,6 @@ const InfoBox = forwardRef<HTMLDivElement, TInfoBox>(function InfoBox(
   useEffect(() => {
     if (props.getInfoBoxTop && ref && typeof ref === "object" && ref.current) {
       props.getInfoBoxTop(ref.current.getBoundingClientRect().top);
-      console.log("hey");
     }
   });
   // 여기서 getInfoBoxTop 의 값을 구해서 상위 컴포넌트의 infoBoxTop의 값을 결정
@@ -34,6 +34,7 @@ const InfoBox = forwardRef<HTMLDivElement, TInfoBox>(function InfoBox(
 
   return (
     <div
+      id={props.id}
       ref={ref}
       className={
         "py-[24px] px-[20px] flex flex-col rounded-[8px] gap-[12px] " + bgColor

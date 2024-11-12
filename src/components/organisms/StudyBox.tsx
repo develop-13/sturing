@@ -8,8 +8,6 @@ import StudyImageBox from "../molecules/StudyImageBox";
 import { TStudyItem } from "@/types/study";
 
 export default function StudyBox({ props }: { props: TStudyItem }) {
-  console.log(props);
-
   let startDateMonth = new Date(props.period.startDate).getMonth() + 1; // 월은 0부터 시작하므로 1을 더합니다.
   let startDate = new Date(props.period.startDate).getDate();
   let endDateMonth = new Date(props.period.endDate).getMonth() + 1;
@@ -17,7 +15,7 @@ export default function StudyBox({ props }: { props: TStudyItem }) {
 
   return (
     <Link href={`/study/${props._id}`}>
-      <div className="cursor-pointer">
+      <div className="cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap">
         <div className="flex flex-col w-[182px]">
           <StudyImageBox
             src={props.imgSrc || "/img/studyItem/studyItemImg1.png"}
@@ -30,13 +28,11 @@ export default function StudyBox({ props }: { props: TStudyItem }) {
                 {props.type}
               </Text>
             </Button>
-            {props.categories.map((category) => (
-              <Button theme="secondary" shape="tag" key={category}>
-                <Text size="xs" weight="bold" color="main">
-                  {category}
-                </Text>
-              </Button>
-            ))}
+            <Button theme="secondary" shape="tag" key={props.categories[0]}>
+              <Text size="xs" weight="bold" color="main">
+                {props.categories[0]}
+              </Text>
+            </Button>
           </div>
           <h1 className="text-[16px] font-bold pt-2 whitespace-nowrap overflow-hidden text-ellipsis">
             {props.title}

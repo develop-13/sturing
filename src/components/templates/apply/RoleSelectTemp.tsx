@@ -30,6 +30,7 @@ function RoleSelectTemp(props: TRoleSelectTemp) {
         스터디에 지원글을 작성해 주세요
       </Text>
       <RoleSetter
+        type="writable"
         handleSetRole={handleSetRole}
         intro="개설자가 원하는 역할 목록이에요"
         selectedRoles={props.state.desiredRole}

@@ -32,12 +32,14 @@ function ApplyText(props: TApplyText) {
         스터디에 지원글을 작성해 주세요
       </Text>
       <TitleSetter
+        type="writable"
         text={props.state.applicationTitle}
         placeholder="스터디 모집자에게 나를 어필할 수 있는 한 마디"
         handleSetInputText={handleSetInputText}
         intro={"스터디 지원글 제목"}
       />
       <TextSetter
+        type="writable"
         intro="나의 각오"
         placeholder="지원글을 입력해 주세요(ex-나의 성격, 장점, 지원동기)"
         description={props.state.commitment}

@@ -4,14 +4,25 @@ import React from "react";
 import { roleData } from "@/db/roles";
 import { TRoleText } from "@/types/common";
 
-type TRoleSetter = {
+type TWritable = {
+  type: "writable";
   intro: string;
   selectedRoles: TRoleText[];
   handleSetRole: (selectedRole: TRoleText) => void;
 };
 
+type TReadOnly = {
+  type: "readOnly";
+  intro: string;
+  selectedRoles: TRoleText[];
+};
+
+type TRoleSetter = TWritable | TReadOnly;
+
 function RoleSetter(props: TRoleSetter) {
-  const { intro, selectedRoles, handleSetRole } = props;
+  const { intro, selectedRoles } = props;
+  const isWritable = props.type === "writable";
+
   return (
     <div className="flex flex-col gap-[13px]">
       <Text>{intro}</Text>
@@ -23,11 +34,14 @@ function RoleSetter(props: TRoleSetter) {
             theme="ordinary"
             className="!p-2 "
             isActive={selectedRoles.includes(el.role)}
-            onClick={() => {
-              handleSetRole(el.role);
-            }}
+            onClick={
+              isWritable
+                ? () => {
+                    props.handleSetRole(el.role);
+                  }
+                : undefined
+            }
           >
-            {" "}
             <div>
               <Text size="xs" weight="bold">
                 {el.title}

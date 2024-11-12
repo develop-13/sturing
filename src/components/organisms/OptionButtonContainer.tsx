@@ -5,7 +5,7 @@ import { levelData } from "@/db/levels";
 import { TLevel } from "@/types/common";
 
 type TOptionButtonContainer = {
-  categoryLevel?: TLevel | "";
+  level?: TLevel | null;
   onClick: (dataId: TLevel) => () => void;
 };
 
@@ -33,7 +33,7 @@ function OptionButtonContainer(props: TOptionButtonContainer) {
             shape: "bar",
             extraCss: "!justify-start ",
             onClick: props.onClick(data.level),
-            isActive: data.level === props.categoryLevel,
+            isActive: data.level === props.level,
           }}
         >
           {renderBtnContent(data.level, data.text)}

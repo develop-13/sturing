@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Apply from "./Apply";
 
 const UserSchema = new mongoose.Schema(
   {
@@ -36,12 +37,18 @@ const UserSchema = new mongoose.Schema(
       required: false, // matchingInfo itself is optional
     },
     recentQueries: [String],
-    recentViewedStudies: [String],
-    study_in_participants: [String],
-    schedules: [String],
-    watchList: [String],
-    Accepted_applies: [String],
-    applies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Apply" }],
+    recentViewedStudies: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "Study" },
+    ],
+    study_in_participants: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "Study" },
+    ],
+    schedules: [{ type: mongoose.Schema.Types.ObjectId, ref: "Schedules" }],
+    watchList: [{ type: mongoose.Schema.Types.ObjectId, ref: "Study" }],
+    accepted_applies: [
+      { type: mongoose.Schema.Types.ObjectId, ref: Apply.modelName },
+    ],
+    applies: [{ type: mongoose.Schema.Types.ObjectId, ref: Apply.modelName }],
   },
   { minimize: false, strict: false }
 );

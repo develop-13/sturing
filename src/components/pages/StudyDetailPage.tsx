@@ -8,7 +8,7 @@ import Text from "../atoms/Text";
 import Button from "../molecules/Button";
 import StudyOverviewItem from "../molecules/StudyOverviewItem";
 import { TabButtonGroup } from "../organisms/ButtonGroup";
-import InfoBox from "../organisms/InfoBox";
+import InfoBox from "../organisms/infoBox/InfoBox";
 import StudyOverview from "../organisms/StudyOverview";
 import Header from "../organisms/Header";
 import { TStudyDetail } from "@/types/study";
@@ -20,7 +20,6 @@ import Link from "next/link";
 const buttonGroupData = ["info", "member"];
 
 function studyInfoPage() {
-  // console.log(`studyInfoPage render!`);
   const router = useRouter();
   const params = useParams<{ sid: string }>();
   const [selectedIdx, setSelected] = useState(0);
@@ -33,9 +32,6 @@ function studyInfoPage() {
     info: useRef<HTMLDivElement>(null),
     member: useRef<HTMLDivElement>(null),
   };
-
-  // console.log(boxRef.info.current);
-  // console.log(boxRef.member.current);
 
   useEffect(() => {
     // 스터디를 가져옴
@@ -80,6 +76,7 @@ function studyInfoPage() {
     <div className="bg-gray-100">
       <Header
         position="absolute"
+        className="px-4"
         leftSlot={
           <Icon
             type="BACK"
@@ -119,9 +116,7 @@ function studyInfoPage() {
           <StudyOverviewItem
             icon={<Icon type="DATE_COLOR" />}
             name="일정"
-            content={
-              studyInfo?.dayOfWeek + "요일" + " " + studyInfo?.time.startTime
-            }
+            content={studyInfo?.dayOfWeek + " " + studyInfo?.time.startTime}
           />
           <StudyOverviewItem
             icon={<Icon type="CHECKBOX_COLOR" />}
@@ -135,6 +130,7 @@ function studyInfoPage() {
           />
         </ul>
         <InfoBox
+          id="info"
           theme="white"
           getInfoBoxTop={getInfoBoxTop(setStudyInfoBoxTop)}
           ref={boxRef.info}
@@ -169,18 +165,19 @@ function studyInfoPage() {
             {studyInfo?.title}
           </Text>
         </InfoBox>
-        <InfoBox theme="white">
+
+        <InfoBox theme="white" id="atmosphere">
           <Text size="sm" weight="bold">
             해당 스터디의 분위기
           </Text>
           <Divider type="row" />
-          <div className="flex gap-[6px]">
+          <div className="flex gap-[6px] flex-wrap">
             {studyInfo?.atmospheres.map((atmosphere, idx) => (
               <ButtonLabel
                 key={uuidv4()}
                 datas={{
                   theme: "secondary",
-                  icon: <Icon type={atmosphere} />,
+                  icon: <Icon type={atmosphere} height={16} width={16} />,
                   text: atmosphere,
                   usage: "listItem",
                 }}
@@ -190,6 +187,7 @@ function studyInfoPage() {
         </InfoBox>
         <InfoBox
           theme="white"
+          id="member"
           getInfoBoxTop={getInfoBoxTop(setMemberInfoBoxTop)}
           ref={boxRef.member}
         >
@@ -205,7 +203,7 @@ function studyInfoPage() {
                   datas={{
                     theme: "secondary",
                     usage: "listItem",
-                    text: String(age),
+                    text: Math.floor(Number(age) / 10) * 10 + "대",
                   }}
                 />
               ))}
@@ -234,7 +232,7 @@ function studyInfoPage() {
               ))}
           </div>
         </InfoBox>
-        <InfoBox theme="white">
+        <InfoBox theme="white" id="profile">
           <div className="flex gap-[8px]">
             <Text size="sm" weight="bold">
               팀원 프로필
@@ -265,7 +263,12 @@ function studyInfoPage() {
           </div>
         </InfoBox>
 
-        <Link href={`/apply/${params.sid}`}>스터디 이동</Link>
+        {/* <Link href={`/apply/${params.sid}`}>스터디 이동</Link> */}
+        <Link href={`/apply/${params.sid}`} className="h-[48px]">
+          <Button shape="full" theme="primary">
+            <Text weight="bold">스터디 참여하기</Text>
+          </Button>
+        </Link>
       </section>
     </div>
   );

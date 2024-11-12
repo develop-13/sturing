@@ -23,7 +23,7 @@ function IconLabelButton({ datas }: { datas: TButtonLabel }) {
 
   let btnTheme: undefined | TBoxColorTheme = datas.theme;
   let btnShape: undefined | TBoxShape = datas.shape;
-  let defaultBtnStyle = "inline shrink-0 font-bold text-sm ";
+  let defaultBtnStyle = "inline shrink-0 font-bold text-xs ";
 
   switch (datas.usage) {
     case "gridItem":

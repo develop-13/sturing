@@ -1,26 +1,43 @@
+import { twMerge } from "tailwind-merge";
+
 type TCol = {
   type: "col";
   mx?: number;
-  color?: "gray-100" | "gray-400" | "gray-300";
+  color?: "bg-gray-100" | "bg-gray-400" | "bg-gray-300";
+  classname?: string;
 };
 
 type TRow = {
   type: "row";
   my?: number;
   py?: number;
-  color?: "gray-100" | "gray-400" | "gray-300";
+  color?: "bg-gray-100" | "bg-gray-400" | "bg-gray-300";
+  classname?: string;
 };
 
 type TDivider = TCol | TRow;
 
 function Divider(props: TDivider) {
+  let className = "";
+
   switch (props.type) {
     case "col":
-      return <div className="relative divider before:bg-gray-400 mx-3 "></div>;
-    case "row":
+      className = twMerge(
+        "relative divider before:bg-gray-400 mx-2",
+        props.color,
+        props.classname
+      );
       return (
         <div
-          className={"h-[1px] bg-gray-500 "}
+          className={className}
+          style={{ margin: `${0}px ${props.mx}px` }}
+        ></div>
+      );
+    case "row":
+      className = twMerge("h-[1px] " + props.color + " " + props.classname);
+      return (
+        <div
+          className={className}
           style={{
             margin: `${props.my || 2}px 0`,
             padding: `${props.py || 1}px 0`,
