@@ -36,9 +36,12 @@ function ApplyPage() {
     <ApplyComplete
       state={applyData}
       userEmail={session?.user.email || ""}
-      name={session?.user.name || ""}
+      userName={session?.user.name || ""}
     />,
   ];
+
+  console.log(`email=${session?.user.email}`);
+  console.log(`name=${session?.user.name}`);
 
   const goNextStep = () => {
     // 두 번 클릭 시, 전전 주소로 요청되는 문제

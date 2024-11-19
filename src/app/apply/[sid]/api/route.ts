@@ -13,7 +13,7 @@ export async function POST(
   await dbConnect(); // MongoDB 연결
 
   try {
-    console.log(req.url);
+    // console.log(req.url);
 
     const { applyInfo, userEmail, userName } = await req.json();
     const studyId = context.params.sid; // URL 경로 파라미터에서 studyId 가져옴
@@ -26,19 +26,22 @@ export async function POST(
         { status: 400 }
       );
     }
-    console.log("applyInfo");
-    console.log(applyInfo);
+    // console.log("applyInfo");
+    // console.log(applyInfo);
 
-    console.log("userEmail");
-    console.log(userEmail);
+    // console.log("userEmail");
+    // console.log(userEmail);
+
+    // console.log("userName");
+    // console.log(userName);
 
     // console.log("searchParams");
     // console.log(searchParams);
 
     // const studyId = searchParams.get("sid") || "";
 
-    console.log("studyId");
-    console.log(studyId);
+    // console.log("studyId");
+    // console.log(studyId);
 
     // `userEmail`로 사용자 찾기
     const user = await User.findOne({ email: userEmail });

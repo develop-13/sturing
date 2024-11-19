@@ -10,26 +10,6 @@ import { Readable } from "stream";
 import dbConnect from "@/lib/mongodb";
 import Study from "@/models/Study";
 
-// Multer 설정
-
-// 비동기 스트림 파이프라인
-const pump = promisify(pipeline);
-
-// Web ReadableStream을 Node.js Readable로 변환하는 함수
-function toNodeReadable(webStream: ReadableStream<Uint8Array>) {
-  const reader = webStream.getReader();
-  return new Readable({
-    async read() {
-      const { done, value } = await reader.read();
-      if (done) {
-        this.push(null);
-      } else {
-        this.push(Buffer.from(value));
-      }
-    },
-  });
-}
-
 export async function POST(req: NextRequest) {
   try {
     // MongoDB 연결

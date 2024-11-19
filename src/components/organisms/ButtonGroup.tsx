@@ -32,8 +32,8 @@ export function TabButtonGroup(props: TTabProps) {
   let commonStyle = "flex-grow basis-0 h-full ";
   let selectedStyle = commonStyle + "border-b-2 border-mainColor";
 
-  console.log("TabButtonGroup render!");
-  console.log(props.buttonGroupData);
+  // console.log("TabButtonGroup render!");
+  // console.log(props.buttonGroupData);
 
   return (
     <div className="h-[46px] bg-transparent border-b border-gray-300 flex gap-4 justify-between items-center  ">

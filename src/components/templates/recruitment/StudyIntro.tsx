@@ -73,6 +73,7 @@ function StudyIntro({
       <ImageSetter handleSetImage={handleSetImage} imgSrc={state.imgSrc} />
       {/*  */}
       <TitleSetter
+        type="writable"
         text={state.title}
         placeholder="내 스터디를 돋보이게 하는 한마디 (최소 5자 이상)"
         handleSetInputText={handleSetInputText}
@@ -83,6 +84,7 @@ function StudyIntro({
         handleSetCategory={handleSetCategory}
       />
       <TextSetter
+        type="writable"
         intro="자기 소개"
         placeholder="소개글을 입력해 주세요 (최소 20자 필수)"
         description={state.description}

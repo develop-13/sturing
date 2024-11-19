@@ -2,6 +2,7 @@ import { TRoleText } from "./common";
 
 export type TApply = {
   _id: string;
+  studyId: string;
   userEmail: string;
   userName: string;
   title: string;

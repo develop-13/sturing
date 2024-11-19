@@ -5,6 +5,7 @@ import JoinedStudyViewer from "@/components/templates/mystudy/studyListViewer/Jo
 import WaitingAppliesViewer from "@/components/templates/mystudy/studyListViewer/WaitingAppliesViewer";
 import AcceptedAppliesViewer from "@/components/templates/mystudy/studyListViewer/AcceptedAppliesViewer";
 import FinishedStudiesViewer from "@/components/templates/mystudy/studyListViewer/FinishedStudiesViewer";
+import { TApply } from "@/types/apply";
 
 type TStudyList = {
   userEmail?: string;
@@ -29,6 +30,7 @@ type TUserStudyDataList = {
 // 타입 단언을 통해 인덱스 타입 오류 해결
 
 const renderListViewer = (
+  handleDeleteSuccess: (deletedId: string) => void,
   userStudyDataList: TUserStudyDataList,
   selectedKey: keyof typeof myStudyDataMap
 ): React.ReactNode => {
@@ -43,6 +45,7 @@ const renderListViewer = (
     case "대기":
       return (
         <WaitingAppliesViewer
+          handleDeleteSuccess={handleDeleteSuccess}
           applyData={userStudyDataList[myStudyDataMap[selectedKey]]}
         />
       );
@@ -71,6 +74,19 @@ function StudyList(props: TStudyList) {
     wating_applies: [], // 내가 지원한 지원서들,
     myStudiesDone: [], // 내가 참여한 스터디인데 이미 활동기간이 끝난 스터디들
   });
+
+  const handleDeleteSuccess = (deletedId: string) => {
+    // Apply 리스트에서 삭제된 지원 제거
+    const updatedWating_applies = userStudyDataList.wating_applies.filter(
+      (apply: TApply) => apply._id != deletedId
+    );
+
+    console.log("상위 컴포넌트가 업데이트 되어야 하는데?");
+    setUserStudyDataList((prevState) => ({
+      ...prevState,
+      wating_applies: updatedWating_applies,
+    }));
+  };
 
   useEffect(() => {
     // 유저 관련 스터디 가져오는 로직
@@ -109,7 +125,7 @@ function StudyList(props: TStudyList) {
           setSelectedIdx(idx);
         }}
       />
-      {renderListViewer(userStudyDataList, selectedKey)}
+      {renderListViewer(handleDeleteSuccess, userStudyDataList, selectedKey)}
     </div>
   );
 }

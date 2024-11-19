@@ -14,18 +14,27 @@ import ApplyReadOnly from "@/components/templates/mystudy/ApplyReadOnly";
 type TAcceptedAppliesViewer = { applyData: TApply[] };
 
 function AcceptedAppliesViewer(props: TAcceptedAppliesViewer) {
-  // const [currentApply, setCurrentApply] = useState({
-  //   visible: false,
-  //   data: null,
-  // });
+  if (!props.applyData.length) {
+    return (
+      <div className="w-full h-[300px] flex items-center justify-center">
+        <Text weight="bold" color="gray-600">
+          현재 받은 지원이 없습니다..
+        </Text>
+      </div>
+    );
+  }
 
-  const [currentApply, setCurrentApply] = useState(null);
+  const [currentApply, setCurrentApply] = useState<null | TApply>(null);
 
   console.log(currentApply);
 
   const showCurrentApply = (_id: string) => {
     const clickedApply = props.applyData.find((data) => data._id === _id);
-    setCurrentApply(clickedApply);
+    if (clickedApply) {
+      setCurrentApply(clickedApply);
+    } else {
+      alert("해당 지원 데이터가 없쓰요~");
+    }
   };
 
   const closeCurrentApply = () => {
@@ -120,7 +129,11 @@ function AcceptedAppliesViewer(props: TAcceptedAppliesViewer) {
         rootLayout.current &&
         createPortal(
           <div className="w-[375px] h-full fixed top-0 z-50 flex items-center bg-black bg-opacity-70">
-            <ApplyReadOnly ref={applyModalRef} applyData={currentApply} />
+            <ApplyReadOnly
+              type="accepted_applies"
+              ref={applyModalRef}
+              applyId={currentApply._id}
+            />
           </div>,
           rootLayout.current // useRef로 관리된 rootLayout 참조
         )}

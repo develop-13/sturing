@@ -5,11 +5,11 @@ import { useParams } from "next/navigation";
 
 type TApplyComplete = {
   userEmail: string;
-  name: string;
+  userName: string;
   state: TApplyState;
 };
 
-function ApplyComplete({ userEmail, state }: TApplyComplete) {
+function ApplyComplete({ userEmail, state, userName }: TApplyComplete) {
   const params = useParams();
   const { sid } = params;
 
@@ -30,7 +30,7 @@ function ApplyComplete({ userEmail, state }: TApplyComplete) {
           body: JSON.stringify({
             applyInfo: state, // TApplyState 타입의 객체
             userEmail: userEmail, // 유저 이메일
-            userName: name,
+            userName: userName,
           }),
         });
 
