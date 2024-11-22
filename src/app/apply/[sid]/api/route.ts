@@ -15,7 +15,7 @@ export async function POST(
   try {
     // console.log(req.url);
 
-    const { applyInfo, userEmail, userName } = await req.json();
+    const { applyInfo, userEmail } = await req.json();
     const studyId = context.params.sid; // URL 경로 파라미터에서 studyId 가져옴
 
     const studyObjectId = new mongoose.Types.ObjectId(studyId);
@@ -26,22 +26,6 @@ export async function POST(
         { status: 400 }
       );
     }
-    // console.log("applyInfo");
-    // console.log(applyInfo);
-
-    // console.log("userEmail");
-    // console.log(userEmail);
-
-    // console.log("userName");
-    // console.log(userName);
-
-    // console.log("searchParams");
-    // console.log(searchParams);
-
-    // const studyId = searchParams.get("sid") || "";
-
-    // console.log("studyId");
-    // console.log(studyId);
 
     // `userEmail`로 사용자 찾기
     const user = await User.findOne({ email: userEmail });
@@ -58,9 +42,9 @@ export async function POST(
     // Apply 문서 생성 후 저장
     const newApply = new Apply({
       userEmail: userEmail,
-      userName: userName,
-      applicantNickname: user.name,
-      applicantImgSrc: user.imgSrc,
+      userName: user.name,
+      // applicantNickname: user.name,
+      applicantImgSrc: user.imgSrc || "/img/profile/defaultProfileImage.png",
       studyId: study._id,
       title: applyInfo.applicationTitle,
       content: applyInfo.commitment,

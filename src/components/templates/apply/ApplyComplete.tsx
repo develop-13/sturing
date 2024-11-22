@@ -5,11 +5,17 @@ import { useParams } from "next/navigation";
 
 type TApplyComplete = {
   userEmail: string;
-  userName: string;
+  // userName: string;
+  // applicantImgSrc: string;
   state: TApplyState;
 };
 
-function ApplyComplete({ userEmail, state, userName }: TApplyComplete) {
+function ApplyComplete({
+  userEmail,
+  state,
+}: // userName,
+// applicantImgSrc,
+TApplyComplete) {
   const params = useParams();
   const { sid } = params;
 
@@ -28,9 +34,10 @@ function ApplyComplete({ userEmail, state, userName }: TApplyComplete) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            // applicantImgSrc: applicantImgSrc,
             applyInfo: state, // TApplyState 타입의 객체
             userEmail: userEmail, // 유저 이메일
-            userName: userName,
+            // userName: userName,
           }),
         });
 

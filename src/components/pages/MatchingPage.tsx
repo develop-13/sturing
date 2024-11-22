@@ -219,8 +219,11 @@ function MatchingPage() {
   };
 
   return (
-    <div className="px-[16px] h-auto flex flex-col">
-      <Header leftSlot={<Icon type="BACK" onClick={() => router.back()} />} />
+    <div className="h-auto flex flex-col">
+      <Header
+        leftSlot={<Icon type="BACK" onClick={() => router.back()} />}
+        className="px-4"
+      />
       {step < steps.length - 1 && ( // 마지막 페이지에는 안 보이게
         <Progressbar currentPage={step} totalPage={steps.length - 1} />
       )}

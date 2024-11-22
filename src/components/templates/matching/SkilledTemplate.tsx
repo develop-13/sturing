@@ -40,7 +40,7 @@ function SkilledTemplate(props: TSkilledTemplate) {
         />
         <div className="py-[16px] flex flex-col gap-[14px]">
           <OptionButtonContainer
-            categoryLevel={categoryLevel}
+            level={categoryLevel}
             onClick={onClickButtonContainer}
           />
         </div>

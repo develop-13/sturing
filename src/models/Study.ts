@@ -106,7 +106,13 @@ const StudySchema: Schema = new Schema(
     ],
     status: { type: String, required: true },
     studyPlacePreference: [{ type: String }],
-    currentMembers: [{ type: String }], // userId 배열
+    currentMembers: [
+      {
+        userEmail: { type: String, required: true },
+        applicantImgSrc: { type: String, required: true },
+        desiredRole: { type: String, required: true },
+      },
+    ],
     maxMembersNum: { type: Number, required: true },
     necessaryRoles: [
       {

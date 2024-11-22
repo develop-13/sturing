@@ -20,6 +20,6 @@ export type TApply = {
   studyTitle: string; // 스터디 제목
 
   // 새롭게 추가된 필드
-  applicantNickname?: string; // 지원자 닉네임
+  // applicantNickname?: string; // 지원자 닉네임
   applicantImgSrc?: string; // 지원자 이미지
 };

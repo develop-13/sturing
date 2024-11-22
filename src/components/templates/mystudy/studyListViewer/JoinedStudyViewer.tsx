@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 
-type TOngoingStudyViwer = {
-  studyData: any[];
-};
-
-function JoinedStudyViewer(props: TOngoingStudyViwer) {
-  const [currentStudy, setCurrentStudy] = useState("ongoing");
-
+function JoinedStudyViewer() {
   return <div>OngoingStudyTemplate</div>;
 }
 

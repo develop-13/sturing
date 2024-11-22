@@ -7,14 +7,13 @@ import { TApply } from "@/types/apply"; // TApply 타입을 임포트
 import Study from "@/models/Study";
 
 export async function GET(request: NextRequest) {
-  console.log("API called");
+  console.log("API GET called");
   await dbConnect();
 
   const { searchParams } = new URL(request.url);
   const userEmail = searchParams.get("userEmail");
+  const type = searchParams.get("type");
   const applyId = searchParams.get("applyId");
-  console.log(`userEmail=${userEmail}`);
-  console.log(`applyId=${applyId}`);
 
   try {
     // Apply 도큐먼트 조회 (applyId가 존재하는 경우)
@@ -22,26 +21,24 @@ export async function GET(request: NextRequest) {
       return await fetchApplyById(applyId);
     }
 
-    // User 도큐먼트 조회 (applyId가 없는 경우)
-    if (userEmail) {
-      return await fetchUserStudies(userEmail);
+    // User 도큐먼트 조회 (type과 userEmail이 존재하는 경우)
+    if (userEmail && type) {
+      return await fetchUserDataByType(userEmail, type);
     }
 
-    // userEmail이나 applyId가 없는 경우
+    // 적합한 파라미터가 없는 경우
     return NextResponse.json(
-      { message: "User email or Apply ID is required" },
+      { message: "Invalid request: Missing parameters" },
       { status: 400 }
     );
   } catch (error) {
-    console.error("Error fetching data:", error);
+    console.error("Error handling GET request:", error);
     return NextResponse.json({ message: "Server error" }, { status: 500 });
   }
 }
 
 // Apply 도큐먼트 조회 함수
 async function fetchApplyById(applyId: string) {
-  console.log("fetchApplyById called!");
-
   if (!mongoose.Types.ObjectId.isValid(applyId)) {
     return NextResponse.json(
       { message: "Invalid Apply ID format" },
@@ -60,44 +57,56 @@ async function fetchApplyById(applyId: string) {
   return NextResponse.json(applyData, { status: 200 });
 }
 
-// User 도큐먼트 조회 함수
-async function fetchUserStudies(userEmail: string) {
-  console.log("fetchUserStudies called!");
-  const user = await User.findOne({ email: userEmail })
-    .populate({
-      path: "study_in_participants",
-      select:
-        "title status categories maxMembersNum currentMembers startDate endDate",
-    })
-    .populate({
-      path: "applies",
-    })
-    .populate({
-      path: "accepted_applies",
-    });
+// User 데이터 조회 함수
+async function fetchUserDataByType(userEmail: string, type: string) {
+  const user = await User.findOne({ email: userEmail });
 
   if (!user) {
     return NextResponse.json({ message: "User not found" }, { status: 404 });
   }
 
-  // 반환할 데이터 객체
-  const responseData = {
-    studies: {
-      active: user.study_in_participants.filter(
-        (study: any) =>
-          study.status === "recruiting" || study.status === "in progress"
-      ),
-      completed: user.study_in_participants.filter(
-        (study: any) => study.status === "completed"
-      ),
-    },
-    acceptedApplies: user.accepted_applies,
-    pendingApplies: user.applies,
-  };
+  switch (type) {
+    case "joinedStudy":
+      return NextResponse.json(user.study_in_participants, { status: 200 });
 
-  return NextResponse.json(responseData, { status: 200 });
+    case "accepted_applies": {
+      // Populate applies to include all fields of the Apply document
+      const populatedUser = await User.findOne({ email: userEmail }).populate({
+        path: "accepted_applies",
+      });
+
+      if (!populatedUser) {
+        return NextResponse.json(
+          { message: "User not found" },
+          { status: 404 }
+        );
+      }
+
+      return NextResponse.json(populatedUser.accepted_applies, { status: 200 });
+    }
+    case "applies": {
+      // Populate applies to include all fields of the Apply document
+      const populatedUser = await User.findOne({ email: userEmail }).populate({
+        path: "applies",
+      });
+
+      if (!populatedUser) {
+        return NextResponse.json(
+          { message: "User not found" },
+          { status: 404 }
+        );
+      }
+
+      return NextResponse.json(populatedUser.applies, { status: 200 });
+    }
+
+    default:
+      return NextResponse.json(
+        { message: "Invalid type parameter" },
+        { status: 400 }
+      );
+  }
 }
-
 // Apply 도큐먼트를 업데이트하는 POST 핸들러
 export async function POST(request: NextRequest) {
   await dbConnect();
@@ -107,7 +116,14 @@ export async function POST(request: NextRequest) {
 
     // 요청 본문에서 TApply 객체를 파싱
     const applyUpdateData: TApply = await request.json();
-    const { _id, userEmail, studyId, ...updateData } = applyUpdateData;
+    const {
+      _id,
+      userEmail,
+      studyId,
+      applicantImgSrc,
+      desiredRole,
+      ...updateData
+    } = applyUpdateData;
 
     // _id 및 studyId의 유효성 검사
     if (!_id || !mongoose.Types.ObjectId.isValid(_id) || !studyId) {
@@ -117,12 +133,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    updateData.status = "accepted";
+    applyUpdateData.status = "accepted";
 
     // Apply 도큐먼트 찾고 업데이트
     const updatedApply = await Apply.findByIdAndUpdate(
       new mongoose.Types.ObjectId(_id),
-      updateData,
+      applyUpdateData,
       { new: true }
     );
 
@@ -142,9 +158,7 @@ export async function POST(request: NextRequest) {
     }
 
     // applies 배열에서 해당 지원 도큐먼트 제거
-    // _id를 ObjectId로 변환하여 비교
     const applyObjectId = new mongoose.Types.ObjectId(_id);
-
     user.applies = user.applies.filter(
       (applyId: mongoose.Types.ObjectId) => !applyId.equals(applyObjectId)
     );
@@ -162,9 +176,30 @@ export async function POST(request: NextRequest) {
     user.study_in_participants.push(study._id);
     await user.save();
 
+    // Study 도큐먼트의 currentMembers 필드에 { userEmail, applicantImgSrc, desiredRole } 추가
+    const newMember = {
+      userEmail,
+      applicantImgSrc,
+      desiredRole: desiredRole[0],
+    };
+    const isMemberAlreadyAdded = study.currentMembers.some(
+      (member: any) =>
+        member.userEmail === userEmail &&
+        member.applicantImgSrc === applicantImgSrc &&
+        JSON.stringify(member.desiredRole) === JSON.stringify(desiredRole)
+    );
+
+    if (!isMemberAlreadyAdded) {
+      study.currentMembers.push(newMember);
+      await study.save();
+    }
+
+    console.log("User added to Study currentMembers!");
+
     return NextResponse.json(
       {
-        message: "Apply updated successfully and user document modified",
+        message:
+          "Apply updated successfully, user and study documents modified",
         updatedApply,
       },
       { status: 200 }

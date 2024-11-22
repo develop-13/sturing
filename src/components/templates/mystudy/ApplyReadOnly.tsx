@@ -28,7 +28,7 @@ const ApplyReadOnly = forwardRef<HTMLDivElement, TApplyReadOnly>(
       try {
         setIsSendingReq(true);
         const response = await fetch(
-          `/mystudy/api/userDatas?applyId=${currentApply?._id}`,
+          `/mystudy/api?applyId=${currentApply?._id}`,
           {
             method: "POST",
             headers: {
@@ -145,9 +145,7 @@ const ApplyReadOnly = forwardRef<HTMLDivElement, TApplyReadOnly>(
         console.log("getApplyData called!");
         try {
           // _id에 해당하는 Apply를 가져옴
-          const response = await fetch(
-            `/mystudy/api/userDatas?applyId=${props.applyId}`
-          );
+          const response = await fetch(`/mystudy/api?applyId=${props.applyId}`);
 
           if (!response.ok) {
             throw new Error("Failed to fetch apply data");

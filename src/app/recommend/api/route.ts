@@ -58,43 +58,52 @@ export async function GET(request: Request, res: NextResponse) {
   return NextResponse.json({ message: "invalid req" }, { status: 400 });
 }
 
-export async function POST(req: Request) {
-  await dbConnect();
+// export async function POST(req: Request) {
+//   // 여기는 뭐하는 핸들러 였더라..
+//   await dbConnect();
 
-  const session = await getServerSession(); // 세션 정보 가져오기
-  if (!session?.user) {
-    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-  }
+//   const session = await getServerSession(); // 세션 정보 가져오기
+//   if (!session?.user) {
+//     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+//   }
 
-  const userEmail = session.user.email;
-  const userName = session.user.name;
+//   const userEmail = session.user.email;
+//   const userName = session.user.name;
+//   const userImg = session.user.image || "/img/profile/defaultProfileImage.png";
 
-  try {
-    let existingUser = await User.findOne({ email: userEmail });
+//   console.log("userImg in recommend router!");
+//   console.log(userImg);
 
-    if (!existingUser) {
-      // DB에 사용자 정보가 없으면 생성
-      existingUser = await User.create({
-        email: userEmail,
-        name: userName,
-        matchingInfo: null,
-        recentQueries: [],
-        recentViewedStudies: [],
-        study_in_participants: [],
-        schedules: [],
-        watchList: [],
-        Accepted_applies: [],
-        applies: [],
-      });
-    }
+//   try {
+//     let existingUser = await User.findOne({ email: userEmail });
 
-    // 매칭 정보가 있는지 확인
+//     if (!existingUser) {
+//       // DB에 사용자 정보가 없으면 생성
+//       existingUser = await User.create({
+//         email: userEmail,
+//         name: userName,
+//         imgSrc: userImg,
+//         matchingInfo: null,
+//         recentQueries: [],
+//         recentViewedStudies: [],
+//         study_in_participants: [],
+//         schedules: [],
+//         watchList: [],
+//         Accepted_applies: [],
+//         applies: [],
+//       });
 
-    return NextResponse.json({ status: 200 });
-  } catch (error) {
-    return NextResponse.json(
-      { error: "Failed to handle user document" },
-      { status: 500 }
-    );
-  }
-}
+//       console.log("existingUser");
+//       console.log(existingUser);
+//     }
+
+//     // 매칭 정보가 있는지 확인
+
+//     return NextResponse.json({ status: 200 });
+//   } catch (error) {
+//     return NextResponse.json(
+//       { error: "Failed to handle user document" },
+//       { status: 500 }
+//     );
+//   }
+// }

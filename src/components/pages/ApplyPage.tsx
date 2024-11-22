@@ -18,7 +18,7 @@ import { UserStatusContext } from "../organisms/auth-components/UserStatusProvid
 function ApplyPage() {
   const router = useRouter();
 
-  const { session, handleHasMatchingInfo } = useContext(UserStatusContext);
+  const { session } = useContext(UserStatusContext);
 
   const [applyData, dispatch] = useReducer(ApplyReducer, initialState);
 
@@ -36,7 +36,10 @@ function ApplyPage() {
     <ApplyComplete
       state={applyData}
       userEmail={session?.user.email || ""}
-      userName={session?.user.name || ""}
+      // userName={session?.user.name || ""}
+      // applicantImgSrc={
+      //   session?.user.image || "/img/profile/defaultProfileImage.png"
+      // }
     />,
   ];
 

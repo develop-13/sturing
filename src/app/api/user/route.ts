@@ -46,7 +46,7 @@ export async function POST(request: Request) {
   // const userEmail = searchParams.get("userEmail");
   // const userName = searchParams.get("userName");
 
-  const { userEmail, userName } = await request.json();
+  const { userEmail, userName, userImg } = await request.json();
 
   if (!userEmail || !userName) {
     return Response.json(
@@ -64,6 +64,7 @@ export async function POST(request: Request) {
       existingUser = await User.create({
         email: userEmail,
         name: userName,
+        imgSrc: userImg || "/img/profile/defaultProfileImage.png",
         matchingInfo: null,
         recentQueries: [],
         recentViewedStudies: [],

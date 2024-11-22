@@ -54,6 +54,7 @@ export const UserStatusProvider = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          userImg: session?.user.image,
           userEmail: session?.user.email,
           userName: session?.user.name,
         }),
