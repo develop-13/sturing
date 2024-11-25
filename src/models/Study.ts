@@ -106,11 +106,27 @@ const StudySchema: Schema = new Schema(
     ],
     status: { type: String, required: true },
     studyPlacePreference: [{ type: String }],
+    // currentMembers: [
+    //   {
+    //     userEmail: { type: String, required: true },
+    //     applicantImgSrc: { type: String, required: true },
+    //     desiredRole: { type: String, required: true },
+    //   },
+    // ],
     currentMembers: [
       {
         userEmail: { type: String, required: true },
+        userName: { type: String, required: true },
         applicantImgSrc: { type: String, required: true },
-        desiredRole: { type: String, required: true },
+        role: { type: String, required: true },
+        attendance: { type: Boolean, default: false }, // 당일 출석 여부
+        checkList: [
+          {
+            date: { type: Date, required: false }, // 날짜
+            done: { type: Boolean, default: false }, // 완료 여부
+            content: { type: String, required: true }, // 체크리스트 내용
+          },
+        ],
       },
     ],
     maxMembersNum: { type: Number, required: true },

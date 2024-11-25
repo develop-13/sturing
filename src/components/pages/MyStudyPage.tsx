@@ -36,10 +36,7 @@ function MyStudyPage() {
       {session?.user.email && (
         <div>
           <UpcomingStudies userEmail={session?.user.email} />
-          <StudyList
-            userEmail={session?.user.email}
-            applicantImgSrc={session?.user.image || "/img/profile/example1.png"}
-          />
+          <StudyList userEmail={session?.user.email} />
         </div>
       )}
     </div>

@@ -34,7 +34,8 @@ function Divider(props: TDivider) {
         ></div>
       );
     case "row":
-      className = twMerge("h-[1px] " + props.color + " " + props.classname);
+      const effectiveColor = props.color || "bg-gray-300";
+      className = twMerge("h-[1px] ", effectiveColor, props.classname);
       return (
         <div
           className={className}

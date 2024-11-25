@@ -11,11 +11,12 @@ import { TabButtonGroup } from "../organisms/ButtonGroup";
 import InfoBox from "../organisms/infoBox/InfoBox";
 import StudyOverview from "../organisms/StudyOverview";
 import Header from "../organisms/Header";
-import { TStudyDetail } from "@/types/study";
+import { TStudyDetail, TStudyMember } from "@/types/study";
 import TitleLink from "../molecules/TitleLink";
 import ButtonLabel from "../molecules/IconLabelButton";
 import UserInfoItem from "../molecules/UserInfoItem";
 import Link from "next/link";
+import getTranslation from "@/utils/getTranslation";
 
 const buttonGroupData = ["info", "member"];
 
@@ -25,27 +26,21 @@ function studyInfoPage() {
   const [selectedIdx, setSelected] = useState(0);
   const [studyInfoBoxTop, setStudyInfoBoxTop] = useState(0);
   const [memberInfoBoxTop, setMemberInfoBoxTop] = useState(0);
-  const [studyInfo, setStudyInfo] = useState<TStudyDetail | undefined>(
-    undefined
-  );
+  const [studyInfo, setStudyInfo] = useState<TStudyDetail | null>(null);
   const boxRef = {
     info: useRef<HTMLDivElement>(null),
     member: useRef<HTMLDivElement>(null),
   };
 
+  console.log(studyInfo);
+
   useEffect(() => {
     // 스터디를 가져옴
-
     async function fetchstudyInfo() {
-      const fetchedStudyInfo = await fetch(
-        `/study/[sid]/api?sid=${params.sid}`
-      ).then((res) => res.json());
-      const { study, userEmailRoleMap } = fetchedStudyInfo;
-      study.currentMembers = userEmailRoleMap;
+      const study = await fetch(`/study/[sid]/api?sid=${params.sid}`).then(
+        (res) => res.json()
+      );
       setStudyInfo(study);
-      console.log(study);
-      console.log("Scroll Height:", document.body.scrollHeight);
-      console.log("Client Height--:", document.documentElement.clientHeight);
     }
 
     fetchstudyInfo();
@@ -56,10 +51,10 @@ function studyInfoPage() {
 
     switch (buttonGroupData[selectedOptionIdx]) {
       case "info":
-        window.scrollTo({ top: memberInfoBoxTop, behavior: "smooth" });
+        window.scrollTo({ top: studyInfoBoxTop, behavior: "smooth" });
         break;
       case "member":
-        window.scrollTo({ top: studyInfoBoxTop, behavior: "smooth" });
+        window.scrollTo({ top: memberInfoBoxTop, behavior: "smooth" });
         break;
     }
   };
@@ -245,25 +240,19 @@ function studyInfoPage() {
           </div>
           <Divider type="row" />
           <div className="flex flex-col gap-2">
-            {/* {studyInfo?.currentMembers &&
-              Object.entries(studyInfo.currentMembers).map(
-                ([key, participant]) => (
-                  <UserInfoItem
-                    key={uuidv4()}
-                    name={participant.name}
-                    role={participant.role}
-                    isCreator={participant.email === studyInfo.creatorEmail}
-                    profileImage={
-                      participant.imgSrc ||
-                      "/img/profile/defaultProfileImage.png"
-                    }
-                  />
-                )
-              )} */}
+            {studyInfo?.currentMembers?.map((member?: TStudyMember) => (
+              <UserInfoItem
+                key={uuidv4()}
+                topText={member?.name || "예명"}
+                bottomText={getTranslation(member?.role)}
+                imgSrc={
+                  member?.applicantImgSrc ||
+                  "/img/profile/defaultProfileImage.png"
+                }
+              />
+            ))}
           </div>
         </InfoBox>
-
-        {/* <Link href={`/apply/${params.sid}`}>스터디 이동</Link> */}
         <Link href={`/apply/${params.sid}`} className="h-[48px]">
           <Button shape="full" theme="primary">
             <Text weight="bold">스터디 참여하기</Text>

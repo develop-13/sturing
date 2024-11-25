@@ -6,6 +6,7 @@ export type TBox = {
   extraCss?: string;
   onClick?: () => void;
   isActive?: boolean;
+  activeClassname?: string;
 };
 
 export type TBoxColorTheme =
@@ -65,15 +66,15 @@ function BoxShape(shape: TBoxShape | undefined) {
   }
 }
 
-let activeClassName = "border-mainColor !bg-main-100 !text-mainColor ";
-
 function Box({ props, children }: { props: TBox; children?: ReactNode }) {
   const theme = BoxTheme(props.theme) || " ";
   const shape = BoxShape(props.shape) || " ";
   let extraCss = props.extraCss || " ";
+  let effectiveActiveClassname =
+    props.activeClassname || " border-mainColor !bg-main-100 !text-mainColor ";
 
   if (props.isActive) {
-    extraCss += activeClassName;
+    extraCss += effectiveActiveClassname;
   }
 
   return (

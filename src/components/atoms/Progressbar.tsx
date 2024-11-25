@@ -21,3 +21,15 @@ function Progressbar({
 }
 
 export default Progressbar;
+
+export function PercentageBar({ percentage }: { percentage: number }) {
+  return (
+    <div className="relative h-2 bg-gray-200 rounded-full">
+      <div className="absolute right-1 bottom-3">{percentage}%</div>
+      <div
+        className="absolute top-0 left-0 h-full bg-blue-500 rounded-full"
+        style={{ width: `${percentage}%` }}
+      ></div>
+    </div>
+  );
+}

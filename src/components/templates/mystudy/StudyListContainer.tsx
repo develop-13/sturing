@@ -5,11 +5,9 @@ import JoinedStudyViewer from "@/components/templates/mystudy/studyListViewer/Jo
 import WaitingAppliesViewer from "@/components/templates/mystudy/studyListViewer/WaitingAppliesViewer";
 import AcceptedAppliesViewer from "@/components/templates/mystudy/studyListViewer/AcceptedAppliesViewer";
 import FinishedStudiesViewer from "@/components/templates/mystudy/studyListViewer/FinishedStudiesViewer";
-import { TApply } from "@/types/apply";
 
 type TStudyList = {
   userEmail?: string;
-  applicantImgSrc: string;
 };
 
 const myStudyTabData = ["진행", "수락", "대기", "종료"] as const;
@@ -22,7 +20,7 @@ const renderListViewer = (
 ): React.ReactNode => {
   switch (selectedKey) {
     case "진행":
-      return <JoinedStudyViewer />;
+      return <JoinedStudyViewer userEmail={userEmail} />;
 
     case "대기":
       return <WaitingAppliesViewer userEmail={userEmail} />;

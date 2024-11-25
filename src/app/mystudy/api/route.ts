@@ -5,6 +5,7 @@ import dbConnect from "@/lib/mongodb";
 import mongoose from "mongoose";
 import { TApply } from "@/types/apply"; // TApply 타입을 임포트
 import Study from "@/models/Study";
+import { TStudy } from "@/types/study";
 
 export async function GET(request: NextRequest) {
   console.log("API GET called");
@@ -47,6 +48,8 @@ async function fetchApplyById(applyId: string) {
   }
 
   const applyData = await Apply.findById(new mongoose.Types.ObjectId(applyId));
+  console.log("applyData");
+  console.log(applyData);
   if (!applyData) {
     return NextResponse.json(
       { message: "Apply document not found" },
@@ -67,7 +70,32 @@ async function fetchUserDataByType(userEmail: string, type: string) {
 
   switch (type) {
     case "joinedStudy":
-      return NextResponse.json(user.study_in_participants, { status: 200 });
+      console.log("getJoinedStudy called");
+      // return NextResponse.json(user.study_in_participants, { status: 200 });
+      const populatedUser = await User.findOne({ email: userEmail }).populate({
+        path: "study_in_participants",
+      });
+
+      if (!populatedUser) {
+        return NextResponse.json(
+          { message: "User not found" },
+          { status: 404 }
+        );
+      }
+
+      const recrutingStudies = populatedUser.study_in_participants.filter(
+        (study: TStudy) => study.status == "recruiting"
+      );
+
+      const onGoingStudies = populatedUser.study_in_participants.filter(
+        (study: TStudy) => study.status == "in progress"
+      );
+
+      const studies = { recrutingStudies, onGoingStudies };
+
+      return NextResponse.json(studies, {
+        status: 200,
+      });
 
     case "accepted_applies": {
       // Populate applies to include all fields of the Apply document
@@ -120,6 +148,7 @@ export async function POST(request: NextRequest) {
       _id,
       userEmail,
       studyId,
+      userName,
       applicantImgSrc,
       desiredRole,
       ...updateData
@@ -130,24 +159,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { message: "Invalid or missing Apply ID or Study ID" },
         { status: 400 }
-      );
-    }
-
-    applyUpdateData.status = "accepted";
-
-    // Apply 도큐먼트 찾고 업데이트
-    const updatedApply = await Apply.findByIdAndUpdate(
-      new mongoose.Types.ObjectId(_id),
-      applyUpdateData,
-      { new: true }
-    );
-
-    console.log("Apply updated!");
-
-    if (!updatedApply) {
-      return NextResponse.json(
-        { message: "Apply document not found" },
-        { status: 404 }
       );
     }
 
@@ -176,14 +187,21 @@ export async function POST(request: NextRequest) {
     user.study_in_participants.push(study._id);
     await user.save();
 
+    console.log("study in participants added!");
+
     // Study 도큐먼트의 currentMembers 필드에 { userEmail, applicantImgSrc, desiredRole } 추가
+    console.log(desiredRole);
     const newMember = {
       userEmail,
       applicantImgSrc,
-      desiredRole: desiredRole[0],
+      userName,
+      role: desiredRole[0],
     };
+    console.log("newMember");
+    console.log(newMember);
     const isMemberAlreadyAdded = study.currentMembers.some(
       (member: any) =>
+        member.userName === userName &&
         member.userEmail === userEmail &&
         member.applicantImgSrc === applicantImgSrc &&
         JSON.stringify(member.desiredRole) === JSON.stringify(desiredRole)
@@ -195,6 +213,24 @@ export async function POST(request: NextRequest) {
     }
 
     console.log("User added to Study currentMembers!");
+
+    applyUpdateData.status = "accepted";
+
+    // Apply 도큐먼트 찾고 업데이트
+    const updatedApply = await Apply.findByIdAndUpdate(
+      new mongoose.Types.ObjectId(_id),
+      applyUpdateData,
+      { new: true }
+    );
+
+    console.log("Apply updated!");
+
+    if (!updatedApply) {
+      return NextResponse.json(
+        { message: "Apply document not found" },
+        { status: 404 }
+      );
+    }
 
     return NextResponse.json(
       {

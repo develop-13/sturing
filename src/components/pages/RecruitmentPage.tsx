@@ -39,9 +39,6 @@ function RecruitmentPage() {
     }
   }, [userEmail]);
 
-  // console.log(session);
-  // console.log(studyData);
-
   // 입력값 업데이트 핸들러
   const handleStateChange = useCallback(
     <K extends keyof TStudyRecruitment>(

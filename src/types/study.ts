@@ -5,8 +5,10 @@ export type TStudy = {
   title: string;
   createdAt: string;
   period: {
-    startDate: Date;
-    endDate: Date;
+    // startDate: Date;
+    startDate: string;
+    // endDate: Date;
+    endDate: string;
   };
   creatorEmail: string;
   time: {
@@ -22,7 +24,7 @@ export type TStudy = {
   status: string; // 진행중이거나 모집중이거나
   studyPlacePreference: string[]; // 모집하려는 팀원의 선호 장소 (오프라인의 경우)
   maxMembersNum: number;
-  currentMembers: string[]; // email이 담김
+  currentMembers: TStudyMember[];
   necessaryRoles: TRoleText[]; // 역할 목록 ex) 팀장, 부팀장
   preferentialAge: number[];
   preferentialLevel?: TLevel; // 모집하는 팀원의 희망 수준 ex) 비기너, 신입 등
@@ -71,6 +73,20 @@ export type TStudy = {
   applyCount: number; // 지원 수
   score: number; // 스터디의 인기도 점수 (자동 계산될 값)
 };
+
+export type TStudyDetail_participating = Pick<
+  TStudy,
+  | "_id"
+  | "type"
+  | "categories"
+  | "title"
+  | "imgSrc"
+  | "period"
+  | "currentMembers"
+  | "schedules"
+  | "tasks"
+  | "board"
+>;
 
 export type TStudyOverview = Pick<
   TStudy,
@@ -127,6 +143,26 @@ export type TStudyDetail = Pick<
   };
 };
 
+export type TCheckListItem = {
+  date: Date; // 체크리스트 항목의 날짜
+  done: boolean; // 체크리스트 항목의 완료 여부
+  content: string; // 체크리스트 항목의 내용
+};
+
+export type TStudyMember = {
+  userEmail: string; // 사용자의 이메일
+  userName: string;
+  applicantImgSrc: string; // 사용자의 이미지 URL
+  role: string; // 사용자의 역할
+  attendance?: boolean; // 당일 출석 여부
+  checkList?: TCheckListItem[]; // 체크리스트 항목들
+};
+// export type TStudyMember = {
+//   name: string;
+//   role: string;
+//   applicantImgSrc: string;
+// };
+
 export type TStudyItem = Pick<
   TStudy,
   | "_id"
@@ -146,8 +182,6 @@ export type TStudyItem = Pick<
 > & {
   imgSrc: string;
 };
-
-export type TStudyDetail_participating = {};
 
 // type TTeamMemberProfile = {
 //   userId: string;

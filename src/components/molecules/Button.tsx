@@ -11,8 +11,11 @@ export default function Button({
   isActive,
   children,
   onClick,
+  activeClassname,
 }: TButton & { children: ReactNode }) {
   return (
-    <Box props={{ theme, shape, extraCss, isActive, onClick }}>{children}</Box>
+    <Box props={{ theme, shape, extraCss, isActive, onClick, activeClassname }}>
+      {children}
+    </Box>
   );
 }

@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const ScheduleSchema = new mongoose.Schema({
+  userEmail: { type: String, required: true },
   studyId: { type: String, required: true },
   date: { type: Date, required: true },
   title: { type: String, required: true },

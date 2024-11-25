@@ -28,6 +28,9 @@ const RoleSchema = new Schema<IRole>(
   }
 );
 
-const Role = model<IRole>("Role", RoleSchema);
+// 모델 정의 시 중복 방지
+const Role = mongoose.models.Role || model<IRole>("Role", RoleSchema);
+// mongoose.models.Role를 먼저 확인하여 이미 정의된 Role 모델이 있으면 이를 재사용합니다.
+// 정의되지 않은 경우에만 새로 모델을 정의합니다.
 
 export default Role;

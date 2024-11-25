@@ -5,7 +5,7 @@ import Header from "../organisms/Header";
 import StudyOverview from "../organisms/StudyOverview";
 import { TStudy } from "@/types/study";
 import { useParams, useRouter } from "next/navigation";
-import { fetchStudyDetail } from "@/app/api/fetchStudyDetail";
+// import { fetchStudyDetail } from "@/app/api/fetchStudyDetail";
 import { TabButtonGroup } from "../organisms/ButtonGroup";
 import Team from "../templates/studyDetailParticipate/Team";
 import Private from "../templates/studyDetailParticipate/Private";
@@ -19,28 +19,41 @@ const buttonGroupDatas: TParticipationOptions[] = [
   "schedule",
   "feedback",
 ];
-const steps: Record<TParticipationOptions, React.ReactNode> = {
-  team: <Team />,
-  private: <Private />,
-  schedule: <Schedule />,
-  feedback: <Feedback />,
-};
 
-function PartcipatingStudyDetailPage() {
+function JoiningStudy() {
   const router = useRouter();
   const params = useParams<{ sid: string }>();
-  const [selectedIdx, seSelectedIdx] = useState(0);
+  const [selectedIdx, setSelectedIdx] = useState(0);
   const [studyDetail, setStudyDetail] = useState<TStudy | undefined>(undefined);
-  useEffect(() => {
-    const data = fetchStudyDetail(params.sid);
-    setStudyDetail(data);
-  }, [params.sid]);
 
-  if (!studyDetail) return;
-  // 한 번에 보여주기 위한 처리
+  const steps: Record<TParticipationOptions, React.ReactNode> = {
+    team: (
+      <Team teamMembers={studyDetail?.currentMembers} studyId={params.sid} />
+    ),
+    private: <Private />,
+    schedule: <Schedule />,
+    feedback: <Feedback />,
+  };
+  console.log(`paramsId = ${params.sid}`);
+
+  useEffect(() => {
+    async function fetchStudy() {
+      const data = await fetch(
+        `/joiningStudy/[sid]/api?sid=${params.sid}`
+      ).then((res) => res.json());
+      // 서버에서 받은 data로 studyDetail 상태 업데이트
+      setStudyDetail(data);
+    }
+
+    fetchStudy();
+  }, [params.sid]); // params.sid가 변경될 때마다 다시 fetchStudy() 실행
+
+  console.log(studyDetail);
+
+  if (!studyDetail) return <div>loading...</div>;
 
   const onClickBtn = (selectedOptionIdx: number) => {
-    seSelectedIdx(selectedOptionIdx);
+    setSelectedIdx(selectedOptionIdx);
   };
 
   return (
@@ -51,7 +64,6 @@ function PartcipatingStudyDetailPage() {
         leftSlot={
           <Icon
             type="BACK"
-            color="text-white"
             onClick={() => {
               router.back();
             }}
@@ -59,8 +71,8 @@ function PartcipatingStudyDetailPage() {
         }
         rightSlot={
           <div className="flex gap-[12px] items-center">
-            <Icon type="SHARE" color="text-white" />
-            <Icon type="MORE" color="text-white" />
+            <Icon type="SHARE" />
+            <Icon type="MORE" />
           </div>
         }
       />
@@ -79,4 +91,4 @@ function PartcipatingStudyDetailPage() {
   );
 }
 
-export default PartcipatingStudyDetailPage;
+export default JoiningStudy;

@@ -24,6 +24,7 @@ interface InfoTagsProps {
   padding?: number;
   children: React.ReactNode;
   className?: string;
+  mx?: number;
 }
 
 const InfoTags: React.FC<InfoTagsProps> = ({
@@ -31,6 +32,7 @@ const InfoTags: React.FC<InfoTagsProps> = ({
   padding = 1,
   children,
   className,
+  mx,
 }) => {
   const tagsStyle = getTheme(theme, padding);
   const childrenArray = React.Children.toArray(children);
@@ -40,7 +42,9 @@ const InfoTags: React.FC<InfoTagsProps> = ({
       {childrenArray.map((children, idx) => (
         <div className="flex" key={v4()}>
           {children}
-          {idx < childrenArray.length - 1 ? <Divider type="col" /> : null}
+          {idx < childrenArray.length - 1 ? (
+            <Divider mx={mx} type="col" />
+          ) : null}
         </div>
       ))}
     </div>

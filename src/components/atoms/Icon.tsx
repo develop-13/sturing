@@ -70,7 +70,9 @@ export type TIconData = {
     | "CHECKBOX_UNCHECKED"
     | "PLUS"
     | "MINUS"
-    | "GITHUB";
+    | "GITHUB"
+    | "CHECKED_ROUND"
+    | "UNCHECKED_ROUND";
   onClick?: () => void;
   width?: number;
   height?: number;
@@ -88,6 +90,24 @@ export type TIconDataSet = Record<
   ) => React.ReactNode
 >;
 const IconDataSet: TIconDataSet = {
+  CHECKED_ROUND: (onClick, width = 20, height = 20, className) => {
+    let style = `flex items-center justify-center bg-mainColor rounded-full w-[20px] h-[20px] ${className}`;
+    return (
+      <div className={style} onClick={onClick}>
+        <Icon type="CHECKED" className="text-white" />
+      </div>
+    );
+  },
+  UNCHECKED_ROUND: (onClick, width = 20, height = 20, className) => (
+    <Image
+      src="/svg/ect/unchecked_round.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
   GITHUB: (onClick, width = 18, height = 18, className) => (
     <Image
       src="/svg/ect/github_logo.svg"
