@@ -3,12 +3,13 @@ import Divider from "@/components/atoms/Divider";
 import { PercentageBar } from "@/components/atoms/Progressbar";
 import Text from "@/components/atoms/Text";
 import UserInfoItem from "@/components/molecules/UserInfoItem";
+import AttendanceInfoBox from "@/components/organisms/infoBox/AttendanceInfoBox";
 import InfoBox from "@/components/organisms/infoBox/InfoBox";
 import { TCheckListItem, TStudyMember } from "@/types/study";
 import getTranslation from "@/utils/getTranslation";
 import React from "react";
 
-type TTeam = {
+export type TTeam = {
   teamMembers?: TStudyMember[];
   studyId: string;
 };
@@ -22,17 +23,6 @@ const getPercent = (checkListItems: TCheckListItem[] | undefined) => {
     if (item.done) doneItems++;
   });
   return Math.floor(checkListItems.length / doneItems);
-};
-
-const getAttendance = (teamMembers: TStudyMember[] | undefined) => {
-  let present = 0;
-  if (!teamMembers || !teamMembers.length) {
-    return present + "/" + 0;
-  }
-  teamMembers.forEach((teamMember) => {
-    if (teamMember.attendance) present++;
-  });
-  return present + "/" + teamMembers.length;
 };
 
 function Team(props: TTeam) {
@@ -60,34 +50,10 @@ function Team(props: TTeam) {
           ))}
         </div>
       </InfoBox>
-      <InfoBox theme="white">
-        <div className="flex gap-2 items-center">
-          <Text size="lg" weight="bold">
-            출석체크 현황
-          </Text>
-          <Text weight="bold" color="main">
-            {getAttendance(props.teamMembers)}
-          </Text>
-        </div>
-        <Divider type="row" />
-        <div className="flex">
-          <CheckListItem
-            studyId={props.studyId}
-            isChecked={false}
-            text="예시"
-            userEmail="예시"
-          />
-          {props.teamMembers?.map((teamMember) => (
-            <CheckListItem
-              studyId={props.studyId}
-              isChecked={teamMember.attendance}
-              text={teamMember.userName}
-              key={teamMember.userEmail}
-              userEmail={teamMember.userEmail}
-            />
-          ))}
-        </div>
-      </InfoBox>
+      <AttendanceInfoBox
+        studyId={props.studyId}
+        teamMembers={props.teamMembers}
+      />
     </div>
   );
 }
