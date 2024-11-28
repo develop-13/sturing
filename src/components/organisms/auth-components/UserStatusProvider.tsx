@@ -1,6 +1,12 @@
 "use client";
 // UserStatusContext.tsx
-import React, { createContext, useEffect, useCallback, useRef } from "react";
+import React, {
+  createContext,
+  useEffect,
+  useCallback,
+  useRef,
+  useState,
+} from "react";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
 import Loading from "@/components/templates/Loading";
@@ -35,21 +41,27 @@ export const UserStatusProvider = ({
 }) => {
   const { data: session, status } = useSession();
 
-  const userCreatedRef = useRef(false);
-  // db에 사용자 정보가 있는지 없는지에 대한 정보
-  const hasMatchingInfoRef = useRef(false);
-  // db에 사용자의 매칭 정보가 있는지 없는지에 대한 정보
+  const [userInfo, setUserInfo] = useState({
+    userCreated: false,
+    hasMatchingInfo: false,
+  });
+
+  // const userCreatedRef = useRef(false);
+  // // db에 사용자 정보가 있는지 없는지에 대한 정보
+  // const hasMatchingInfoRef = useRef(false);
+  // // db에 사용자의 매칭 정보가 있는지 없는지에 대한 정보
 
   const handleHasMatchingInfo = useCallback(() => {
     // setHasMatchingInfo(true);
-    hasMatchingInfoRef.current = true;
+
+    setUserInfo((prev) => ({ userCreated: true, hasMatchingInfo: true }));
   }, []);
 
-  console.log("userContext render!");
-  console.log(session);
-  console.log(`status=${status}`);
-  console.log(`userCreated=${userCreatedRef.current}`);
-  console.log(`hasMatchingInfo=${hasMatchingInfoRef.current}`);
+  // console.log("userContext render!");
+  // console.log(session);
+  // console.log(`status=${status}`);
+  // console.log(`userCreated=${userInfo.userCreated}`);
+  // console.log(`hasMatchingInfo=${userInfo.hasMatchingInfo}`);
 
   useEffect(() => {
     async function getUserStatus() {
@@ -66,23 +78,25 @@ export const UserStatusProvider = ({
       }).then((res) => res.json());
 
       const { hasUser, hasMatchingInfo } = userResponse;
-      userCreatedRef.current = !!hasUser;
-      hasMatchingInfoRef.current = !!hasMatchingInfo;
-
-      return userResponse;
+      setUserInfo({
+        userCreated: !!hasUser,
+        hasMatchingInfo: !!hasMatchingInfo,
+      });
     }
 
     if (
       status === "authenticated" &&
-      !userCreatedRef.current &&
-      !hasMatchingInfoRef.current
+      !userInfo.userCreated &&
+      !userInfo.hasMatchingInfo
     ) {
       // 로그인을 했는데 db에 사용자 정보가 없으면 만들기
       getUserStatus();
     } else if (status === "unauthenticated") {
       // 로그인이 안되어 있으면 사용자 정보 false 처리: 실제로는 db에 사용자 정보가 있다고 하더라도, 로그인 안되어 있으면 의미가 없으므로
-      userCreatedRef.current = false;
-      hasMatchingInfoRef.current = false;
+      setUserInfo({
+        userCreated: false,
+        hasMatchingInfo: false,
+      });
     }
   }, [session?.user]);
 
@@ -96,8 +110,8 @@ export const UserStatusProvider = ({
       value={{
         session,
         status,
-        userCreated: userCreatedRef.current,
-        hasMatchingInfo: hasMatchingInfoRef.current,
+        userCreated: userInfo.userCreated,
+        hasMatchingInfo: userInfo.hasMatchingInfo,
         handleHasMatchingInfo,
       }}
     >

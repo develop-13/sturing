@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import TitleLink from "../molecules/TitleLink";
 
 export type TSlideContentList = {
@@ -29,6 +29,9 @@ function SlideContentList(props: TSlideContentList) {
       }
     }
   };
+  const childrenArray = React.Children.toArray(children);
+  console.log(childrenArray);
+  console.log(childrenArray.length);
 
   return (
     <div className="flex flex-col gap-5">
@@ -38,6 +41,7 @@ function SlideContentList(props: TSlideContentList) {
         arrowColor={arrowColor}
         onClick={scrollRight}
       />
+
       <ul
         ref={scrollRef}
         className="flex gap-2 relative overflow-x-scroll list-none px-2 scrollbar-hide "

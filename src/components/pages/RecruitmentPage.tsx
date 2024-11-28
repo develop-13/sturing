@@ -31,7 +31,16 @@ function RecruitmentPage() {
   const [studyData, dispatch] = useReducer(recruitmentReducer, initialState);
   const { session } = useContext(UserStatusContext);
   let userEmail = session?.user.email;
-  console.log(session);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session === null && status === "unauthenticated") {
+      alert("로그인이 필요한 페이지 입니다");
+      router.push("/");
+      return;
+    }
+  }, [session?.user]);
 
   useEffect(() => {
     if (userEmail) {
@@ -61,8 +70,6 @@ function RecruitmentPage() {
   ];
 
   const [step, setStep] = useState(0);
-
-  const router = useRouter();
 
   const goNextStep = () => {
     // 두 번 클릭 시, 전전 주소로 요청되는 문제
@@ -132,6 +139,5 @@ function RecruitmentPage() {
     </div>
   );
 }
-// 다음을 눌렀을 때 setState?
 
 export default RecruitmentPage;

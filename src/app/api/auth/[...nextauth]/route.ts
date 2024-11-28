@@ -3,7 +3,6 @@ import GithubProvider from "next-auth/providers/github";
 import Kakao from "next-auth/providers/kakao";
 import { Account, Profile, User, Session } from "next-auth";
 import dbConnect from "@/lib/mongodb";
-import UserCollection from "@/models/User";
 import { JWT } from "next-auth/jwt";
 
 const GithubClientId = process.env.GITHUB_ID;

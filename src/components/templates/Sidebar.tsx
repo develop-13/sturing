@@ -22,7 +22,7 @@ const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(function Sidebar(
   return (
     <div
       ref={ref}
-      className={`w-[375px] absolute h-[100%] top-0 z-40 pt-10 pb-14 px-6 flex flex-col gap-10 bg-white transition-all duration-500 ease-in-out transform ${
+      className={`w-[375px] absolute h-[100%] top-0 z-50 pt-10 pb-14 px-6 flex flex-col gap-10 bg-white transition-all duration-500 ease-in-out transform ${
         isSidebarOpen ? "left-0" : "-left-[375px]"
       }`}
     >
