@@ -1,6 +1,7 @@
 import Box, { TBox, TBoxColorTheme, TBoxShape } from "@/components/atoms/Box";
 import Icon from "@/components/atoms/Icon";
 import Text from "@/components/atoms/Text";
+import { twMerge } from "tailwind-merge";
 
 function WriteButton() {}
 
@@ -48,10 +49,7 @@ function IconLabelButton({ datas }: { datas: TButtonLabel }) {
           props={{
             theme: btnTheme,
             shape: btnShape,
-            extraCss:
-              closeBtnStyle +
-              defaultBtnStyle +
-              `${datas.extraStyle ? datas.extraStyle : ""}`,
+            extraCss: twMerge(closeBtnStyle, defaultBtnStyle, datas.extraStyle),
           }}
         >
           <Text>{datas.text}</Text>
@@ -68,8 +66,7 @@ function IconLabelButton({ datas }: { datas: TButtonLabel }) {
       props={{
         theme: btnTheme,
         shape: btnShape,
-        extraCss:
-          defaultBtnStyle + `${datas.extraStyle ? datas.extraStyle : ""}`,
+        extraCss: twMerge(defaultBtnStyle, datas.extraStyle),
         isActive: datas.isActive,
         onClick: datas.onClick,
       }}

@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Loading from "../Loading";
 import { TStudyRecruitment } from "@/types/study";
 import Complete from "../common/Complete";
+import { useRouter } from "next/navigation";
 
 function RecruitmentComplete({ state }: { state: TStudyRecruitment }) {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     async function createStudy() {
@@ -25,9 +27,9 @@ function RecruitmentComplete({ state }: { state: TStudyRecruitment }) {
           body: formData,
         });
         if (res.ok) {
-          const data = await res.json();
           setIsLoading(false);
           alert(`Study created with ID`);
+          router.back();
         } else {
           alert("Failed to create study");
         }
@@ -36,7 +38,7 @@ function RecruitmentComplete({ state }: { state: TStudyRecruitment }) {
       }
     }
     createStudy();
-  }, []);
+  }, [state]);
 
   if (isLoading) {
     return <Loading />;

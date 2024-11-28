@@ -14,16 +14,16 @@ function ButtonIcon({ theme, type, onClick }: TButtonIcon) {
 
   switch (type) {
     case "plus":
-      btnIconStyle += "shadow-lg ";
+      btnIconStyle += " shadow-lg ";
       icon = <Icon type="ADD" />;
       break;
 
     case "forward":
-      icon = <Icon type="FORWARD" />;
+      icon = <Icon type="FORWARD_WHITE" />;
       break;
 
     case "backward":
-      icon = <Icon type="BACK" />;
+      icon = <Icon type="BACK_WHITE" />;
       break;
   }
 

@@ -81,13 +81,16 @@ export async function POST(request: Request) {
     }
 
     const matchingInfo = existingUser.matchingInfo;
+    // 사용자의 매칭 정보
 
     if (matchingInfo) {
+      // 사용자의 매칭 정보가 있다면 매칭 정보도 있고 사용자 정보도 있음을 알림
       return Response.json(
         { hasUser: true, hasMatchingInfo: true },
         { status: 200 }
       );
     } else {
+      // 사요자의 매칭 정보가 없다면 사용자정보는 있지만 사요자의 매칭 정보는 없음을 알림
       return Response.json(
         { hasUser: true, hasMatchingInfo: false },
         { status: 200 }

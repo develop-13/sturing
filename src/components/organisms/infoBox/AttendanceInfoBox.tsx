@@ -2,15 +2,18 @@ import React, { useContext, useState } from "react";
 import InfoBox from "./InfoBox";
 import Text from "@/components/atoms/Text";
 import Divider from "@/components/atoms/Divider";
-import CheckListItem from "@/components/atoms/CheckListItem";
-import { TTeam } from "@/components/templates/studyDetailParticipate/Team";
+import CheckItem from "@/components/molecules/CheckItem/CheckItem";
 import { TStudyMember } from "@/types/study";
 import {
   UserStatusContext,
   UserStatusContextProps,
 } from "../auth-components/UserStatusProvider";
 
-type TAttendanceInfoBox = TTeam;
+type TAttendanceInfoBox = {
+  teamMembers?: TStudyMember[];
+  onAttendanceChange: (updatedTeamMembers: any) => void;
+  studyId: string;
+};
 
 const getAttendance = (teamMembers: TStudyMember[] | undefined) => {
   let present = 0;
@@ -24,15 +27,16 @@ const getAttendance = (teamMembers: TStudyMember[] | undefined) => {
 };
 
 function AttendanceInfoBox(props: TAttendanceInfoBox) {
-  const [teamMembers, setTeamMembers] = useState(props.teamMembers);
+  const { teamMembers } = props;
+
   const { session }: UserStatusContextProps = useContext(UserStatusContext);
 
   const handleCheck = (userEmail: string, checked?: boolean) => async () => {
     // 각각의 checkListItem에 handleCheck를 붙인다.
     const userEmailMine = session?.user.email;
 
-    console.log(`나의 이메일=${userEmailMine}`);
-    console.log(`다른 이메일=${userEmail}`);
+    console.log(`list userEmail=${userEmail}`);
+    console.log(`userEmailMine=${userEmailMine}`);
 
     if (userEmail !== userEmailMine) {
       alert("다른 사용자의 출석여부는 체크할 수 없습니다.");
@@ -47,8 +51,8 @@ function AttendanceInfoBox(props: TAttendanceInfoBox) {
       return teamMember;
     });
 
-    setTeamMembers(updatedTeamMembers);
-
+    // setTeamMembers(updatedTeamMembers);
+    props.onAttendanceChange(updatedTeamMembers);
     // PATCH 요청을 보내기 전에 값을 변경
     try {
       const response = await fetch(`/joiningStudy/${props.studyId}/api`, {
@@ -87,7 +91,8 @@ function AttendanceInfoBox(props: TAttendanceInfoBox) {
       <Divider type="row" />
       <div className="flex">
         {props.teamMembers?.map((teamMember) => (
-          <CheckListItem
+          <CheckItem
+            type="col"
             isChecked={teamMember.attendance}
             text={teamMember.userName}
             key={teamMember.userEmail}

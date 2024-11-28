@@ -1,5 +1,11 @@
 "use client";
-import React, { useCallback, useContext, useReducer, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import Header from "../organisms/Header";
 import Button from "../molecules/Button";
 import Text from "../atoms/Text";
@@ -13,12 +19,24 @@ import {
   initialState,
 } from "@/reducers/ApplyReducer";
 import ApplyComplete from "../templates/apply/ApplyComplete";
-import { UserStatusContext } from "../organisms/auth-components/UserStatusProvider";
+import {
+  UserStatusContext,
+  UserStatusContextProps,
+} from "../organisms/auth-components/UserStatusProvider";
 
 function ApplyPage() {
   const router = useRouter();
 
-  const { session } = useContext(UserStatusContext);
+  const { session, status }: UserStatusContextProps =
+    useContext(UserStatusContext);
+
+  useEffect(() => {
+    if (session === null && status === "unauthenticated") {
+      alert("로그인이 필요한 페이지 입니다");
+      router.push("/");
+      return;
+    }
+  }, [session?.user]);
 
   const [applyData, dispatch] = useReducer(ApplyReducer, initialState);
 
@@ -33,18 +51,8 @@ function ApplyPage() {
   const steps = [
     <ApplyText state={applyData} handleStateChange={handleStateChange} />,
     <RoleSelectTemp state={applyData} handleStateChange={handleStateChange} />,
-    <ApplyComplete
-      state={applyData}
-      userEmail={session?.user.email || ""}
-      // userName={session?.user.name || ""}
-      // applicantImgSrc={
-      //   session?.user.image || "/img/profile/defaultProfileImage.png"
-      // }
-    />,
+    <ApplyComplete state={applyData} userEmail={session?.user.email || ""} />,
   ];
-
-  console.log(`email=${session?.user.email}`);
-  console.log(`name=${session?.user.name}`);
 
   const goNextStep = () => {
     // 두 번 클릭 시, 전전 주소로 요청되는 문제

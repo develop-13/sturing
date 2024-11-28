@@ -1,4 +1,3 @@
-import CheckListItem from "@/components/atoms/CheckListItem";
 import Divider from "@/components/atoms/Divider";
 import { PercentageBar } from "@/components/atoms/Progressbar";
 import Text from "@/components/atoms/Text";
@@ -12,22 +11,21 @@ import React from "react";
 export type TTeam = {
   teamMembers?: TStudyMember[];
   studyId: string;
+  onAttendanceChange: (updatedTeamMembers: any) => void;
 };
 
 const getPercent = (checkListItems: TCheckListItem[] | undefined) => {
   if (!checkListItems || !checkListItems.length) {
-    return 30;
+    return 0;
   }
   let doneItems = 0;
   checkListItems.forEach((item) => {
     if (item.done) doneItems++;
   });
-  return Math.floor(checkListItems.length / doneItems);
+  return Math.floor(doneItems / checkListItems.length);
 };
 
 function Team(props: TTeam) {
-  console.log(props);
-
   return (
     <div className="px-4 py-5 flex flex-col gap-4">
       <InfoBox theme="white">
@@ -53,6 +51,7 @@ function Team(props: TTeam) {
       <AttendanceInfoBox
         studyId={props.studyId}
         teamMembers={props.teamMembers}
+        onAttendanceChange={props.onAttendanceChange}
       />
     </div>
   );

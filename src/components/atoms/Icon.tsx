@@ -2,19 +2,6 @@
 import React from "react";
 import Image from "@/components/atoms/Image";
 import { IoCheckmark } from "react-icons/io5";
-import { VscBell } from "react-icons/vsc";
-import { IoIosArrowBack } from "react-icons/io";
-import { IoIosArrowForward } from "react-icons/io";
-import { IoMdClose } from "react-icons/io";
-import { CiBookmark } from "react-icons/ci";
-import { IoSearchOutline } from "react-icons/io5";
-import { BsChatSquareDots } from "react-icons/bs";
-// import Icon_Logo from "@/public/svg/ect/Icon-logo";
-import { SlMenu } from "react-icons/sl";
-import { PiDotsThreeOutlineFill } from "react-icons/pi";
-import { GoShare } from "react-icons/go";
-import { FaRegUser } from "react-icons/fa6";
-import { GrPowerReset } from "react-icons/gr";
 import { useRouter } from "next/navigation";
 
 export type TIconData = {
@@ -22,7 +9,9 @@ export type TIconData = {
     | "BELL"
     | "CHECKED"
     | "BACK"
+    | "BACK_WHITE"
     | "FORWARD"
+    | "FORWARD_WHITE"
     | "BOOKMARK"
     | "CLOSE"
     | "SEARCH"
@@ -72,7 +61,8 @@ export type TIconData = {
     | "MINUS"
     | "GITHUB"
     | "CHECKED_ROUND"
-    | "UNCHECKED_ROUND";
+    | "UNCHECKED_ROUND"
+    | "REMOVE";
   onClick?: () => void;
   width?: number;
   height?: number;
@@ -90,6 +80,16 @@ export type TIconDataSet = Record<
   ) => React.ReactNode
 >;
 const IconDataSet: TIconDataSet = {
+  REMOVE: (onClick, width = 20, height = 20, className) => (
+    <Image
+      src="/svg/ect/remove.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
   CHECKED_ROUND: (onClick, width = 20, height = 20, className) => {
     let style = `flex items-center justify-center bg-mainColor rounded-full w-[20px] h-[20px] ${className}`;
     return (
@@ -389,6 +389,18 @@ const IconDataSet: TIconDataSet = {
     );
   },
 
+  BACK_WHITE: (onClick, width = 10, height = 17, className) => {
+    return (
+      <Image
+        src="/svg/ect/back_white.svg"
+        width={width}
+        height={height}
+        onClick={onClick}
+        className={className}
+      />
+    );
+  },
+
   BOOKMARK: (onClick, width = 12, height = 16, className) => (
     <Image
       src="/svg/ect/bookmark.svg"
@@ -402,6 +414,16 @@ const IconDataSet: TIconDataSet = {
   FORWARD: (onClick, width = 10, height = 17, className) => (
     <Image
       src="/svg/ect/forward.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
+  FORWARD_WHITE: (onClick, width = 10, height = 17, className) => (
+    <Image
+      src="/svg/ect/forward_white.svg"
       width={width}
       height={height}
       onClick={onClick}

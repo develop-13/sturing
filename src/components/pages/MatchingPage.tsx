@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useReducer, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 // 각 템플릿 컴포넌트를 가져옵니다.
 import InterestsTemplate from "@/components/templates/matching/InterestsTemplate";
 import SkilledTemplate from "@/components/templates/matching/SkilledTemplate";
@@ -21,59 +21,6 @@ import {
 } from "@/reducers/matchingReducer";
 import { TCategory, TLevel } from "@/types/common";
 import { UserStatusContext } from "../organisms/auth-components/UserStatusProvider";
-
-// // 각 Board 컴포넌트 타입을 정의합니다.
-// type StudyBoardProps = { title: string; content: string };
-// type MembersBoardProps = { members: string[] };
-
-// // board의 가능한 컴포넌트 타입들을 제네릭으로 정의합니다.
-// type BoardProps = StudyBoardProps | MembersBoardProps;
-
-// // 컴포넌트 타입 지정: BoardProps에 따라 props가 달라질 수 있습니다.
-// type BoardComponent<T extends BoardProps> = React.ComponentType<T>;
-
-// // boardWrapper 함수 정의
-// function boardWrapper<T extends BoardProps>(
-//   BoardComponent: BoardComponent<T>,
-//   boardProps: T
-// ) {
-//   const newProps = {
-//     ...boardProps,
-//     additionalProp: "새로운 속성 값", // 추가 속성 예시
-//   };
-
-//   return <BoardComponent {...newProps} />;
-// }
-
-// // 예시로 사용할 두 컴포넌트
-// const StudyBoard: React.FC<StudyBoardProps> = ({ title, content }) => (
-//   <div>
-//     <h2>{title}</h2>
-//     <p>{content}</p>
-//   </div>
-// );
-
-// const MembersBoard: React.FC<MembersBoardProps> = ({ members }) => (
-//   <div>
-//     <h2>Members</h2>
-//     <ul>
-//       {members.map((member, index) => (
-//         <li key={index}>{member}</li>
-//       ))}
-//     </ul>
-//   </div>
-// );
-
-// // 사용 예시
-// const Example = () => (
-//   <>
-//     {boardWrapper(StudyBoard, { title: "스터디 게시판", content: "내용" })}
-//     {boardWrapper(MembersBoard, { members: ["Alice", "Bob"] })}
-//   </>
-// );
-
-// export default Example;
-// 나중에 이런 식으로 리팩토링하기
 
 const steps = [
   // 각 컴포넌트가 사용하는 props 보내주기
@@ -184,7 +131,18 @@ const validateStep = (step: number, state: TMatchingState) => {
 };
 
 function MatchingPage() {
-  const { session, handleHasMatchingInfo } = useContext(UserStatusContext);
+  const router = useRouter();
+
+  const { session, status } = useContext(UserStatusContext);
+
+  useEffect(() => {
+    if (session === null && status === "unauthenticated") {
+      alert("로그인이 필요한 페이지 입니다");
+      router.push("/");
+      return;
+    }
+  }, [session?.user]);
+
   const [step, setStep] = useState(0);
   const [state, dispatch] = useReducer(MatchingReducer, initialState);
 
@@ -192,8 +150,6 @@ function MatchingPage() {
   let userEmail = session?.user?.email;
 
   // 애초에 서버에서 한 번 렌더링 되고 그 다음에 클라이언트에서 한 번 더 렌더링됨
-
-  const router = useRouter();
 
   const goPrevStep = () => {
     if (step === 0) {
@@ -224,14 +180,16 @@ function MatchingPage() {
         leftSlot={<Icon type="BACK" onClick={() => router.back()} />}
         className="px-4"
       />
-      {step < steps.length - 1 && ( // 마지막 페이지에는 안 보이게
-        <Progressbar currentPage={step} totalPage={steps.length - 1} />
-      )}
-      {steps[step](state, createDispatchFuncs(dispatch), userName, userEmail)}
+      <div className="px-4">
+        {step < steps.length - 1 && ( // 마지막 페이지에는 안 보이게
+          <Progressbar currentPage={step} totalPage={steps.length - 1} />
+        )}
+        {steps[step](state, createDispatchFuncs(dispatch), userName, userEmail)}
 
-      <div className="flex justify-between mt-auto">
-        <ButtonIcon theme="gray" type="backward" onClick={goPrevStep} />
-        <ButtonIcon theme="primary" type="forward" onClick={goNextStep} />
+        <div className="flex justify-between mt-auto">
+          <ButtonIcon theme="gray" type="backward" onClick={goPrevStep} />
+          <ButtonIcon theme="primary" type="forward" onClick={goNextStep} />
+        </div>
       </div>
     </div>
   );

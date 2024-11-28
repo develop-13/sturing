@@ -1,5 +1,5 @@
-import Icon from "../atoms/Icon";
-import Text from "../atoms/Text";
+import Icon from "../../atoms/Icon";
+import Text from "../../atoms/Text";
 
 function CheckBoxItem({
   text,

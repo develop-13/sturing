@@ -5,12 +5,36 @@ import Button from "../molecules/Button";
 import Searchbar from "../molecules/Searchbar";
 import { NavButtonGroup } from "../organisms/ButtonGroup";
 import Header from "../organisms/Header";
-import StudyBox from "../organisms/StudyBox";
-import { useState } from "react";
 import IconLabelButton from "../molecules/IconLabelButton";
+import {
+  UserStatusContext,
+  UserStatusContextProps,
+} from "../organisms/auth-components/UserStatusProvider";
+import { useContext, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import {
+  ModalContextProps,
+  ModalProviderContext,
+} from "../organisms/ModalProvider";
 
 function SearchPage() {
-  console.log("studyPage render");
+  const router = useRouter();
+
+  const { session, status }: UserStatusContextProps =
+    useContext(UserStatusContext);
+
+  const modalInfo: ModalContextProps = useContext(ModalProviderContext);
+  const { openModal } = modalInfo;
+
+  useEffect(() => {
+    if (session === null && status === "unauthenticated") {
+      alert("로그인이 필요한 페이지 입니다");
+      router.push("/");
+      return;
+    }
+  }, [session?.user]);
+
+  console.log("SerachPage rendered");
 
   return (
     <div>
@@ -28,7 +52,11 @@ function SearchPage() {
           </div>
         }
       />
-      <NavButtonGroup />
+      <NavButtonGroup
+        pathname="/search"
+        isLoggedIn={!!session?.user}
+        openLoginLodal={openModal}
+      />
       <section className="px-4 py-5 flex flex-col gap-10">
         <Searchbar
           placeholder="관심 스터디 분야나 강의명을 검색해 보세요"

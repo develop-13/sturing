@@ -13,7 +13,7 @@ import StudyCategory from "../organisms/StudyCategory";
 import Divider from "../atoms/Divider";
 import StudyBox from "../organisms/StudyBox";
 import { studyBanners } from "@/db/studyBanners";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { TStudyItem } from "@/types/study";
 import StudyBoxSkeleton from "../molecules/skeletonUI/StudyBoxSkeleton";
 import {
@@ -21,8 +21,11 @@ import {
   UserStatusContextProps,
 } from "../organisms/auth-components/UserStatusProvider";
 import Loading from "../templates/Loading";
-
-//
+import IconLabelButton from "../molecules/IconLabelButton";
+import {
+  ModalContextProps,
+  ModalProviderContext,
+} from "../organisms/ModalProvider";
 
 // 추후에 srp 에 맞게 리팩토링할 것
 function RecommendPage() {
@@ -32,6 +35,10 @@ function RecommendPage() {
     userCreated,
     hasMatchingInfo,
   }: UserStatusContextProps = useContext(UserStatusContext);
+
+  const modalInfo: ModalContextProps = useContext(ModalProviderContext);
+  console.log(modalInfo);
+  const { upModal, openModal, closeModal } = modalInfo;
 
   console.log(session);
 
@@ -61,8 +68,6 @@ function RecommendPage() {
           `recommend/api?studyType=${studyType}&userEmail=${session?.user.email}`
         ).then((res) => res.json());
 
-        // console.log(fetchedStudies);
-
         const { firstStudies, secondStudies } = fetchedStudies;
         setStudies({
           firstStudies: firstStudies,
@@ -79,10 +84,10 @@ function RecommendPage() {
       // 로그인 했고 이미 매칭 정보도 정한 경우 맞춤 스터디를 추천해줌
       getStudies("userMatching");
     } else {
+      // 로그인을 하지 않았거나, 로그인 하더라도 매칭 정보가 없는 경우 공통 스터디를 가져옴
       getStudies("common");
-      console.log("getStudies common called");
     }
-  }, []);
+  }, [session]);
 
   if (status == "loading") {
     return <Loading />;
@@ -90,6 +95,16 @@ function RecommendPage() {
 
   return (
     <div id="recommendPage" className="flex flex-col overflow-hidden">
+      <Link className="fixed bottom-[72px] right-5 z-50 " href={"/recruitment"}>
+        <IconLabelButton
+          datas={{
+            text: "스터디 개설하기",
+            usage: "listItem",
+            icon: <Icon type="RLOGO" />,
+            extraStyle: " p-15 ",
+          }}
+        />
+      </Link>
       <Header
         className="px-4"
         leftSlot={
@@ -107,11 +122,19 @@ function RecommendPage() {
               </Link>
             </div>
           ) : (
-            <LoginButton />
+            <LoginButton
+              upModal={upModal}
+              closeModal={closeModal}
+              openModal={openModal}
+            />
           )
         }
       />
-      <NavButtonGroup pathname="/recommend" />
+      <NavButtonGroup
+        pathname="/recommend"
+        isLoggedIn={!!session?.user}
+        openLoginLodal={openModal}
+      />
       <div>
         <StudyBanner props={studyBanners} />
         {userCreated && !hasMatchingInfo && <GoMatchingPage />}
@@ -135,7 +158,7 @@ function RecommendPage() {
                   .map((_, index) => <StudyBoxSkeleton key={index} />) // 스켈레톤 UI를 3개 렌더링
               : studies.firstStudies.length
               ? studies.firstStudies.map((study: TStudyItem) => (
-                  <StudyBox props={study} key={study._id} />
+                  <StudyBox props={study} key={study.createdAt} />
                 ))
               : "인기 스터디가 없습니다."}
           </div>
@@ -161,5 +184,4 @@ function RecommendPage() {
   );
 }
 
-// export default React.memo(RecommendPage);
 export default RecommendPage;

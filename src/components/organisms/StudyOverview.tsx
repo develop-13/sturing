@@ -15,7 +15,7 @@ const getPeriod = (startDate: string, endDate: string): number => {
   const start = new Date(currentYear, startMonth - 1, startDay); // 월은 0부터 시작하므로 -1
   const end = new Date(currentYear, endMonth - 1, endDay);
 
-  console.log(`start=${start} end=${end}`); // 확인용 로그
+  // console.log(`start=${start} end=${end}`); // 확인용 로그
 
   // 날짜 차이를 밀리초로 계산
   const diffTime = Math.abs(end.getTime() - start.getTime());

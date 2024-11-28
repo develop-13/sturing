@@ -3,7 +3,7 @@ import mongoose, { Schema, Document, model, models } from "mongoose";
 
 // TypeScript 인터페이스 정의 (Document 확장)
 interface IStudy extends Document {
-  _id: string;
+  // _id: string;
   title: string;
   createdAt: Date;
   period: {
@@ -122,9 +122,9 @@ const StudySchema: Schema = new Schema(
         attendance: { type: Boolean, default: false }, // 당일 출석 여부
         checkList: [
           {
-            date: { type: Date, required: false }, // 날짜
+            date: { type: Date }, // 날짜
             done: { type: Boolean, default: false }, // 완료 여부
-            content: { type: String, required: true }, // 체크리스트 내용
+            content: { type: String }, // 체크리스트 내용
           },
         ],
       },

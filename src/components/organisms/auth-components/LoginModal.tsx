@@ -32,7 +32,7 @@ const LoginModal = forwardRef<HTMLDivElement, {}>(function LoginModal(
           </div>
         </div>
         <div>
-          <Box
+          {/* <Box
             props={{
               shape: "full",
               extraCss: "bg-yellow ",
@@ -47,7 +47,7 @@ const LoginModal = forwardRef<HTMLDivElement, {}>(function LoginModal(
                 카카오로 3초만에 시작하기
               </Text>
             </div>
-          </Box>
+          </Box> */}
           <Box
             props={{
               shape: "full",

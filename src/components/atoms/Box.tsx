@@ -40,8 +40,6 @@ function BoxTheme(theme: TBoxColorTheme | undefined) {
       return "bg-transparent border border-main-200 ";
     case "transparent":
       return "bg-transparent ";
-    // case "border-bottom":
-    //   return "bg-transparent border-b border-gray-400 ";
     default:
       return " ";
   }

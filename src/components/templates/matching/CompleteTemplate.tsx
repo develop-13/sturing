@@ -9,6 +9,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import Loading from "../Loading";
 import { createPortal } from "react-dom";
 import { UserStatusContext } from "@/components/organisms/auth-components/UserStatusProvider";
+import Text from "@/components/atoms/Text";
 
 type TCompleteTemplate = {
   userName?: string | null;
@@ -77,9 +78,18 @@ function CompleteTemplate(props: TCompleteTemplate) {
               title={`${effectiveUserName} 님과 딱 맞는 스터디 추천 `}
             />
             <div className="flex flex-row gap-2">
-              {recommendations.map((study, index) => (
-                <StudyBox key={index} props={study} />
-              ))}
+              {!isLoading && !recommendations.length ? (
+                <div className="w-full h-[250px] flex justify-center items-center">
+                  <Text size="sm" weight="bold" color="gray-500">
+                    현재 딱 맞는 스터디가 없습니다.
+                  </Text>
+                </div>
+              ) : (
+                !(isLoading && recommendations.length) &&
+                recommendations.map((study, index) => (
+                  <StudyBox key={index} props={study} />
+                ))
+              )}
             </div>
           </div>
         </section>

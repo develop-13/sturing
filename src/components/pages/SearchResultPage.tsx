@@ -1,9 +1,9 @@
 "use client";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Icon from "../atoms/Icon";
 import Searchbar from "../molecules/Searchbar";
 import Header from "../organisms/Header";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Button from "../molecules/Button";
 import Text from "../atoms/Text";
 import { v4 as uuidv4 } from "uuid";
@@ -15,6 +15,7 @@ import StudyBox from "../organisms/StudyBox";
 import { TStudyItem } from "@/types/study";
 import StudyBoxSkeleton from "../molecules/skeletonUI/StudyBoxSkeleton";
 import SortSelector from "../molecules/SortSelector";
+import { UserStatusContext } from "../organisms/auth-components/UserStatusProvider";
 
 // 상태값 두 개를 두어야 할 것 같음
 // 서버에서 가져온 검색어에 해당한 스터디 객체들의 배열
@@ -38,6 +39,10 @@ async function fetchSearchResults(query: string) {
 }
 
 function SearchResultPage() {
+  const router = useRouter();
+
+  const { session, status } = useContext(UserStatusContext);
+
   let isDragging = false;
   const dragging = (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
     if (!isDragging) return;
@@ -60,6 +65,14 @@ function SearchResultPage() {
   const closeFilterModal = () => {
     setShowFilterModal(false);
   };
+
+  useEffect(() => {
+    if (session === null && status === "unauthenticated") {
+      alert("로그인이 필요한 페이지 입니다");
+      router.push("/");
+      return;
+    }
+  }, [session?.user]);
 
   useEffect(() => {
     const listener = (e: MouseEvent) => {
@@ -149,7 +162,7 @@ function SearchResultPage() {
           </div>
         </div>
       </section>
-      <Divider type="row" py={3} color="gray-100" />
+      <Divider type="row" py={3} />
       <section className="">
         <SortSelector
           searchResults={searchResults}
@@ -162,7 +175,7 @@ function SearchResultPage() {
               .map((_, idx) => <StudyBoxSkeleton key={idx} />)
           ) : searchResults.length ? (
             searchResults.map((study: TStudyItem) => (
-              <StudyBox props={study} key={study.id} />
+              <StudyBox props={study} key={study._id} />
             ))
           ) : (
             <div>검색결과가 업습니다</div>

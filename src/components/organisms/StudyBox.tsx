@@ -53,7 +53,7 @@ export default function StudyBox({ props }: { props: TStudyItem }) {
               </div>
             </InfoTags>
           </div>
-          <Divider type="row" color="gray-400" my={8} />
+          <Divider type="row" my={8} />
           <Text size="xs" weight="bold" color="gray-700">
             {"모집 중 " +
               props.currentMembers?.length +

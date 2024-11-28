@@ -1,5 +1,6 @@
 "use client";
 import { ForwardedRef, forwardRef, useEffect } from "react";
+import { twMerge } from "tailwind-merge";
 
 // 여기서 위치값을 어텋게 줄건데?
 type TInfoBox = {
@@ -7,6 +8,7 @@ type TInfoBox = {
   children?: React.ReactNode;
   getInfoBoxTop?: (InfoBoxTop: number) => void;
   id?: string;
+  className?: string;
 };
 
 const InfoBox = forwardRef<HTMLDivElement, TInfoBox>(function InfoBox(
@@ -32,14 +34,14 @@ const InfoBox = forwardRef<HTMLDivElement, TInfoBox>(function InfoBox(
       break;
   }
 
+  const effectClassName = twMerge(
+    "py-[24px] px-[20px] flex flex-col rounded-[8px] gap-[12px]",
+    bgColor,
+    props.className
+  );
+
   return (
-    <div
-      id={props.id}
-      ref={ref}
-      className={
-        "py-[24px] px-[20px] flex flex-col rounded-[8px] gap-[12px] " + bgColor
-      }
-    >
+    <div id={props.id} ref={ref} className={effectClassName}>
       {props.children}
     </div>
   );

@@ -29,9 +29,9 @@ export type HandleStateChange<T> = <K extends keyof T>(
 
 function RecruitmentPage() {
   const [studyData, dispatch] = useReducer(recruitmentReducer, initialState);
-  const { session, handleHasMatchingInfo } = useContext(UserStatusContext);
+  const { session } = useContext(UserStatusContext);
   let userEmail = session?.user.email;
-  // console.log(userEmail);
+  console.log(session);
 
   useEffect(() => {
     if (userEmail) {

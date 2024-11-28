@@ -1,22 +1,21 @@
 "use client";
 import Text from "@/components/atoms/Text";
 import Button from "../Button";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import LoginModal from "@/components/organisms/auth-components/LoginModal";
 
-export default function LoginButton() {
-  const [upModal, setUpModal] = useState(false);
+type TLoginButton = {
+  upModal: boolean;
+  openModal: () => void;
+  closeModal: () => void;
+};
+
+const LoginButton = (props: TLoginButton) => {
+  const { upModal, openModal, closeModal } = props;
+
   const modalRef = useRef<HTMLDivElement | null>(null); // 모달 Ref
   const rootLayout = useRef<Element | null>(null); // useRef로 관리
-
-  const openModal = () => {
-    setUpModal(true);
-  };
-
-  const closeModal = () => {
-    setUpModal(false);
-  };
 
   useEffect(() => {
     // 클라이언트 측에서 document에 접근하여 rootLayout 참조 설정
@@ -68,4 +67,6 @@ export default function LoginButton() {
         )}
     </Button>
   );
-}
+};
+
+export default React.memo(LoginButton);
