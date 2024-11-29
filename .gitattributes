@@ -1,0 +1,2 @@
+*.exe filter=lfs diff=lfs merge=lfs -text
+public/svg/ect/mongodb-compass-1.44.4-win32-x64.exe filter=lfs diff=lfs merge=lfs -text
