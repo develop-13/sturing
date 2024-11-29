@@ -1,5 +1,9 @@
 "use client";
+<<<<<<< HEAD
 import React, { useRef } from "react";
+=======
+import { useRef } from "react";
+>>>>>>> d690408071b010d7de636b9936c9e61e23807a59
 import TitleLink from "../molecules/TitleLink";
 
 export type TSlideContentList = {
@@ -29,9 +33,12 @@ function SlideContentList(props: TSlideContentList) {
       }
     }
   };
+<<<<<<< HEAD
   const childrenArray = React.Children.toArray(children);
   console.log(childrenArray);
   console.log(childrenArray.length);
+=======
+>>>>>>> d690408071b010d7de636b9936c9e61e23807a59
 
   return (
     <div className="flex flex-col gap-5">
@@ -41,7 +48,10 @@ function SlideContentList(props: TSlideContentList) {
         arrowColor={arrowColor}
         onClick={scrollRight}
       />
+<<<<<<< HEAD
 
+=======
+>>>>>>> d690408071b010d7de636b9936c9e61e23807a59
       <ul
         ref={scrollRef}
         className="flex gap-2 relative overflow-x-scroll list-none px-2 scrollbar-hide "

@@ -5,10 +5,10 @@ export type TStudy = {
   title: string;
   createdAt: string;
   period: {
-    // startDate: Date;
-    startDate: string;
-    // endDate: Date;
-    endDate: string;
+    startDate: Date;
+    // startDate: string;
+    endDate: Date;
+    // endDate: string;
   };
   creatorEmail: string;
   time: {

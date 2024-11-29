@@ -1,7 +1,12 @@
+<<<<<<< HEAD
+=======
+import { TDispatchFuncs } from "@/reducers/filterReducer";
+>>>>>>> d690408071b010d7de636b9936c9e61e23807a59
 import Icon from "../atoms/Icon";
 import Text from "../atoms/Text";
 
 function NumberSetter({
+<<<<<<< HEAD
   memberNum = 0,
   increaseFunc,
   decreaseFunc,
@@ -9,6 +14,15 @@ function NumberSetter({
   memberNum?: number;
   increaseFunc: () => void;
   decreaseFunc: () => void;
+=======
+  memberNum,
+  increaseFunc,
+  decreaseFunc,
+}: {
+  memberNum: number;
+  increaseFunc: TDispatchFuncs["increaseMemberNum"];
+  decreaseFunc: TDispatchFuncs["decreaseMemberNum"];
+>>>>>>> d690408071b010d7de636b9936c9e61e23807a59
 }) {
   return (
     <article className="flex flex-col gap-3">

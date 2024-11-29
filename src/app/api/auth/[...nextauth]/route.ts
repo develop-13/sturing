@@ -116,22 +116,6 @@ export const authOptions = {
 
       await dbConnect();
 
-      // 사용자의 이메일로 DB에서 유저 찾기
-      // const existingUser = await UserCollection.findOne({
-      // email: session.user?.email,
-      // });
-
-      // if (existingUser) {
-      // console.log("db에 존재하는 사용자 입니다.");
-      // } else {
-      // console.log("db에 존재하는 사용자가 아닙니다. ");
-      // }
-
-      // console.log(`existingUser=${existingUser}`);
-
-      // 세션에 userCreated 여부 추가. 처음 로그인 한 경우 user컬렉션에 유저 생성하기 위해
-      // console.log(`session 콜백에서 보내는 session=`);
-      // console.log(session);
       return session;
     },
   },

@@ -7,7 +7,7 @@ function LevelSetter({
   level,
   setLevel,
 }: {
-  level: TLevel;
+  level: TLevel | null;
   setLevel: (level: TLevel | null) => void;
 }) {
   return (

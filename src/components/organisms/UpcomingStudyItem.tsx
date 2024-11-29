@@ -1,7 +1,11 @@
 import Text from "../atoms/Text";
 import Button from "../molecules/Button";
 import InfoTags from "../molecules/InfoTags";
+<<<<<<< HEAD
 import StudyInfoItem from "./infoBox/InfoBox";
+=======
+import StudyInfoItem from "./InfoBox";
+>>>>>>> d690408071b010d7de636b9936c9e61e23807a59
 
 function UpcomingStudyItem() {
   return (

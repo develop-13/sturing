@@ -12,8 +12,8 @@ export type TFilterState = {
   memberNum: number;
   locations: Record<string, boolean>;
   duration: {
-    startDate: Date | null;
-    endDate: Date | null;
+    startDate: Date ;
+    endDate: Date ;
   };
   levels: TLevel | null;
   roles: Set<TRoleText>;
@@ -24,8 +24,8 @@ export const initialState: TFilterState = {
   memberNum: 0,
   locations: {},
   duration: {
-    startDate: null,
-    endDate: null,
+    startDate: new Date(),
+    endDate: new Date(),
   },
   levels: null,
   roles: new Set([]),

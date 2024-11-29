@@ -1,5 +1,9 @@
 import { TDispatchFuncs } from "@/reducers/filterReducer";
+<<<<<<< HEAD
 import CheckBoxItem from "../molecules/CheckItem/CheckBoxItem";
+=======
+import CheckBoxItem from "../molecules/CheckBoxItem";
+>>>>>>> d690408071b010d7de636b9936c9e61e23807a59
 import { TCategory } from "@/types/common";
 
 function CategorySetter({

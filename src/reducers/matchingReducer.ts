@@ -7,7 +7,7 @@ export type TMatchingState = NewTMatching;
 
 export const initialState: TMatchingState = {
   interests: [],
-  fieldLevels: {} as Record<TCategory, TLevel | "">,
+  fieldLevels: {} as Record<TCategory, TLevel | null>,
   studyTypePreference: "not_decided",
   studyPlacePreference: {} as Record<string, boolean>,
   studyAtmospherePreference: {} as Record<TAtmosphere, boolean>,

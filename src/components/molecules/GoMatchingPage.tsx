@@ -8,16 +8,13 @@ import { createPortal } from "react-dom";
 import GoMatchingModal from "../organisms/GoMatchingModal";
 
 function GoMatchingPage() {
-  let isMatchingModalUp = true;
 
-  console.log(`isMatchingModalUp = ${isMatchingModalUp}`);
   // const [Modalup, setModalUp] = useState(!!isMatchingModalUp);
   const [Modalup, setModalUp] = useState(true);
   // 매칭 모달이 뜨는 경우: 로그인은 했지만 사용자 매칭 정보는 설정 안한 경우
   // state값 조정필요
 
   const [recommendPage, setRecommendPage] = useState<Element | null>(null);
-  console.log(`modalUp = ${Modalup}`);
 
   const closeModal = () => {
     setModalUp(false);
@@ -52,7 +49,6 @@ function GoMatchingPage() {
     document.addEventListener("mousedown", clickListener);
     document.addEventListener("keydown", keyboardListener);
 
-    console.log("eventListener useEffect in GoMatchingPage");
 
     // 이벤트 리스너 제거 (clean up)
     return () => {
