@@ -19,6 +19,8 @@ const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(function Sidebar(
   { isSidebarOpen, onCloseSidebar, session }, // props
   ref // ref
 ) {
+  let userName = session?.user.name || "사용자";
+
   return (
     <div
       ref={ref}
@@ -40,14 +42,14 @@ const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(function Sidebar(
         <div className="flex justify-between profileInfo">
           <div className="flex flex-col gap-[6px] nameEmail">
             <Text size="2xl" weight="bold">
-              {session?.user.name + " 님"}
+              {userName + " 님"}
             </Text>
             <Text size="sm" weight="bold" color="gray-600">
               {session?.user.email}
             </Text>
           </div>
           <Image
-            src={session?.user.image || "/img/profile/example1.png"}
+            src={session?.user.image || "/img/profile/defaultProfileImage.png"}
             height={60}
             width={60}
           />

@@ -19,8 +19,6 @@ function SlideContentList(props: TSlideContentList) {
       const maxScrollLeft =
         scrollRef.current.scrollWidth - scrollRef.current.clientWidth;
 
-      console.log(scrollRef.current.scrollWidth);
-
       // 작은 오차를 허용 (5px 정도)
       if (scrollRef.current.scrollLeft >= maxScrollLeft - 5) {
         scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
@@ -29,9 +27,6 @@ function SlideContentList(props: TSlideContentList) {
       }
     }
   };
-  const childrenArray = React.Children.toArray(children);
-  console.log(childrenArray);
-  console.log(childrenArray.length);
 
   return (
     <div className="flex flex-col gap-5">

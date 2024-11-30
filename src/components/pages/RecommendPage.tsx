@@ -27,6 +27,7 @@ import {
   ModalProviderContext,
 } from "../organisms/ModalProvider";
 import Text from "../atoms/Text";
+import { useRouter } from "next/navigation";
 
 // 추후에 srp 에 맞게 리팩토링할 것
 function RecommendPage() {
@@ -38,21 +39,14 @@ function RecommendPage() {
   }: UserStatusContextProps = useContext(UserStatusContext);
 
   const modalInfo: ModalContextProps = useContext(ModalProviderContext);
-  console.log(modalInfo);
   const { upModal, openModal, closeModal } = modalInfo;
-
-  console.log(session);
-  console.log(`status=${status}`);
-  console.log(`userCreated=${userCreated}`);
-  console.log(`hasMatchingInfo=${hasMatchingInfo}`);
+  const isLoggedIn = !!session?.user;
+  const router = useRouter();
 
   const [studies, setStudies] = useState({
     firstStudies: [],
     secondStudies: [],
   });
-
-  console.log(studies.firstStudies);
-  console.log(studies.secondStudies);
 
   const [isFetchingStudies, setIsFetchingStudies] = useState(false);
 
@@ -69,8 +63,6 @@ function RecommendPage() {
 
   useEffect(() => {
     async function getStudies(studyType: "common" | "userMatching") {
-      console.log(`studyType=${studyType}`);
-
       try {
         setIsFetchingStudies(true);
         const fetchedStudies = await fetch(
@@ -104,19 +96,23 @@ function RecommendPage() {
 
   return (
     <div id="recommendPage" className="flex flex-col overflow-hidden">
-      <Link
-        className="fixed xs:bottom-[23%] xs:right-0  lg:bottom-[28%] lg:right-[35%] z-40 "
-        href={"/recruitment"}
-      >
-        <IconLabelButton
-          datas={{
-            text: "스터디 개설하기",
-            usage: "listItem",
-            icon: <Icon type="RLOGO" />,
-            extraStyle: " p-15 ",
-          }}
-        />
-      </Link>
+      <IconLabelButton
+        datas={{
+          text: "스터디 개설하기",
+          usage: "listItem",
+          icon: <Icon type="RLOGO" />,
+          onClick: () => {
+            if (!isLoggedIn) {
+              // 로그인이 안되어 있는데 클릭하면 모달이 열리도록 함
+              openModal();
+            } else {
+              router.push("/recruitment");
+            }
+          },
+          extraStyle:
+            "fixed xs:bottom-[23%] xs:right-0  lg:bottom-[28%] lg:right-[35%] z-40 p-15 ",
+        }}
+      />
       <Header
         className="px-4"
         leftSlot={
@@ -144,7 +140,7 @@ function RecommendPage() {
       />
       <NavButtonGroup
         pathname="/recommend"
-        isLoggedIn={!!session?.user}
+        isLoggedIn={isLoggedIn}
         openLoginLodal={openModal}
       />
       <div>

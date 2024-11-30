@@ -29,7 +29,7 @@ export type HandleStateChange<T> = <K extends keyof T>(
 
 function RecruitmentPage() {
   const [studyData, dispatch] = useReducer(recruitmentReducer, initialState);
-  const { session } = useContext(UserStatusContext);
+  const { session, status } = useContext(UserStatusContext);
   let userEmail = session?.user.email;
 
   const router = useRouter();
