@@ -34,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.env
+
+public/svg/ect/mongodb-compass-1.44.4-win32-x64.exe
+..bfg-report/

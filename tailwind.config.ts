@@ -9,6 +9,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: "375px", // 새로운 브레이크포인트 추가
+        lg: "1024px",
+        "2xl": "1536px",
+      },
+
       fontSize: {
         iconSize: "24px",
       },

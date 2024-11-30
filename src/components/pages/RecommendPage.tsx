@@ -104,7 +104,10 @@ function RecommendPage() {
 
   return (
     <div id="recommendPage" className="flex flex-col overflow-hidden">
-      <Link className="fixed bottom-[72px] right-5 z-40 " href={"/recruitment"}>
+      <Link
+        className="fixed xs:bottom-[23%] xs:right-0  lg:bottom-[28%] lg:right-[35%] z-40 "
+        href={"/recruitment"}
+      >
         <IconLabelButton
           datas={{
             text: "스터디 개설하기",
