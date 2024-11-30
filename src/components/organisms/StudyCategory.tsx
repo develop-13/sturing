@@ -9,13 +9,8 @@ import { iconAdapter } from "@/utils/adapters/adapters";
 export default function StudyCategory() {
   const router = useRouter();
 
-<<<<<<< HEAD
   const onClickHandler = (word: string) => {
     router.push(`/search/result?query=${word}`);
-=======
-  const onClickHandler = () => {
-    // router.push("search/result");
->>>>>>> d690408071b010d7de636b9936c9e61e23807a59
   };
 
   return (
@@ -27,13 +22,9 @@ export default function StudyCategory() {
             usage: "round",
             text: category,
             icon: <Icon type={iconAdapter(category)} />,
-<<<<<<< HEAD
             onClick: () => {
               onClickHandler(category);
             },
-=======
-            onClick: onClickHandler,
->>>>>>> d690408071b010d7de636b9936c9e61e23807a59
           }}
         />
       ))}
