@@ -10,14 +10,7 @@ export async function GET(
 ) {
   await dbConnect();
 
-  console.log("study/[sid]/api/route.ts called");
-
-  console.log(params);
-
   const studyId = params.sid;
-
-  console.log(`studyId=${studyId}`);
-  console.log(typeof studyId);
 
   try {
     // studyId를 ObjectId로 변환

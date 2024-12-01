@@ -3,16 +3,13 @@ import Study from "@/models/Study";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { sid: string } }
+) {
   await dbConnect();
 
-  console.log("/joiningStudy/[sid]/api/route.ts called");
-
-  const { searchParams } = new URL(req.url);
-  const studyId = searchParams.get("sid") || "";
-
-  console.log(`studyId=${studyId}`);
-  console.log(typeof studyId);
+  const studyId = params.sid;
 
   try {
     const objectId = new mongoose.Types.ObjectId(studyId);

@@ -1,11 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import multer from "multer";
 import path from "path";
-import { promisify } from "util";
-import { pipeline } from "stream";
 import { createWriteStream, ReadStream } from "fs";
-import { Readable } from "stream";
 
 import dbConnect from "@/lib/mongodb";
 import Study from "@/models/Study";

@@ -59,9 +59,7 @@ function JoiningStudy() {
     });
   };
 
-  const handleChange = (field: string, value: string) => {
-    // 이걸로 갈까?
-  };
+  const handleChange = (field: string, value: string) => {};
 
   const handleCheckList = () => {};
 
@@ -89,17 +87,14 @@ function JoiningStudy() {
     async function fetchStudy() {
       const data = await fetch(
         //sid에 해당하는 study도큐먼트 하나를 가져옴
-        `/joiningStudy/[sid]/api?sid=${params.sid}`
+        `/joiningStudy/${params.sid}/api`
       ).then((res) => res.json());
       // 서버에서 받은 data로 studyDetail 상태 업데이트
       setStudyDetail(data);
     }
 
-    console.log("data refetching!");
     fetchStudy();
   }, []); // params.sid가 변경될 때마다 다시 fetchStudy() 실행
-
-  console.log(studyDetail);
 
   if (!studyDetail) return <Loading />;
 

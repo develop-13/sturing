@@ -9,7 +9,6 @@ function UpcomingStudyItem() {
       <Text size="xl" weight="bold">
         다가오는 스터디
       </Text>
-
       <StudyInfoItem theme="white">
         <div className="flex gap-[4px]">
           <Button theme="primary" shape="tag">

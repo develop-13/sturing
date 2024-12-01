@@ -21,7 +21,6 @@ import {
   recruitmentReducer,
 } from "@/reducers/recruitmentReducer";
 import { UserStatusContext } from "../organisms/auth-components/UserStatusProvider";
-import { v4 } from "uuid";
 
 export type HandleStateChange<T> = <K extends keyof T>(
   field: K,
@@ -83,7 +82,7 @@ function RecruitmentPage() {
   const goNextStep = () => {
     // 두 번 클릭 시, 전전 주소로 요청되는 문제
     if (step > steps.length - 1) {
-      // router.push("/recommend");
+      router.push("/recommend");
       return;
     }
     setStep(step + 1);
@@ -99,27 +98,30 @@ function RecruitmentPage() {
 
   return (
     <div id="recruitmentPage" className="px-4 h-screen">
-      <Header
-        leftSlot={
-          <Button
-            theme="transparent"
-            onClick={() => {
-              router.back();
-            }}
-          >
-            <Text size="sm" color="gray-600">
-              취소
-            </Text>
-          </Button>
-        }
-        rightSlot={
-          <Button theme="transparent">
-            <Text size="sm" color="gray-600">
-              임시저장
-            </Text>
-          </Button>
-        }
-      />
+      {step < steps.length - 1 && (
+        <Header
+          leftSlot={
+            <Button
+              theme="transparent"
+              onClick={() => {
+                router.back();
+              }}
+            >
+              <Text size="sm" color="gray-600">
+                취소
+              </Text>
+            </Button>
+          }
+          rightSlot={
+            <Button theme="transparent">
+              <Text size="sm" color="gray-600">
+                임시저장
+              </Text>
+            </Button>
+          }
+        />
+      )}
+
       <Progressbar currentPage={step} totalPage={steps.length} />
       {steps[step]}
       <div className="h-[50px] flex gap-[11px] my-3">
