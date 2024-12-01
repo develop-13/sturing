@@ -38,3 +38,5 @@ next-env.d.ts
 
 public/svg/ect/mongodb-compass-1.44.4-win32-x64.exe
 ..bfg-report/
+# Sentry Config File
+.env.sentry-build-plugin
