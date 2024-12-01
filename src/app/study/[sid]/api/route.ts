@@ -4,11 +4,17 @@ import dbConnect from "@/lib/mongodb";
 import Study from "@/models/Study";
 import { TStudyDetail } from "@/types/study";
 
-export async function GET(req: NextRequest) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { sid: string } }
+) {
   await dbConnect();
 
-  const studyId = req.nextUrl.pathname.split("/")[2]; // /study/:sid/api 에서 sid 값을 추출
-  console.log(`/study/${studyId}/api called!`);
+  console.log("study/[sid]/api/route.ts called");
+
+  console.log(params);
+
+  const studyId = params.sid;
 
   console.log(`studyId=${studyId}`);
   console.log(typeof studyId);
