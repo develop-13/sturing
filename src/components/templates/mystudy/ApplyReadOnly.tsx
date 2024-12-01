@@ -6,6 +6,7 @@ import { TApply } from "@/types/apply";
 import Button from "@/components/molecules/Button";
 import Text from "@/components/atoms/Text";
 import { TRoleText } from "@/types/common";
+import { v4 } from "uuid";
 
 // type TApplyReadOnly = { applyData: TApply };
 type TApplyReadOnly = {
@@ -142,7 +143,6 @@ const ApplyReadOnly = forwardRef<HTMLDivElement, TApplyReadOnly>(
       }
 
       async function getApplyData() {
-        console.log("getApplyData called!");
         try {
           // _id에 해당하는 Apply를 가져옴
           const response = await fetch(`/mystudy/api?applyId=${props.applyId}`);
@@ -153,7 +153,6 @@ const ApplyReadOnly = forwardRef<HTMLDivElement, TApplyReadOnly>(
 
           const data = await response.json();
           setCurrentApply(data); // Apply 정보를 상태에 저장
-          console.log(data);
         } catch (error) {
           console.error("Error fetching apply data:", error);
         }
@@ -171,10 +170,12 @@ const ApplyReadOnly = forwardRef<HTMLDivElement, TApplyReadOnly>(
     };
     const steps = [
       <ApplyTextReadOnly
+        key={v4()}
         title={currentApply.title}
         description={currentApply.content}
       />,
       <RoleViewer
+        key={v4()}
         type={props.type}
         onChangeRole={onChangeRole}
         desireRoles={currentApply.desiredRole}

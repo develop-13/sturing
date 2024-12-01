@@ -39,4 +39,7 @@ const CategoriesSetter = React.memo(
   }
 );
 
+// Display name을 설정
+CategoriesSetter.displayName = "CategoriesSetter";
+
 export default CategoriesSetter;

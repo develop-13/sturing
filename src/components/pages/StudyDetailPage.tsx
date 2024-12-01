@@ -20,7 +20,7 @@ import getTranslation from "@/utils/getTranslation";
 
 const buttonGroupData = ["info", "member"];
 
-function studyInfoPage() {
+function StudyInfoPage() {
   const router = useRouter();
   const params = useParams<{ sid: string }>();
   const [selectedIdx, setSelected] = useState(0);
@@ -262,4 +262,4 @@ function studyInfoPage() {
   );
 }
 
-export default studyInfoPage;
+export default StudyInfoPage;

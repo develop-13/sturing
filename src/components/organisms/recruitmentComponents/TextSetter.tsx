@@ -42,5 +42,5 @@ const TextSetter = React.memo((props: TWritable | TReadOnly) => {
     </div>
   );
 });
-
+TextSetter.displayName = "TextSetter";
 export default TextSetter;

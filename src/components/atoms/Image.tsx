@@ -6,7 +6,7 @@ type TImage = ImageProps & {
 
 function Image(props: Omit<TImage, "alt">) {
   // alt 속성을 제외
-  return <Img alt="" {...props} />; // alt 값을 빈 문자열로 고정
+  return <Img alt="이미지" {...props} />; // alt 값을 빈 문자열로 고정
 }
 
 export default Image;

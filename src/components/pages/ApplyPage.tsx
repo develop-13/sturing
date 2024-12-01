@@ -23,6 +23,7 @@ import {
   UserStatusContext,
   UserStatusContextProps,
 } from "../organisms/auth-components/UserStatusProvider";
+import { v4 } from "uuid";
 
 function ApplyPage() {
   const router = useRouter();
@@ -49,9 +50,21 @@ function ApplyPage() {
 
   const [step, setStep] = useState(0);
   const steps = [
-    <ApplyText state={applyData} handleStateChange={handleStateChange} />,
-    <RoleSelectTemp state={applyData} handleStateChange={handleStateChange} />,
-    <ApplyComplete state={applyData} userEmail={session?.user.email || ""} />,
+    <ApplyText
+      key={v4()}
+      state={applyData}
+      handleStateChange={handleStateChange}
+    />,
+    <RoleSelectTemp
+      key={v4()}
+      state={applyData}
+      handleStateChange={handleStateChange}
+    />,
+    <ApplyComplete
+      key={v4()}
+      state={applyData}
+      userEmail={session?.user.email || ""}
+    />,
   ];
 
   const goNextStep = () => {

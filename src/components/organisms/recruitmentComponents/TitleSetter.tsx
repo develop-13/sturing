@@ -44,4 +44,6 @@ const TitleSetter = React.memo((props: TWritable | TReadOnly) => {
   );
 });
 
+TitleSetter.displayName = "TitleSetter";
+
 export default TitleSetter;

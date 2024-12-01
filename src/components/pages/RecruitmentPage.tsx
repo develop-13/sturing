@@ -21,6 +21,7 @@ import {
   recruitmentReducer,
 } from "@/reducers/recruitmentReducer";
 import { UserStatusContext } from "../organisms/auth-components/UserStatusProvider";
+import { v4 } from "uuid";
 
 export type HandleStateChange<T> = <K extends keyof T>(
   field: K,
@@ -60,9 +61,18 @@ function RecruitmentPage() {
   );
   const steps = [
     // 안에다 놓는 것 vs 밖으로 빼는 것... 현재는 유지보수하기 쉽게 안에다가..
-    <StudyIntro state={studyData} handleStateChange={handleStateChange} />,
-    <StudyDetail state={studyData} handleStateChange={handleStateChange} />,
+    <StudyIntro
+      key={v4()}
+      state={studyData}
+      handleStateChange={handleStateChange}
+    />,
+    <StudyDetail
+      key={v4()}
+      state={studyData}
+      handleStateChange={handleStateChange}
+    />,
     <MemberPreference
+      key={v4()}
       state={studyData}
       handleStateChange={handleStateChange}
     />,
