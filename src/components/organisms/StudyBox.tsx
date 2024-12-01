@@ -45,7 +45,7 @@ export default function StudyBox({ props }: { props: TStudyItem }) {
                   {`${startDateMonth}.${startDate}~${endDateMonth}.${endDate}`}
                 </Text>
               </div>
-              <div className="flex items-center gap-[2px] whitespace-nowrap overflow-hidden text-ellipsis">
+              <div className="flex items-center gap-[2px]">
                 <Icon type="LOCATION" />
                 <Text
                   size="xs"

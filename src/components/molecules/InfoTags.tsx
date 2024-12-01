@@ -40,7 +40,7 @@ const InfoTags: React.FC<InfoTagsProps> = ({
   return (
     <div className={tagsStyle + className}>
       {childrenArray.map((children, idx) => (
-        <div className="flex" key={v4()}>
+        <div className="flex shrink-0" key={v4()}>
           {children}
           {idx < childrenArray.length - 1 ? (
             <Divider mx={mx} type="col" />
