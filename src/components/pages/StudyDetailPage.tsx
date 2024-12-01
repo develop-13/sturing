@@ -38,9 +38,9 @@ function StudyInfoPage() {
     // 스터디를 가져옴
     async function fetchstudyInfo() {
       console.log(params.sid);
-      const study = await fetch(
-        `/study/${params.sid}/api?sid=${params.sid}`
-      ).then((res) => res.json());
+      const study = await fetch(`/study/${params.sid}/api`).then((res) =>
+        res.json()
+      );
       setStudyInfo(study);
     }
 

@@ -7,10 +7,8 @@ import { TStudyDetail } from "@/types/study";
 export async function GET(req: NextRequest) {
   await dbConnect();
 
-  console.log("study/[sid]/api/route.ts called");
-
-  const { searchParams } = new URL(req.url);
-  const studyId = searchParams.get("sid") || "";
+  const studyId = req.nextUrl.pathname.split("/")[2]; // /study/:sid/api 에서 sid 값을 추출
+  console.log(`/study/${studyId}/api called!`);
 
   console.log(`studyId=${studyId}`);
   console.log(typeof studyId);
