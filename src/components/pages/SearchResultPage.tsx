@@ -178,7 +178,7 @@ function SearchResultPage() {
               <StudyBox props={study} key={study._id} />
             ))
           ) : (
-            <div>검색결과가 업습니다</div>
+            <div>검색결과가 없습니다</div>
           )}
         </div>
       </section>
