@@ -68,16 +68,21 @@ function JoiningStudy() {
   const steps: Record<TParticipationOptions, React.ReactNode> = {
     team: (
       <Team
+        key={"Team"}
         teamMembers={studyDetail?.currentMembers}
         studyId={params.sid}
         onAttendanceChange={handleAttendanceChange}
       />
     ),
     private: (
-      <Private teamMembers={studyDetail?.currentMembers} studyId={params.sid} />
+      <Private
+        key={"Private"}
+        teamMembers={studyDetail?.currentMembers}
+        studyId={params.sid}
+      />
     ),
-    schedule: <Schedule />,
-    feedback: <Feedback />,
+    schedule: <Schedule key={"Schedule"} />,
+    feedback: <Feedback key={"Feedback"} />,
   };
 
   useEffect(() => {

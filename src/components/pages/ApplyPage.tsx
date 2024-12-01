@@ -51,17 +51,17 @@ function ApplyPage() {
   const [step, setStep] = useState(0);
   const steps = [
     <ApplyText
-      key={v4()}
+      key={"ApplyText"}
       state={applyData}
       handleStateChange={handleStateChange}
     />,
     <RoleSelectTemp
-      key={v4()}
+      key={"RoleSelectTemp"}
       state={applyData}
       handleStateChange={handleStateChange}
     />,
     <ApplyComplete
-      key={v4()}
+      key={"ApplyComplete"}
       state={applyData}
       userEmail={session?.user.email || ""}
     />,

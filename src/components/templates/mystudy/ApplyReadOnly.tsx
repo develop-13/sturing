@@ -170,12 +170,12 @@ const ApplyReadOnly = forwardRef<HTMLDivElement, TApplyReadOnly>(
     };
     const steps = [
       <ApplyTextReadOnly
-        key={v4()}
+        key={"ApplyTextReadOnly"}
         title={currentApply.title}
         description={currentApply.content}
       />,
       <RoleViewer
-        key={v4()}
+        key={"RoleViewer"}
         type={props.type}
         onChangeRole={onChangeRole}
         desireRoles={currentApply.desiredRole}

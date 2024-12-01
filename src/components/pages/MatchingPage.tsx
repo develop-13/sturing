@@ -30,6 +30,7 @@ const steps = [
     userName?: string | null
   ) => (
     <InterestsTemplate
+      key={"InterestsTemplate"}
       userName={userName}
       fieldLevels={state.fieldLevels}
       deleteInterest={DispatchFuncs.deleteInterest}
@@ -38,6 +39,7 @@ const steps = [
   ),
   (state: TMatchingState, DispatchFuncs: TDispatchFuncs) => (
     <SkilledTemplate
+      key={"SkilledTemplate"}
       interests={state.interests}
       fieldLevels={state.fieldLevels}
       setLevel={DispatchFuncs.setLevel}
@@ -49,6 +51,7 @@ const steps = [
     userName?: string | null
   ) => (
     <StudyTypeTemplate
+      key={"StudyTypeTemplate"}
       userName={userName}
       studyTypePreference={state.studyTypePreference}
       setStudyTypePreference={DispatchFuncs.setStudyTypePreference}
@@ -60,6 +63,7 @@ const steps = [
     userName?: string | null
   ) => (
     <StudyPlaceTemplate
+      key={"StudyPlaceTemplate"}
       userName={userName}
       studyPlacePreference={state.studyPlacePreference}
       addStudyPlacePreference={DispatchFuncs.addStudyPlacePreference}
@@ -72,6 +76,7 @@ const steps = [
     userName?: string | null
   ) => (
     <AtmosphereTemplate
+      key={"AtmosphereTemplate"}
       userName={userName}
       studyAtmospherePreference={state.studyAtmospherePreference}
       addStudyAtmospherePreference={DispatchFuncs.addStudyAtmospherePreference}
@@ -86,7 +91,12 @@ const steps = [
     userName?: string | null,
     userEmail?: string | null
   ) => (
-    <CompleteTemplate state={state} userName={userName} userEmail={userEmail} />
+    <CompleteTemplate
+      key={"CompleteTemplate"}
+      state={state}
+      userName={userName}
+      userEmail={userEmail}
+    />
   ),
 ];
 

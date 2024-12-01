@@ -60,23 +60,22 @@ function RecruitmentPage() {
     [dispatch]
   );
   const steps = [
-    // 안에다 놓는 것 vs 밖으로 빼는 것... 현재는 유지보수하기 쉽게 안에다가..
     <StudyIntro
-      key={v4()}
+      key="studyIntro" // 고정된 key 값을 사용
       state={studyData}
       handleStateChange={handleStateChange}
     />,
     <StudyDetail
-      key={v4()}
+      key="studyDetail" // 고정된 key 값을 사용
       state={studyData}
       handleStateChange={handleStateChange}
     />,
     <MemberPreference
-      key={v4()}
+      key="memberPreference" // 고정된 key 값을 사용
       state={studyData}
       handleStateChange={handleStateChange}
     />,
-    <Complete state={studyData} />,
+    <Complete key="complete" state={studyData} />,
   ];
 
   const [step, setStep] = useState(0);
