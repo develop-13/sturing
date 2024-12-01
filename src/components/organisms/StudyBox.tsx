@@ -16,7 +16,7 @@ export default function StudyBox({ props }: { props: TStudyItem }) {
   return (
     <Link href={`/study/${props._id}`}>
       <div className="cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap">
-        <div className="flex flex-col w-[175px]">
+        <div className="flex flex-col w-[175px] ">
           <StudyImageBox
             src={props.imgSrc || "/img/studyItem/studyItemImg1.png"}
             dayOfWeek={props.dayOfWeek}
@@ -45,7 +45,7 @@ export default function StudyBox({ props }: { props: TStudyItem }) {
                   {`${startDateMonth}.${startDate}~${endDateMonth}.${endDate}`}
                 </Text>
               </div>
-              <div className="flex items-center gap-[1px]">
+              <div className="flex items-center gap-[2px] ">
                 <Icon type="LOCATION" />
                 <Text size="xs" weight="bold" color="gray-600">
                   {props.location}
