@@ -32,6 +32,8 @@ function StudyInfoPage() {
     member: useRef<HTMLDivElement>(null),
   };
 
+  console.log(studyInfo);
+
   useEffect(() => {
     // 스터디를 가져옴
     async function fetchstudyInfo() {
