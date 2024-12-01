@@ -32,8 +32,6 @@ function studyInfoPage() {
     member: useRef<HTMLDivElement>(null),
   };
 
-  console.log(studyInfo);
-
   useEffect(() => {
     // 스터디를 가져옴
     async function fetchstudyInfo() {
@@ -89,6 +87,7 @@ function studyInfoPage() {
       />
       <StudyOverview
         props={{
+          _id: studyInfo._id,
           type: studyInfo.type,
           categories: studyInfo.categories,
           title: studyInfo.title,
@@ -243,7 +242,7 @@ function studyInfoPage() {
             {studyInfo?.currentMembers?.map((member?: TStudyMember) => (
               <UserInfoItem
                 key={uuidv4()}
-                topText={member?.name || "예명"}
+                topText={member?.userName || "예명"}
                 bottomText={getTranslation(member?.role)}
                 imgSrc={
                   member?.applicantImgSrc ||

@@ -14,7 +14,6 @@ type TSkilledTemplate = {
 const dummyUsername = "웅진";
 
 function SkilledTemplate(props: TSkilledTemplate) {
-  console.log("logging in SkilledTemplate");
   const [selectedCategoryIdx, setSelectedCategoryIdx] = useState(0);
   // 분야
 

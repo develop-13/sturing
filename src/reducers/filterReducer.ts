@@ -5,10 +5,8 @@ import { Dispatch } from "react";
 enableMapSet();
 
 // 필터링 해서 보낼 데이터 형태
-
-// 아 매칭 state도 대표 나타내려면 배열로 하는게 좋을 듯
 export type TFilterState = {
-  selectedCategories: Set<TCategory>;
+  selectedCategories: TCategory[]; // Set 대신 배열로 변경
   memberNum: number;
   locations: Record<string, boolean>;
   duration: {
@@ -16,11 +14,11 @@ export type TFilterState = {
     endDate: Date | null;
   };
   levels: TLevel | null;
-  roles: Set<TRoleText>;
+  roles: TRoleText[]; // Set 대신 배열로 변경
 };
 
 export const initialState: TFilterState = {
-  selectedCategories: new Set([]),
+  selectedCategories: [], // 초기값을 빈 배열로 설정
   memberNum: 0,
   locations: {},
   duration: {
@@ -28,12 +26,11 @@ export const initialState: TFilterState = {
     endDate: null,
   },
   levels: null,
-  roles: new Set([]),
-  // 해당 role을 필요로 하는 스터디를 필터링 함
+  roles: [], // 초기값을 빈 배열로 설정
 };
 
-const resetState: TFilterState = {
-  selectedCategories: new Set([]),
+export const resetState: TFilterState = {
+  selectedCategories: [],
   memberNum: 0,
   locations: {},
   duration: {
@@ -41,8 +38,7 @@ const resetState: TFilterState = {
     endDate: new Date(),
   },
   levels: null,
-  roles: new Set([]),
-  // 해당 role을 필요로 하는 스터디를 필터링 함
+  roles: [],
 };
 
 export type TFilterAction =
@@ -71,10 +67,12 @@ export function FilterReducer(
   return produce(state, (draft) => {
     switch (action.type) {
       case "setCategory":
-        draft.selectedCategories.add(action.payload.category);
+        draft.selectedCategories.push(action.payload.category); // 배열에 추가
         break;
       case "cancelCategory":
-        draft.selectedCategories.delete(action.payload.category);
+        draft.selectedCategories = draft.selectedCategories.filter(
+          (category) => category !== action.payload.category
+        ); // 배열에서 제거
         break;
 
       case "increaseMemberNum":
@@ -94,26 +92,22 @@ export function FilterReducer(
         break;
 
       case "addLocation":
-        // draft.locations.add(
-        //   action.payload.region + " " + action.payload.location
-        // );
         draft.locations[action.payload.region + " " + action.payload.location] =
           true;
         break;
       case "deleteLocation":
-        // draft.locations.delete(
-        //   action.payload.region + " " + action.payload.location
-        // );
         delete draft.locations[
           action.payload.region + " " + action.payload.location
         ];
         break;
 
       case "setRole":
-        draft.roles.add(action.payload.role);
+        draft.roles.push(action.payload.role); // 배열에 추가
         break;
       case "cancelRole":
-        draft.roles.delete(action.payload.role);
+        draft.roles = draft.roles.filter(
+          (role) => role !== action.payload.role
+        ); // 배열에서 제거
         break;
 
       case "resetFilterData":
@@ -140,7 +134,7 @@ export type TDispatchFuncs = {
   cancelRole: (role: TRoleText) => void;
   resetFilterData: () => void;
 };
-// 각 액션 함수 정의
+
 export function createDispatchFuncs(
   dispatch: Dispatch<TFilterAction>
 ): TDispatchFuncs {

@@ -19,9 +19,6 @@ function InterestsTemplate({
   deleteInterest,
   addInterest,
 }: TInterestsTemplate) {
-  console.log("logging in InterestsTemplate");
-  console.log(fieldLevels);
-
   return (
     <section className="flex flex-col gap-[40px] py-[20px]">
       <MatchingTitle role="INTEREST" userName={userName} />

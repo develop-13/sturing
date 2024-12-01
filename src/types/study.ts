@@ -5,9 +5,7 @@ export type TStudy = {
   title: string;
   createdAt: string;
   period: {
-    // startDate: Date;
     startDate: string;
-    // endDate: Date;
     endDate: string;
   };
   creatorEmail: string;
@@ -107,7 +105,6 @@ export type TStudyRecruitment = Pick<
   | "categories"
   | "type"
   | "location"
-  | "period"
   | "dayOfWeek"
   | "time"
   | "maxMembersNum"
@@ -117,6 +114,10 @@ export type TStudyRecruitment = Pick<
   | "atmospheres"
 > & {
   description: string;
+  period: {
+    startDate: Date | null;
+    endDate: Date | null;
+  };
 };
 
 export type TStudyDetail = Pick<

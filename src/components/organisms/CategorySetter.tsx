@@ -1,4 +1,4 @@
-import { TDispatchFuncs } from "@/reducers/filterReducer";
+import { TDispatchFuncs, TFilterState } from "@/reducers/filterReducer";
 import CheckBoxItem from "../molecules/CheckItem/CheckBoxItem";
 import { TCategory } from "@/types/common";
 
@@ -9,18 +9,25 @@ function CategorySetter({
   cancelCategory,
 }: {
   categories: TCategory[];
-  selectedCategories: Set<TCategory>;
+  selectedCategories: TFilterState["selectedCategories"];
   addCategory: TDispatchFuncs["setCategory"];
   cancelCategory: TDispatchFuncs["cancelCategory"];
 }) {
+  const getIsSelected = (category: TCategory) => {
+    return !!selectedCategories.find(
+      (selectedCategory) => category === selectedCategory
+    );
+  };
+
   return (
     <ul className="flex flex-col gap-[21px]">
       {categories.map((category) => {
+        let isSelected = getIsSelected(category);
         return (
           <CheckBoxItem
-            isSelected={selectedCategories.has(category)}
+            isSelected={isSelected}
             onClick={() => {
-              if (selectedCategories.has(category)) {
+              if (isSelected) {
                 cancelCategory(category);
               } else {
                 addCategory(category);

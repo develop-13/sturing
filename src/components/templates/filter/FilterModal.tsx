@@ -82,8 +82,6 @@ const FilterModal = forwardRef(function FilterModal(
 ) {
   const [state, dispatch] = useReducer(FilterReducer, initialState);
 
-  console.log(state);
-
   const [currentTab, setCurrentTab] = useState(initialTab); // 탭
   const currentKey = Object.keys(filterDatas)[currentTab] as keyof TFilterDatas;
 
@@ -97,6 +95,10 @@ const FilterModal = forwardRef(function FilterModal(
 
   const fetchSearchResults = async () => {
     // 결과를 가져오는 함수이지만.. Post로 보내는 편이 나을 것 같다.
+
+    console.log(`query=${query}`);
+    console.log("state");
+    console.log(state);
 
     const fetchedDatas = await fetch(`/search/result/api?query=${query}`, {
       method: "POST",

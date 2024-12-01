@@ -96,23 +96,25 @@ function RecommendPage() {
 
   return (
     <div id="recommendPage" className="flex flex-col overflow-hidden">
-      <IconLabelButton
-        datas={{
-          text: "스터디 개설하기",
-          usage: "listItem",
-          icon: <Icon type="RLOGO" />,
-          onClick: () => {
-            if (!isLoggedIn) {
-              // 로그인이 안되어 있는데 클릭하면 모달이 열리도록 함
-              openModal();
-            } else {
-              router.push("/recruitment");
-            }
-          },
-          extraStyle:
-            "fixed xs:bottom-[23%] xs:right-0  lg:bottom-[28%] lg:right-[35%] z-40 p-15 ",
-        }}
-      />
+      <div>
+        <IconLabelButton
+          datas={{
+            text: "스터디 개설하기",
+            usage: "listItem",
+            icon: <Icon type="RLOGO" />,
+            onClick: () => {
+              if (!isLoggedIn) {
+                // 로그인이 안되어 있는데 클릭하면 모달이 열리도록 함
+                openModal();
+              } else {
+                router.push("/recruitment");
+              }
+            },
+            extraStyle:
+              "fixed xs:bottom-[23%] xs:right-0 sm:bottom-[26%]  sm:right-[20%]  lg:bottom-[28%] lg:right-[35%] z-40 p-15 ",
+          }}
+        />
+      </div>
       <Header
         className="px-4"
         leftSlot={

@@ -73,8 +73,8 @@ function RecruitmentPage() {
 
   const goNextStep = () => {
     // 두 번 클릭 시, 전전 주소로 요청되는 문제
-    if (step >= steps.length - 1) {
-      router.push("/recommend");
+    if (step > steps.length - 1) {
+      // router.push("/recommend");
       return;
     }
     setStep(step + 1);
