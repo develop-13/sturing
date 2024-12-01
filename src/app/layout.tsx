@@ -4,7 +4,7 @@ import "./globals.css";
 import AuthWrapper from "@/components/organisms/auth-components/AuthWrapper";
 import { UserStatusProvider } from "@/components/organisms/auth-components/UserStatusProvider";
 import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { authOptions } from "./utils/authOptions";
 import ModalProvider from "@/components/organisms/ModalProvider";
 export const metadata: Metadata = {
   title: "Create Next App",
