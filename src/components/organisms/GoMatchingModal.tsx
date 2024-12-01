@@ -2,7 +2,6 @@ import React, { forwardRef } from "react";
 import Text from "../atoms/Text";
 import Box from "../atoms/Box";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 const GoMatchingModal = forwardRef<HTMLDivElement, {}>(function GoMatchingModal(
   props,
@@ -29,9 +28,6 @@ const GoMatchingModal = forwardRef<HTMLDivElement, {}>(function GoMatchingModal(
           props={{
             shape: "full",
             extraCss: "p-3 bg-mainColor ",
-            onClick: () => {
-              // router.push("/matching");
-            },
           }}
         >
           <Text size="base" color="white" weight="bold">

@@ -5,23 +5,12 @@ import { useParams } from "next/navigation";
 
 type TApplyComplete = {
   userEmail: string;
-  // userName: string;
-  // applicantImgSrc: string;
   state: TApplyState;
 };
 
-function ApplyComplete({
-  userEmail,
-  state,
-}: // userName,
-// applicantImgSrc,
-TApplyComplete) {
+function ApplyComplete({ userEmail, state }: TApplyComplete) {
   const params = useParams();
   const { sid } = params;
-
-  console.log(userEmail);
-  console.log(state);
-  console.log(`sid=${sid}`);
 
   useEffect(() => {
     // apply/[sid]/api로 apply 저장 요청 날림

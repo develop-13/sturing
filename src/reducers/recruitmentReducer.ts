@@ -5,12 +5,13 @@ import { TStudyRecruitment } from "@/types/study";
 export type TStudyRecruitmentReducer = TStudyRecruitment;
 
 export const initialState: TStudyRecruitmentReducer = {
+  _id: "",
   creatorEmail: "",
   imgSrc: null,
   title: "",
   categories: [],
   description: "",
-  type: "",
+  type: undefined,
   location: "",
   period: {
     startDate: new Date(),

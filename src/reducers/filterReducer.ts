@@ -13,7 +13,7 @@ export type TFilterState = {
     startDate: Date | null;
     endDate: Date | null;
   };
-  levels: TLevel | null;
+  levels: TLevel | "";
   roles: TRoleText[]; // Set 대신 배열로 변경
 };
 
@@ -25,7 +25,7 @@ export const initialState: TFilterState = {
     startDate: null,
     endDate: null,
   },
-  levels: null,
+  levels: "",
   roles: [], // 초기값을 빈 배열로 설정
 };
 
@@ -37,7 +37,7 @@ export const resetState: TFilterState = {
     startDate: new Date(),
     endDate: new Date(),
   },
-  levels: null,
+  levels: "",
   roles: [],
 };
 
@@ -55,7 +55,7 @@ export type TFilterAction =
       payload: { region: string; location: string };
     }
   | { type: "setDate"; payload: { startDate: Date; endDate: Date } }
-  | { type: "setLevel"; payload: { level: TLevel | null } }
+  | { type: "setLevel"; payload: { level: TLevel | "" } }
   | { type: "setRole"; payload: { role: TRoleText } }
   | { type: "cancelRole"; payload: { role: TRoleText } }
   | { type: "resetFilterData" };
@@ -129,7 +129,7 @@ export type TDispatchFuncs = {
   addLocation: (region: string, location: string) => void;
   deleteLocation: (region: string, location: string) => void;
   setDate: (startDate: Date, endDate: Date) => void;
-  setLevel: (level: TLevel | null) => void;
+  setLevel: (level: TLevel | "") => void;
   setRole: (role: TRoleText) => void;
   cancelRole: (role: TRoleText) => void;
   resetFilterData: () => void;
@@ -167,7 +167,7 @@ export function createDispatchFuncs(
     });
   };
 
-  const setLevel = (level: TLevel | null) => {
+  const setLevel = (level: TLevel | "") => {
     dispatch({
       type: "setLevel",
       payload: { level },

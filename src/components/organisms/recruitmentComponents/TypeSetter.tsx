@@ -6,7 +6,7 @@ function TypeSetter({
   type,
   handleSetType,
 }: {
-  type: "offline" | "online" | "";
+  type?: "offline" | "online";
   handleSetType: (text: "online" | "offline") => void;
 }) {
   return (

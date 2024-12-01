@@ -1,6 +1,5 @@
 import Icon from "@/components/atoms/Icon";
 import Text from "@/components/atoms/Text";
-import Button from "@/components/molecules/Button";
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import LocationTable from "@/components/molecules/locationComponents/LocationTable";

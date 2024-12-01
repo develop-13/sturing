@@ -1,10 +1,8 @@
 import Icon from "@/components/atoms/Icon";
 import Text from "@/components/atoms/Text";
 import IconLabelButton from "@/components/molecules/IconLabelButton";
-import { HandleStateChange } from "@/components/pages/RecruitmentPage";
 import { atmosphereData } from "@/db/atmospheres";
 import { TAtmosphere } from "@/types/common";
-import { TStudyRecruitment } from "@/types/study";
 import React from "react";
 
 type TAtmosphereSetter = {

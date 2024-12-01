@@ -19,10 +19,6 @@ import {
   UserStatusContext,
   UserStatusContextProps,
 } from "../organisms/auth-components/UserStatusProvider";
-import {
-  ModalContextProps,
-  ModalProviderContext,
-} from "../organisms/ModalProvider";
 
 type TParticipationOptions = "team" | "private" | "schedule" | "feedback";
 const buttonGroupDatas: TParticipationOptions[] = [
@@ -50,13 +46,6 @@ function JoiningStudy() {
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [studyDetail, setStudyDetail] =
     useState<TStudyDetail_participating | null>(null);
-
-  // const handleAttendanceChange = (updatedTeamMembers: TStudyMember[]) => {
-  //   setStudyDetail((prev: TStudyDetail_participating | null) => ({
-  //     ...prev,
-  //     currentMembers: updatedTeamMembers,
-  //   }));
-  // };
 
   const handleAttendanceChange = (updatedTeamMembers: TStudyMember[]) => {
     setStudyDetail((prev: any) => {
