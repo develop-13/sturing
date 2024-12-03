@@ -1,12 +1,6 @@
 "use client";
 // UserStatusContext.tsx
-import React, {
-  createContext,
-  useEffect,
-  useCallback,
-  useRef,
-  useState,
-} from "react";
+import React, { createContext, useEffect, useCallback, useState } from "react";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
 import Loading from "@/components/templates/Loading";
@@ -46,22 +40,9 @@ export const UserStatusProvider = ({
     hasMatchingInfo: false,
   });
 
-  // const userCreatedRef = useRef(false);
-  // // db에 사용자 정보가 있는지 없는지에 대한 정보
-  // const hasMatchingInfoRef = useRef(false);
-  // // db에 사용자의 매칭 정보가 있는지 없는지에 대한 정보
-
   const handleHasMatchingInfo = useCallback(() => {
-    // setHasMatchingInfo(true);
-
     setUserInfo((prev) => ({ userCreated: true, hasMatchingInfo: true }));
   }, []);
-
-  // console.log("userContext render!");
-  // console.log(session);
-  // console.log(`status=${status}`);
-  // console.log(`userCreated=${userInfo.userCreated}`);
-  // console.log(`hasMatchingInfo=${userInfo.hasMatchingInfo}`);
 
   useEffect(() => {
     async function getUserStatus() {
