@@ -25,8 +25,6 @@ function StudyInfoPage() {
   const router = useRouter();
   const params = useParams<{ sid: string }>();
   const [selectedIdx, setSelected] = useState(0);
-  const [studyInfoBoxTop, setStudyInfoBoxTop] = useState(0);
-  const [memberInfoBoxTop, setMemberInfoBoxTop] = useState(0);
   const [studyInfo, setStudyInfo] = useState<TStudyDetail | null>(null);
   const boxRef = {
     info: useRef<HTMLDivElement>(null),
@@ -49,23 +47,13 @@ function StudyInfoPage() {
   const onClickBtn = (selectedOptionIdx: number) => {
     setSelected(selectedOptionIdx);
 
-    switch (buttonGroupData[selectedOptionIdx]) {
-      case "info":
-        window.scrollTo({ top: studyInfoBoxTop, behavior: "smooth" });
-        break;
-      case "member":
-        window.scrollTo({ top: memberInfoBoxTop, behavior: "smooth" });
-        break;
+    const targetElement = document.getElementById(
+      buttonGroupData[selectedOptionIdx]
+    );
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: "smooth" });
     }
   };
-
-  const getInfoBoxTop =
-    (setInfoBoxTop: (infoBoxTop: number) => void) => (infoBoxTop: number) => {
-      console.log(infoBoxTop);
-      setInfoBoxTop(infoBoxTop);
-    };
-
-  console.log(`selectedIdx=${selectedIdx}`);
 
   if (!studyInfo) return <Loading />;
 
@@ -127,12 +115,7 @@ function StudyInfoPage() {
             content={studyInfo?.location + ""}
           />
         </ul>
-        <InfoBox
-          id="info"
-          theme="white"
-          getInfoBoxTop={getInfoBoxTop(setStudyInfoBoxTop)}
-          ref={boxRef.info}
-        >
+        <InfoBox id="info" theme="white" ref={boxRef.info}>
           <TitleLink
             title="스터디 정보"
             hasArrow={true}
@@ -183,12 +166,7 @@ function StudyInfoPage() {
             ))}
           </div>
         </InfoBox>
-        <InfoBox
-          theme="white"
-          id="member"
-          getInfoBoxTop={getInfoBoxTop(setMemberInfoBoxTop)}
-          ref={boxRef.member}
-        >
+        <InfoBox theme="white" id="member" ref={boxRef.member}>
           <Text size="sm" weight="bold">
             해당 스터디에서 원하는 팀원
           </Text>
