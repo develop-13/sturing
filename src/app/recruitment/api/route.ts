@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import path from "path";
 import { createWriteStream, ReadStream } from "fs";
+import mongoose from "mongoose";
 
 import dbConnect from "@/lib/mongodb";
 import Study from "@/models/Study";
@@ -108,6 +109,8 @@ export async function POST(req: NextRequest) {
     const imageUrl = `/uploads/${filename}`;
     console.log("imageUrl");
     console.log(imageUrl);
+
+    console.log(studyData);
 
     // Mongoose 모델 사용하여 데이터 저장
     const studyDocument = new Study({

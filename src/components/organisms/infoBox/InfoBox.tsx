@@ -17,6 +17,7 @@ const InfoBox = forwardRef<HTMLDivElement, TInfoBox>(function InfoBox(
 ) {
   useEffect(() => {
     if (props.getInfoBoxTop && ref && typeof ref === "object" && ref.current) {
+      console.log("clicked!");
       props.getInfoBoxTop(ref.current.getBoundingClientRect().top);
     }
   });

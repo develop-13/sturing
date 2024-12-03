@@ -1,5 +1,6 @@
 import GithubProvider from "next-auth/providers/github";
 import Kakao from "next-auth/providers/kakao";
+import GoogleProvider from "next-auth/providers/google";
 import { Account, Profile, User, Session } from "next-auth";
 import dbConnect from "@/lib/mongodb";
 import { JWT } from "next-auth/jwt";
@@ -9,6 +10,8 @@ const GithubClientId = process.env.GITHUB_ID;
 const GithubClientSecret = process.env.GITHUB_SECRET;
 const KakaoClientId = process.env.KAKAO_CLIENT_ID;
 const KakaoClientSecret = process.env.KAKAO_CLIENT_SECRET;
+const GoogleClientId = process.env.AUTH_GOOGLE_ID;
+const GoogleClientSecret = process.env.AUTH_GOOGLE_SECRET;
 
 declare module "next-auth" {
   interface Session {
@@ -21,11 +24,15 @@ declare module "next-auth" {
 }
 
 if (!GithubClientId || !GithubClientSecret) {
-  throw new Error("missing clientId or clientSecret");
+  throw new Error("missing github clientId or clientSecret");
 }
 
 if (!KakaoClientId || !KakaoClientSecret) {
-  throw new Error("missing clientId or clientSecret");
+  throw new Error("missing kakao clientId or clientSecret");
+}
+
+if (!GoogleClientId || !GoogleClientSecret) {
+  throw new Error("missing google clientId or clientSecret");
 }
 
 export const authOptions: NextAuthOptions = {
@@ -41,10 +48,15 @@ export const authOptions: NextAuthOptions = {
       }, // 여기에 prompt 추가
     }),
     Kakao({
-      clientId: KakaoClientId,
+      clientId: GoogleClientId,
       clientSecret: KakaoClientSecret,
     }),
     // ...add more providers here
+
+    GoogleProvider({
+      clientId: GoogleClientId,
+      clientSecret: GoogleClientSecret,
+    }),
   ],
   // strategy: "jwt", // 세션을 JWT로 저장 (기본값은 'database'가 아닌 'jwt'가 추천됨)
 

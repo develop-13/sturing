@@ -1,9 +1,6 @@
 "use client";
-import Text from "@/components/atoms/Text";
 import WeekCalendar from "@/components/organisms/CustomCalendar/WeekCalendar";
-import InfoBox from "@/components/organisms/infoBox/InfoBox";
 import React, { useContext, useEffect, useState } from "react";
-import { TTeam } from "./Team";
 import { TCheckListItem, TStudyMember } from "@/types/study";
 import TodoListInfoBox from "@/components/organisms/infoBox/TodoListInfoBox";
 import {
@@ -34,6 +31,8 @@ function Private(props: TPrivate) {
   const [checkList, setCheckList] = useState(
     getCheckLists(props.teamMembers, session?.user.email)
   );
+
+  console.log(props);
 
   useEffect(() => {
     async function getUpdatedCheckList() {}

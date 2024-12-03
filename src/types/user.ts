@@ -2,7 +2,7 @@ import { TAtmosphere, TCategory, TLevel, TRoleText } from "./common";
 
 export type TMatching = {
   interests: TCategory[];
-  fieldLevels: Map<TCategory, TLevel | "">;
+  fieldLevels: Map<TCategory, TLevel | null>;
   studyTypePreference: "online" | "offline" | "" | "both";
   studyPlacePreference: Set<string>;
   studyAtmospherePreference: Set<TAtmosphere>;

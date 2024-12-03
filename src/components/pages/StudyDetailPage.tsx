@@ -17,6 +17,7 @@ import ButtonLabel from "../molecules/IconLabelButton";
 import UserInfoItem from "../molecules/UserInfoItem";
 import Link from "next/link";
 import getTranslation from "@/utils/getTranslation";
+import Loading from "../templates/Loading";
 
 const buttonGroupData = ["info", "member"];
 
@@ -60,11 +61,13 @@ function StudyInfoPage() {
 
   const getInfoBoxTop =
     (setInfoBoxTop: (infoBoxTop: number) => void) => (infoBoxTop: number) => {
+      console.log(infoBoxTop);
       setInfoBoxTop(infoBoxTop);
     };
 
-  if (!studyInfo) return;
-  // 한 번에 보여주기 위한 처리
+  console.log(`selectedIdx=${selectedIdx}`);
+
+  if (!studyInfo) return <Loading />;
 
   return (
     <div className="bg-gray-100">

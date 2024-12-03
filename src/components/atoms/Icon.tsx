@@ -60,6 +60,7 @@ export type TIconData = {
     | "PLUS"
     | "MINUS"
     | "GITHUB"
+    | "GOOGLE"
     | "CHECKED_ROUND"
     | "UNCHECKED_ROUND"
     | "REMOVE";
@@ -111,6 +112,15 @@ const IconDataSet: TIconDataSet = {
   GITHUB: (onClick, width = 18, height = 18, className) => (
     <Image
       src="/svg/ect/github_logo.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+  GOOGLE: (onClick, width = 18, height = 18, className) => (
+    <Image
+      src="/svg/ect/google.svg"
       width={width}
       height={height}
       onClick={onClick}

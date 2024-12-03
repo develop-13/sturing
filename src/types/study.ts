@@ -98,7 +98,6 @@ export type TStudyOverview = Pick<
 
 export type TStudyRecruitment = Pick<
   TStudy,
-  | "_id"
   | "creatorEmail"
   | "imgSrc"
   | "title"

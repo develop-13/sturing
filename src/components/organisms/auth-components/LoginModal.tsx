@@ -32,22 +32,22 @@ const LoginModal = forwardRef<HTMLDivElement, {}>(function LoginModal(
           </div>
         </div>
         <div>
-          {/* <Box
+          <Box
             props={{
               shape: "full",
-              extraCss: "bg-yellow ",
+              extraCss: "bg-white ",
               onClick: () => {
-                signIn("kakao");
+                signIn("google");
               },
             }}
           >
             <div className="flex gap-4 py-3">
-              <Icon type="KAKAO" />
+              <Icon type="GOOGLE" />
               <Text size="sm" weight="bold">
-                카카오로 3초만에 시작하기
+                구글로 3초만에 시작하기
               </Text>
             </div>
-          </Box> */}
+          </Box>
           <Box
             props={{
               shape: "full",

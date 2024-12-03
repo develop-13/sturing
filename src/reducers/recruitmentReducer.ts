@@ -1,11 +1,11 @@
 import { TStudyRecruitment } from "@/types/study";
+import { v4 } from "uuid";
 
 // 초기 상태
 
 export type TStudyRecruitmentReducer = TStudyRecruitment;
 
 export const initialState: TStudyRecruitmentReducer = {
-  _id: "",
   creatorEmail: "",
   imgSrc: null,
   title: "",
