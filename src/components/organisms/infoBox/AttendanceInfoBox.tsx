@@ -3,32 +3,32 @@ import InfoBox from "./InfoBox";
 import Text from "@/components/atoms/Text";
 import Divider from "@/components/atoms/Divider";
 import CheckItem from "@/components/molecules/CheckItem/CheckItem";
-import { TStudyMember } from "@/types/study";
+import { TJoiningStudy_Client, TStudyMember } from "@/types/study";
 import {
   UserStatusContext,
   UserStatusContextProps,
 } from "../auth-components/UserStatusProvider";
 
 type TAttendanceInfoBox = {
-  teamMembers?: TStudyMember[];
-  onAttendanceChange: (updatedTeamMembers: any) => void;
+  memberAttendances: TJoiningStudy_Client["memberAttendances"];
+  onAttendanceChange: (myUserEmail: string, attendance: boolean) => void;
   studyId: string;
 };
 
-const getAttendance = (teamMembers: TStudyMember[] | undefined) => {
+const getAttendance = (
+  memberAttendances: TJoiningStudy_Client["memberAttendances"]
+) => {
   let present = 0;
-  if (!teamMembers || !teamMembers.length) {
+  if (!memberAttendances.length) {
     return present + "/" + 0;
   }
-  teamMembers.forEach((teamMember) => {
+  memberAttendances.forEach((teamMember) => {
     if (teamMember.attendance) present++;
   });
-  return present + "/" + teamMembers.length;
+  return present + "/" + memberAttendances.length;
 };
 
 function AttendanceInfoBox(props: TAttendanceInfoBox) {
-  const { teamMembers } = props;
-
   const { session }: UserStatusContextProps = useContext(UserStatusContext);
 
   const handleCheck = (userEmail: string, checked?: boolean) => async () => {
@@ -44,15 +44,8 @@ function AttendanceInfoBox(props: TAttendanceInfoBox) {
     }
 
     const updatedChecked = !checked;
-    const updatedTeamMembers = teamMembers?.map((teamMember) => {
-      if (teamMember.userEmail == userEmailMine) {
-        teamMember.attendance = updatedChecked;
-      }
-      return teamMember;
-    });
 
-    // setTeamMembers(updatedTeamMembers);
-    props.onAttendanceChange(updatedTeamMembers);
+    props.onAttendanceChange(userEmailMine, updatedChecked);
     // PATCH 요청을 보내기 전에 값을 변경
     try {
       const response = await fetch(`/joiningStudy/${props.studyId}/api`, {
@@ -85,12 +78,12 @@ function AttendanceInfoBox(props: TAttendanceInfoBox) {
           출석체크 현황
         </Text>
         <Text weight="bold" color="main">
-          {getAttendance(props.teamMembers)}
+          {getAttendance(props.memberAttendances)}
         </Text>
       </div>
       <Divider type="row" />
       <div className="flex">
-        {props.teamMembers?.map((teamMember) => (
+        {props.memberAttendances?.map((teamMember) => (
           <CheckItem
             type="col"
             isChecked={teamMember.attendance}
@@ -107,4 +100,4 @@ function AttendanceInfoBox(props: TAttendanceInfoBox) {
   );
 }
 
-export default AttendanceInfoBox;
+export default React.memo(AttendanceInfoBox);

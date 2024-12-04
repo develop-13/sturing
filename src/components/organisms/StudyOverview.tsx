@@ -1,8 +1,8 @@
 import { TStudyOverview } from "@/types/study";
-import Image from "../atoms/Image";
 import Text from "../atoms/Text";
 import Button from "../molecules/Button";
 import InfoTags from "../molecules/InfoTags";
+import React from "react";
 
 const getPeriod = (startDate: string, endDate: string): number => {
   const currentYear = new Date().getFullYear();
@@ -85,4 +85,4 @@ function StudyOverview({ props }: { props: TStudyOverview }) {
   );
 }
 
-export default StudyOverview;
+export default React.memo(StudyOverview);

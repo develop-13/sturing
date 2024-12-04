@@ -1,7 +1,11 @@
 "use client";
 import WeekCalendar from "@/components/organisms/CustomCalendar/WeekCalendar";
 import React, { useContext, useEffect, useState } from "react";
-import { TCheckListItem, TStudyMember } from "@/types/study";
+import {
+  TCheckListItem,
+  TJoiningStudy_Client,
+  TStudyMember,
+} from "@/types/study";
 import TodoListInfoBox from "@/components/organisms/infoBox/TodoListInfoBox";
 import {
   UserStatusContext,
@@ -9,11 +13,16 @@ import {
 } from "@/components/organisms/auth-components/UserStatusProvider";
 
 type TPrivate = {
-  teamMembers?: TStudyMember[];
+  teamMembers?: TJoiningStudy_Client["currentMembers"];
   studyId: string;
+  onUpdateCheckList: (updatedTeamMembers: TStudyMember[]) => void;
 };
 
-const getCheckLists = (teamMembers?: TStudyMember[], userEmail?: string) => {
+const getCheckLists = (
+  teamMembers?: TJoiningStudy_Client["currentMembers"],
+  userEmail?: string
+) => {
+  // 팀 멤배에서 나의 체크리스트만 골라냄
   if (!teamMembers || !userEmail) return [];
   // 나의 체크리스트를 구하는 항목이 빠짐 = userEmail이 필요함
   const myInfo = teamMembers.find(
@@ -28,28 +37,28 @@ function Private(props: TPrivate) {
   // 현재 날짜에 따른 checkList를 보여준다.
   // Study의 checkList 중 현재 날짜인 것들을 보여준다.
   const { session }: UserStatusContextProps = useContext(UserStatusContext);
-  const [checkList, setCheckList] = useState(
-    getCheckLists(props.teamMembers, session?.user.email)
-  );
-
+  const checkList = getCheckLists(props.teamMembers, session?.user.email);
   console.log(props);
-
-  useEffect(() => {
-    async function getUpdatedCheckList() {}
-  }, [checkList]);
 
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const handleCurrentDate = (selectedDate: Date) => {
     setCurrentDate(selectedDate); // 선택된 날짜를 상태로 업데이트
   };
+
+  const onUpdateCheckList = () => {};
+
   return (
     <div className="px-4 py-5 flex flex-col gap-4">
       <WeekCalendar
         currentDate={currentDate}
         handleCurrentDate={handleCurrentDate}
       />
-      <TodoListInfoBox todoList={checkList} date={currentDate} />
+      <TodoListInfoBox
+        todoList={checkList}
+        date={currentDate}
+        onUpdateCheckList={onUpdateCheckList}
+      />
     </div>
   );
 }

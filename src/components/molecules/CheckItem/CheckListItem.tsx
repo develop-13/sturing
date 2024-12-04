@@ -5,7 +5,7 @@ import Icon from "@/components/atoms/Icon";
 type TCheckListItem = {
   isChecked?: boolean;
   text: string;
-  handleCheck: () => void;
+  toggleCheck: () => void;
   type: "col" | "row";
   className?: string;
 };

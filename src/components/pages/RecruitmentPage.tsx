@@ -57,7 +57,8 @@ function RecruitmentPage() {
       dispatch({ type: "UPDATE_FIELD", field, value });
     },
     [dispatch]
-  );
+  ); // dispatch함수의 값은 변하지 않으니까 useReducer로 했을때 랜더링이 덜된다는 장점이 있음
+
   const steps = [
     <StudyIntro
       key="studyIntro" // 고정된 key 값을 사용

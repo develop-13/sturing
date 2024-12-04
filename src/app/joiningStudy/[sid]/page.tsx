@@ -1,8 +1,8 @@
 import React from "react";
-import JoiningStudy from "@/components/pages/JoiningStudy";
+import JoiningStudyPage from "@/components/pages/JoiningStudyPage";
 
 function page() {
-  return <JoiningStudy />;
+  return <JoiningStudyPage />;
 }
 
 export default page;

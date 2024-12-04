@@ -1,5 +1,5 @@
-import { TCheckListItem } from "@/types/study";
-import React, { useState } from "react";
+import { TCheckListItem, TStudyMember } from "@/types/study";
+import React, { useRef, useState } from "react";
 import InfoBox from "./InfoBox";
 import Text from "@/components/atoms/Text";
 import { v4 } from "uuid";
@@ -9,9 +9,11 @@ import Icon from "@/components/atoms/Icon";
 type TTodoListInfoBox = {
   todoList: TCheckListItem[] | undefined;
   date: Date;
+  onUpdateCheckList: () => void;
 };
 
 const showTodoList = (todoList: TCheckListItem[] | undefined, date: Date) => {
+  // todoList 중의 항목중에서 선택된 날짜에 해당하는 항목들을 골라 배열로 반환
   if (!todoList) return []; // todoList가 없으면 빈 배열 반환
 
   // 주어진 date와 일치하는 checkList 항목만 필터링
@@ -29,14 +31,34 @@ const showTodoList = (todoList: TCheckListItem[] | undefined, date: Date) => {
 };
 
 function TodoListInfoBox(props: TTodoListInfoBox) {
-  const { todoList, date } = props;
+  // 할일을 추가/삭제/수정/체크 할수 있어야 함
+
+  const { todoList: todoListInObj, date, onUpdateCheckList } = props;
 
   // showTodoList 함수를 호출하여 date에 맞는 todo 항목을 가져옴
-  const filteredTodoList = showTodoList(todoList, date);
+  const todoList = showTodoList(todoListInObj, date);
   const [isCreatingNewTodo, setIsCreatingNewTodo] = useState(false);
   // 바깥쪽 클릭하면 닫히기
 
-  const handleCheck = () => {};
+  const inputRef = useRef(null);
+  const [isFocused, setIsFocused] = useState(false);
+
+  const [newTodoText, setNewTodoText] = useState("");
+
+  const onChangeNewTodoText = (e) => {
+    setNewTodoText(e.target.value);
+  };
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
+  // 할일을 추가/삭제/수정/체크 할수 있어야 함
+  const toggleCheck = () => {};
+  const addNewTodo = () => {};
 
   return (
     <InfoBox theme="white">
@@ -52,23 +74,36 @@ function TodoListInfoBox(props: TTodoListInfoBox) {
         />
       </div>
       <ul className="flex flex-col gap-4">
-        {filteredTodoList.length > 0 ? (
-          filteredTodoList.map((todoItem) => (
+        {todoList.length > 0 ? (
+          todoList.map((todoItem) => (
             <CheckListItem
               type="row"
               isChecked={todoItem.done}
               text={todoItem.content}
               className="justify-start gap-3"
               key={v4()}
-              handleCheck={() => {
-                handleCheck();
+              toggleCheck={() => {
+                toggleCheck();
               }}
             />
           ))
         ) : (
           <Text>No tasks for today</Text>
         )}
-        {isCreatingNewTodo && <li>새로운 Todo 생성 중 추가버튼</li>}
+        {isCreatingNewTodo && (
+          <div className="flex gap-2">
+            <input
+              placeholder="할일을 추가해주세요"
+              type="text"
+              ref={inputRef}
+              value={newTodoText}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              onChange={onChangeNewTodoText}
+            />
+            <button>할 일 추가</button>
+          </div>
+        )}
       </ul>
     </InfoBox>
   );

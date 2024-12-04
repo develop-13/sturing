@@ -72,7 +72,7 @@ export type TStudy = {
   score: number; // 스터디의 인기도 점수 (자동 계산될 값)
 };
 
-export type TStudyDetail_participating = Pick<
+export type TJoiningStudy_Server = Pick<
   TStudy,
   | "_id"
   | "type"
@@ -80,11 +80,31 @@ export type TStudyDetail_participating = Pick<
   | "title"
   | "imgSrc"
   | "period"
-  | "currentMembers"
   | "schedules"
   | "tasks"
   | "board"
+  | "currentMembers"
 >;
+
+export type TJoiningStudy_Client = Pick<
+  TStudy,
+  | "_id"
+  | "type"
+  | "categories"
+  | "title"
+  | "imgSrc"
+  | "period"
+  | "schedules"
+  | "tasks"
+  | "board"
+> & {
+  currentMembers: Omit<TStudyMember, "attendance">[];
+  memberAttendances: {
+    userName: string;
+    userEmail: string;
+    attendance: boolean;
+  }[];
+};
 
 export type TStudyOverview = Pick<
   TStudy,
@@ -155,8 +175,8 @@ export type TStudyMember = {
   userName: string;
   applicantImgSrc: string; // 사용자의 이미지 URL
   role: string; // 사용자의 역할
-  attendance?: boolean; // 당일 출석 여부
-  checkList?: TCheckListItem[]; // 체크리스트 항목들
+  attendance: boolean; // 당일 출석 여부
+  checkList: TCheckListItem[]; // 체크리스트 항목들
 };
 // export type TStudyMember = {
 //   name: string;

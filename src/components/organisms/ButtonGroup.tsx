@@ -4,6 +4,7 @@ import Link from "next/link";
 import Text from "../atoms/Text";
 import Button from "../molecules/Button";
 import { useRouter } from "next/navigation";
+import React from "react";
 
 // 제네릭 타입을 사용하여 유연한 타입 정의
 export type TTabProps = {
@@ -14,7 +15,8 @@ export type TTabProps = {
 
 // 데이터들 (buttonGroupData) 중에서 현재 선택된 (selectedOptionIdx) idx를 표시하고
 // 눌렀을 때 이벤트를 받아라.
-export function TabButtonGroup(props: TTabProps) {
+
+export const TabButtonGroup = React.memo((props: TTabProps) => {
   let commonStyle = "flex-grow basis-0 h-full ";
   let selectedStyle = commonStyle + "border-b-2 border-mainColor";
 
@@ -56,7 +58,7 @@ export function TabButtonGroup(props: TTabProps) {
       })}
     </div>
   );
-}
+});
 
 type TNavButtonGroup = {
   pathname: string;

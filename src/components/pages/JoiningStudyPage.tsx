@@ -1,11 +1,18 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useReducer,
+  useState,
+} from "react";
 import Icon from "../atoms/Icon";
 import Header from "../organisms/Header";
 import StudyOverview from "../organisms/StudyOverview";
 import {
-  TStudy,
-  TStudyDetail_participating,
+  TJoiningStudy_Client,
+  TJoiningStudy_Server,
   TStudyMember,
 } from "@/types/study";
 import { useParams, useRouter } from "next/navigation";
@@ -19,6 +26,10 @@ import {
   UserStatusContext,
   UserStatusContextProps,
 } from "../organisms/auth-components/UserStatusProvider";
+import {
+  JoiningStudyReducer,
+  initialState,
+} from "@/reducers/JoiningStudyReducer";
 
 type TParticipationOptions = "team" | "private" | "schedule" | "feedback";
 const buttonGroupDatas: TParticipationOptions[] = [
@@ -28,7 +39,7 @@ const buttonGroupDatas: TParticipationOptions[] = [
   "feedback",
 ];
 
-function JoiningStudy() {
+function JoiningStudyPage() {
   const router = useRouter();
 
   const { session, status }: UserStatusContextProps =
@@ -44,39 +55,69 @@ function JoiningStudy() {
 
   const params = useParams<{ sid: string }>();
   const [selectedIdx, setSelectedIdx] = useState(0);
-  const [studyDetail, setStudyDetail] =
-    useState<TStudyDetail_participating | null>(null);
+  // const [JoiningStudy, setJoiningStudy] = useState<TJoiningStudy | null>(null);
+  const [JoiningStudy, dispatch] = useReducer(
+    JoiningStudyReducer,
+    initialState
+  );
 
-  const handleAttendanceChange = (updatedTeamMembers: TStudyMember[]) => {
-    setStudyDetail((prev: any) => {
-      if (prev === null) {
-        return { currentMembers: updatedTeamMembers }; // prev가 undefined일 경우 새로운 객체를 반환
-      }
-      return {
-        ...prev, // 기존 state를 복사하고
-        currentMembers: updatedTeamMembers, // currentMembers만 업데이트
-      };
-    });
+  const StudyOverviewProps = useMemo(() => {
+    return {
+      _id: JoiningStudy._id,
+      type: JoiningStudy.type,
+      categories: JoiningStudy.categories,
+      imgSrc: JoiningStudy.imgSrc,
+      period: JoiningStudy.period,
+      title: JoiningStudy.title,
+    };
+  }, [
+    JoiningStudy._id,
+    JoiningStudy.type,
+    JoiningStudy.categories,
+    JoiningStudy.imgSrc,
+    JoiningStudy.period,
+    JoiningStudy.title,
+  ]);
+
+  const handleUpdateTeamMembers = useCallback(
+    (updatedTeamMembers: TStudyMember[]) => {
+      dispatch({ type: "UPDATE_MEMBERS", payload: updatedTeamMembers });
+    },
+    [dispatch]
+  );
+
+  const handleToggleAttendance = useCallback(
+    (myUserEmail: string, attendance: boolean) => {
+      dispatch({
+        type: "TOGGLE_ATTENDANCE",
+        payload: { myUserEmail, attendance },
+      });
+    },
+    [dispatch]
+  );
+
+  const handleSetJoiningSTudy = (joiningStudy: TJoiningStudy_Server) => {
+    dispatch({ type: "SET_JOININGSTUDY", payload: joiningStudy });
   };
 
-  const handleChange = (field: string, value: string) => {};
-
-  const handleCheckList = () => {};
+  console.log(JoiningStudy);
 
   const steps: Record<TParticipationOptions, React.ReactNode> = {
     team: (
       <Team
         key={"Team"}
-        teamMembers={studyDetail?.currentMembers}
+        teamMembers={JoiningStudy.currentMembers}
+        memberAttendances={JoiningStudy.memberAttendances}
         studyId={params.sid}
-        onAttendanceChange={handleAttendanceChange}
+        onAttendanceChange={handleToggleAttendance}
       />
     ),
     private: (
       <Private
         key={"Private"}
-        teamMembers={studyDetail?.currentMembers}
+        teamMembers={JoiningStudy.currentMembers}
         studyId={params.sid}
+        onUpdateCheckList={handleUpdateTeamMembers}
       />
     ),
     schedule: <Schedule key={"Schedule"} />,
@@ -90,17 +131,20 @@ function JoiningStudy() {
         `/joiningStudy/${params.sid}/api`
       ).then((res) => res.json());
       // 서버에서 받은 data로 studyDetail 상태 업데이트
-      setStudyDetail(data);
+      handleSetJoiningSTudy(data);
     }
 
     fetchStudy();
   }, []); // params.sid가 변경될 때마다 다시 fetchStudy() 실행
 
-  if (!studyDetail) return <Loading />;
+  if (!JoiningStudy) return <Loading />;
 
-  const onClickBtn = (selectedOptionIdx: number) => {
-    setSelectedIdx(selectedOptionIdx);
-  };
+  const onClickBtn = useCallback(
+    (selectedOptionIdx: number) => {
+      setSelectedIdx(selectedOptionIdx);
+    },
+    [selectedIdx]
+  );
 
   return (
     <div className="bg-gray-100">
@@ -122,11 +166,8 @@ function JoiningStudy() {
           </div>
         }
       />
-      <StudyOverview
-        props={{
-          ...studyDetail,
-        }}
-      />
+      <StudyOverview props={StudyOverviewProps} />
+      {/* 얘네를 React.memo로 감싸야겠음. StudyOverview가 받는 props는 나눠서 전달해주고.. */}
       <TabButtonGroup
         onClick={onClickBtn}
         selectedOptionIdx={selectedIdx}
@@ -137,4 +178,4 @@ function JoiningStudy() {
   );
 }
 
-export default JoiningStudy;
+export default JoiningStudyPage;

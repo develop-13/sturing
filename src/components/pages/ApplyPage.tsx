@@ -23,7 +23,6 @@ import {
   UserStatusContext,
   UserStatusContextProps,
 } from "../organisms/auth-components/UserStatusProvider";
-import { v4 } from "uuid";
 
 function ApplyPage() {
   const router = useRouter();
