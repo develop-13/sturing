@@ -23,6 +23,8 @@ function Progressbar({
 export default Progressbar;
 
 export function PercentageBar({ percentage }: { percentage: number }) {
+  console.log(`percentage=${percentage}`);
+
   return (
     <div className="relative h-2 bg-gray-200 rounded-full">
       <div className="absolute right-1 bottom-3">{percentage}%</div>

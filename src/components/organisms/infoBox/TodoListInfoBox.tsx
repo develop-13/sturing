@@ -1,15 +1,27 @@
-import { TCheckListItem, TStudyMember } from "@/types/study";
-import React, { useRef, useState } from "react";
+import { TCheckListItem } from "@/types/study";
+import React, { useEffect, useRef, useState } from "react";
+
 import InfoBox from "./InfoBox";
 import Text from "@/components/atoms/Text";
 import { v4 } from "uuid";
 import CheckListItem from "@/components/molecules/CheckItem/CheckListItem";
 import Icon from "@/components/atoms/Icon";
+import {
+  postTodo,
+  patchTodo,
+  deleteTodo as deleteTodo_server,
+} from "@/app/joiningStudy/utils/api";
+import Box from "@/components/atoms/Box";
 
 type TTodoListInfoBox = {
-  todoList: TCheckListItem[] | undefined;
+  todoList: TCheckListItem[];
+  myUserEmail: string;
   date: Date;
-  onUpdateCheckList: () => void;
+  studyId: string;
+  onUpdateCheckList: (
+    myUserEmail: string,
+    checkLists: TCheckListItem[]
+  ) => void;
 };
 
 const showTodoList = (todoList: TCheckListItem[] | undefined, date: Date) => {
@@ -33,32 +45,80 @@ const showTodoList = (todoList: TCheckListItem[] | undefined, date: Date) => {
 function TodoListInfoBox(props: TTodoListInfoBox) {
   // 할일을 추가/삭제/수정/체크 할수 있어야 함
 
-  const { todoList: todoListInObj, date, onUpdateCheckList } = props;
+  const { todoList, date, onUpdateCheckList, myUserEmail, studyId } = props;
 
   // showTodoList 함수를 호출하여 date에 맞는 todo 항목을 가져옴
-  const todoList = showTodoList(todoListInObj, date);
+  const todayTodoList = showTodoList(todoList, date);
   const [isCreatingNewTodo, setIsCreatingNewTodo] = useState(false);
   // 바깥쪽 클릭하면 닫히기
 
   const inputRef = useRef(null);
-  const [isFocused, setIsFocused] = useState(false);
 
   const [newTodoText, setNewTodoText] = useState("");
 
-  const onChangeNewTodoText = (e) => {
+  console.log(`inputRef=${inputRef.current}`);
+
+  useEffect(() => {
+    const handleOutsideClick = (event: globalThis.MouseEvent) => {
+      if (
+        inputRef.current && // null 체크
+        !(inputRef.current as HTMLDivElement).contains(event.target as Node) // 타입 단언 추가
+      ) {
+        setIsCreatingNewTodo(false);
+      }
+    };
+
+    window.addEventListener("mousedown", handleOutsideClick);
+
+    // Cleanup 리스너
+    return () => {
+      window.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [setIsCreatingNewTodo]);
+
+  const onChangeNewTodoText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewTodoText(e.target.value);
   };
 
-  const handleFocus = () => {
-    setIsFocused(true);
+  // 할일을 추가/삭제/수정/체크 할수 있어야 함
+  const toggleCheck = async (todoId: string, done: boolean) => {
+    console.log("toggleCheck called");
+
+    console.log(todoId, studyId);
+
+    const updatedCheckList = todoList.map((todo) =>
+      todo.todoId === todoId ? { ...todo, done } : todo
+    );
+
+    onUpdateCheckList(myUserEmail, updatedCheckList);
+    await patchTodo(studyId, myUserEmail, todoId, done);
   };
 
-  const handleBlur = () => {
-    setIsFocused(false);
+  const addNewTodo = async () => {
+    console.log("addNewTodo called");
+
+    if (!newTodoText.length) {
+      alert("할 일을 입력해주세요");
+      return;
+    }
+    const newTodo = {
+      todoId: v4(),
+      done: false,
+      content: newTodoText,
+      date: date,
+    };
+    const updatedCheckList = [...todoList, newTodo];
+    onUpdateCheckList(myUserEmail, updatedCheckList);
+    setIsCreatingNewTodo(false);
+    await postTodo(studyId, myUserEmail, newTodo);
   };
-  // 할일을 추가/삭제/수정/체크 할수 있어야 함
-  const toggleCheck = () => {};
-  const addNewTodo = () => {};
+
+  const deleteTodo = async (todoId: string) => {
+    console.log("deleteTodo called");
+    const updatedCheckList = todoList.filter((todo) => todo.todoId !== todoId);
+    onUpdateCheckList(myUserEmail, updatedCheckList);
+    await deleteTodo_server(studyId, myUserEmail, todoId);
+  };
 
   return (
     <InfoBox theme="white">
@@ -70,39 +130,53 @@ function TodoListInfoBox(props: TTodoListInfoBox) {
           type="PLUS"
           onClick={() => {
             setIsCreatingNewTodo(true);
+            setNewTodoText("");
           }}
         />
       </div>
       <ul className="flex flex-col gap-4">
-        {todoList.length > 0 ? (
-          todoList.map((todoItem) => (
+        {todayTodoList.length > 0 ? (
+          todayTodoList.map((todoItem) => (
             <CheckListItem
               type="row"
               isChecked={todoItem.done}
               text={todoItem.content}
               className="justify-start gap-3"
-              key={v4()}
-              toggleCheck={() => {
-                toggleCheck();
+              key={todoItem.todoId}
+              handleCheck={() => {
+                toggleCheck(todoItem.todoId, !todoItem.done);
               }}
+              onRemove={() => deleteTodo(todoItem.todoId)}
             />
           ))
         ) : (
           <Text>No tasks for today</Text>
         )}
         {isCreatingNewTodo && (
-          <div className="flex gap-2">
+          <li
+            ref={inputRef}
+            className="flex justify-between items-center  px-2 rounded group "
+          >
             <input
+              className="placeholder:text-xs  focus:outline-none focus:ring-0"
               placeholder="할일을 추가해주세요"
               type="text"
-              ref={inputRef}
               value={newTodoText}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
               onChange={onChangeNewTodoText}
             />
-            <button>할 일 추가</button>
-          </div>
+            <Box
+              props={{
+                onClick: addNewTodo,
+                theme: "secondary",
+                extraCss:
+                  " p-1 rounded-[5px] hover:bg-mainColor hover:text-white ",
+              }}
+            >
+              <Text size="xs" weight="bold">
+                할 일 추가
+              </Text>
+            </Box>
+          </li>
         )}
       </ul>
     </InfoBox>

@@ -98,12 +98,13 @@ export type TJoiningStudy_Client = Pick<
   | "tasks"
   | "board"
 > & {
-  currentMembers: Omit<TStudyMember, "attendance">[];
+  currentMembers: Omit<TStudyMember, "attendance" | "checkList">[]; // Omit both attendance and checkList
   memberAttendances: {
     userName: string;
     userEmail: string;
     attendance: boolean;
   }[];
+  memberCheckLists: Record<string, TCheckListItem[]>; // Adding memberCheckLists
 };
 
 export type TStudyOverview = Pick<
@@ -165,6 +166,7 @@ export type TStudyDetail = Pick<
 };
 
 export type TCheckListItem = {
+  todoId: string;
   date: Date; // 체크리스트 항목의 날짜
   done: boolean; // 체크리스트 항목의 완료 여부
   content: string; // 체크리스트 항목의 내용

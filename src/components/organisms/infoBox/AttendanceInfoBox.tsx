@@ -46,7 +46,7 @@ function AttendanceInfoBox(props: TAttendanceInfoBox) {
     const updatedChecked = !checked;
 
     props.onAttendanceChange(userEmailMine, updatedChecked);
-    // PATCH 요청을 보내기 전에 값을 변경
+    // PATCH 요청을 보내기 전에 클라이언트의 state 값을 변경
     try {
       const response = await fetch(`/joiningStudy/${props.studyId}/api`, {
         method: "PATCH",

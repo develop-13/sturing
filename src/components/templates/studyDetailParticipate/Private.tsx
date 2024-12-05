@@ -11,24 +11,15 @@ import {
   UserStatusContext,
   UserStatusContextProps,
 } from "@/components/organisms/auth-components/UserStatusProvider";
+import { TJoiningStudyAction } from "@/reducers/JoiningStudyReducer";
 
 type TPrivate = {
-  teamMembers?: TJoiningStudy_Client["currentMembers"];
+  memberCheckLists: TJoiningStudy_Client["memberCheckLists"];
   studyId: string;
-  onUpdateCheckList: (updatedTeamMembers: TStudyMember[]) => void;
-};
-
-const getCheckLists = (
-  teamMembers?: TJoiningStudy_Client["currentMembers"],
-  userEmail?: string
-) => {
-  // 팀 멤배에서 나의 체크리스트만 골라냄
-  if (!teamMembers || !userEmail) return [];
-  // 나의 체크리스트를 구하는 항목이 빠짐 = userEmail이 필요함
-  const myInfo = teamMembers.find(
-    (teamMember) => teamMember.userEmail == userEmail
-  );
-  return myInfo?.checkList;
+  onUpdateCheckList: (
+    myUserEmail: string,
+    checkLists: TCheckListItem[]
+  ) => void;
 };
 
 function Private(props: TPrivate) {
@@ -37,16 +28,17 @@ function Private(props: TPrivate) {
   // 현재 날짜에 따른 checkList를 보여준다.
   // Study의 checkList 중 현재 날짜인 것들을 보여준다.
   const { session }: UserStatusContextProps = useContext(UserStatusContext);
-  const checkList = getCheckLists(props.teamMembers, session?.user.email);
-  console.log(props);
+  // const checkList = getCheckLists(props.teamMembers, session?.user.email);
+
+  const myUserEmail = session?.user.email || "none";
+
+  const checkList = props.memberCheckLists[myUserEmail];
 
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const handleCurrentDate = (selectedDate: Date) => {
     setCurrentDate(selectedDate); // 선택된 날짜를 상태로 업데이트
   };
-
-  const onUpdateCheckList = () => {};
 
   return (
     <div className="px-4 py-5 flex flex-col gap-4">
@@ -55,9 +47,11 @@ function Private(props: TPrivate) {
         handleCurrentDate={handleCurrentDate}
       />
       <TodoListInfoBox
+        studyId={props.studyId}
         todoList={checkList}
         date={currentDate}
-        onUpdateCheckList={onUpdateCheckList}
+        myUserEmail={myUserEmail}
+        onUpdateCheckList={props.onUpdateCheckList}
       />
     </div>
   );

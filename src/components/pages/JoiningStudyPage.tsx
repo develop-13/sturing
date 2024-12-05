@@ -11,6 +11,7 @@ import Icon from "../atoms/Icon";
 import Header from "../organisms/Header";
 import StudyOverview from "../organisms/StudyOverview";
 import {
+  TCheckListItem,
   TJoiningStudy_Client,
   TJoiningStudy_Server,
   TStudyMember,
@@ -53,6 +54,8 @@ function JoiningStudyPage() {
     }
   }, [session?.user]);
 
+  const userEmail = session?.user.email || "none";
+
   const params = useParams<{ sid: string }>();
   const [selectedIdx, setSelectedIdx] = useState(0);
   // const [JoiningStudy, setJoiningStudy] = useState<TJoiningStudy | null>(null);
@@ -79,9 +82,12 @@ function JoiningStudyPage() {
     JoiningStudy.title,
   ]);
 
-  const handleUpdateTeamMembers = useCallback(
-    (updatedTeamMembers: TStudyMember[]) => {
-      dispatch({ type: "UPDATE_MEMBERS", payload: updatedTeamMembers });
+  const handleUpdateCheckLists = useCallback(
+    (myUserEmail: string, checkLists: TCheckListItem[]) => {
+      dispatch({
+        type: "UPDATE_CHECKLISTS",
+        payload: { myUserEmail, checkLists },
+      });
     },
     [dispatch]
   );
@@ -107,6 +113,7 @@ function JoiningStudyPage() {
       <Team
         key={"Team"}
         teamMembers={JoiningStudy.currentMembers}
+        memberCheckLists={JoiningStudy.memberCheckLists}
         memberAttendances={JoiningStudy.memberAttendances}
         studyId={params.sid}
         onAttendanceChange={handleToggleAttendance}
@@ -115,9 +122,9 @@ function JoiningStudyPage() {
     private: (
       <Private
         key={"Private"}
-        teamMembers={JoiningStudy.currentMembers}
+        memberCheckLists={JoiningStudy.memberCheckLists}
         studyId={params.sid}
-        onUpdateCheckList={handleUpdateTeamMembers}
+        onUpdateCheckList={handleUpdateCheckLists}
       />
     ),
     schedule: <Schedule key={"Schedule"} />,

@@ -4,31 +4,32 @@ import Text from "@/components/atoms/Text";
 import Divider from "@/components/atoms/Divider";
 import UserInfoItem from "@/components/molecules/UserInfoItem";
 import { PercentageBar } from "@/components/atoms/Progressbar";
-import { TStudyMember } from "@/types/study";
+import { TJoiningStudy_Client, TStudyMember } from "@/types/study";
 import getTranslation from "@/utils/getTranslation";
 
-const getPercent = (checkListItems: TStudyMember["checkList"] | undefined) => {
-  if (!checkListItems || !checkListItems.length) {
+const getPercent = (checkListItems: TStudyMember["checkList"]) => {
+  console.log(checkListItems);
+
+  if (!checkListItems.length) {
     return 0;
   }
-  let doneItems = 0;
+  let finished = 0;
   checkListItems.forEach((item) => {
-    if (item.done) doneItems++;
+    if (item.done) finished++;
   });
-  return Math.floor(doneItems / checkListItems.length);
+  console.log(`finished=${finished}`);
+  return (finished / checkListItems.length) * 100;
 };
 
 type TMemberProgressInfoBox = {
-  teamMembers: {
-    userEmail: string;
-    applicantImgSrc: string;
-    userName: string;
-    role: string;
-    checkList: TStudyMember["checkList"];
-  }[];
+  teamMembers: TJoiningStudy_Client["currentMembers"];
+  memberCheckLists: TJoiningStudy_Client["memberCheckLists"];
 };
 
 function MemberProgressInfoBox(props: TMemberProgressInfoBox) {
+  console.log("memberCheckLists");
+  console.log(props.memberCheckLists);
+
   return (
     <InfoBox theme="white">
       <Text size="lg" weight="bold">
@@ -44,7 +45,12 @@ function MemberProgressInfoBox(props: TMemberProgressInfoBox) {
               teamMember.userName + " " + getTranslation(teamMember.role)
             }
             bottomText={
-              <PercentageBar percentage={getPercent(teamMember.checkList)} />
+              <PercentageBar
+                // 각 멤버의 체크리스트
+                percentage={getPercent(
+                  props.memberCheckLists[teamMember.userEmail]
+                )}
+              />
             }
           />
         ))}

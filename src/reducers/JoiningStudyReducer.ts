@@ -1,4 +1,5 @@
 import {
+  TCheckListItem,
   TJoiningStudy_Client,
   TJoiningStudy_Server,
   TStudyMember,
@@ -6,6 +7,10 @@ import {
 
 // 액션 타입 정의
 export type TJoiningStudyAction =
+  | {
+      type: "UPDATE_CHECKLISTS";
+      payload: { myUserEmail: string; checkLists: TCheckListItem[] };
+    }
   | {
       type: "TOGGLE_ATTENDANCE";
       payload: { myUserEmail: string; attendance: boolean };
@@ -32,6 +37,7 @@ export const initialState: TJoiningStudy_Client = {
   },
   currentMembers: [],
   memberAttendances: [],
+  memberCheckLists: {},
   schedules: [],
   tasks: [],
   board: [],
@@ -40,9 +46,9 @@ export const initialState: TJoiningStudy_Client = {
 const refineJoiningStudy = (
   fetchedValue: TJoiningStudy_Server
 ): TJoiningStudy_Client => {
-  // 서버에서 받은 데이터를 클라이언트에서 하위 컴포넌트로 뿌려주기 좋게 가공
   const { currentMembers } = fetchedValue;
   const memberAttendanceArr: TJoiningStudy_Client["memberAttendances"] = [];
+  const memberCheckLists: TJoiningStudy_Client["memberCheckLists"] = {};
 
   const refinedMembers = currentMembers.map((member) => {
     const {
@@ -53,21 +59,30 @@ const refineJoiningStudy = (
       checkList,
       role,
     } = member;
+
     memberAttendanceArr.push({ userName, userEmail, attendance });
+
+    // Creating the memberCheckLists entry with the email as the key
+    memberCheckLists[userEmail] = checkList.map((checkItem) => ({
+      todoId: checkItem.todoId,
+      date: checkItem.date,
+      content: checkItem.content, // Assuming 'text' is the content of the checklist item
+      done: checkItem.done, // Assuming 'done' indicates whether the task is completed
+    }));
+
     return {
       userName,
       userEmail,
-      attendance,
       applicantImgSrc,
-      checkList,
       role,
-    }; // attendance를 제외한 나머지 필드로 새로운 객체 생성
+    }; // Omitting attendance and checkList
   });
 
   const refinedState = {
     ...fetchedValue,
     currentMembers: refinedMembers,
     memberAttendances: memberAttendanceArr,
+    memberCheckLists, // Adding memberCheckLists to the refined state
   };
 
   return refinedState;
@@ -93,6 +108,16 @@ export function JoiningStudyReducer(
       });
 
       return { ...state, memberAttendances: updatedMemberAttendances };
+    }
+
+    case "UPDATE_CHECKLISTS": {
+      const { myUserEmail, checkLists } = action.payload;
+
+      const updatedMemberCheckList = {
+        ...state["memberCheckLists"],
+      };
+      updatedMemberCheckList[myUserEmail] = checkLists;
+      return { ...state, memberCheckLists: updatedMemberCheckList };
     }
 
     case "UPDATE_MEMBERS":

@@ -1,9 +1,11 @@
 import { TAtmosphere, TCategory, TLevel, TRoleText } from "@/types/common";
+import { TStudyMember } from "@/types/study";
+import { ObjectId } from "mongodb";
 import mongoose, { Schema, Document, model, models } from "mongoose";
 
 // TypeScript 인터페이스 정의 (Document 확장)
-interface IStudy extends Document {
-  // _id: string;
+export interface IStudy extends Document {
+  _id: ObjectId;
   title: string;
   createdAt: Date;
   period: {
@@ -23,7 +25,7 @@ interface IStudy extends Document {
   categories: TCategory[];
   status: string; // 진행중 또는 모집중
   studyPlacePreference: string[];
-  currentMembers: string[]; // userId 배열
+  currentMembers: TStudyMember[]; // userId 배열
   maxMembersNum: number;
   necessaryRoles: TRoleText[]; // 특정 역할
   preferentialAge: number[];
@@ -106,13 +108,7 @@ const StudySchema: Schema = new Schema(
     ],
     status: { type: String, required: true },
     studyPlacePreference: [{ type: String }],
-    // currentMembers: [
-    //   {
-    //     userEmail: { type: String, required: true },
-    //     applicantImgSrc: { type: String, required: true },
-    //     desiredRole: { type: String, required: true },
-    //   },
-    // ],
+
     currentMembers: [
       {
         userEmail: { type: String, required: true },
@@ -123,6 +119,7 @@ const StudySchema: Schema = new Schema(
         checkList: [
           {
             date: { type: Date }, // 날짜
+            todoId: { type: String },
             done: { type: Boolean, default: false }, // 완료 여부
             content: { type: String }, // 체크리스트 내용
           },
