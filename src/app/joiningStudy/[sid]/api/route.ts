@@ -1,6 +1,7 @@
 import dbConnect from "@/lib/mongodb";
 import Study, { IStudy } from "@/models/Study";
-import { TCheckListItem, TStudyMember } from "@/types/study";
+import User, { IUser } from "@/models/User";
+import { TCheckListItem, TSchedule, TStudyMember } from "@/types/study";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -141,42 +142,24 @@ async function updateTodoStatus(
 
 // .. post
 
-export async function POST(req: Request) {
-  await dbConnect();
+const postTodo = async (
+  study: IStudy,
+  userEmail: string,
+  todo: TCheckListItem
+) => {
+  // console.log("postTodo called!");
 
-  console.log("Joining Study post called!");
+  const updatedMembers = study.currentMembers.map((member: TStudyMember) => {
+    if (member.userEmail === userEmail) {
+      member.checkList.push(todo); // 새로운 todo 추가
+    }
+    return member;
+  });
+
+  // console.log(`updatedMembers`);
+  // console.log(updatedMembers);
 
   try {
-    const { userEmail, todo, studyId } = await req.json();
-
-    console.log(`userEmail=${userEmail}`);
-    console.log(`todo=${JSON.stringify(todo)}`);
-
-    // 유효성 검사
-    if (!userEmail || !todo || !studyId) {
-      return NextResponse.json(
-        { message: "Missing parameters" },
-        { status: 400 }
-      );
-    }
-
-    // 해당 사용자에 속한 study 찾기
-    const study = await Study.findById(studyId);
-    if (!study) {
-      return NextResponse.json({ message: "Study not found" }, { status: 404 });
-    }
-
-    // 해당 사용자 체크리스트에 새 todo 추가
-    const updatedMembers = study.currentMembers.map((member: TStudyMember) => {
-      if (member.userEmail === userEmail) {
-        member.checkList.push(todo); // 새로운 todo 추가
-      }
-      return member;
-    });
-
-    console.log(`updatedMembers`);
-    console.log(updatedMembers);
-
     // Study 문서 업데이트
     await study.updateOne(
       { _id: study._id },
@@ -190,55 +173,175 @@ export async function POST(req: Request) {
     console.error("Error adding todo:", error);
     return NextResponse.json({ message: "Server error" }, { status: 500 });
   }
-}
+};
 
-// ... post
-export async function DELETE(req: Request) {
-  console.log("Delete route handler called");
+const postSchedule = async (
+  study: IStudy,
+  user: IUser,
+  schedule: TSchedule
+) => {
+  console.log("postSchedule called!");
+  console.log(study);
+  console.log("schedules");
+  console.log(study.schedules);
+  try {
+    console.log("schedule");
+    console.log(schedule);
+    study.schedules.push(schedule);
+    await study.save();
+
+    user.schedules.push(schedule);
+    await user.save();
+
+    return NextResponse.json({ message: "Schedule added successfully" });
+  } catch (error) {
+    console.error("Error adding schedule to study:", error);
+    throw new Error("Failed to add schedule");
+  }
+};
+
+export async function POST(req: Request) {
+  await dbConnect();
+
+  console.log("Joining Study post called!");
 
   try {
-    const { userEmail, todoId } = await req.json();
+    const { userEmail, todo, studyId, schedule } = await req.json();
 
-    // 유효성 검사
-    if (!userEmail || !todoId) {
+    console.log(`userEmail=${userEmail}`);
+    console.log(`todo=${JSON.stringify(todo)}`);
+
+    //유효성 검사 new
+    if (!studyId || !userEmail) {
       return NextResponse.json(
-        { error: "Missing userEmail or todoId" },
+        { message: "Missing userEmail or studyId" },
         { status: 400 }
       );
     }
 
     // 해당 사용자에 속한 study 찾기
-    const study = await Study.findOne({
-      "currentMembers.userEmail": userEmail,
-    });
+    const study = await Study.findById(studyId);
 
-    console.log("study");
-    console.log(study);
+    const user = await User.findOne({ email: userEmail });
 
     if (!study) {
-      return NextResponse.json({ error: "Study not found" }, { status: 404 });
+      return NextResponse.json({ message: "Study not found" }, { status: 404 });
     }
 
-    // 해당 사용자의 체크리스트에서 todo를 찾아 삭제
-    const updatedMembers = study.currentMembers.map((member: TStudyMember) => {
-      if (member.userEmail === userEmail) {
-        const updatedCheckList = member.checkList.filter(
-          (todo: TCheckListItem) => todo.todoId !== todoId // todoId로 해당 todo 삭제
-        );
-        member.checkList = updatedCheckList;
+    if (!user) {
+      return NextResponse.json({ message: "User not found" }, { status: 404 });
+    }
+
+    if (todo) {
+      return await postTodo(study, userEmail, todo);
+    }
+
+    if (schedule) {
+      return await postSchedule(study, user, schedule);
+    }
+  } catch (error) {
+    console.error("Error adding todo:", error);
+    return NextResponse.json({ message: "Server error" }, { status: 500 });
+  }
+}
+
+export async function DELETE(req: Request) {
+  console.log("Delete route handler called");
+
+  try {
+    const { userEmail, todoId, scheduleId, studyId } = await req.json();
+
+    if (userEmail && todoId) {
+      // 해당 사용자에 속한 study 찾기
+      const study = await Study.findOne({
+        "currentMembers.userEmail": userEmail,
+      });
+
+      console.log("study");
+      console.log(study);
+
+      if (!study) {
+        return NextResponse.json({ error: "Study not found" }, { status: 404 });
       }
-      return member;
-    });
 
-    // Study 문서 업데이트
-    await study.updateOne(
-      { _id: study._id },
-      { $set: { currentMembers: updatedMembers } }
-    );
+      // 해당 사용자의 체크리스트에서 todo를 찾아 삭제
+      const updatedMembers = study.currentMembers.map(
+        (member: TStudyMember) => {
+          if (member.userEmail === userEmail) {
+            const updatedCheckList = member.checkList.filter(
+              (todo: TCheckListItem) => todo.todoId !== todoId // todoId로 해당 todo 삭제
+            );
+            member.checkList = updatedCheckList;
+          }
+          return member;
+        }
+      );
 
-    await study.save();
+      // Study 문서 업데이트
+      await study.updateOne(
+        { _id: study._id },
+        { $set: { currentMembers: updatedMembers } }
+      );
 
-    return NextResponse.json({ message: "Todo deleted successfully" });
+      await study.save();
+      return NextResponse.json({ message: "Todo deleted successfully" });
+    } else if (userEmail && scheduleId && studyId) {
+      console.log("delete schedule called!");
+
+      const studyDocumentId = new mongoose.Types.ObjectId(studyId);
+
+      // 해당 스터디를 찾기
+      const study = await Study.findById(studyDocumentId);
+      if (!study) {
+        return NextResponse.json(
+          { message: "Study not found" },
+          { status: 404 }
+        );
+      }
+
+      // 해당 스터디에서 스케줄을 삭제
+      const updatedSchedules = study.schedules.filter(
+        (schedule: TSchedule) => schedule.scheduleId !== scheduleId // scheduleId가 일치하지 않는 항목만 남김
+      );
+
+      // 만약 schedules 배열에 해당 scheduleId가 없으면
+      if (updatedSchedules.length === study.schedules.length) {
+        return NextResponse.json(
+          { message: "Schedule not found in study" },
+          { status: 404 }
+        );
+      }
+
+      // 스케줄 삭제 후, 해당 study의 schedules 배열을 업데이트
+      study.schedules = updatedSchedules;
+
+      // 스터디 문서 저장
+      await study.save();
+
+      const user = await User.findOne({ email: userEmail });
+
+      console.log("foundUser");
+      console.log(user);
+
+      const updatedUserSchedules = user.schedules.filter(
+        (schedule: TSchedule) => schedule.scheduleId !== scheduleId // scheduleId가 일치하지 않는 항목만 남김
+      );
+
+      // 만약 schedules 배열에 해당 scheduleId가 없으면
+      if (updatedUserSchedules.length === user.schedules.length) {
+        return NextResponse.json(
+          { message: "Schedule not found in user" },
+          { status: 404 }
+        );
+      }
+
+      user.schedules = updatedUserSchedules;
+
+      await user.save();
+
+      // 성공적으로 삭제된 경우 응답
+      return NextResponse.json({ message: "Schedule deleted successfully" });
+    }
   } catch (error) {
     console.error("Error deleting todo:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });

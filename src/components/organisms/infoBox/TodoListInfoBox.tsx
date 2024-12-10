@@ -12,6 +12,7 @@ import {
   deleteTodo as deleteTodo_server,
 } from "@/app/joiningStudy/utils/api";
 import Box from "@/components/atoms/Box";
+import Button from "@/components/molecules/Button";
 
 type TTodoListInfoBox = {
   todoList: TCheckListItem[];
@@ -164,18 +165,15 @@ function TodoListInfoBox(props: TTodoListInfoBox) {
               value={newTodoText}
               onChange={onChangeNewTodoText}
             />
-            <Box
-              props={{
-                onClick: addNewTodo,
-                theme: "secondary",
-                extraCss:
-                  " p-1 rounded-[5px] hover:bg-mainColor hover:text-white ",
-              }}
+            <Button
+              onClick={addNewTodo}
+              theme="secondary"
+              extraCss=" p-1 rounded-[5px] hover:bg-mainColor hover:text-white "
             >
               <Text size="xs" weight="bold">
-                할 일 추가
+                추가
               </Text>
-            </Box>
+            </Button>
           </li>
         )}
       </ul>

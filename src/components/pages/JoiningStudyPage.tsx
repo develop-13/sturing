@@ -14,6 +14,7 @@ import {
   TCheckListItem,
   TJoiningStudy_Client,
   TJoiningStudy_Server,
+  TSchedule,
   TStudyMember,
 } from "@/types/study";
 import { useParams, useRouter } from "next/navigation";
@@ -53,8 +54,6 @@ function JoiningStudyPage() {
       return;
     }
   }, [session?.user]);
-
-  const userEmail = session?.user.email || "none";
 
   const params = useParams<{ sid: string }>();
   const [selectedIdx, setSelectedIdx] = useState(0);
@@ -106,6 +105,10 @@ function JoiningStudyPage() {
     dispatch({ type: "SET_JOININGSTUDY", payload: joiningStudy });
   };
 
+  const handleUpdateSchedules = useCallback((schedules: TSchedule[]) => {
+    dispatch({ type: "UPDATE_SCHEDULE", payload: schedules });
+  }, []);
+
   console.log(JoiningStudy);
 
   const steps: Record<TParticipationOptions, React.ReactNode> = {
@@ -127,7 +130,14 @@ function JoiningStudyPage() {
         onUpdateCheckList={handleUpdateCheckLists}
       />
     ),
-    schedule: <Schedule key={"Schedule"} />,
+    schedule: (
+      <Schedule
+        key={"Schedule"}
+        studyId={params.sid}
+        schedules={JoiningStudy.schedules}
+        handleUpdateSchedules={handleUpdateSchedules}
+      />
+    ),
     feedback: <Feedback key={"Feedback"} />,
   };
 

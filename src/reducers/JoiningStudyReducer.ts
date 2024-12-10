@@ -2,6 +2,7 @@ import {
   TCheckListItem,
   TJoiningStudy_Client,
   TJoiningStudy_Server,
+  TSchedule,
   TStudyMember,
 } from "@/types/study"; // TJoiningStudy 타입 import
 
@@ -15,10 +16,9 @@ export type TJoiningStudyAction =
       type: "TOGGLE_ATTENDANCE";
       payload: { myUserEmail: string; attendance: boolean };
     }
-  | { type: "UPDATE_MEMBERS"; payload: TStudyMember[] } // currentMembers에 추가
   | { type: "SET_JOININGSTUDY"; payload: TJoiningStudy_Server } // currentMembers에 추가
-  | { type: "ADD_SCHEDULE"; payload: string } // schedules에 추가
-  | { type: "REMOVE_SCHEDULE"; payload: string } // schedules에서 삭제
+  | { type: "UPDATE_SCHEDULE"; payload: TSchedule[] } // currentMembers에 추가
+  | { type: "UPDATE_MEMBERS"; payload: TStudyMember[] } // currentMembers에 추가
   | { type: "UPDATE_TASKS"; payload: string[] } // tasks 수정
   | { type: "UPDATE_BOARD"; payload: any[] }; // board 수정
 
@@ -126,15 +126,9 @@ export function JoiningStudyReducer(
         currentMembers: action.payload,
       };
 
-    case "ADD_SCHEDULE":
-      return { ...state, schedules: [...state.schedules, action.payload] };
-    case "REMOVE_SCHEDULE":
-      return {
-        ...state,
-        schedules: state.schedules.filter(
-          (schedule) => schedule !== action.payload
-        ),
-      };
+    case "UPDATE_SCHEDULE":
+      return { ...state, schedules: action.payload };
+
     case "UPDATE_TASKS":
       return { ...state, tasks: action.payload };
     case "UPDATE_BOARD":

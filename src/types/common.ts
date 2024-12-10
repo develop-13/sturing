@@ -37,15 +37,15 @@ export type TRoleText =
 
 export type TLocation = Record<string, string[]>;
 
-export type TSchedule = {
-  studyId: string;
-  date: Date;
-  title: string;
-  location: string;
-  startTime: string;
-  endTime: string;
-  detail: string; // (추가함) 어떤 스터디에 대한 상세한 설명
-};
+// export type TSchedule = {
+//   studyId: string;
+//   date: Date;
+//   title: string;
+//   location: string;
+//   startTime: string;
+//   endTime: string;
+//   detail: string; // (추가함) 어떤 스터디에 대한 상세한 설명
+// };
 
 export type applyInfos = {
   applyInfoId: string;

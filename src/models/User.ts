@@ -1,5 +1,35 @@
-import mongoose from "mongoose";
 import Apply from "./Apply";
+
+import mongoose, { Schema, Document, model, models } from "mongoose";
+
+// Define the User interface based on the schema
+export interface IUser extends Document {
+  name: string;
+  email: string;
+  imgSrc?: string;
+  matchingInfo?: {
+    interests: string[];
+    fieldLevels: Record<string, string>; // Replace `string` with specific type for TLevel if defined
+    studyTypePreference: "online" | "offline" | "not_decided" | "both";
+    studyPlacePreference: Record<string, boolean>;
+    studyAtmospherePreference: Record<string, boolean>;
+  };
+  recentQueries: string[];
+  recentViewedStudies: mongoose.Types.ObjectId[];
+  study_in_participants: mongoose.Types.ObjectId[];
+  schedules: {
+    scheduleId: string;
+    title: string;
+    date: Date;
+    location: string;
+    startTime: string;
+    endTime: string;
+    detail: string;
+  }[];
+  watchList: mongoose.Types.ObjectId[];
+  accepted_applies: mongoose.Types.ObjectId[];
+  applies: mongoose.Types.ObjectId[];
+}
 
 const UserSchema = new mongoose.Schema(
   {
@@ -43,7 +73,18 @@ const UserSchema = new mongoose.Schema(
     study_in_participants: [
       { type: mongoose.Schema.Types.ObjectId, ref: "Study" },
     ],
-    schedules: [{ type: mongoose.Schema.Types.ObjectId, ref: "Schedules" }],
+    schedules: [
+      {
+        userEmail: { type: String },
+        scheduleId: { type: String, required: true },
+        title: { type: String, required: true },
+        date: { type: Date, required: true },
+        location: { type: String, required: true },
+        startTime: { type: String, required: true },
+        endTime: { type: String, required: true },
+        detail: { type: String, required: true },
+      },
+    ],
     watchList: [{ type: mongoose.Schema.Types.ObjectId, ref: "Study" }],
     accepted_applies: [
       { type: mongoose.Schema.Types.ObjectId, ref: Apply.modelName },
@@ -53,4 +94,4 @@ const UserSchema = new mongoose.Schema(
   { minimize: false, strict: false }
 );
 
-export default mongoose.models.User || mongoose.model("User", UserSchema);
+export default mongoose.models.User || model<IUser>("User", UserSchema);

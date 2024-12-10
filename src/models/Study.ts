@@ -1,5 +1,5 @@
 import { TAtmosphere, TCategory, TLevel, TRoleText } from "@/types/common";
-import { TStudyMember } from "@/types/study";
+import { TSchedule, TStudyMember } from "@/types/study";
 import { ObjectId } from "mongodb";
 import mongoose, { Schema, Document, model, models } from "mongoose";
 
@@ -20,7 +20,7 @@ export interface IStudy extends Document {
   dayOfWeek: string;
   location: string;
   imgSrc: string;
-  schedule: string[]; // 스케쥴 id
+  schedule: [{ type: mongoose.Schema.Types.ObjectId; ref: "Schedule" }];
   type: "online" | "offline";
   categories: TCategory[];
   status: string; // 진행중 또는 모집중
@@ -33,7 +33,7 @@ export interface IStudy extends Document {
   tasks: string[]; // 과제 목록
   rate: number; // 평가 점수
   atmospheres: TAtmosphere[];
-  schedules: string[]; // 스케줄 id 배열
+  schedules: TSchedule[]; // 스케줄 id 배열
   noticesBoard: {
     reading_requried: boolean;
     view: number;
@@ -89,7 +89,18 @@ const StudySchema: Schema = new Schema(
     dayOfWeek: { type: String, required: true },
     location: { type: String, required: true },
     imgSrc: { type: String },
-    schedule: [{ type: String }], // 스케줄 id 배열
+    // schedules: [{ type: mongoose.Schema.Types.ObjectId, ref: "Schedule" }],
+    schedules: [
+      {
+        scheduleId: { type: String, required: true },
+        title: { type: String, required: true },
+        date: { type: Date, required: true },
+        location: { type: String, required: true },
+        startTime: { type: String, required: true },
+        endTime: { type: String, required: true },
+        detail: { type: String, required: true },
+      },
+    ],
     type: { type: String, enum: ["online", "offline"], required: true },
     categories: [
       {
@@ -166,7 +177,6 @@ const StudySchema: Schema = new Schema(
         ],
       },
     ],
-    schedules: [{ type: String }], // 스케줄 id 배열
     noticesBoard: [
       {
         reading_requried: { type: Boolean, default: false },

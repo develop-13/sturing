@@ -1,5 +1,5 @@
 "use client";
-import WeekCalendar from "@/components/organisms/CustomCalendar/WeekCalendar";
+import WeekCalendar from "@/components/organisms/infoBox/CustomCalendar/WeekCalendar";
 import React, { useContext, useEffect, useState } from "react";
 import {
   TCheckListItem,
@@ -11,7 +11,6 @@ import {
   UserStatusContext,
   UserStatusContextProps,
 } from "@/components/organisms/auth-components/UserStatusProvider";
-import { TJoiningStudyAction } from "@/reducers/JoiningStudyReducer";
 
 type TPrivate = {
   memberCheckLists: TJoiningStudy_Client["memberCheckLists"];

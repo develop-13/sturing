@@ -18,7 +18,7 @@ const getPercent = (checkListItems: TStudyMember["checkList"]) => {
     if (item.done) finished++;
   });
   console.log(`finished=${finished}`);
-  return (finished / checkListItems.length) * 100;
+  return Math.floor((finished / checkListItems.length) * 100);
 };
 
 type TMemberProgressInfoBox = {

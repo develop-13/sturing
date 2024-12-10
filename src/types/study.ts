@@ -29,7 +29,7 @@ export type TStudy = {
   tasks: string[]; // 스터디에서 다룰 과제 목록
   rate: number; // 스터디 평가 점수
   atmospheres: TAtmosphere[]; // 스터디 분위기
-  schedules: string[];
+  schedules: TSchedule[];
   noticesBoard: Array<{
     reading_requried: boolean;
     view: number;
@@ -70,6 +70,17 @@ export type TStudy = {
   viewCount: number; // 조회 수
   applyCount: number; // 지원 수
   score: number; // 스터디의 인기도 점수 (자동 계산될 값)
+};
+
+export type TSchedule = {
+  scheduleId: string;
+  studyId: string;
+  title: string;
+  date: Date;
+  location: string;
+  startTime: string;
+  endTime: string;
+  detail: string;
 };
 
 export type TJoiningStudy_Server = Pick<

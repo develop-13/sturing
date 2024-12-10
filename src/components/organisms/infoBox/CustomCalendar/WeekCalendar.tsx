@@ -1,7 +1,7 @@
 import React from "react";
-import InfoBox from "../infoBox/InfoBox";
-import Text from "../../atoms/Text";
-import Divider from "../../atoms/Divider";
+import InfoBox from "../InfoBox";
+import Text from "../../../atoms/Text";
+import Divider from "../../../atoms/Divider";
 
 type TCustomCalendar = {
   currentDate: Date;
