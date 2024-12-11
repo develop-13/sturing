@@ -12,7 +12,7 @@ function RecruitmentComplete({ state }: { state: TStudyRecruitment }) {
     async function createStudy() {
       // state 값을 보냄
       setIsLoading(true);
-      const { imgSrc } = state; // state랑 따로 보냄
+      const { imgSrc } = state; // state랑 따로 보냄, 여기서 imgSrc는 Blob타입
       if (!imgSrc) {
         alert("이미지가 없습니다.");
         return;
@@ -34,7 +34,7 @@ function RecruitmentComplete({ state }: { state: TStudyRecruitment }) {
           alert("Failed to create study");
         }
       } catch (err) {
-        console.error();
+        console.error(err);
       }
     }
     createStudy();

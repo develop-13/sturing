@@ -1,4 +1,5 @@
 import {
+  TBoard,
   TCheckListItem,
   TJoiningStudy_Client,
   TJoiningStudy_Server,
@@ -20,7 +21,10 @@ export type TJoiningStudyAction =
   | { type: "UPDATE_SCHEDULE"; payload: TSchedule[] } // currentMembers에 추가
   | { type: "UPDATE_MEMBERS"; payload: TStudyMember[] } // currentMembers에 추가
   | { type: "UPDATE_TASKS"; payload: string[] } // tasks 수정
-  | { type: "UPDATE_BOARD"; payload: any[] }; // board 수정
+  | {
+      type: "UPDATE_BOARD";
+      payload: { boardType: "noticeBoards" | "studyBoards"; boards: TBoard[] };
+    }; // board 수정
 
 // 출석 -- 어떤 팀 멤버
 
@@ -40,7 +44,8 @@ export const initialState: TJoiningStudy_Client = {
   memberCheckLists: {},
   schedules: [],
   tasks: [],
-  board: [],
+  noticeBoards: [],
+  studyBoards: [],
 };
 
 const refineJoiningStudy = (
@@ -120,19 +125,19 @@ export function JoiningStudyReducer(
       return { ...state, memberCheckLists: updatedMemberCheckList };
     }
 
+    case "UPDATE_SCHEDULE":
+      return { ...state, schedules: action.payload };
+
+    case "UPDATE_BOARD":
+      return { ...state, [action.payload.boardType]: action.payload.boards };
     case "UPDATE_MEMBERS":
       return {
         ...state,
         currentMembers: action.payload,
       };
 
-    case "UPDATE_SCHEDULE":
-      return { ...state, schedules: action.payload };
-
     case "UPDATE_TASKS":
       return { ...state, tasks: action.payload };
-    case "UPDATE_BOARD":
-      return { ...state, board: action.payload };
     default:
       return state;
   }

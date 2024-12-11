@@ -30,46 +30,37 @@ export type TStudy = {
   rate: number; // 스터디 평가 점수
   atmospheres: TAtmosphere[]; // 스터디 분위기
   schedules: TSchedule[];
-  noticesBoard: Array<{
-    reading_requried: boolean;
-    view: number;
-    date: string;
-    title: string;
-    content: string;
-    imgSrc: string;
-    writer: string; // userId
-    comments: Array<{
-      writer: string;
-      text: string;
-    }>;
-  }>;
-  studyBoards: Array<{
-    title: string;
-    content: string;
-    imgSrc: string;
-    writer: string; // userId
-    comments: Array<{
-      writer: string;
-      text: string;
-    }>;
-  }>;
-  board: Array<{
-    userId: string;
-    createdAt: string;
-    view: number;
-    title: string;
-    text: string;
-    imgSrc: string;
-    comment: Array<{
-      userId: string;
-      createdAt: string;
-      text: string;
-    }>;
-    type: "notice" | "free" | "task";
-  }>;
+  noticeBoards: TBoard[];
+  studyBoards: TBoard[];
+  // board: TBoard[];
   viewCount: number; // 조회 수
   applyCount: number; // 지원 수
   score: number; // 스터디의 인기도 점수 (자동 계산될 값)
+};
+
+export type TBoard = {
+  boardId: string;
+  studyId: string;
+  writerEmail: string;
+  createdAt?: Date;
+  view?: number;
+  title: string;
+  text: string;
+  imgSrces?: Blob[];
+  readingRequired: boolean;
+  comment?: TComment[];
+};
+
+export type TComment = {
+  commentId: string;
+  writerEmail: string;
+  createdAt?: Date;
+  text: string;
+  replies?: {
+    replyId: string;
+    writerEmail: string;
+    text: string;
+  }[];
 };
 
 export type TSchedule = {
@@ -93,7 +84,8 @@ export type TJoiningStudy_Server = Pick<
   | "period"
   | "schedules"
   | "tasks"
-  | "board"
+  | "noticeBoards"
+  | "studyBoards"
   | "currentMembers"
 >;
 
@@ -107,7 +99,8 @@ export type TJoiningStudy_Client = Pick<
   | "period"
   | "schedules"
   | "tasks"
-  | "board"
+  | "noticeBoards"
+  | "studyBoards"
 > & {
   currentMembers: Omit<TStudyMember, "attendance" | "checkList">[]; // Omit both attendance and checkList
   memberAttendances: {

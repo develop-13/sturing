@@ -11,11 +11,10 @@ import Icon from "../atoms/Icon";
 import Header from "../organisms/Header";
 import StudyOverview from "../organisms/StudyOverview";
 import {
+  TBoard,
   TCheckListItem,
-  TJoiningStudy_Client,
   TJoiningStudy_Server,
   TSchedule,
-  TStudyMember,
 } from "@/types/study";
 import { useParams, useRouter } from "next/navigation";
 import { TabButtonGroup } from "../organisms/ButtonGroup";
@@ -56,6 +55,7 @@ function JoiningStudyPage() {
   }, [session?.user]);
 
   const params = useParams<{ sid: string }>();
+  // 만약 전역 상태관리 라이브러리를 사용한다고 했을 때?
   const [selectedIdx, setSelectedIdx] = useState(0);
   // const [JoiningStudy, setJoiningStudy] = useState<TJoiningStudy | null>(null);
   const [JoiningStudy, dispatch] = useReducer(
@@ -109,6 +109,13 @@ function JoiningStudyPage() {
     dispatch({ type: "UPDATE_SCHEDULE", payload: schedules });
   }, []);
 
+  const handleUpdateBoards = useCallback(
+    (boardType: "studyBoards" | "noticeBoards", boards: TBoard[]) => {
+      dispatch({ type: "UPDATE_BOARD", payload: { boards, boardType } });
+    },
+    []
+  );
+
   console.log(JoiningStudy);
 
   const steps: Record<TParticipationOptions, React.ReactNode> = {
@@ -138,7 +145,15 @@ function JoiningStudyPage() {
         handleUpdateSchedules={handleUpdateSchedules}
       />
     ),
-    feedback: <Feedback key={"Feedback"} />,
+    feedback: (
+      <Feedback
+        key={"Feedback"}
+        studyId={params.sid}
+        noticeBoards={JoiningStudy.noticeBoards}
+        studyBoards={JoiningStudy.studyBoards}
+        handleUpdateBoards={handleUpdateBoards}
+      />
+    ),
   };
 
   useEffect(() => {

@@ -4,10 +4,6 @@ import Text from "../atoms/Text";
 import Button from "../molecules/Button";
 import { TSchedule } from "@/types/study";
 import { v4 } from "uuid";
-import {
-  UserStatusContext,
-  UserStatusContextProps,
-} from "./auth-components/UserStatusProvider";
 
 const timeDatas = [
   "9:00",
@@ -62,8 +58,14 @@ const ScheduleCreator = forwardRef<HTMLDivElement, TScheduleCreator>(
     };
 
     return (
-      <div ref={ref} className="bg-white w-full px-3 py-4 flex flex-col gap-5">
+      <div
+        ref={ref}
+        className="bg-white w-full h-full px-3 py-4 flex flex-col gap-5"
+      >
         {" "}
+        <Text size="base" weight="bold">
+          스케줄 추가 양식
+        </Text>
         <div>
           <Text size="sm" weight="bold">
             시작 시간
@@ -127,18 +129,29 @@ const ScheduleCreator = forwardRef<HTMLDivElement, TScheduleCreator>(
             onChange={(e) => {
               onChangeScheduleHandler("detail", e.target.value);
             }}
-            cols={30}
-            rows={10}
+            cols={10}
+            rows={5}
             className="px-4 py-3 border border-gray-300 resize-none outline-none rounded-[5px] text-[14px] placeholder:font-medium placeholder:text-gray-600"
           ></textarea>
         </div>
-        <Button
-          theme="primary"
-          extraCss="p-3 rounded-[5px]"
-          onClick={onClickBtn}
-        >
-          추가하기
-        </Button>
+        <div className="flex gap-4">
+          <Button
+            theme="ordinary"
+            extraCss="p-3 rounded-[5px] flex-2"
+            onClick={() => {
+              props.closeModal();
+            }}
+          >
+            취소하기
+          </Button>
+          <Button
+            theme="primary"
+            extraCss="p-3 rounded-[5px] flex-1"
+            onClick={onClickBtn}
+          >
+            추가하기
+          </Button>
+        </div>
       </div>
     );
   }

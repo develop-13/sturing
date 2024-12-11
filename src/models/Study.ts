@@ -179,57 +179,32 @@ const StudySchema: Schema = new Schema(
     ],
     noticesBoard: [
       {
-        reading_requried: { type: Boolean, default: false },
-        view: { type: Number, default: 0 },
-        date: { type: Date, default: Date.now },
-        title: { type: String, required: true },
-        content: { type: String, required: true },
-        imgSrc: { type: String },
-        writer: { type: String, required: true },
-        comments: [
-          {
-            writer: { type: String, required: true },
-            text: { type: String, required: true },
-          },
-        ],
-      },
-    ],
-    studyBoards: [
-      {
-        title: { type: String, required: true },
-        content: { type: String, required: true },
-        imgSrc: { type: String },
-        writer: { type: String, required: true },
-        comments: [
-          {
-            writer: { type: String, required: true },
-            text: { type: String, required: true },
-          },
-        ],
-      },
-    ],
-    board: [
-      {
-        userId: { type: String, required: true },
+        boardId: { type: String, required: true },
+        writer: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
         createdAt: { type: Date, default: Date.now },
         view: { type: Number, default: 0 },
         title: { type: String, required: true },
         text: { type: String, required: true },
-        imgSrc: { type: String },
+        imgSrces: [{ type: String }],
+        readingRequired: { type: Boolean },
         comment: [
           {
-            userId: { type: String, required: true },
+            commentId: { type: String, required: true },
+            writer: { type: String, required: true },
             createdAt: { type: Date, default: Date.now },
             text: { type: String, required: true },
+            replies: [
+              {
+                replyId: { type: String, required: true },
+                writer: { type: String, required: true },
+                text: { type: String, required: true },
+              },
+            ],
           },
         ],
-        type: {
-          type: String,
-          enum: ["notice", "free", "task"],
-          required: true,
-        },
       },
     ],
+
     viewCount: { type: Number, default: 0 },
     applyCount: { type: Number, default: 0 },
     score: { type: Number, default: 0 },

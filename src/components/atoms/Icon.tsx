@@ -63,7 +63,8 @@ export type TIconData = {
     | "GOOGLE"
     | "CHECKED_ROUND"
     | "UNCHECKED_ROUND"
-    | "REMOVE";
+    | "REMOVE"
+    | "CLIP";
   onClick?: () => void;
   width?: number;
   height?: number;
@@ -81,6 +82,16 @@ export type TIconDataSet = Record<
   ) => React.ReactNode
 >;
 const IconDataSet: TIconDataSet = {
+  CLIP: (onClick, width = 18, height = 18, className) => (
+    <Image
+      src="/svg/ect/clip.svg"
+      width={width}
+      height={height}
+      onClick={onClick}
+      className={className}
+    />
+  ),
+
   REMOVE: (onClick, width = 20, height = 20, className) => (
     <Image
       src="/svg/ect/remove.svg"
@@ -634,7 +645,7 @@ const IconDataSet: TIconDataSet = {
 
   WRITE: (onClick, width = 16, height = 16, className) => (
     <Image
-      src="/svg/ect/write.svg"
+      src="/svg/ect/message-edit.svg"
       width={width}
       height={height}
       onClick={onClick}
