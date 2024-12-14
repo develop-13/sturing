@@ -11,7 +11,6 @@ import {
   patchTodo,
   deleteTodo as deleteTodo_server,
 } from "@/app/joiningStudy/utils/api";
-import Box from "@/components/atoms/Box";
 import Button from "@/components/molecules/Button";
 
 type TTodoListInfoBox = {

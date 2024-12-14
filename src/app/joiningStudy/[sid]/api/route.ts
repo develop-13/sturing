@@ -1,3 +1,4 @@
+import { uploadImagesToCloudinary } from "@/lib/cloudinary";
 import dbConnect from "@/lib/mongodb";
 import Study, { IStudy } from "@/models/Study";
 import User, { IUser } from "@/models/User";
@@ -208,9 +209,6 @@ export async function POST(req: Request) {
   try {
     const { userEmail, todo, studyId, schedule } = await req.json();
 
-    console.log(`userEmail=${userEmail}`);
-    console.log(`todo=${JSON.stringify(todo)}`);
-
     //유효성 검사 new
     if (!studyId || !userEmail) {
       return NextResponse.json(
@@ -240,7 +238,7 @@ export async function POST(req: Request) {
       return await postSchedule(study, user, schedule);
     }
   } catch (error) {
-    console.error("Error adding todo:", error);
+    console.error("Error adding post:", error);
     return NextResponse.json({ message: "Server error" }, { status: 500 });
   }
 }

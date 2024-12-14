@@ -135,8 +135,6 @@ function Schedule({
     await addServerSchedule(schedule, studyId, myUserEmail);
   };
 
-  const updateSchedule = async () => {};
-
   const deleteSchedule = async (scheduleId: string) => {
     const toDelete = prompt("정말 삭제하시겠습니까? 네 라고 입력해주세요");
     if (!toDelete) return;

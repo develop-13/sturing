@@ -1,10 +1,10 @@
 "use client";
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import Box, { TBox } from "../atoms/Box";
 
 type TButton = TBox;
 
-export default function Button({
+function Button({
   theme,
   shape,
   extraCss,
@@ -19,3 +19,5 @@ export default function Button({
     </Box>
   );
 }
+
+export default React.memo(Button);

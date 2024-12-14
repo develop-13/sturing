@@ -6,24 +6,16 @@ import Button from "@/components/molecules/Button";
 import Icon from "@/components/atoms/Icon";
 import { createPortal } from "react-dom";
 import BoardEditor from "../BoardEditor";
-import { TBoard } from "@/types/study";
+import { TBoard, TJoiningStudy_Client } from "@/types/study";
 
 type TBoardBox = {
+  teamMembers: TJoiningStudy_Client["currentMembers"];
   boardLabel: string;
-  studyId: string;
   children: React.ReactNode;
-  addClientBoard: (
-    boardType: "studyBoards" | "noticeBoards",
-    newBoard: TBoard
-  ) => void;
+  postBoard: (newBoard: TBoard) => void;
 };
 
-function BoardBox({
-  boardLabel,
-  studyId,
-  addClientBoard,
-  children,
-}: TBoardBox) {
+function BoardBox({ boardLabel, teamMembers, postBoard, children }: TBoardBox) {
   const [isCreatingNewBoard, setIsCreatingNewBoard] = useState(false);
   const rootLayout = useRef<Element | null>(null); // useRef로 관리
   const closeModal = () => {
@@ -53,15 +45,15 @@ function BoardBox({
         </Button>
       </div>
       <Divider type="row" />
-      <div>{children}</div>
+      <div className="flex flex-col gap-4">{children}</div>
       {isCreatingNewBoard &&
         rootLayout.current &&
         createPortal(
           <div className="w-[375px] h-full fixed top-0 z-50 flex items-center bg-black bg-opacity-70">
             <BoardEditor
-              studyId={studyId}
+              teamMembers={teamMembers}
               closeModal={closeModal}
-              addClientBoard={addClientBoard}
+              postBoard={postBoard}
             />
           </div>,
           rootLayout.current // useRef로 관리된 최상단page 참조

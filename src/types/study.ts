@@ -40,13 +40,16 @@ export type TStudy = {
 
 export type TBoard = {
   boardId: string;
-  studyId: string;
+  studyId?: string;
+  writerRole?: TRoleText;
   writerEmail: string;
+  writerImg: string;
+  writerName: string;
   createdAt?: Date;
   view?: number;
   title: string;
   text: string;
-  imgSrces?: Blob[];
+  imgSrces: Blob[] | string[];
   readingRequired: boolean;
   comment?: TComment[];
 };
@@ -180,7 +183,7 @@ export type TStudyMember = {
   userEmail: string; // 사용자의 이메일
   userName: string;
   applicantImgSrc: string; // 사용자의 이미지 URL
-  role: string; // 사용자의 역할
+  role: TRoleText; // 사용자의 역할
   attendance: boolean; // 당일 출석 여부
   checkList: TCheckListItem[]; // 체크리스트 항목들
 };

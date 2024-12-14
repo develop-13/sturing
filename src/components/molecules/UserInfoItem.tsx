@@ -3,8 +3,8 @@ import Image from "../atoms/Image";
 
 type TUserInfoItem = {
   imgSrc: string;
-  topText: React.ReactNode;
-  bottomText: React.ReactNode;
+  topText?: React.ReactNode;
+  bottomText?: React.ReactNode;
 };
 
 const UserInfoItem = (props: TUserInfoItem) => {

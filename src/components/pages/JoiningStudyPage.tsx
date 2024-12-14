@@ -152,6 +152,7 @@ function JoiningStudyPage() {
         noticeBoards={JoiningStudy.noticeBoards}
         studyBoards={JoiningStudy.studyBoards}
         handleUpdateBoards={handleUpdateBoards}
+        teamMembers={JoiningStudy.currentMembers}
       />
     ),
   };

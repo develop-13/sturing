@@ -34,39 +34,43 @@ export interface IStudy extends Document {
   rate: number; // 평가 점수
   atmospheres: TAtmosphere[];
   schedules: TSchedule[]; // 스케줄 id 배열
-  noticesBoard: {
+  noticeBoards: {
     reading_requried: boolean;
-    view: number;
-    date: Date;
+    createdAt: Date;
+    writerImg: string;
+    boardId: string;
+    writerName: string;
+    writerEmail: string;
+    writerRole: string;
     title: string;
+    text: String;
+    view: Number;
     content: string;
-    imgSrc: string;
-    writer: string; // userId
+    imgSrces: string[];
     comments: {
       writer: string;
       text: string;
     }[];
   }[];
   studyBoards: {
+    reading_requried: boolean;
+    createdAt: Date;
+    writerImg: string;
+    boardId: string;
+    writerName: string;
+    writerEmail: string;
+    writerRole: string;
     title: string;
+    text: String;
+    view: Number;
     content: string;
-    imgSrc: string;
-    writer: string; // userId
+    imgSrces: string[];
     comments: {
       writer: string;
       text: string;
     }[];
   }[];
-  board: {
-    userId: string;
-    createdAt: Date;
-    view: number;
-    title: string;
-    text: string;
-    imgSrc: string;
-    comment: { userId: string; createdAt: Date; text: string }[];
-    type: "notice" | "free" | "task";
-  }[];
+
   viewCount: number;
   applyCount: number;
   score: number;
@@ -177,10 +181,43 @@ const StudySchema: Schema = new Schema(
         ],
       },
     ],
-    noticesBoard: [
+    studyBoards: [
       {
         boardId: { type: String, required: true },
-        writer: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+        writerImg: { type: String, required: true },
+        writerName: { type: String, required: true },
+        writerEmail: { type: String },
+        writerRole: { type: String, required: true },
+        createdAt: { type: Date, default: Date.now },
+        view: { type: Number, default: 0 },
+        title: { type: String, required: true },
+        text: { type: String, required: true },
+        imgSrces: [{ type: String }],
+        readingRequired: { type: Boolean },
+        comment: [
+          {
+            commentId: { type: String, required: true },
+            writer: { type: String, required: true },
+            createdAt: { type: Date, default: Date.now },
+            text: { type: String, required: true },
+            replies: [
+              {
+                replyId: { type: String, required: true },
+                writer: { type: String, required: true },
+                text: { type: String, required: true },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    noticeBoards: [
+      {
+        boardId: { type: String, required: true },
+        writerImg: { type: String, required: true },
+        writerName: { type: String, required: true },
+        writerEmail: { type: String },
+        writerRole: { type: String, required: true },
         createdAt: { type: Date, default: Date.now },
         view: { type: Number, default: 0 },
         title: { type: String, required: true },
