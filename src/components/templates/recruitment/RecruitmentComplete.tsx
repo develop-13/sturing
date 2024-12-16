@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import Loading from "../Loading";
+import Loading from "../common/Loading";
 import { TStudyRecruitment } from "@/types/study";
 import Complete from "../common/Complete";
 import { useRouter } from "next/navigation";

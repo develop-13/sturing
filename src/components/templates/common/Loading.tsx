@@ -1,6 +1,6 @@
 "use client";
 import FadeLoader from "react-spinners/FadeLoader";
-import Icon from "../atoms/Icon";
+import Icon from "../../atoms/Icon";
 
 function Loading() {
   return (

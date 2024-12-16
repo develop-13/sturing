@@ -2,6 +2,7 @@ import { TAtmosphere, TCategory, TLevel, TRoleText } from "@/types/common";
 import { TSchedule, TStudyMember } from "@/types/study";
 import { ObjectId } from "mongodb";
 import mongoose, { Schema, Document, model, models } from "mongoose";
+import Board from "@/models/Board"; // 적절한 경로로 import 확인
 
 // TypeScript 인터페이스 정의 (Document 확장)
 export interface IStudy extends Document {
@@ -34,43 +35,8 @@ export interface IStudy extends Document {
   rate: number; // 평가 점수
   atmospheres: TAtmosphere[];
   schedules: TSchedule[]; // 스케줄 id 배열
-  noticeBoards: {
-    reading_requried: boolean;
-    createdAt: Date;
-    writerImg: string;
-    boardId: string;
-    writerName: string;
-    writerEmail: string;
-    writerRole: string;
-    title: string;
-    text: String;
-    view: Number;
-    content: string;
-    imgSrces: string[];
-    comments: {
-      writer: string;
-      text: string;
-    }[];
-  }[];
-  studyBoards: {
-    reading_requried: boolean;
-    createdAt: Date;
-    writerImg: string;
-    boardId: string;
-    writerName: string;
-    writerEmail: string;
-    writerRole: string;
-    title: string;
-    text: String;
-    view: Number;
-    content: string;
-    imgSrces: string[];
-    comments: {
-      writer: string;
-      text: string;
-    }[];
-  }[];
-
+  studyBoards: mongoose.Types.ObjectId[];
+  noticeBoards: mongoose.Types.ObjectId[];
   viewCount: number;
   applyCount: number;
   score: number;
@@ -182,65 +148,11 @@ const StudySchema: Schema = new Schema(
       },
     ],
     studyBoards: [
-      {
-        boardId: { type: String, required: true },
-        writerImg: { type: String, required: true },
-        writerName: { type: String, required: true },
-        writerEmail: { type: String },
-        writerRole: { type: String, required: true },
-        createdAt: { type: Date, default: Date.now },
-        view: { type: Number, default: 0 },
-        title: { type: String, required: true },
-        text: { type: String, required: true },
-        imgSrces: [{ type: String }],
-        readingRequired: { type: Boolean },
-        comment: [
-          {
-            commentId: { type: String, required: true },
-            writer: { type: String, required: true },
-            createdAt: { type: Date, default: Date.now },
-            text: { type: String, required: true },
-            replies: [
-              {
-                replyId: { type: String, required: true },
-                writer: { type: String, required: true },
-                text: { type: String, required: true },
-              },
-            ],
-          },
-        ],
-      },
-    ],
+      { type: mongoose.Schema.Types.ObjectId, ref: Board.modelName },
+    ], // Board로 참조
     noticeBoards: [
-      {
-        boardId: { type: String, required: true },
-        writerImg: { type: String, required: true },
-        writerName: { type: String, required: true },
-        writerEmail: { type: String },
-        writerRole: { type: String, required: true },
-        createdAt: { type: Date, default: Date.now },
-        view: { type: Number, default: 0 },
-        title: { type: String, required: true },
-        text: { type: String, required: true },
-        imgSrces: [{ type: String }],
-        readingRequired: { type: Boolean },
-        comment: [
-          {
-            commentId: { type: String, required: true },
-            writer: { type: String, required: true },
-            createdAt: { type: Date, default: Date.now },
-            text: { type: String, required: true },
-            replies: [
-              {
-                replyId: { type: String, required: true },
-                writer: { type: String, required: true },
-                text: { type: String, required: true },
-              },
-            ],
-          },
-        ],
-      },
-    ],
+      { type: mongoose.Schema.Types.ObjectId, ref: Board.modelName },
+    ], // Board로 참조
 
     viewCount: { type: Number, default: 0 },
     applyCount: { type: Number, default: 0 },

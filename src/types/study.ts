@@ -30,16 +30,16 @@ export type TStudy = {
   rate: number; // 스터디 평가 점수
   atmospheres: TAtmosphere[]; // 스터디 분위기
   schedules: TSchedule[];
-  noticeBoards: TBoard[];
-  studyBoards: TBoard[];
+  noticeBoards: TBoard_Server[] | TBoard_Client[];
+  studyBoards: TBoard_Server[] | TBoard_Client[];
   // board: TBoard[];
   viewCount: number; // 조회 수
   applyCount: number; // 지원 수
   score: number; // 스터디의 인기도 점수 (자동 계산될 값)
 };
 
-export type TBoard = {
-  boardId: string;
+export type TBoard_Client = {
+  boardClientId: string;
   studyId?: string;
   writerRole?: TRoleText;
   writerEmail: string;
@@ -51,19 +51,44 @@ export type TBoard = {
   text: string;
   imgSrces: Blob[] | string[];
   readingRequired: boolean;
-  comment?: TComment[];
+  commentIds: string[];
+  comments: Record<string, TComment>;
+};
+
+export type TBoard_Server = {
+  boardClientId: string;
+  studyId?: string;
+  writerRole?: TRoleText;
+  writerEmail: string;
+  writerImg: string;
+  writerName: string;
+  createdAt?: Date;
+  view?: number;
+  title: string;
+  text: string;
+  imgSrces: Blob[] | string[];
+  readingRequired: boolean;
+  comments: TComment[];
 };
 
 export type TComment = {
   commentId: string;
   writerEmail: string;
-  createdAt?: Date;
-  text: string;
+  writerName: string; // 작성자의 이름
+  writerImg?: string; // 작성자의 이미지
+  writerRole?: string; // 작성자의 역할
+  createdAt?: Date; // 댓글 작성 시간
+  text: string; // 댓글 내용
+  updatedAt?: Date;
   replies?: {
-    replyId: string;
+    replyId: string; // 답글 ID
     writerEmail: string;
-    text: string;
-  }[];
+    writerName: string; // 작성자의 이름
+    writerImg?: string; // 작성자의 이미지
+    writerRole?: string; // 작성자의 역할
+    createdAt?: Date; // 댓글 작성 시간
+    text: string; // 댓글 내용
+  }[]; // 댓글에 달린 답글 배열
 };
 
 export type TSchedule = {

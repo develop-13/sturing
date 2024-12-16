@@ -22,7 +22,7 @@ import Team from "../templates/studyDetailParticipate/Team";
 import Private from "../templates/studyDetailParticipate/Private";
 import Schedule from "../templates/studyDetailParticipate/Schedule";
 import Feedback from "../templates/studyDetailParticipate/Feedback";
-import Loading from "../templates/Loading";
+import Loading from "../templates/common/Loading";
 import {
   UserStatusContext,
   UserStatusContextProps,

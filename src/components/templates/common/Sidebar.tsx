@@ -1,10 +1,10 @@
 "use client";
 import { Session } from "next-auth";
-import Divider from "../atoms/Divider";
-import Icon from "../atoms/Icon";
-import Text from "../atoms/Text";
+import Divider from "../../atoms/Divider";
+import Icon from "../../atoms/Icon";
+import Text from "../../atoms/Text";
 import { forwardRef } from "react";
-import Image from "../atoms/Image";
+import Image from "../../atoms/Image";
 import { signOut } from "next-auth/react";
 
 // Sidebar 컴포넌트의 props 타입 정의

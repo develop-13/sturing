@@ -1,4 +1,3 @@
-import { uploadImagesToCloudinary } from "@/lib/cloudinary";
 import dbConnect from "@/lib/mongodb";
 import Study, { IStudy } from "@/models/Study";
 import User, { IUser } from "@/models/User";
@@ -17,7 +16,15 @@ export async function GET(
   try {
     const objectId = new mongoose.Types.ObjectId(studyId);
 
-    const study = await Study.findOne({ _id: objectId });
+    // studyBoards와 noticeBoards를 populate하여 각 게시판의 정보를 가져옴
+    // const study = await Study.findOne({ _id: objectId });
+    // // 여기서 populate 하면 에러가 나는 군..?
+
+    console.log("joining Study get Called!");
+
+    const study = await Study.findOne({ _id: objectId })
+      .populate("studyBoards") // studyBoards 필드에 참조된 Board 도큐먼트 채우기
+      .populate("noticeBoards"); // noticeBoards 필드에 참조된 Board 도큐먼트 채우기
 
     console.log(study);
 
@@ -29,8 +36,8 @@ export async function GET(
 
     return new Response(JSON.stringify(study), { status: 200 });
   } catch (error) {
-    return new Response(JSON.stringify({ error: "Study not found" }), {
-      status: 404,
+    return new Response(JSON.stringify({ error: "Failed to fetch study" }), {
+      status: 500,
     });
   }
 }

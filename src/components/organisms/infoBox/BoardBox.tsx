@@ -9,13 +9,20 @@ import BoardEditor from "../BoardEditor";
 import { TBoard, TJoiningStudy_Client } from "@/types/study";
 
 type TBoardBox = {
+  studyId: string;
   teamMembers: TJoiningStudy_Client["currentMembers"];
   boardLabel: string;
   children: React.ReactNode;
   postBoard: (newBoard: TBoard) => void;
 };
 
-function BoardBox({ boardLabel, teamMembers, postBoard, children }: TBoardBox) {
+function BoardBox({
+  studyId,
+  boardLabel,
+  teamMembers,
+  postBoard,
+  children,
+}: TBoardBox) {
   const [isCreatingNewBoard, setIsCreatingNewBoard] = useState(false);
   const rootLayout = useRef<Element | null>(null); // useRef로 관리
   const closeModal = () => {
@@ -51,6 +58,7 @@ function BoardBox({ boardLabel, teamMembers, postBoard, children }: TBoardBox) {
         createPortal(
           <div className="w-[375px] h-full fixed top-0 z-50 flex items-center bg-black bg-opacity-70">
             <BoardEditor
+              studyId={studyId}
               teamMembers={teamMembers}
               closeModal={closeModal}
               postBoard={postBoard}

@@ -143,7 +143,7 @@ const validateStep = (step: number, state: TMatchingState) => {
 function MatchingPage() {
   const router = useRouter();
 
-  const { session, status } = useContext(UserStatusContext);
+  const { session } = useContext(UserStatusContext);
 
   useEffect(() => {
     if (session === null && status === "unauthenticated") {

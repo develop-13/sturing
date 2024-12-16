@@ -1,10 +1,14 @@
 import { TBoard } from "@/types/study";
 import React from "react";
 import Text from "../atoms/Text";
+import Link from "next/link";
 
 function NoticeBoardItem({ board }: { board: TBoard }) {
   return (
-    <div className="m-1 flex items-center gap-5">
+    <Link
+      href={`/board/${board.boardClientId}?studyId=${board.studyId}`}
+      className="m-1 flex items-center gap-5"
+    >
       {board.readingRequired ? (
         <Text
           size="xs"
@@ -25,7 +29,7 @@ function NoticeBoardItem({ board }: { board: TBoard }) {
       <Text size="sm" weight="bold">
         {board.title}
       </Text>
-    </div>
+    </Link>
   );
 }
 

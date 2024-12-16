@@ -16,7 +16,7 @@ const UserInfoItem = (props: TUserInfoItem) => {
         src={props.imgSrc}
         className="w-10 h-10 rounded-full mr-3"
       />
-      <div className="flex flex-col w-full gap-1">
+      <div className="flex flex-col w-full gap-[2px]">
         <div className="flex items-center">{props.topText}</div>
         {props.bottomText}
       </div>

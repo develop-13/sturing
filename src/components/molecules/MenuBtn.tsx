@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Icon from "../atoms/Icon";
 import { createPortal } from "react-dom";
-import Sidebar from "../templates/Sidebar";
+import Sidebar from "../templates/common/Sidebar";
 import { Session } from "next-auth";
 
 function MenuBtn({ session }: { session?: Session | null }) {

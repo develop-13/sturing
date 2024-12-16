@@ -17,7 +17,7 @@ import ButtonLabel from "../molecules/IconLabelButton";
 import UserInfoItem from "../molecules/UserInfoItem";
 import Link from "next/link";
 import getTranslation from "@/utils/getTranslation";
-import Loading from "../templates/Loading";
+import Loading from "../templates/common/Loading";
 
 const buttonGroupData = ["info", "member"];
 

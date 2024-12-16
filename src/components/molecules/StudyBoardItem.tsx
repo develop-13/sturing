@@ -22,7 +22,10 @@ function StudyBoardItem({ board }: { board: TBoard }) {
   console.log(board["imgSrces"]);
 
   return (
-    <Link href={"#"} className="mt-2">
+    <Link
+      href={`/board/${board.boardClientId}?studyId=${board.studyId}`}
+      className="mt-2"
+    >
       <UserInfoItem imgSrc={board.writerImg} topText={textComponent} />
       <div className="flex mt-[6px] items-center">
         <div className="flex flex-col gap-2 flex-1 ">

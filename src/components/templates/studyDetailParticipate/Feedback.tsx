@@ -77,23 +77,25 @@ function Feedback({
   return (
     <div className="px-4 py-5 flex flex-col gap-4">
       <BoardBox
+        studyId={studyId}
         key={"noticeBoards"}
         boardLabel="공지사항"
         postBoard={postBoard("noticeBoards")}
         teamMembers={teamMembers}
       >
-        {noticeBoards.map((board) => (
-          <NoticeBoardItem key={board.boardId} board={board} />
+        {noticeBoards.map((board, idx) => (
+          <NoticeBoardItem key={idx} board={board} />
         ))}
       </BoardBox>
       <BoardBox
+        studyId={studyId}
         key={"studyBoards"}
         boardLabel="과제 게시판"
         postBoard={postBoard("studyBoards")}
         teamMembers={teamMembers}
       >
-        {studyBoards.map((board, idx) => (
-          <StudyBoardItem key={idx} board={board} />
+        {studyBoards.map((board) => (
+          <StudyBoardItem key={board.boardClientId} board={board} />
         ))}
       </BoardBox>
     </div>

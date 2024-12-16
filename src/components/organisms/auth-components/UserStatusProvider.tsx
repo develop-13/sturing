@@ -3,7 +3,7 @@
 import React, { createContext, useEffect, useCallback, useState } from "react";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
-import Loading from "@/components/templates/Loading";
+import Loading from "@/components/templates/common/Loading";
 
 export type UserStatusContextProps = {
   session?: Session | null;

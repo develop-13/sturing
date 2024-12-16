@@ -20,7 +20,7 @@ import {
   UserStatusContext,
   UserStatusContextProps,
 } from "../organisms/auth-components/UserStatusProvider";
-import Loading from "../templates/Loading";
+import Loading from "../templates/common/Loading";
 import IconLabelButton from "../molecules/IconLabelButton";
 import {
   ModalContextProps,

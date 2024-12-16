@@ -7,17 +7,12 @@ import {
   UserStatusContext,
   UserStatusContextProps,
 } from "./auth-components/UserStatusProvider";
-import {
-  TBoard,
-  TJoiningStudy_Client,
-  TStudy,
-  TStudyMember,
-} from "@/types/study";
+import { TBoard, TJoiningStudy_Client, TStudyMember } from "@/types/study";
 import { getBlobStringAdapter } from "@/utils/adapters/adapters";
-import Image from "../atoms/Image";
 import ImageItem from "../molecules/ImageItem";
 
 type TBoardEditor = {
+  studyId: string;
   teamMembers: TJoiningStudy_Client["currentMembers"];
   closeModal: () => void;
   postBoard: (newBoard: TBoard) => void; // 왜냐하면 state와 state changer는 상위 컴포넌트에 있으니까
@@ -31,7 +26,12 @@ type TImg = {
   src: string;
 };
 
-function BoardEditor({ teamMembers, postBoard, closeModal }: TBoardEditor) {
+function BoardEditor({
+  studyId,
+  teamMembers,
+  postBoard,
+  closeModal,
+}: TBoardEditor) {
   const { session }: UserStatusContextProps = useContext(UserStatusContext);
 
   const writerEmail = session?.user.email;
@@ -97,11 +97,12 @@ function BoardEditor({ teamMembers, postBoard, closeModal }: TBoardEditor) {
       writerImg: applicantImgSrc,
       writerRole: role,
       writerEmail,
-      boardId: v4(),
+      studyId,
       title,
       text,
       readingRequired,
       imgSrces,
+      boardClientId: v4(),
     };
     postBoard(newBoard);
     closeModal();
