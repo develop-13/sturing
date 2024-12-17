@@ -23,7 +23,7 @@ function Divider(props: TDivider) {
   switch (props.type) {
     case "col":
       className = twMerge(
-        "relative divider before:bg-gray-400 mx-2",
+        "relative divider before:bg-gray-400",
         props.color,
         props.classname
       );

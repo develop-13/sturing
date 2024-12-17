@@ -10,7 +10,8 @@ type TStudyList = {
   userEmail?: string;
 };
 
-const myStudyTabData = ["진행", "수락", "대기", "종료"] as const;
+// const myStudyTabData = ["진행", "수락", "대기", "종료"] as const;
+const myStudyTabData = ["진행", "수락", "대기"] as const;
 type MyStudyTab = (typeof myStudyTabData)[number];
 const mutableStudyTabData: (string | undefined)[] = [...myStudyTabData];
 
@@ -28,8 +29,8 @@ const renderListViewer = (
     case "수락":
       return <AcceptedAppliesViewer userEmail={userEmail} />;
 
-    case "종료":
-      return <FinishedStudiesViewer />;
+    // case "종료":
+    //   return <FinishedStudiesViewer />;
   }
 };
 

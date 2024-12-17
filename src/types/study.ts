@@ -15,7 +15,7 @@ export type TStudy = {
   };
   dayOfWeek: string;
   location: string;
-  imgSrc: Blob | null;
+  imgSrc: Blob | null | string;
   schedule: string[]; // 스케쥴 id 가담겨 있음
   type: "online" | "offline" | undefined;
   categories: TCategory[];

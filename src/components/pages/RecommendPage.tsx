@@ -156,11 +156,19 @@ function RecommendPage() {
           className="px-4"
           value=""
         />
-        <SlideContentList title="분야별 스터디 탐색하기" hasArrow={true}>
+        <SlideContentList
+          title="분야별 스터디 탐색하기"
+          hasArrow={true}
+          className="text-lg"
+        >
           <StudyCategory />
         </SlideContentList>
         <Divider type="row" py={4} color="bg-gray-300" />
-        <SlideContentList title={studyPlaceHolder.firstStudies} hasArrow={true}>
+        <SlideContentList
+          title={studyPlaceHolder.firstStudies}
+          hasArrow={true}
+          className="text-lg"
+        >
           <div className="mx-auto flex flex-row gap-2 pl-4 h-[250px] justify-center">
             {isFetchingStudies ? (
               Array(3)

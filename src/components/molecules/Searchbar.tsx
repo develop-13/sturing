@@ -2,7 +2,6 @@
 import { useRouter } from "next/navigation";
 import Icon from "../atoms/Icon";
 import { useState } from "react";
-import Suggestions from "../organisms/Suggestions";
 
 type TSearchbar = {
   placeholder?: string;
@@ -17,7 +16,6 @@ function Searchbar({ placeholder, usage, className, value = "" }: TSearchbar) {
 
   const onChangeQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
-    console.log(e.target.value);
   };
 
   const router = useRouter();
@@ -33,6 +31,23 @@ function Searchbar({ placeholder, usage, className, value = "" }: TSearchbar) {
       searchIconColor = "text-mainColor";
       break;
   }
+
+  const onClickSearchIcon = () => {
+    // 기존 검색어 목록을 가져오기 (로컬 스토리지에서)
+    const storedSearches = JSON.parse(
+      localStorage.getItem("recentSearches") || "[]"
+    );
+    // 중복 검색어 제거
+    const filteredSearches = storedSearches.filter(
+      (item: string) => item !== query
+    );
+    // 최신 검색어를 맨 앞에 추가하고 최대 5개만 유지
+    const updatedSearches = [query, ...filteredSearches].slice(0, 5);
+    // 로컬 스토리지에 업데이트된 검색어 목록 저장
+    localStorage.setItem("recentSearches", JSON.stringify(updatedSearches));
+    // 검색 결과 페이지로 이동
+    router.push(`/search/result?query=${query}`);
+  };
 
   return (
     <div
@@ -50,10 +65,7 @@ function Searchbar({ placeholder, usage, className, value = "" }: TSearchbar) {
         value={query}
         onChange={onChangeQuery}
       />
-      <Icon
-        type="SEARCH"
-        onClick={() => router.push(`/search/result?query=${query}`)}
-      />
+      <Icon type="SEARCH" onClick={onClickSearchIcon} />
     </div>
   );
 }

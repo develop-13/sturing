@@ -13,10 +13,8 @@ type TTitleLink = {
 export default function TitleLink(props: TTitleLink) {
   return (
     <>
-      <div className="flex items-center justify-between text-lg font-bold px-4">
-        <Text size="lg" weight="bold">
-          {props.title}
-        </Text>
+      <div className="flex items-center justify-between font-bold">
+        <Text weight="bold">{props.title}</Text>
         {props.hasArrow && <Icon type="FORWARD" onClick={props.onClick} />}
       </div>
     </>

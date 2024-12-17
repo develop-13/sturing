@@ -5,7 +5,7 @@ import InfoTags from "../molecules/InfoTags";
 import StudyInfoItem from "./infoBox/InfoBox";
 import { getDateInfo } from "@/utils/formatDate";
 
-function UpcomingStudyItem(props: TSchedule) {
+function UpcomingScheduleItem(props: TSchedule) {
   const { date, title, location, startTime, endTime } = props;
 
   const { month, day, dayDifference } = getDateInfo(new Date(date));
@@ -13,7 +13,7 @@ function UpcomingStudyItem(props: TSchedule) {
   return (
     <div className="px-[16px] pt-[20px] pb-[70px] flex flex-col gap-[20px] bg-gradient-to-br from-custom-blue-30 to-custom-pink-30">
       <Text size="xl" weight="bold">
-        다가오는 스터디
+        나의 일정
       </Text>
       <StudyInfoItem theme="white">
         <div className="flex gap-[4px]">
@@ -48,4 +48,4 @@ function UpcomingStudyItem(props: TSchedule) {
   );
 }
 
-export default UpcomingStudyItem;
+export default UpcomingScheduleItem;

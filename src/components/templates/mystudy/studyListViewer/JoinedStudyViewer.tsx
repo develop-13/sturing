@@ -97,7 +97,7 @@ function JoinedStudyViewer({ userEmail }: { userEmail: string }) {
               {study.title}
             </Text>
             <Divider type="row" my={8} />
-            <InfoTags theme="white" padding={3} mx={13} className="">
+            <InfoTags theme="white" padding={3} mx={3} className="">
               <Button theme="transparent" shape="tag">
                 <Icon type="MEMBERS" />
                 <Text size="xs" weight="bold" color="gray-700">

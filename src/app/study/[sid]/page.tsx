@@ -1,7 +1,7 @@
-import StudyDetailPage from "@/components/pages/StudyDetailPage";
+import StudyInfoPage from "@/components/pages/StudyInfoPage";
 
 function page() {
-  return <StudyDetailPage />;
+  return <StudyInfoPage />;
 }
 
 export default page;

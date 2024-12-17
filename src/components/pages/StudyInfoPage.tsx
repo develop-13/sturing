@@ -11,13 +11,14 @@ import { TabButtonGroup } from "../organisms/ButtonGroup";
 import InfoBox from "../organisms/infoBox/InfoBox";
 import StudyOverview from "../organisms/StudyOverview";
 import Header from "../organisms/Header";
-import { TStudyDetail, TStudyMember } from "@/types/study";
+import { TStudy, TStudyDetail, TStudyItem, TStudyMember } from "@/types/study";
 import TitleLink from "../molecules/TitleLink";
 import ButtonLabel from "../molecules/IconLabelButton";
 import UserInfoItem from "../molecules/UserInfoItem";
 import Link from "next/link";
 import getTranslation from "@/utils/getTranslation";
 import Loading from "../templates/common/Loading";
+import { setStudyOnLocalStorage } from "@/utils/localStorageFuncs";
 
 const buttonGroupData = ["info", "member"];
 
@@ -39,8 +40,8 @@ function StudyInfoPage() {
         res.json()
       );
       setStudyInfo(study);
+      setStudyOnLocalStorage(study); // 스터디를 가져오면서 로컬에 저장
     }
-
     fetchstudyInfo();
   }, [params.sid]);
 

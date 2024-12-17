@@ -1,16 +1,18 @@
 "use client";
 import React, { useRef } from "react";
 import TitleLink from "../molecules/TitleLink";
+import { twMerge } from "tailwind-merge";
 
 export type TSlideContentList = {
   title: string;
   hasArrow?: boolean;
   arrowColor?: "gray-800" | "gray-300";
   children: React.ReactNode;
+  className?: string;
 };
 
 function SlideContentList(props: TSlideContentList) {
-  const { title, hasArrow, arrowColor, children } = props;
+  const { title, hasArrow, arrowColor, children, className } = props;
 
   const scrollRef = useRef<HTMLUListElement | null>(null);
 
@@ -29,7 +31,7 @@ function SlideContentList(props: TSlideContentList) {
   };
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className={twMerge("flex flex-col gap-5 ", className)}>
       <TitleLink
         title={title}
         hasArrow={hasArrow}
