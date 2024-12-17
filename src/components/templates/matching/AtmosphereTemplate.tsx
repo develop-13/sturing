@@ -4,7 +4,7 @@ import MatchingTitle from "@/components/molecules/MatchingTitle";
 import React from "react";
 import { TMatchingState, TDispatchFuncs } from "@/reducers/matchingReducer";
 import { atmosphereData } from "@/db/atmospheres";
-import { iconAdapter } from "@/utils/adapters/adapters";
+import { iconAdapter } from "@/adapters/adapters";
 
 type TAtmosphereTemplate = {
   userName?: string | null;

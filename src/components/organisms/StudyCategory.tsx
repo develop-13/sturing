@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Icon from "../atoms/Icon";
 import IconLabelButton from "../molecules/IconLabelButton";
 import { categories } from "@/db/categories";
-import { iconAdapter } from "@/utils/adapters/adapters";
+import { iconAdapter } from "@/adapters/adapters";
 
 export default function StudyCategory() {
   const router = useRouter();

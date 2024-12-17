@@ -2,7 +2,7 @@ import NoticeBoardItem from "@/components/molecules/NoticeBoardItem";
 import StudyBoardItem from "@/components/molecules/StudyBoardItem";
 import BoardBox from "@/components/organisms/infoBox/BoardBox";
 import { TBoard, TJoiningStudy_Client } from "@/types/study";
-import { getBlobStringAdapter } from "@/utils/adapters/adapters";
+import { getBlobStringAdapter } from "@/adapters/adapters";
 import React from "react";
 
 type TFeedback = {

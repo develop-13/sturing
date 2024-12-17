@@ -8,7 +8,7 @@ import {
   UserStatusContextProps,
 } from "./auth-components/UserStatusProvider";
 import { TBoard, TJoiningStudy_Client, TStudyMember } from "@/types/study";
-import { getBlobStringAdapter } from "@/utils/adapters/adapters";
+import { getBlobStringAdapter } from "@/adapters/adapters";
 import ImageItem from "../molecules/ImageItem";
 
 type TBoardEditor = {

@@ -55,6 +55,10 @@ function CommentSection(props: CommentSection) {
     setCommentIdToEdit((prev) => commentId);
     setActiveMenuId((prev) => ""); // 창 닫음
   };
+  const goToNormalMode = () => {
+    setMode("normal");
+    setComment("");
+  };
 
   const onClickEditBtn = () => {
     if (!commentIdToEdit) {
@@ -62,13 +66,8 @@ function CommentSection(props: CommentSection) {
       return;
     }
     handleEditComment(commentIdToEdit, comment);
-    setComment((prev) => "");
+    goToNormalMode();
     setCommentIdToEdit((prev) => "");
-  };
-
-  const goToNormalMode = () => {
-    setMode("normal");
-    setComment("");
   };
 
   const onClickAddBtn = () => {

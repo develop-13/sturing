@@ -3,7 +3,7 @@ import React from "react";
 import UserInfoItem from "./UserInfoItem";
 import Text from "../atoms/Text";
 import Image from "../atoms/Image";
-import { getBlobStringAdapter } from "@/utils/adapters/adapters";
+import { getBlobStringAdapter } from "@/adapters/adapters";
 import Link from "next/link";
 
 function StudyBoardItem({ board }: { board: TBoard }) {

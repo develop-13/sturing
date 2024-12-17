@@ -1,7 +1,7 @@
 import Icon from "@/components/atoms/Icon";
 import Text from "@/components/atoms/Text";
 import { TStudyRecruitmentReducer } from "@/reducers/recruitmentReducer";
-import { getBlobStringAdapter } from "@/utils/adapters/adapters";
+import { getBlobStringAdapter } from "@/adapters/adapters";
 import React from "react";
 
 type TImageSetter = {

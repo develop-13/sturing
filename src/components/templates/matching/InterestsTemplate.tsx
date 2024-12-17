@@ -4,7 +4,7 @@ import MatchingTitle from "../../molecules/MatchingTitle";
 import Icon from "@/components/atoms/Icon";
 import { TMatchingState, TDispatchFuncs } from "@/reducers/matchingReducer";
 import { categories } from "@/db/categories";
-import { iconAdapter } from "@/utils/adapters/adapters";
+import { iconAdapter } from "@/adapters/adapters";
 
 type TInterestsTemplate = {
   userName?: string | null;

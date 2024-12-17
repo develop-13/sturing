@@ -23,6 +23,13 @@ declare module "next-auth" {
   }
 }
 
+// 별도의 타입으로 정의
+export type SessionUser = {
+  name: string;
+  email: string;
+  image?: string;
+};
+
 if (!GithubClientId || !GithubClientSecret) {
   throw new Error("missing github clientId or clientSecret");
 }
