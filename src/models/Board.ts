@@ -18,7 +18,7 @@ const BoardSchema: Schema = new Schema(
     readingRequired: { type: Boolean },
     comments: [
       {
-        commentId: { type: String, required: true },
+        Id: { type: String, required: true },
         writerEmail: { type: String, required: true },
         writerName: { type: String, required: true },
         writerImg: { type: String, required: true },
@@ -28,7 +28,7 @@ const BoardSchema: Schema = new Schema(
         updatedAt: { type: Date },
         replies: [
           {
-            replyId: { type: String, required: true },
+            Id: { type: String, required: true },
             commentId: { type: String, required: true },
             writerEmail: { type: String, required: true },
             writerName: { type: String, required: true },

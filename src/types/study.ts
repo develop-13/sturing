@@ -72,7 +72,7 @@ export type TBoard_Server = {
 };
 
 export type TComment = {
-  commentId: string;
+  Id: string;
   writerEmail: string;
   writerName: string; // 작성자의 이름
   writerImg?: string; // 작성자의 이미지
@@ -80,16 +80,10 @@ export type TComment = {
   createdAt?: Date; // 댓글 작성 시간
   text: string; // 댓글 내용
   updatedAt?: Date;
-  replies?: {
-    replyId: string; // 답글 ID
-    writerEmail: string;
-    writerName: string; // 작성자의 이름
-    writerImg?: string; // 작성자의 이미지
-    writerRole?: string; // 작성자의 역할
-    createdAt?: Date; // 댓글 작성 시간
-    text: string; // 댓글 내용
-  }[]; // 댓글에 달린 답글 배열
+  replies?: TReply[]; // 댓글에 달린 답글 배열
 };
+
+export type TReply = Omit<TComment, "replies">;
 
 export type TSchedule = {
   scheduleId: string;

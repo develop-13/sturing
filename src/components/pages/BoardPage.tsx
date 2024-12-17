@@ -1,7 +1,7 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { TBoard_Client, TBoard_Server, TComment } from "@/types/study";
+import { TBoard_Client } from "@/types/study";
 import Header from "@/components/organisms/Header";
 import Icon from "@/components/atoms/Icon";
 import Loading from "@/components/templates/common/Loading";
@@ -58,7 +58,6 @@ function BoardPage() {
     await deleteCommentAction(commentId);
   };
 
-  // if (!board.boardClientId) return <Loading />;
   if (status === "loading") return <Loading />;
 
   return (

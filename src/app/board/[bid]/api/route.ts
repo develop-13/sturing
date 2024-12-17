@@ -92,7 +92,7 @@ const handleAddComment = async (
 
     // 5. board의 comment에 댓글 추가
     const newComment = {
-      commentId,
+      Id: commentId,
       writerEmail,
       writerName: userName,
       writerImg: applicantImgSrc,
@@ -165,7 +165,7 @@ const handleEditComment = async (
 
     // 3. board에서 commentId로 댓글 찾기
     const comment = board.comments.find(
-      (comment: TComment) => comment.commentId === commentId
+      (comment: TComment) => comment.Id === commentId
     );
     if (!comment) {
       return NextResponse.json(
@@ -251,7 +251,7 @@ export async function DELETE(
 
     // 댓글 삭제
     const commentIndex = board.comments.findIndex(
-      (comment: TComment) => comment.commentId === commentId
+      (comment: TComment) => comment.Id === commentId
     );
 
     if (commentIndex === -1) {

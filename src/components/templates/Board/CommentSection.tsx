@@ -8,9 +8,9 @@ import Button from "@/components/molecules/Button";
 type CommentSection = {
   commentIds: TBoard_Client["commentIds"];
   comments: TBoard_Client["comments"];
-  handleEditComment: (commentId: string, updatedCommentText: string) => void;
+  handleEditComment: (Id: string, updatedCommentText: string) => void;
   handleAddComment: (commentText: string) => void;
-  handleDeleteComment: (commentId: string) => void;
+  handleDeleteComment: (Id: string) => void;
 };
 
 function CommentSection(props: CommentSection) {
@@ -31,9 +31,9 @@ function CommentSection(props: CommentSection) {
   const [commentIdToEdit, setCommentIdToEdit] = useState("");
   // 현재 수정하려는 댓글의 ID
 
-  const handleMenuToggle = (commentId: string) => {
+  const handleMenuToggle = (Id: string) => {
     console.log(`currentActiveMenuId=${activeMenuId}`);
-    setActiveMenuId((prev) => (prev === commentId ? null : commentId)); // 동일한 ID를 누르면 닫음
+    setActiveMenuId((prev) => (prev === Id ? null : Id)); // 동일한 ID를 누르면 닫음
   };
   const [comment, setComment] = useState("");
   const [mode, setMode] = useState<"normal" | "edit">("normal");
@@ -47,12 +47,12 @@ function CommentSection(props: CommentSection) {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const getToEditMode = (commentId: string) => {
+  const getToEditMode = (Id: string) => {
     // input 활성화 하고 input의 vlaue를 수정하려는 댓글로 함
     setMode("edit");
-    const newCommentText = comments[commentId].text;
+    const newCommentText = comments[Id].text;
     setComment((prev) => newCommentText);
-    setCommentIdToEdit((prev) => commentId);
+    setCommentIdToEdit((prev) => Id);
     setActiveMenuId((prev) => ""); // 창 닫음
   };
   const goToNormalMode = () => {
@@ -72,10 +72,11 @@ function CommentSection(props: CommentSection) {
 
   const onClickAddBtn = () => {
     handleAddComment(comment);
+    setComment("");
   };
 
-  const onClickDelete = (commentId: string) => {
-    handleDeleteComment(commentId);
+  const onClickDelete = (Id: string) => {
+    handleDeleteComment(Id);
   };
 
   return (
@@ -91,15 +92,15 @@ function CommentSection(props: CommentSection) {
       </div>
       {/* 댓글 부분 */}
       <div className="flex flex-col gap-4">
-        {commentIds.map((commentId) => (
+        {commentIds.map((Id) => (
           <CommentItem
             getToEditMode={getToEditMode}
-            key={comments[commentId].commentId}
-            {...comments[commentId]}
-            isMenuOpen={activeMenuId === commentId} // 활성 상태 전달
+            key={comments[Id].Id}
+            {...comments[Id]}
+            isMenuOpen={activeMenuId === Id} // 활성 상태 전달
             onMenuToggle={handleMenuToggle}
             onClickDelete={() => {
-              onClickDelete(commentId);
+              onClickDelete(Id);
             }}
           />
         ))}

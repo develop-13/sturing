@@ -1,20 +1,28 @@
-import { TComment } from "@/types/study";
-import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
+import { TComment, TReply } from "@/types/study";
+import React, { useEffect, useRef, useState } from "react";
 import UserInfoItem from "../molecules/UserInfoItem";
 import Text from "../atoms/Text";
 import Icon from "../atoms/Icon";
 import CommentMenu from "../molecules/commentMenu";
 
-type TCommentItem = TComment & {
-  getToEditMode: (commentId: string) => void;
-  onClickDelete: () => void;
-  isMenuOpen: boolean;
-  onMenuToggle: (commentId: string) => void;
-};
+type TCommentItem =
+  | (TComment & {
+      getToEditMode: (Id: string) => void;
+      onClickDelete: () => void;
+      isMenuOpen: boolean;
+      onMenuToggle: (Id: string) => void;
+      className?: string;
+    })
+  | (TReply & {
+      getToEditMode: (Id: string) => void;
+      onClickDelete: () => void;
+      isMenuOpen: boolean;
+      onMenuToggle: (Id: string) => void;
+    });
 
 function CommentItem(props: TCommentItem) {
   const {
-    commentId,
+    Id,
     writerImg,
     writerName,
     writerRole,
@@ -25,10 +33,12 @@ function CommentItem(props: TCommentItem) {
     onMenuToggle,
   } = props;
 
+  const replies = "replies" in props ? props.replies : [];
+
   const menuRef = useRef<HTMLDivElement>(null); // CommentMenu의 ref
 
   const handleEdit = () => {
-    getToEditMode(commentId);
+    getToEditMode(Id);
   };
 
   useEffect(() => {
@@ -52,7 +62,7 @@ function CommentItem(props: TCommentItem) {
   }, [onMenuToggle]);
 
   return (
-    <div key={commentId} className="flex flex-col gap-2 relative">
+    <div key={Id} className="flex flex-col gap-2 relative">
       <div className="flex justify-between items-center">
         <UserInfoItem
           imgSrc={writerImg as string}
@@ -69,7 +79,7 @@ function CommentItem(props: TCommentItem) {
         />
         <div
           className="w-[20px] h-[20px] flex items-center justify-center rounded-full hover:bg-gray-300 cursor-pointer z-50 commentMenuBtn "
-          onClick={() => onMenuToggle(commentId)} // 상위 상태 업데이트
+          onClick={() => onMenuToggle(Id)} // 상위 상태 업데이트
         >
           <Icon type="MORE" className="rotate-90" width={15} height={15} />
         </div>
@@ -81,10 +91,12 @@ function CommentItem(props: TCommentItem) {
           onDelete={onClickDelete}
         />
       )}
-      <div className="flex">
-        <div className="w-[52px]"></div>
-        <Text>{text}</Text>
-      </div>
+      <Text>{text}</Text>
+      {/* <div>
+        {replies?.map((reply) => (
+          <CommentItem />
+        ))}
+      </div> */}
     </div>
   );
 }

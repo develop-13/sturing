@@ -50,7 +50,7 @@ const useCommentActions = (
    * 클라이언트 상태 업데이트 함수
    * ------------------------ */
   const addCommentToState = (newComment: {
-    commentId: string;
+    Id: string;
     writerEmail: string;
     writerName: string;
     writerImg?: string;
@@ -60,27 +60,24 @@ const useCommentActions = (
       ...prev,
       comments: {
         ...prev.comments,
-        [newComment.commentId]: newComment,
+        [newComment.Id]: newComment,
       },
-      commentIds: [...prev.commentIds, newComment.commentId],
+      commentIds: [...prev.commentIds, newComment.Id],
     }));
   };
 
-  const updateCommentLocally = (
-    commentId: string,
-    updatedCommentText: string
-  ) => {
+  const updateCommentLocally = (Id: string, updatedCommentText: string) => {
     setBoard((prev) => {
-      if (!prev.comments[commentId]) {
-        console.error(`Comment with ID ${commentId} not found`);
+      if (!prev.comments[Id]) {
+        console.error(`Comment with ID ${Id} not found`);
         return prev;
       }
       return {
         ...prev,
         comments: {
           ...prev.comments,
-          [commentId]: {
-            ...prev.comments[commentId],
+          [Id]: {
+            ...prev.comments[Id],
             text: updatedCommentText,
           },
         },
@@ -88,18 +85,16 @@ const useCommentActions = (
     });
   };
 
-  const deleteCommentLocally = (commentId: string) => {
+  const deleteCommentLocally = (Id: string) => {
     setBoard((prev) => {
-      if (!prev.comments[commentId]) {
-        console.error(`Comment with ID ${commentId} not found`);
+      if (!prev.comments[Id]) {
+        console.error(`Comment with ID ${Id} not found`);
         return prev;
       }
       const updatedComments = { ...prev.comments };
-      delete updatedComments[commentId];
+      delete updatedComments[Id];
 
-      const updatedCommentIds = prev.commentIds.filter(
-        (id) => id !== commentId
-      );
+      const updatedCommentIds = prev.commentIds.filter((id) => id !== Id);
 
       return {
         ...prev,
@@ -118,9 +113,9 @@ const useCommentActions = (
   ) => {
     const { email, name, image } = userInfo;
 
-    const commentId = uuidv4();
+    const Id = uuidv4();
     const newComment = {
-      commentId,
+      Id,
       writerEmail: email,
       writerName: name,
       writerImg: image,
@@ -135,7 +130,7 @@ const useCommentActions = (
       const commentFromServer = await addCommentToServer(
         board.boardClientId,
         studyId,
-        commentId,
+        Id,
         commentText,
         email
       );
@@ -145,31 +140,28 @@ const useCommentActions = (
         ...prev,
         comments: {
           ...prev.comments,
-          [commentFromServer.commentId]: commentFromServer,
+          [commentFromServer.Id]: commentFromServer,
         },
       }));
     } catch (error) {
       console.error("Error adding comment, rolling back local state.");
-      deleteCommentLocally(commentId); // 실패 시 롤백
+      deleteCommentLocally(Id); // 실패 시 롤백
     }
   };
 
   /** ------------------------
    * 댓글 수정 함수
    * ------------------------ */
-  const editCommentAction = async (
-    commentId: string,
-    updatedCommentText: string
-  ) => {
+  const editCommentAction = async (Id: string, updatedCommentText: string) => {
     // 상태 업데이트
-    updateCommentLocally(commentId, updatedCommentText);
+    updateCommentLocally(Id, updatedCommentText);
 
     // 서버 요청
     try {
       const updatedComment = await updateCommentOnServer(
         board.boardClientId!,
         studyId,
-        commentId,
+        Id,
         updatedCommentText
       );
 
@@ -178,7 +170,7 @@ const useCommentActions = (
         ...prev,
         comments: {
           ...prev.comments,
-          [updatedComment.commentId]: updatedComment,
+          [updatedComment.Id]: updatedComment,
         },
       }));
     } catch (error) {
@@ -188,9 +180,9 @@ const useCommentActions = (
         ...prev,
         comments: {
           ...prev.comments,
-          [commentId]: {
-            ...prev.comments[commentId],
-            text: prev.comments[commentId].text,
+          [Id]: {
+            ...prev.comments[Id],
+            text: prev.comments[Id].text,
           },
         },
       }));
@@ -200,14 +192,14 @@ const useCommentActions = (
   /** ------------------------
    * 댓글 삭제 함수
    * ------------------------ */
-  const deleteCommentAction = async (commentId: string) => {
+  const deleteCommentAction = async (Id: string) => {
     // 상태 업데이트
-    const originalComment = board.comments[commentId];
-    deleteCommentLocally(commentId);
+    const originalComment = board.comments[Id];
+    deleteCommentLocally(Id);
 
     // 서버 요청
     try {
-      await deleteCommentOnServer(board.boardClientId!, studyId, commentId);
+      await deleteCommentOnServer(board.boardClientId!, studyId, Id);
     } catch (error) {
       console.error("Error deleting comment, rolling back local state.");
       // 삭제 실패 시 원래 상태 복구
@@ -215,9 +207,9 @@ const useCommentActions = (
         ...prev,
         comments: {
           ...prev.comments,
-          [commentId]: originalComment,
+          [Id]: originalComment,
         },
-        commentIds: [...prev.commentIds, commentId],
+        commentIds: [...prev.commentIds, Id],
       }));
     }
   };
