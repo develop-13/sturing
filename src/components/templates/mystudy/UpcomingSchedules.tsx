@@ -5,6 +5,8 @@ import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import UpcomingStudyItem from "../../organisms/UpcomingStudyItem";
 import { useEffect, useState } from "react";
+import Loading from "../common/Loading";
+import { TSchedule } from "@/types/study";
 
 // 서버로부터 불러온 다가오는 스터디 리스트의 예상 포멧
 type TUpcomingStudy = {
@@ -13,6 +15,17 @@ type TUpcomingStudy = {
   location: string;
   hour: number;
 };
+
+// export type TSchedule = {
+//   scheduleId: string;
+//   studyId: string;
+//   title: string;
+//   date: Date;
+//   location: string;
+//   startTime: string;
+//   endTime: string;
+//   detail: string;
+// };
 
 const UpcomingStudyList_dummy: TUpcomingStudy[] = [
   {
@@ -35,12 +48,43 @@ const UpcomingStudyList_dummy: TUpcomingStudy[] = [
   },
 ];
 
-function UpcomingStudies({ userEmail }: { userEmail: string | undefined }) {
-  const [schedules, setSchedules] = useState([]);
+// date: "2024-12-09T16:03:09.285Z";
+// detail: "ㅇ냘ㅇ너ㅣㄹ";
+// endTime: "11:00";
+// location: "흑흑 ";
+// scheduleId: "9b13c2ba-ab16-46f5-9de9-90dfa154e09f";
+// startTime: "9:00";
+// studyId: "674ed47fdcf98280c577676e";
+// title: "제발되라 쓰바";
+// userEmail: "wotkd09093@gmail.com";
+// _id: "675715fe406beff0c8d80344";
+
+function UpcomingSchedules({ userEmail }: { userEmail: string | undefined }) {
+  const [schedules, setSchedules] = useState<TSchedule[]>([]);
+
+  const [isFetchingSchedules, setIsFetchingSchedules] = useState(true);
 
   useEffect(() => {
     // 사용자 스케쥴 가져오는 로직
+
+    async function getUserSchedules() {
+      try {
+        const fetchedSchedules = await (
+          await fetch(`/mystudy/api?userEmail=${userEmail}&type=schedules`)
+        ).json();
+
+        console.log(fetchedSchedules);
+        setSchedules(fetchedSchedules);
+        setIsFetchingSchedules(false);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    getUserSchedules();
   }, []);
+
+  if (isFetchingSchedules) return <Loading />;
 
   return (
     <div className="">
@@ -53,9 +97,9 @@ function UpcomingStudies({ userEmail }: { userEmail: string | undefined }) {
         }}
         modules={[Pagination]}
       >
-        {UpcomingStudyList_dummy.map((UpcomingStudy, idx) => (
+        {schedules.map((schedule, idx) => (
           <SwiperSlide key={idx}>
-            <UpcomingStudyItem />
+            <UpcomingStudyItem {...schedule} />
           </SwiperSlide>
         ))}
       </Swiper>
@@ -63,4 +107,4 @@ function UpcomingStudies({ userEmail }: { userEmail: string | undefined }) {
   );
 }
 
-export default UpcomingStudies;
+export default UpcomingSchedules;

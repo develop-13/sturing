@@ -1,9 +1,15 @@
+import { TSchedule } from "@/types/study";
 import Text from "../atoms/Text";
 import Button from "../molecules/Button";
 import InfoTags from "../molecules/InfoTags";
 import StudyInfoItem from "./infoBox/InfoBox";
+import { getDateInfo } from "@/utils/formatDate";
 
-function UpcomingStudyItem() {
+function UpcomingStudyItem(props: TSchedule) {
+  const { date, title, location, startTime, endTime } = props;
+
+  const { month, day, dayDifference } = getDateInfo(new Date(date));
+
   return (
     <div className="px-[16px] pt-[20px] pb-[70px] flex flex-col gap-[20px] bg-gradient-to-br from-custom-blue-30 to-custom-pink-30">
       <Text size="xl" weight="bold">
@@ -13,27 +19,27 @@ function UpcomingStudyItem() {
         <div className="flex gap-[4px]">
           <Button theme="primary" shape="tag">
             <Text size="xs" weight="bold" color="white">
-              D-3
+              {`D-${dayDifference}`}
             </Text>
           </Button>
           <Button theme="secondary" shape="tag">
             <Text size="xs" weight="bold" color="main">
-              6월 7일
+              {`${month}월 ${day}일`}
             </Text>
           </Button>
         </div>
         <Text size="base" weight="bold">
-          UXUI 디자이너 본질 강화 피그마 스터디
+          {title}
         </Text>
         <InfoTags theme="gray">
           <Button theme="transparent" shape="tag">
             <Text size="xs" weight="bold" color="gray-700">
-              스타벅스 종로점
+              {location}
             </Text>
           </Button>
           <Button theme="transparent" shape="tag">
             <Text size="xs" weight="bold" color="gray-700">
-              06.07(토) 오후 8:00 - 9:00
+              {`${startTime}~${endTime}`}
             </Text>
           </Button>
         </InfoTags>

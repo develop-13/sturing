@@ -5,7 +5,7 @@ import dbConnect from "@/lib/mongodb";
 import mongoose from "mongoose";
 import { TApply } from "@/types/apply"; // TApply 타입을 임포트
 import Study from "@/models/Study";
-import { TStudy } from "@/types/study";
+import { TSchedule, TStudy } from "@/types/study";
 
 export async function GET(request: NextRequest) {
   console.log("API GET called");
@@ -112,6 +112,7 @@ async function fetchUserDataByType(userEmail: string, type: string) {
 
       return NextResponse.json(populatedUser.accepted_applies, { status: 200 });
     }
+
     case "applies": {
       // Populate applies to include all fields of the Apply document
       const populatedUser = await User.findOne({ email: userEmail }).populate({
@@ -126,6 +127,12 @@ async function fetchUserDataByType(userEmail: string, type: string) {
       }
 
       return NextResponse.json(populatedUser.applies, { status: 200 });
+    }
+
+    case "schedules": {
+      const user = await User.findOne({ email: userEmail });
+      const { schedules } = user;
+      return NextResponse.json(schedules, { status: 200 });
     }
 
     default:

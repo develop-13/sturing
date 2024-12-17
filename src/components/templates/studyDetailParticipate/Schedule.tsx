@@ -167,7 +167,7 @@ function Schedule({
         </Text>
       </Button>
       <div className="overflow-y-scroll flex flex-col gap-5 h-[200px]">
-        {todaySchedules.map((schedule) => (
+        {todaySchedules.map((schedule: TSchedule) => (
           <ScheduleViewerInfoBox
             key={schedule.scheduleId}
             todaySchedule={schedule}

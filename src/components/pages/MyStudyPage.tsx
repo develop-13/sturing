@@ -5,7 +5,7 @@ import MenuBtn from "../molecules/MenuBtn";
 import { NavButtonGroup } from "../organisms/ButtonGroup";
 import Header from "../organisms/Header";
 import StudyList from "../templates/mystudy/StudyListContainer";
-import UpcomingStudies from "../templates/mystudy/UpcomingStudies";
+import UpcomingStudies from "../templates/mystudy/UpcomingSchedules";
 import {
   UserStatusContext,
   UserStatusContextProps,

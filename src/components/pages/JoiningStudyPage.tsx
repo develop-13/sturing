@@ -11,7 +11,7 @@ import Icon from "../atoms/Icon";
 import Header from "../organisms/Header";
 import StudyOverview from "../organisms/StudyOverview";
 import {
-  TBoard,
+  TBoard_Client,
   TCheckListItem,
   TJoiningStudy_Server,
   TSchedule,
@@ -110,7 +110,7 @@ function JoiningStudyPage() {
   }, []);
 
   const handleUpdateBoards = useCallback(
-    (boardType: "studyBoards" | "noticeBoards", boards: TBoard[]) => {
+    (boardType: "studyBoards" | "noticeBoards", boards: TBoard_Client[]) => {
       dispatch({ type: "UPDATE_BOARD", payload: { boards, boardType } });
     },
     []
