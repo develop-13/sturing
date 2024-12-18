@@ -1,7 +1,7 @@
 "use client";
 import { v4 as uuidv4 } from "uuid";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Divider from "../atoms/Divider";
 import Icon from "../atoms/Icon";
 import Text from "../atoms/Text";
@@ -11,7 +11,7 @@ import { TabButtonGroup } from "../organisms/ButtonGroup";
 import InfoBox from "../organisms/infoBox/InfoBox";
 import StudyOverview from "../organisms/StudyOverview";
 import Header from "../organisms/Header";
-import { TStudy, TStudyDetail, TStudyItem, TStudyMember } from "@/types/study";
+import { TStudyDetail, TStudyMember } from "@/types/study";
 import TitleLink from "../molecules/TitleLink";
 import ButtonLabel from "../molecules/IconLabelButton";
 import UserInfoItem from "../molecules/UserInfoItem";
@@ -19,10 +19,49 @@ import Link from "next/link";
 import getTranslation from "@/utils/getTranslation";
 import Loading from "../templates/common/Loading";
 import { setStudyOnLocalStorage } from "@/utils/localStorageFuncs";
+import {
+  UserStatusContext,
+  UserStatusContextProps,
+} from "../organisms/auth-components/UserStatusProvider";
+import { TStatus } from "@/types/apply";
 
 const buttonGroupData = ["info", "member"];
 
+const getSignUpButton = (status: TStatus, sid: string) => {
+  switch (status) {
+    case "joined":
+      return (
+        <Button shape="full" theme="ordinary" extraCss="p-2">
+          <Text color="gray-500" weight="bold">
+            이미 참여중인 스터디입니다.
+          </Text>
+        </Button>
+      );
+
+    case "hasApplied":
+      return (
+        <Button shape="full" theme="ordinary" extraCss="p-2">
+          <Text color="gray-500" weight="bold">
+            이미 지원한 스터디입니다.
+          </Text>
+        </Button>
+      );
+
+    case "notApplied":
+      return (
+        <Link href={`/apply/${sid}`} className="h-[48px]">
+          <Button shape="full" theme="primary">
+            <Text weight="bold">스터디 참여하기</Text>
+          </Button>
+        </Link>
+      );
+  }
+};
+
 function StudyInfoPage() {
+  const { session, status }: UserStatusContextProps =
+    useContext(UserStatusContext);
+
   const router = useRouter();
   const params = useParams<{ sid: string }>();
   const [selectedIdx, setSelected] = useState(0);
@@ -31,16 +70,24 @@ function StudyInfoPage() {
     info: useRef<HTMLDivElement>(null),
     member: useRef<HTMLDivElement>(null),
   };
+  const statusRef = useRef<TStatus>("notApplied");
 
   useEffect(() => {
     // 스터디를 가져옴
+
+    if (!session?.user) return;
+
     async function fetchstudyInfo() {
       console.log(params.sid);
-      const study = await fetch(`/study/${params.sid}/api`).then((res) =>
-        res.json()
-      );
+      const data = await fetch(
+        `/study/${params.sid}/api?userEmail=${session?.user.email}`
+      ).then((res) => res.json());
+
+      const { study, status } = data;
+      console.log(`status=${status}`);
       setStudyInfo(study);
       setStudyOnLocalStorage(study); // 스터디를 가져오면서 로컬에 저장
+      statusRef.current = status;
     }
     fetchstudyInfo();
   }, [params.sid]);
@@ -235,11 +282,7 @@ function StudyInfoPage() {
             ))}
           </div>
         </InfoBox>
-        <Link href={`/apply/${params.sid}`} className="h-[48px]">
-          <Button shape="full" theme="primary">
-            <Text weight="bold">스터디 참여하기</Text>
-          </Button>
-        </Link>
+        {getSignUpButton(statusRef.current, params.sid)}
       </section>
     </div>
   );

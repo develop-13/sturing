@@ -3,8 +3,15 @@ import Loading from "../common/Loading";
 import { TStudyRecruitment } from "@/types/study";
 import Complete from "../common/Complete";
 import { useRouter } from "next/navigation";
+import { SessionUser } from "@/app/utils/authOptions";
 
-function RecruitmentComplete({ state }: { state: TStudyRecruitment }) {
+function RecruitmentComplete({
+  state,
+  user,
+}: {
+  state: TStudyRecruitment;
+  user: SessionUser;
+}) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -21,6 +28,7 @@ function RecruitmentComplete({ state }: { state: TStudyRecruitment }) {
         const formData = new FormData();
         formData.append("studyData", JSON.stringify(state)); // 큰 객체를 JSON 문자열로 변환하여 추가
         formData.append("studyImgSrc", imgSrc); // 파일 데이터 추가
+        formData.append("user", JSON.stringify(user)); // 파일 데이터 추가
 
         const res = await fetch("/recruitment/api", {
           method: "POST",

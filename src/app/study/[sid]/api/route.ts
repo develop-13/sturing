@@ -1,8 +1,10 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 import { NextRequest } from "next/server";
 import dbConnect from "@/lib/mongodb";
 import Study from "@/models/Study";
 import { TStudyDetail } from "@/types/study";
+import User from "@/models/User";
+import { TStatus } from "@/types/apply";
 
 export async function GET(
   req: NextRequest,
@@ -11,6 +13,9 @@ export async function GET(
   await dbConnect();
 
   const studyId = params.sid;
+
+  const { searchParams } = new URL(req.url);
+  const userEmail = searchParams.get("userEmail");
 
   try {
     // studyId를 ObjectId로 변환
@@ -47,13 +52,46 @@ export async function GET(
     console.log("study");
     console.log(study);
 
+    let status: TStatus = "notApplied";
+    const user = await User.findOne({ email: userEmail });
+
+    if (user) {
+      const hasJoined = user.study_in_participants?.some(
+        (participant: Types.ObjectId) => participant.equals(objectId)
+      );
+
+      const hasApplied = user.applies?.some((apply: Types.ObjectId) =>
+        apply.equals(objectId)
+      );
+
+      if (hasJoined) {
+        status = "joined";
+      } else if (hasApplied) {
+        status = "hasApplied";
+      }
+    }
+
+    console.log(`study`);
+    console.log(study);
+
+    console.log(`status=${status}`);
+
+    if (!study) {
+      return new Response(JSON.stringify({ error: "Study not found" }), {
+        status: 404,
+      });
+    }
+
     if (!study) {
       return new Response(JSON.stringify({ error: "Study not found" }), {
         status: 404,
       });
     }
     // 응답으로 Study 데이터를 보냄
-    return new Response(JSON.stringify(study), { status: 200 });
+    return new Response(
+      JSON.stringify({ study, status }), // Combine study and hasApplied in the response
+      { status: 200 }
+    );
   } catch (error) {
     return new Response(JSON.stringify({ error: "Study not found" }), {
       status: 404,

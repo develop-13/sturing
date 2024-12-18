@@ -21,6 +21,7 @@ import {
   recruitmentReducer,
 } from "@/reducers/recruitmentReducer";
 import { UserStatusContext } from "../organisms/auth-components/UserStatusProvider";
+import Loading from "../templates/common/Loading";
 
 export type HandleStateChange<T> = <K extends keyof T>(
   field: K,
@@ -30,7 +31,9 @@ export type HandleStateChange<T> = <K extends keyof T>(
 function RecruitmentPage() {
   const [studyData, dispatch] = useReducer(recruitmentReducer, initialState);
   const { session, status } = useContext(UserStatusContext);
-  let userEmail = session?.user.email;
+  const user = session?.user;
+
+  if (!user) return <Loading />;
 
   const router = useRouter();
 
@@ -43,10 +46,10 @@ function RecruitmentPage() {
   }, [session?.user]);
 
   useEffect(() => {
-    if (userEmail) {
-      handleStateChange("creatorEmail", userEmail);
+    if (user) {
+      handleStateChange("creatorEmail", user.email);
     }
-  }, [userEmail]);
+  }, [user]);
 
   // 입력값 업데이트 핸들러
   const handleStateChange = useCallback(
@@ -75,7 +78,7 @@ function RecruitmentPage() {
       state={studyData}
       handleStateChange={handleStateChange}
     />,
-    <Complete key="complete" state={studyData} />,
+    <Complete key="complete" state={studyData} user={user} />,
   ];
 
   const [step, setStep] = useState(0);

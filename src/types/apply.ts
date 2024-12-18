@@ -23,3 +23,5 @@ export type TApply = {
   // applicantNickname?: string; // 지원자 닉네임
   applicantImgSrc?: string; // 지원자 이미지
 };
+
+export type TStatus = "notApplied" | "joined" | "hasApplied";
