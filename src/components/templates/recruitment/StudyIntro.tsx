@@ -8,7 +8,7 @@ import TypeSetter from "@/components/organisms/recruitmentComponents/TypeSetter"
 import { HandleStateChange } from "@/components/pages/RecruitmentPage";
 import { TCategory } from "@/types/common";
 import { TStudyRecruitment } from "@/types/study";
-import { useCallback, useRef } from "react";
+import { useCallback } from "react";
 
 function StudyIntro({
   state,
@@ -60,6 +60,7 @@ function StudyIntro({
   const handleSetType = useCallback(
     (text: "online" | "offline") => {
       handleStateChange("type", text);
+      handleStateChange("location", "");
     },
     [state.location]
   );
@@ -85,7 +86,7 @@ function StudyIntro({
       />
       <TextSetter
         type="writable"
-        intro="자기 소개"
+        intro="스터디 소개"
         placeholder="소개글을 입력해 주세요 (최소 20자 필수)"
         description={state.description}
         handleSetTextareaText={handleSetTextareaText}
@@ -94,6 +95,7 @@ function StudyIntro({
       <div className="flex flex-col gap-3">
         <TypeSetter handleSetType={handleSetType} type={state.type} />
         <LocationShowSetter
+          type={state.type}
           currentLocation={state.location}
           handleSetLocation={handleSetLocation}
         />
@@ -101,5 +103,4 @@ function StudyIntro({
     </section>
   );
 }
-// 카테고리 부분 useContext로 전역에서 뿌려주어서 중복을 제거해볼까?
 export default StudyIntro;

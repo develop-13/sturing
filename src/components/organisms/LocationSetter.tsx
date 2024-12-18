@@ -16,14 +16,6 @@ function LocationSetter({
   addLocation,
   deleteLocation,
 }: TLocationSetter) {
-  const [currentRegion, setCurrentRegion] = useState<string>(
-    Object.keys(locationData)[0] // 서울
-  );
-
-  const handleSetCurrentRegion = (region: string) => {
-    () => setCurrentRegion(region);
-  };
-
   const onSelect = (word: string) => {
     // 지역 클릭
     const [region, location] = word.split(" ");
@@ -43,8 +35,7 @@ function LocationSetter({
   return (
     <div>
       <LocationTable
-        currentRegion={currentRegion}
-        handleSetCurrentRegion={handleSetCurrentRegion}
+        locationDatas={locationData}
         onSelect={onSelect}
         selectedLocations={selectedLocations}
       />

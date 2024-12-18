@@ -1,29 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../Button";
 import Text from "@/components/atoms/Text";
 import { CheckBarButton } from "../IconLabelButton";
 import { v4 } from "uuid";
-import locationData from "@/db/locations";
-
+import { TLocation } from "@/types/common";
 type TLocationTable = {
+  locationDatas: TLocation;
   selectedLocations?: Record<string, boolean>;
-  currentRegion: string;
-  handleSetCurrentRegion: (region: string) => void;
+  // currentRegion: string;
+  // handleSetCurrentRegion: (region: string) => void;
   onSelect: (word: string) => void;
 };
 
 function LocationTable(props: TLocationTable) {
-  const { currentRegion, handleSetCurrentRegion, onSelect, selectedLocations } =
-    props;
+  const { onSelect, selectedLocations, locationDatas } = props;
+
+  const [currentRegion, setCurrentRegion] = useState(
+    Object.keys(locationDatas)[0]
+  );
+
+  const handleSetCurrentRegion = (region: string) => {
+    console.log(`region=${region}`);
+    setCurrentRegion(region);
+  };
 
   return (
     <div className="w-full">
-      {" "}
       <article className="h-[333px] overflow-y-scroll mx-[-16px] border-t border-gray-300">
         <div className="flex">
           <div className="w-[133px] pl-[16px] bg-gray-200 ">
             {/* 주요도시 및 도 */}
-            {Object.keys(locationData).map((region) => (
+            {Object.keys(locationDatas).map((region) => (
               <Button
                 theme="transparent"
                 extraCss={
@@ -46,7 +53,7 @@ function LocationTable(props: TLocationTable) {
           </div>
           <div className="flex-grow bg-white">
             {/* 해당 도의 지역구들 */}
-            {locationData[currentRegion].map((location) => (
+            {locationDatas[currentRegion].map((location) => (
               <CheckBarButton
                 type="checkOnClick"
                 isActive={Boolean(
@@ -73,7 +80,7 @@ function LocationTable(props: TLocationTable) {
             ))}
           </div>
         </div>
-      </article>{" "}
+      </article>
     </div>
   );
 }
