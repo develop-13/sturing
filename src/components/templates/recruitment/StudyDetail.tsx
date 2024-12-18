@@ -1,13 +1,7 @@
-import Divider from "@/components/atoms/Divider";
-import Icon from "@/components/atoms/Icon";
-import Text from "@/components/atoms/Text";
-import IconLabelButton from "@/components/molecules/IconLabelButton";
-import DurationSetter from "@/components/organisms/DurationSetter";
 import AtmosphereSetter from "@/components/organisms/recruitmentComponents/AtmosphereSetter";
 import DaySetter from "@/components/organisms/recruitmentComponents/DaySetter";
 import StudyDurationSetter from "@/components/organisms/recruitmentComponents/StudyDurationSetter";
 import { HandleStateChange } from "@/components/pages/RecruitmentPage";
-import { atmosphereData } from "@/db/atmospheres";
 import { TAtmosphere } from "@/types/common";
 import { TStudyRecruitment } from "@/types/study";
 import { useCallback } from "react";
@@ -20,7 +14,7 @@ function StudyDetail({
   handleStateChange: HandleStateChange<TStudyRecruitment>;
 }) {
   const handleSetStudyDuration = useCallback(
-    (startDate: Date, endDate: Date) => {
+    (startDate: Date | null, endDate: Date | null) => {
       handleStateChange("period", {
         startDate,
         endDate,
