@@ -1,5 +1,5 @@
 import {
-  TBoard,
+  TBoard_Client,
   TCheckListItem,
   TJoiningStudy_Client,
   TJoiningStudy_Server,
@@ -23,7 +23,10 @@ export type TJoiningStudyAction =
   | { type: "UPDATE_TASKS"; payload: string[] } // tasks 수정
   | {
       type: "UPDATE_BOARD";
-      payload: { boardType: "noticeBoards" | "studyBoards"; boards: TBoard[] };
+      payload: {
+        boardType: "noticeBoards" | "studyBoards";
+        boards: TBoard_Client[];
+      };
     }; // board 수정
 
 // 출석 -- 어떤 팀 멤버

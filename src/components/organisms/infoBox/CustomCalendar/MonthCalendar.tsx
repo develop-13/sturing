@@ -28,7 +28,7 @@ interface MonthCalendarProps {
   onChange?: (startDate: Date | null, endDate: Date | null) => void;
 }
 
-const MonthCalendarr: React.FC<MonthCalendarProps> = ({
+const MonthCalendar: React.FC<MonthCalendarProps> = ({
   currentDate,
   duration,
   onChange,
@@ -182,4 +182,4 @@ const MonthCalendarr: React.FC<MonthCalendarProps> = ({
   );
 };
 
-export default MonthCalendarr;
+export default MonthCalendar;

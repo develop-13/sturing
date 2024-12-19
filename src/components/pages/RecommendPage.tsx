@@ -111,7 +111,7 @@ function RecommendPage() {
               }
             },
             extraStyle:
-              "fixed xs:bottom-[23%] xs:right-0 sm:bottom-[26%]  sm:right-[20%]  lg:bottom-[28%] lg:right-[35%] z-40 p-15 ",
+              "fixed xs:bottom-[23%] xs:right-[10%] sm:bottom-[26%]  sm:right-[35%]  lg:bottom-[28%] lg:right-[35%] z-40 p-15 ",
           }}
         />
       </div>

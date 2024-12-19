@@ -46,14 +46,6 @@ function JoiningStudyPage() {
   const { session, status }: UserStatusContextProps =
     useContext(UserStatusContext);
 
-  useEffect(() => {
-    if (session === null && status === "unauthenticated") {
-      alert("로그인이 필요한 페이지 입니다");
-      router.push("/");
-      return;
-    }
-  }, [session?.user]);
-
   const params = useParams<{ sid: string }>();
   // 만약 전역 상태관리 라이브러리를 사용한다고 했을 때?
   const [selectedIdx, setSelectedIdx] = useState(0);
@@ -62,6 +54,27 @@ function JoiningStudyPage() {
     JoiningStudyReducer,
     initialState
   );
+
+  useEffect(() => {
+    if (session === null && status === "unauthenticated") {
+      alert("로그인이 필요한 페이지 입니다");
+      router.push("/");
+      return;
+    }
+  }, [session?.user, status, router]);
+
+  useEffect(() => {
+    async function fetchStudy() {
+      const data = await fetch(
+        //sid에 해당하는 study도큐먼트 하나를 가져옴
+        `/joiningStudy/${params.sid}/api`
+      ).then((res) => res.json());
+      // 서버에서 받은 data로 studyDetail 상태 업데이트
+      handleSetJoiningSTudy(data);
+    }
+
+    fetchStudy();
+  }, [params.sid]); // params.sid가 변경될 때마다 다시 fetchStudy() 실행
 
   const StudyOverviewProps = useMemo(() => {
     return {
@@ -116,6 +129,13 @@ function JoiningStudyPage() {
     []
   );
 
+  const onClickBtn = useCallback(
+    (selectedOptionIdx: number) => {
+      setSelectedIdx(selectedOptionIdx);
+    },
+    [selectedIdx]
+  );
+
   console.log(JoiningStudy);
 
   const steps: Record<TParticipationOptions, React.ReactNode> = {
@@ -157,27 +177,7 @@ function JoiningStudyPage() {
     ),
   };
 
-  useEffect(() => {
-    async function fetchStudy() {
-      const data = await fetch(
-        //sid에 해당하는 study도큐먼트 하나를 가져옴
-        `/joiningStudy/${params.sid}/api`
-      ).then((res) => res.json());
-      // 서버에서 받은 data로 studyDetail 상태 업데이트
-      handleSetJoiningSTudy(data);
-    }
-
-    fetchStudy();
-  }, []); // params.sid가 변경될 때마다 다시 fetchStudy() 실행
-
-  if (!JoiningStudy) return <Loading />;
-
-  const onClickBtn = useCallback(
-    (selectedOptionIdx: number) => {
-      setSelectedIdx(selectedOptionIdx);
-    },
-    [selectedIdx]
-  );
+  if (!JoiningStudy._id) return <Loading />;
 
   return (
     <div className="bg-gray-100">

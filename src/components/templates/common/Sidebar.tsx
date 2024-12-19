@@ -3,7 +3,7 @@ import { Session } from "next-auth";
 import Divider from "../../atoms/Divider";
 import Icon from "../../atoms/Icon";
 import Text from "../../atoms/Text";
-import { forwardRef } from "react";
+import { forwardRef, useEffect } from "react";
 import Image from "../../atoms/Image";
 import { signOut } from "next-auth/react";
 
@@ -24,7 +24,7 @@ const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(function Sidebar(
   return (
     <div
       ref={ref}
-      className={`w-[375px] absolute h-[100%] top-0 z-50 pt-10 pb-14 px-6 flex flex-col gap-10 bg-white transition-all duration-500 ease-in-out transform ${
+      className={`w-[375px] absolute h-[200vh]  top-0 z-50 pt-10 pb-14 px-6 flex flex-col gap-10 bg-white transition-all duration-500 ease-in-out transform ${
         isSidebarOpen ? "left-0" : "-left-[375px]"
       }`}
     >

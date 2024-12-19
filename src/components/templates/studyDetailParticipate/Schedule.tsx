@@ -5,12 +5,11 @@ import {
   UserStatusContext,
   UserStatusContextProps,
 } from "@/components/organisms/auth-components/UserStatusProvider";
-import MonthCalendar from "@/components/organisms/infoBox/CustomCalendar/MonthCalendar";
+import MonthCalendarSchedule from "@/components/organisms/infoBox/CustomCalendar/MonthCalendarSchedule";
 import ScheduleViewerInfoBox from "@/components/organisms/infoBox/ScheduleViewerInfoBox";
 import { TJoiningStudy_Client, TSchedule } from "@/types/study";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { v4 } from "uuid";
 
 type TScheduleSection = {
   studyId: string;
@@ -149,7 +148,7 @@ function Schedule({
 
   return (
     <div className="px-4 py-5 flex flex-col gap-4">
-      <MonthCalendar
+      <MonthCalendarSchedule
         today={today}
         handleSetToday={handleSetToday}
         schedules={schedules}
