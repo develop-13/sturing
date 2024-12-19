@@ -12,12 +12,12 @@ import Link from "next/link";
 
 function JoinedStudyViewer({ userEmail }: { userEmail: string }) {
   const [currentStudyTab, setCurrentStudyTab] = useState<
-    "recruiting" | "inProgress"
-  >("inProgress");
+    "recruiting" | "ongoing"
+  >("ongoing");
 
   const [currentData, setCurrentData] = useState({
     recruiting: [],
-    inProgress: [],
+    ongoing: [],
   });
 
   useEffect(() => {
@@ -33,7 +33,7 @@ function JoinedStudyViewer({ userEmail }: { userEmail: string }) {
 
         setCurrentData((prev) => ({
           recruiting: recrutingStudies,
-          inProgress: onGoingStudies,
+          ongoing: onGoingStudies,
         }));
       } catch (error) {
         console.error(error);
@@ -53,9 +53,9 @@ function JoinedStudyViewer({ userEmail }: { userEmail: string }) {
           extraCss="p-4 border-2 border-[#D9E3FF]"
           activeClassname=" bg-[#ECF1FF] border-[#A0B8FF] "
           onClick={() => {
-            setCurrentStudyTab("inProgress");
+            setCurrentStudyTab("ongoing");
           }}
-          isActive={currentStudyTab === "inProgress"}
+          isActive={currentStudyTab === "ongoing"}
         >
           진행 중
         </Button>

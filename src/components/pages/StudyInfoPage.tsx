@@ -70,23 +70,25 @@ function StudyInfoPage() {
     info: useRef<HTMLDivElement>(null),
     member: useRef<HTMLDivElement>(null),
   };
-  const statusRef = useRef<TStatus>("notApplied");
 
+  console.log(studyInfo);
+
+  const statusRef = useRef<TStatus>("notApplied");
   useEffect(() => {
     // 스터디를 가져옴
 
-    if (!session?.user) return;
-
     async function fetchstudyInfo() {
-      console.log(params.sid);
       const data = await fetch(
         `/study/${params.sid}/api?userEmail=${session?.user.email}`
       ).then((res) => res.json());
 
       const { study, status } = data;
-      console.log(`status=${status}`);
       setStudyInfo(study);
-      setStudyOnLocalStorage(study); // 스터디를 가져오면서 로컬에 저장
+
+      if (session?.user) {
+        setStudyOnLocalStorage(study); // 스터디를 가져오면서 로컬에 저장
+      }
+
       statusRef.current = status;
     }
     fetchstudyInfo();
@@ -191,7 +193,7 @@ function StudyInfoPage() {
             </Button>
           </div>
           <Text size="sm" weight="bold">
-            {studyInfo?.title}
+            {studyInfo?.description}
           </Text>
         </InfoBox>
 

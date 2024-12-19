@@ -18,7 +18,6 @@ const ApplySchema = new mongoose.Schema({
   studyTitle: { type: String, required: true }, // 스터디 제목
 
   // 새롭게 추가된 필드
-  // applicantNickname: { type: String }, // 지원자 닉네임
   applicantImgSrc: { type: String }, // 지원자 이미지
 
   // 스터디와의 관계를 나타내는 필드

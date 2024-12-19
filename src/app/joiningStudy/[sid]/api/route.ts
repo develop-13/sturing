@@ -352,3 +352,24 @@ export async function DELETE(req: Request) {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
+
+export async function PUT(req: Request) {
+  try {
+    const { studyId, status } = await req.json();
+    const studyDocumentId = new mongoose.Types.ObjectId(studyId);
+
+    // 해당 스터디를 찾기
+    const study = await Study.findById(studyDocumentId);
+
+    study.status = "ongoing";
+
+    await study.save();
+
+    return NextResponse.json({
+      message: "Study started successfully",
+    });
+  } catch (error) {
+    console.error("Error start study:", error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}

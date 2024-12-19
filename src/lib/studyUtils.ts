@@ -106,21 +106,18 @@ export async function getNewStudies() {
 
   return fetchedStudies;
 }
-
 export async function getUserInterestStudies(userMatchingInfo: NewTMatching) {
   // 사용자 맞춤 스터디를 추천해줌
+
   const { interests } = userMatchingInfo;
 
   if (!interests || interests.length === 0) {
     return []; // 관심사가 없는 경우 빈 배열 반환
   }
 
-  // interests 배열에서 첫 번째 관심사를 선택
-  const firstInterest = interests[0];
-
-  // MongoDB에서 사용자의 첫 번째 관심사에 해당하는 스터디 가져오기
+  // MongoDB에서 사용자의 모든 관심사에 해당하는 스터디 가져오기
   const userInterestStudies = await Study.find({
-    categories: { $elemMatch: { $eq: firstInterest } },
+    categories: { $in: interests }, // 관심사 배열 중 하나라도 포함된 경우
   })
     .sort({ score: -1 }) // 평점(score) 기준으로 내림차순 정렬
     .select({
@@ -150,6 +147,11 @@ export async function getUserInterestStudies(userMatchingInfo: NewTMatching) {
 
 export async function getUserCloseStudies(userMatchingInfo: NewTMatching) {
   // 사용자의 위치와 가까운 스터디를 추천해줌
+
+  console.log("getUserCloseStudies called");
+
+  console.log(userMatchingInfo);
+
   const studyTypePreference: NewTMatching["studyPlacePreference"] =
     userMatchingInfo["studyPlacePreference"];
 
@@ -158,9 +160,12 @@ export async function getUserCloseStudies(userMatchingInfo: NewTMatching) {
     (location) => studyTypePreference[location] === true
   );
 
+  console.log("preferredLocations");
+  console.log(preferredLocations);
+
   // MongoDB 쿼리: type 필드가 사용자가 선호하는 지역들 중 하나와 일치하는 스터디 검색
   const userCloseStudies = await Study.find({
-    type: { $in: preferredLocations },
+    location: { $in: preferredLocations },
   })
     .sort({ score: -1 }) // 평점 기준 내림차순 정렬
     .select({

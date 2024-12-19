@@ -5,6 +5,7 @@ import dbConnect from "@/lib/mongodb";
 import Study from "@/models/Study";
 import { uploadImagesToCloudinary } from "@/lib/cloudinary";
 import { SessionUser } from "@/app/utils/authOptions";
+import User from "@/models/User";
 
 export async function POST(req: NextRequest) {
   try {
@@ -70,6 +71,12 @@ export async function POST(req: NextRequest) {
       status: "recruiting",
       currentMembers: [me],
     });
+
+    const userDoc = await User.findOne({ email: user.email });
+
+    userDoc.study_in_participants.push(studyDocument._id);
+
+    userDoc.save();
 
     const savedStudy = await studyDocument.save().catch((error: unknown) => {
       if (error instanceof Error) {

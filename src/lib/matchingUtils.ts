@@ -61,9 +61,11 @@ function calculateStudyScore(
 export async function getRecommendedStudies(
   userMatchingInfo: NewTMatching
 ): Promise<TStudyItem[]> {
+  console.log("getRecommendedStudies called");
+
   // 1. MongoDB에서 모든 스터디를 가져옵니다.
   const fetchedStudies = await Study.find({
-    status: "모집중",
+    status: "recruiting",
   }).select({
     title: 1,
     createdAt: 1,
@@ -87,8 +89,8 @@ export async function getRecommendedStudies(
 
   const studiesItemsData = fetchedStudies.map((study) => {
     const obj = study.toObject(); // Mongoose 도큐먼트를 평범한 객체로 변환
-    obj.id = obj._id.toString(); // _id를 문자열로 변환하여 id로 설정
-    delete obj._id; // _id 필드를 완전히 제거
+    // obj.id = obj._id.toString(); // _id를 문자열로 변환하여 id로 설정
+    // delete obj._id; // _id 필드를 완전히 제거
 
     // 스코어 계산
     obj.score = calculatePopularStudyScore(study);
@@ -98,8 +100,6 @@ export async function getRecommendedStudies(
     obj.period.endDate = new Date(obj.period.endDate).toISOString();
     return obj;
   });
-
-  // console.log(studiesItemsData);
 
   // 2. 각 스터디의 점수를 계산합니다.
   const studiesWithScores = studiesItemsData.map((study) => ({

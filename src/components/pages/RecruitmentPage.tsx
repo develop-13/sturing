@@ -125,8 +125,9 @@ function RecruitmentPage() {
           }
         />
       )}
-
-      <Progressbar currentPage={step} totalPage={steps.length} />
+      {step < steps.length - 1 && (
+        <Progressbar currentPage={step} totalPage={steps.length} />
+      )}
       {steps[step]}
       <div className="h-[50px] flex gap-[11px] my-3">
         {step < steps.length - 1 && (

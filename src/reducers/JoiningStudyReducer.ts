@@ -27,7 +27,8 @@ export type TJoiningStudyAction =
         boardType: "noticeBoards" | "studyBoards";
         boards: TBoard_Client[];
       };
-    }; // board 수정
+    } // board 수정
+  | { type: "STATUS" };
 
 // 출석 -- 어떤 팀 멤버
 
@@ -102,6 +103,9 @@ export function JoiningStudyReducer(
   action: TJoiningStudyAction
 ): TJoiningStudy_Client {
   switch (action.type) {
+    case "STATUS":
+      return { ...state, status: "ongoing" };
+
     case "SET_JOININGSTUDY":
       return refineJoiningStudy(action.payload);
 

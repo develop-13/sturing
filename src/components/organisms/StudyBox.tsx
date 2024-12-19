@@ -15,8 +15,8 @@ export default function StudyBox({ props }: { props: TStudyItem }) {
 
   return (
     <Link href={`/study/${props._id}`}>
-      <div className="cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap">
-        <div className="flex flex-col w-[175px]">
+      <div className="cursor-pointer ">
+        <div className="flex flex-col w-[185px]">
           <StudyImageBox
             src={props.imgSrc || "/img/studyItem/studyItemImg1.png"}
             dayOfWeek={props.dayOfWeek}
@@ -34,25 +34,24 @@ export default function StudyBox({ props }: { props: TStudyItem }) {
               </Text>
             </Button>
           </div>
-          <h1 className="text-[16px] font-bold pt-2 whitespace-nowrap overflow-hidden text-ellipsis">
+
+          <Text
+            size="base"
+            className="font-bold pt-2 whitespace-nowrap overflow-hidden text-ellipsis"
+          >
             {props.title}
-          </h1>
-          <div className="pt-2 overflow-hidden text-ellipsis whitespace-nowrap">
-            <InfoTags theme="transparent">
+          </Text>
+          <div className="pt-2 overflow-hidden ">
+            <InfoTags theme="transparent" mx={5}>
               <div className="flex items-center gap-[2px]">
                 <Icon type="DATE" />
                 <Text size="xs" weight="bold" color="gray-600">
                   {`${startDateMonth}.${startDate}~${endDateMonth}.${endDate}`}
                 </Text>
               </div>
-              <div className="flex items-center gap-[2px]">
+              <div className=" flex items-center gap-[2px] whitespace-nowrap overflow-hidden text-ellipsis">
                 <Icon type="LOCATION" />
-                <Text
-                  size="xs"
-                  weight="bold"
-                  color="gray-600"
-                  className="whitespace-nowrap overflow-hidden text-ellipsis"
-                >
+                <Text size="xs" weight="bold" color="gray-600">
                   {props.location}
                 </Text>
               </div>

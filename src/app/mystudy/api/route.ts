@@ -88,7 +88,7 @@ async function fetchUserDataByType(userEmail: string, type: string) {
       );
 
       const onGoingStudies = populatedUser.study_in_participants.filter(
-        (study: TStudy) => study.status == "in progress"
+        (study: TStudy) => study.status == "ongoing"
       );
 
       const studies = { recrutingStudies, onGoingStudies };

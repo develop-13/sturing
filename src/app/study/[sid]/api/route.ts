@@ -5,6 +5,7 @@ import Study from "@/models/Study";
 import { TStudyDetail } from "@/types/study";
 import User from "@/models/User";
 import { TStatus } from "@/types/apply";
+import Apply from "@/models/Apply";
 
 export async function GET(
   req: NextRequest,
@@ -28,6 +29,7 @@ export async function GET(
         _id: 1,
         type: 1,
         categories: 1,
+        description: 1,
         title: 1,
         imgSrc: 1,
         dayOfWeek: 1,
@@ -57,12 +59,16 @@ export async function GET(
 
     if (user) {
       const hasJoined = user.study_in_participants?.some(
-        (participant: Types.ObjectId) => participant.equals(objectId)
+        (joiningStudyId: Types.ObjectId) => joiningStudyId.equals(objectId)
       );
 
-      const hasApplied = user.applies?.some((apply: Types.ObjectId) =>
-        apply.equals(objectId)
-      );
+      const applies = await Apply.find({
+        _id: { $in: user.applies }, // applies 배열에 포함된 ObjectId
+      }); // 사용자가 지원한 지원 doc 들을 모두 가져옴
+
+      const hasApplied = applies.some((apply) =>
+        apply.studyId.equals(objectId)
+      ); // 사용자가 지원한 지원의 studyId가 존재하는지 => 해당 스터디에 존재하는지
 
       if (hasJoined) {
         status = "joined";

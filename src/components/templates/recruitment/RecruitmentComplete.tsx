@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../common/Loading";
 import { TStudyRecruitment } from "@/types/study";
 import Complete from "../common/Complete";

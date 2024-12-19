@@ -55,8 +55,10 @@ function CompleteTemplate(props: TCompleteTemplate) {
       const data = await postMatchingInfo(props.state, props.userEmail);
       if (data) {
         setRecommendations(data); // 추천 데이터를 상태에 저장
+        console.log(data);
         handleHasMatchingInfo();
       }
+
       setIsLoading(false); // 로딩 상태 해제
     };
 
@@ -64,7 +66,7 @@ function CompleteTemplate(props: TCompleteTemplate) {
   }, [props.state]); // props.state에 변화가 있을 때마다 호출
 
   if (isLoading) {
-    return <div>{createPortal(<Loading />, document.body)}</div>;
+    return <Loading />;
   } else {
     return (
       <ErrorBoundary fallback={<div>error handling ui..</div>}>

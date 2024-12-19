@@ -42,9 +42,16 @@ export async function GET(request: Request, res: NextResponse) {
 
     const userMatchingInfo = existingUser.matchingInfo;
 
+    console.log("userMatchingInfo");
+    console.log(userMatchingInfo);
+
     const userInterestingStudies = await getUserInterestStudies(
       userMatchingInfo
     ); // 사용자 관심 스터디
+
+    console.log("userInterestingStudies");
+    console.log(userInterestingStudies.length);
+
     const userCloseStudies = await getUserCloseStudies(userMatchingInfo); // 주변 스터디
 
     return NextResponse.json(

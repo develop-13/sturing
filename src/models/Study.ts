@@ -9,6 +9,7 @@ export interface IStudy extends Document {
   _id: ObjectId;
   title: string;
   createdAt: Date;
+  description: string;
   period: {
     startDate: Date;
     endDate: Date;
@@ -47,6 +48,7 @@ const StudySchema: Schema = new Schema(
   {
     title: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
+    description: { type: String, required: true },
     period: {
       startDate: { type: Date, required: true },
       endDate: { type: Date, required: true },

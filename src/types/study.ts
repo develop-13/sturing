@@ -8,6 +8,7 @@ export type TStudy = {
     startDate: string;
     endDate: string;
   };
+  description: string;
   creatorEmail: string;
   time: {
     startTime: string;
@@ -19,7 +20,8 @@ export type TStudy = {
   schedule: string[]; // 스케쥴 id 가담겨 있음
   type: "online" | "offline" | undefined;
   categories: TCategory[];
-  status: string; // 진행중이거나 모집중이거나
+  status?: "recruiting" | "ongoing";
+  // status: string; // 진행중이거나 모집중이거나
   studyPlacePreference: string[]; // 모집하려는 팀원의 선호 장소 (오프라인의 경우)
   maxMembersNum: number;
   currentMembers: TStudyMember[];
@@ -117,6 +119,7 @@ export type TJoiningStudy_Client = Pick<
   | "type"
   | "categories"
   | "title"
+  | "status"
   | "imgSrc"
   | "period"
   | "schedules"
@@ -172,6 +175,7 @@ export type TStudyDetail = Pick<
   | "type"
   | "categories"
   | "title"
+  | "description"
   | "imgSrc"
   | "dayOfWeek"
   | "maxMembersNum"
