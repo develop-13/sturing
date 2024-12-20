@@ -72,7 +72,8 @@ export const fetchBoardData = async (
     if (!res.ok) {
       throw new Error(`Failed to fetch board data: ${res.status}`);
     }
-
+    console.log("fetched board!");
+    console.log(data);
     return data;
   } catch (error) {
     console.error("Error in fetchBoardData:", error);

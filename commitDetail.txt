@@ -1,4 +1,4 @@
-커밋사항: 당장 안되는 기능의 버튼들은 없애기
+커밋사항:  commentId 오류 정정 + 댓글순서 생략
 
 
 -- 추후 MonthCalendarSchedule 랑 비교해서 공통로직 뺼 것

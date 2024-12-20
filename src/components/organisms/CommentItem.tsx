@@ -33,8 +33,6 @@ function CommentItem(props: TCommentItem) {
     onMenuToggle,
   } = props;
 
-  const replies = "replies" in props ? props.replies : [];
-
   const menuRef = useRef<HTMLDivElement>(null); // CommentMenu의 ref
 
   const handleEdit = () => {

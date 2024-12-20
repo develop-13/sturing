@@ -85,10 +85,10 @@ function CommentSection(props: CommentSection) {
         <Text size="xs" weight="bold">
           댓글 {commentIds.length}
         </Text>
-        <div className="text-xs flex gap-3">
+        {/* <div className="text-xs flex gap-3">
           <Text color="gray-800">등록순</Text>
           <Text color="gray-800">최신순</Text>
-        </div>
+        </div> */}
       </div>
       {/* 댓글 부분 */}
       <div className="flex flex-col gap-4">

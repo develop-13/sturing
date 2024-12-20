@@ -23,9 +23,9 @@ export function boardAdapter(board: TBoard_Server): TBoard_Client {
     };
   }
 
-  const commentIds = board.comments.map((comment) => comment.commentId);
+  const commentIds = board.comments.map((comment) => comment.Id);
   const commentsMap = Object.fromEntries(
-    board.comments.map((comment) => [comment.commentId, comment])
+    board.comments.map((comment) => [comment.Id, comment])
   );
 
   const { comments, ...rest } = board;

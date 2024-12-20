@@ -115,7 +115,7 @@ const useCommentActions = (
 
     const Id = uuidv4();
     const newComment = {
-      Id,
+      Id: Id,
       writerEmail: email,
       writerName: name,
       writerImg: image,
