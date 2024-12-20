@@ -1,7 +1,11 @@
 import NoticeBoardItem from "@/components/molecules/NoticeBoardItem";
 import StudyBoardItem from "@/components/molecules/StudyBoardItem";
 import BoardBox from "@/components/organisms/infoBox/BoardBox";
-import { TBoard, TJoiningStudy_Client } from "@/types/study";
+import {
+  TBoard_Client,
+  TBoard_Server,
+  TJoiningStudy_Client,
+} from "@/types/study";
 import { getBlobStringAdapter } from "@/adapters/adapters";
 import React from "react";
 
@@ -12,7 +16,7 @@ type TFeedback = {
   studyBoards: TJoiningStudy_Client["studyBoards"];
   handleUpdateBoards: (
     boardType: "studyBoards" | "noticeBoards",
-    boards: TBoard[]
+    boards: TBoard_Client[]
   ) => void;
 };
 
@@ -24,7 +28,8 @@ function Feedback({
   handleUpdateBoards,
 }: TFeedback) {
   const postBoard =
-    (boardType: "studyBoards" | "noticeBoards") => async (newBoard: TBoard) => {
+    (boardType: "studyBoards" | "noticeBoards") =>
+    async (newBoard: TBoard_Server) => {
       // 클라이언트 값도 바꾸고 => 추후에 함수로 따로 분리
 
       const boards = boardType === "studyBoards" ? studyBoards : noticeBoards;
@@ -41,7 +46,7 @@ function Feedback({
 
       const updatedBoards = [...boards, newBoard];
 
-      handleUpdateBoards(boardType, updatedBoards);
+      handleUpdateBoards(boardType, updatedBoards as TBoard_Client[]);
 
       // 서버값도 바꾸기 => 추후에 함수로 따로 분리
       try {
@@ -84,7 +89,7 @@ function Feedback({
         teamMembers={teamMembers}
       >
         {noticeBoards.map((board, idx) => (
-          <NoticeBoardItem key={idx} board={board} />
+          <NoticeBoardItem key={idx} board={board as TBoard_Client} />
         ))}
       </BoardBox>
       <BoardBox
@@ -95,7 +100,10 @@ function Feedback({
         teamMembers={teamMembers}
       >
         {studyBoards.map((board) => (
-          <StudyBoardItem key={board.boardClientId} board={board} />
+          <StudyBoardItem
+            key={board.boardClientId}
+            board={board as TBoard_Client}
+          />
         ))}
       </BoardBox>
     </div>

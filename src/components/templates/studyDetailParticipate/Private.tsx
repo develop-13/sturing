@@ -1,11 +1,7 @@
 "use client";
 import WeekCalendar from "@/components/organisms/infoBox/CustomCalendar/WeekCalendar";
 import React, { useContext, useEffect, useState } from "react";
-import {
-  TCheckListItem,
-  TJoiningStudy_Client,
-  TStudyMember,
-} from "@/types/study";
+import { TCheckListItem, TJoiningStudy_Client } from "@/types/study";
 import TodoListInfoBox from "@/components/organisms/infoBox/TodoListInfoBox";
 import {
   UserStatusContext,

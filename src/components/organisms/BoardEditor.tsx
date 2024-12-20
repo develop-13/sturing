@@ -7,7 +7,11 @@ import {
   UserStatusContext,
   UserStatusContextProps,
 } from "./auth-components/UserStatusProvider";
-import { TBoard, TJoiningStudy_Client, TStudyMember } from "@/types/study";
+import {
+  TBoard_Server,
+  TJoiningStudy_Client,
+  TStudyMember,
+} from "@/types/study";
 import { getBlobStringAdapter } from "@/adapters/adapters";
 import ImageItem from "../molecules/ImageItem";
 
@@ -15,7 +19,7 @@ type TBoardEditor = {
   studyId: string;
   teamMembers: TJoiningStudy_Client["currentMembers"];
   closeModal: () => void;
-  postBoard: (newBoard: TBoard) => void; // 왜냐하면 state와 state changer는 상위 컴포넌트에 있으니까
+  postBoard: (newBoard: TBoard_Server) => void; // 왜냐하면 state와 state changer는 상위 컴포넌트에 있으니까
 };
 
 // 보낼때 formData로 보내야 함..
@@ -103,6 +107,7 @@ function BoardEditor({
       readingRequired,
       imgSrces,
       boardClientId: v4(),
+      comments: [],
     };
     postBoard(newBoard);
     closeModal();

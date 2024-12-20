@@ -6,14 +6,14 @@ import Button from "@/components/molecules/Button";
 import Icon from "@/components/atoms/Icon";
 import { createPortal } from "react-dom";
 import BoardEditor from "../BoardEditor";
-import { TBoard, TJoiningStudy_Client } from "@/types/study";
+import { TBoard_Server, TJoiningStudy_Client } from "@/types/study";
 
 type TBoardBox = {
   studyId: string;
   teamMembers: TJoiningStudy_Client["currentMembers"];
   boardLabel: string;
   children: React.ReactNode;
-  postBoard: (newBoard: TBoard) => void;
+  postBoard: (newBoard: TBoard_Server) => void;
 };
 
 function BoardBox({

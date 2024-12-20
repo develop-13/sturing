@@ -45,7 +45,7 @@ function ImageSetter(props: TImageSetter) {
       >
         {imgSrc ? (
           <img
-            src={getBlobStringAdapter(imgSrc)}
+            src={getBlobStringAdapter(imgSrc as Blob)}
             // img의 src로 넣어줄 때는 string 타입이어야 함.
             alt="Thumbnail"
             className="w-full h-full object-cover rounded-[5px]"
