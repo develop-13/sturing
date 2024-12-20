@@ -63,7 +63,6 @@ function BoardPage() {
   return (
     <section className="px-4 py-5 flex flex-col gap-4">
       <Header
-        // position="absolute"
         leftSlot={
           <Icon
             type="BACK"
@@ -71,12 +70,6 @@ function BoardPage() {
               router.back();
             }}
           />
-        }
-        rightSlot={
-          <div className="flex gap-[12px] items-center">
-            <Icon type="SHARE" />
-            <Icon type="MORE" />
-          </div>
         }
       />{" "}
       <UserInfoItem

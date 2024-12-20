@@ -116,13 +116,6 @@ function RecruitmentPage() {
               </Text>
             </Button>
           }
-          rightSlot={
-            <Button theme="transparent">
-              <Text size="sm" color="gray-600">
-                임시저장
-              </Text>
-            </Button>
-          }
         />
       )}
       {step < steps.length - 1 && (

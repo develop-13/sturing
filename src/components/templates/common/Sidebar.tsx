@@ -54,51 +54,10 @@ const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(function Sidebar(
             width={60}
           />
         </div>
-        <Text size="lg" weight="bold">
-          스터디 프로필
-        </Text>
       </div>
 
       <Divider type="row" />
-      <ul className="flex flex-col gap-6 menuList">
-        <li>
-          <Text size="lg" weight="bold">
-            추천
-          </Text>
-        </li>
-        <li>
-          <Text size="lg" weight="bold">
-            검색
-          </Text>
-        </li>
-        <li>
-          <Text size="lg" weight="bold">
-            내 스터디
-          </Text>
-        </li>
-        <li>
-          <Text size="lg" weight="bold">
-            분야
-          </Text>
-        </li>
-      </ul>
-      <Divider type="row" />
       <ul className="flex flex-col gap-[22px] otherLinks">
-        <li>
-          <Text size="lg" color="gray-600">
-            공지사항
-          </Text>
-        </li>
-        <li>
-          <Text size="lg" color="gray-600">
-            고객센터
-          </Text>
-        </li>
-        <li>
-          <Text size="lg" color="gray-600">
-            설정
-          </Text>
-        </li>
         <li>
           <div
             className="cursor-pointer"

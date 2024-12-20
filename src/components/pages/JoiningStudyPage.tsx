@@ -228,12 +228,6 @@ function JoiningStudyPage() {
             }}
           />
         }
-        rightSlot={
-          <div className="flex gap-[12px] items-center">
-            <Icon type="SHARE" />
-            <Icon type="MORE" />
-          </div>
-        }
       />
       <StudyOverview props={StudyOverviewProps} />
       {/* 얘네를 React.memo로 감싸야겠음. StudyOverview가 받는 props는 나눠서 전달해주고.. */}

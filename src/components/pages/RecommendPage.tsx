@@ -124,14 +124,7 @@ function RecommendPage() {
           </div>
         }
         rightSlot={
-          session ? (
-            <div className="flex gap-[12px]">
-              <Icon type="BELL" />
-              <Link href={"#"}>
-                <Icon type="USER" />
-              </Link>
-            </div>
-          ) : (
+          session ? null : (
             <LoginButton
               upModal={upModal}
               closeModal={closeModal}

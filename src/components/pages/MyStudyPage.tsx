@@ -42,12 +42,6 @@ function MyStudyPage() {
             <Icon type="LOGO" />
           </div>
         }
-        rightSlot={
-          <div className="flex gap-[12px] items-center">
-            <Icon type="BELL" />
-            <Icon type="USER" />
-          </div>
-        }
       />
       <NavButtonGroup
         pathname="/mystudy"

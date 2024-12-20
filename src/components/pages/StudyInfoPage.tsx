@@ -120,12 +120,6 @@ function StudyInfoPage() {
             }}
           />
         }
-        rightSlot={
-          <div className="flex gap-[12px] items-center">
-            <Icon type="SHARE" />
-            <Icon type="MORE" />
-          </div>
-        }
       />
       <StudyOverview
         props={{

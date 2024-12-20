@@ -84,12 +84,6 @@ function SearchPage() {
             <Icon type="LOGO" />
           </div>
         }
-        rightSlot={
-          <div className="flex gap-[12px]">
-            <Icon type="BELL" />
-            <Icon type="USER" />
-          </div>
-        }
       />
       <NavButtonGroup
         pathname="/search"
