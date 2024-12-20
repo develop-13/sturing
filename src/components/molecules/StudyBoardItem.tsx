@@ -1,12 +1,11 @@
-import { TBoard } from "@/types/study";
+import { TBoard_Client } from "@/types/study";
 import React from "react";
 import UserInfoItem from "./UserInfoItem";
 import Text from "../atoms/Text";
 import Image from "../atoms/Image";
-import { getBlobStringAdapter } from "@/adapters/adapters";
 import Link from "next/link";
 
-function StudyBoardItem({ board }: { board: TBoard }) {
+function StudyBoardItem({ board }: { board: TBoard_Client }) {
   const textComponent = (
     <span className="flex gap-1 items-center">
       <Text size="sm" weight="bold">
