@@ -1,9 +1,9 @@
-import { TBoard } from "@/types/study";
+import { TBoard_Client } from "@/types/study";
 import React from "react";
 import Text from "../atoms/Text";
 import Link from "next/link";
 
-function NoticeBoardItem({ board }: { board: TBoard }) {
+function NoticeBoardItem({ board }: { board: TBoard_Client }) {
   return (
     <Link
       href={`/board/${board.boardClientId}?studyId=${board.studyId}`}
