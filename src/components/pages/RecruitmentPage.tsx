@@ -31,27 +31,10 @@ export type HandleStateChange<T> = <K extends keyof T>(
 function RecruitmentPage() {
   const [studyData, dispatch] = useReducer(recruitmentReducer, initialState);
   const { session, status } = useContext(UserStatusContext);
-  const user = session?.user;
-
-  if (!user) return <Loading />;
-
   const router = useRouter();
 
-  useEffect(() => {
-    if (session === null && status === "unauthenticated") {
-      alert("로그인이 필요한 페이지 입니다");
-      router.push("/");
-      return;
-    }
-  }, [session?.user]);
+  const [step, setStep] = useState(0);
 
-  useEffect(() => {
-    if (user) {
-      handleStateChange("creatorEmail", user.email);
-    }
-  }, [user]);
-
-  // 입력값 업데이트 핸들러
   const handleStateChange = useCallback(
     <K extends keyof TStudyRecruitment>(
       field: K,
@@ -60,45 +43,60 @@ function RecruitmentPage() {
       dispatch({ type: "UPDATE_FIELD", field, value });
     },
     [dispatch]
-  ); // dispatch함수의 값은 변하지 않으니까 useReducer로 했을때 랜더링이 덜된다는 장점이 있음
+  );
 
-  const steps = [
-    <StudyIntro
-      key="studyIntro" // 고정된 key 값을 사용
-      state={studyData}
-      handleStateChange={handleStateChange}
-    />,
-    <StudyDetail
-      key="studyDetail" // 고정된 key 값을 사용
-      state={studyData}
-      handleStateChange={handleStateChange}
-    />,
-    <MemberPreference
-      key="memberPreference" // 고정된 key 값을 사용
-      state={studyData}
-      handleStateChange={handleStateChange}
-    />,
-    <Complete key="complete" state={studyData} user={user} />,
-  ];
+  useEffect(() => {
+    if (session === null && status === "unauthenticated") {
+      alert("로그인이 필요한 페이지 입니다");
+      router.push("/");
+    }
+  }, [session, status, router]);
 
-  const [step, setStep] = useState(0);
+  useEffect(() => {
+    if (session?.user) {
+      handleStateChange("creatorEmail", session.user.email);
+    }
+  }, [session?.user, handleStateChange]);
 
   const goNextStep = () => {
-    // 두 번 클릭 시, 전전 주소로 요청되는 문제
     if (step > steps.length - 1) {
       router.push("/recommend");
       return;
     }
     setStep(step + 1);
   };
+
   const goPrevStep = () => {
-    console.log("prev Step clicked");
     if (step <= 0) {
       router.back();
       return;
     }
     setStep(step - 1);
   };
+
+  // Render Loading if session or user data is not yet available
+  if (!session?.user) {
+    return <Loading />;
+  }
+
+  const steps = [
+    <StudyIntro
+      key="studyIntro"
+      state={studyData}
+      handleStateChange={handleStateChange}
+    />,
+    <StudyDetail
+      key="studyDetail"
+      state={studyData}
+      handleStateChange={handleStateChange}
+    />,
+    <MemberPreference
+      key="memberPreference"
+      state={studyData}
+      handleStateChange={handleStateChange}
+    />,
+    <Complete key="complete" state={studyData} user={session?.user} />,
+  ];
 
   return (
     <div id="recruitmentPage" className="px-4 h-screen">

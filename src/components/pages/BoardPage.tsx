@@ -32,7 +32,10 @@ function BoardPage() {
   const bid = useParams<{ bid: string }>().bid;
   const studyId = useSearchParams().get("studyId"); // 쿼리스트링에서 studyId를 가져옴
 
-  if (!studyId || !session?.user || !bid) return;
+  // Handle invalid conditions after hooks are called
+  if (!studyId || !session?.user || !bid) {
+    return <p>Invalid board or user information.</p>;
+  }
   const router = useRouter();
 
   const {

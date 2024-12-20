@@ -60,6 +60,8 @@ export const TabButtonGroup = React.memo((props: TTabProps) => {
   );
 });
 
+TabButtonGroup.displayName = "TabButtonGroup";
+
 type TNavButtonGroup = {
   pathname: string;
   isLoggedIn: boolean;
@@ -129,43 +131,3 @@ export function NavButtonGroup(props: TNavButtonGroup) {
     </div>
   );
 }
-
-// // 매개변수 받는 방식 같도록 해서 하나의 컴포넌트로 여러 부분 처리하기?
-// type TButtonGroupCommon = {
-//   selectedOptionIdx?: number;
-//   buttonGroupData: (string | undefined)[];
-//   onClick: (selectedIdx: number) => void;
-//   gap: number;
-// };
-
-// type ItemButtonGroupGrid = TButtonGroupCommon & {
-//   type: "grid";
-//   gridCol: number;
-// };
-
-// type ItemButtonGroupFlex = TButtonGroupCommon & {
-//   type: "flex";
-// };
-
-// export function ItemButtonGroup(
-//   props: ItemButtonGroupGrid | ItemButtonGroupFlex
-// ) {
-//   let classname = `gap-${props.gap} `;
-
-//   switch (props.type) {
-//     case "flex":
-//       classname += `flex flex-wrap `;
-//       break;
-
-//     case "grid":
-//       classname += `gird grid-cols-${props.gridCol} `;
-//   }
-
-//   return (
-//     <div className={classname}>
-//       {props.buttonGroupData.map((data, idx) => {
-//         return <Button>null</Button>;
-//       })}
-//     </div>
-//   );
-// }

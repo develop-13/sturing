@@ -29,7 +29,6 @@ type TImg = {
   value: Blob;
   src: string;
 };
-
 function BoardEditor({
   studyId,
   teamMembers,
@@ -40,26 +39,20 @@ function BoardEditor({
 
   const writerEmail = session?.user.email;
 
-  if (!writerEmail) return;
-
-  // 이런건 실무에서 어텋게 처리할까?
-
+  // Ensure hooks are called unconditionally
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [readingRequired, setReadingRequired] = useState(false);
-  // 이미지는 따로 formData에 감싸서 보내야함
   const [images, setImages] = useState<TImg[]>([]);
 
   const handleAddImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-
     if (!file) return;
     const newImg = {
       id: v4(),
       value: file,
-      src: getBlobStringAdapter(file), // 랜더링 때문에 미리 만든값을 쓰도록
+      src: getBlobStringAdapter(file),
     };
-
     setImages((prev) => [...prev, newImg]);
   };
 
@@ -80,6 +73,11 @@ function BoardEditor({
   };
 
   const handlePostBoard = () => {
+    if (!writerEmail) {
+      alert("작성자 이메일이 없습니다.");
+      return;
+    }
+
     const teamMember = teamMembers.find(
       (teamMember: Omit<TStudyMember, "attendance" | "checkList">) =>
         teamMember.userEmail === writerEmail
@@ -93,8 +91,6 @@ function BoardEditor({
     const { userName, applicantImgSrc, role } = teamMember;
 
     const imgSrces = images.map((img) => img.value);
-    // 어차피 클라이언트에서 먼저 보여주려면 img.src가 string이어야 함
-    // 하지만 서버에서 보내질때는 img.src가 Blob이어야 함
 
     const newBoard = {
       writerName: userName,
@@ -112,6 +108,11 @@ function BoardEditor({
     postBoard(newBoard);
     closeModal();
   };
+
+  // Render logic can include conditional checks
+  if (!writerEmail) {
+    return <p>작성자 정보를 불러올 수 없습니다.</p>;
+  }
 
   return (
     <div className="bg-white w-full h-full flex items-center">
@@ -141,19 +142,17 @@ function BoardEditor({
           />
           {images.length ? (
             <div className="flex gap-1 w-full bg-white items-center">
-              {images.map((image) => {
-                return (
-                  <ImageItem
-                    alt="이미지"
-                    onClose={handleDeleteImage}
-                    width={85}
-                    height={85}
-                    key={image.id}
-                    src={image.src}
-                    imageId={image.id}
-                  />
-                );
-              })}
+              {images.map((image) => (
+                <ImageItem
+                  alt="이미지"
+                  onClose={handleDeleteImage}
+                  width={85}
+                  height={85}
+                  key={image.id}
+                  src={image.src}
+                  imageId={image.id}
+                />
+              ))}
             </div>
           ) : null}
           <div className="m-0 flex justify-between items-center ">
@@ -187,7 +186,6 @@ function BoardEditor({
               <Icon type="CLIP" onClick={triggerFileInputs} />
             </div>
           </div>
-          {/*  */}
         </div>
 
         <div className="flex gap-4">
@@ -210,40 +208,5 @@ function BoardEditor({
     </div>
   );
 }
-
-// function BoardEditor({}: TBoardEditor) {
-//   const [title, setTitle] = useState("");
-//   const [text, setText] = useState("");
-//   const [images, setImages] = useState([]);
-
-//   return (
-//     <div className="text-gray-700">
-//       <div className="border-b border-gray-500">
-//         <input
-//           className="w-full px-1 py-2 outline-none focus:outline-none"
-//           type="text"
-//           placeholder="제목"
-//         />
-//       </div>
-//       <textarea
-//         className="w-full px-1 py-2 outline-none focus:outline-none"
-//         placeholder="내용을 입력해주세요"
-//         name=""
-//         id=""
-//         cols={30}
-//         rows={10}
-//       ></textarea>
-//       <div className="flex justify-between items-center">
-//         <div>
-//           <div>사진??</div>
-//           <div>reading required</div>
-//         </div>
-//         <div className="bg-mainColor w-7 h-7 flex items-center justify-center">
-//           <Icon type="CLIP" />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
 
 export default BoardEditor;
