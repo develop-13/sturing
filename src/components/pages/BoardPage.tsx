@@ -32,10 +32,6 @@ function BoardPage() {
   const bid = useParams<{ bid: string }>().bid;
   const studyId = useSearchParams().get("studyId"); // 쿼리스트링에서 studyId를 가져옴
 
-  // Handle invalid conditions after hooks are called
-  if (!studyId || !session?.user || !bid) {
-    return <p>Invalid board or user information.</p>;
-  }
   const router = useRouter();
 
   const {
@@ -44,7 +40,12 @@ function BoardPage() {
     addCommentAction,
     editCommentAction,
     deleteCommentAction,
-  } = useCommentActions(initialBoardState, studyId, bid);
+  } = useCommentActions(initialBoardState, studyId as string, bid);
+
+  // Handle invalid conditions after hooks are called
+  if (!studyId || !session?.user || !bid) {
+    return <p>Invalid board or user information.</p>;
+  }
 
   const handleAddComment = async (commentText: string) => {
     await addCommentAction(commentText, session.user);
