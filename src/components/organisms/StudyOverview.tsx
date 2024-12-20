@@ -4,18 +4,10 @@ import Button from "../molecules/Button";
 import InfoTags from "../molecules/InfoTags";
 import React from "react";
 
-const getPeriod = (startDate: string, endDate: string): number => {
-  const currentYear = new Date().getFullYear();
-
-  // startDate와 endDate를 MM-DD 형식에서 월과 일로 분리
-  const [startMonth, startDay] = startDate.split("-").map(Number);
-  const [endMonth, endDay] = endDate.split("-").map(Number);
-
-  // 현재 연도와 분리된 월, 일로 Date 객체 생성
-  const start = new Date(currentYear, startMonth - 1, startDay); // 월은 0부터 시작하므로 -1
-  const end = new Date(currentYear, endMonth - 1, endDay);
-
-  // console.log(`start=${start} end=${end}`); // 확인용 로그
+const getPeriod = (startDate: string, endDate: string) => {
+  // ISO 형식 문자열을 Date 객체로 변환
+  const start = new Date(startDate);
+  const end = new Date(endDate);
 
   // 날짜 차이를 밀리초로 계산
   const diffTime = Math.abs(end.getTime() - start.getTime());
