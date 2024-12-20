@@ -35,7 +35,7 @@ const getDateText = (date: string) => {
     dateObj.getDate(),
   ];
 
-  return `${year}년 ${month}월 ${dateSpecific}일`;
+  return `${year}년 ${month + 1}월 ${dateSpecific}일`;
 };
 
 function StudyOverview({ props }: { props: TStudyOverview }) {
