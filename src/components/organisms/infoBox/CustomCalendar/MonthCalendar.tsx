@@ -23,7 +23,7 @@ const renderTextByDay = (day: number) => {
 };
 
 interface MonthCalendarProps {
-  currentDate: Date;
+  currentDate?: Date;
   duration: Tduration;
   onChange?: (startDate: Date | null, endDate: Date | null) => void;
 }
@@ -35,7 +35,9 @@ const MonthCalendar: React.FC<MonthCalendarProps> = ({
 }) => {
   const [startDate, setStartDate] = useState<Date | null>(duration.startDate);
   const [endDate, setEndDate] = useState<Date | null>(duration.endDate);
-  const [visibleMonth, setVisibleMonth] = useState<Date>(currentDate);
+  const [visibleMonth, setVisibleMonth] = useState<Date>(
+    currentDate || new Date()
+  );
 
   useEffect(() => {
     setStartDate(duration.startDate);

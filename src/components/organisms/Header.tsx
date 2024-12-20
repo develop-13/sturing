@@ -14,7 +14,7 @@ function Header({
   leftSlot,
   middleSlot,
   rightSlot,
-  className = "px-4",
+  className = "px-4 ",
 }: THeader) {
   let style = position + " " + bgColor + className;
 

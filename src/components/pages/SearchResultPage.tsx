@@ -122,6 +122,7 @@ function SearchResultPage() {
       <section className="flex flex-col gap-3 px-4">
         <Header
           leftSlot={<Icon type="BACK" />}
+          className="gap-2 px-0"
           middleSlot={
             <Searchbar usage="header" placeholder="" value={query || ""} />
           }

@@ -12,13 +12,13 @@ import {
 import CategorySetter from "@/components/organisms/CategorySetter";
 import NumberSetter from "@/components/organisms/NumberSetter";
 import LocationSetter from "@/components/organisms/LocationSetter";
-import DurationSetter from "@/components/organisms/DurationSetter";
 import LevelSetter from "@/components/organisms/LevelSetter";
 import RoleSetter from "@/components/organisms/RoleSetter";
 import Text from "../../atoms/Text";
 import Box from "@/components/atoms/Box";
 import Icon from "@/components/atoms/Icon";
 import { TStudyItem } from "@/types/study";
+import MonthCalendar from "@/components/organisms/infoBox/CustomCalendar/MonthCalendar";
 // 여기에 reducer 필요함
 
 const filterModalTemplates = (
@@ -50,7 +50,7 @@ const filterModalTemplates = (
     />
   ), // 실제 컴포넌트를 여기에 추가
   duration: (
-    <DurationSetter duration={state.duration} setDate={DispatchFuncs.setDate} />
+    <MonthCalendar duration={state.duration} onChange={DispatchFuncs.setDate} />
   ),
   levels: (
     <LevelSetter level={state.levels} setLevel={DispatchFuncs.setLevel} />

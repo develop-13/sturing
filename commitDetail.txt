@@ -1,4 +1,4 @@
-커밋사항:  commentId 오류 정정 + 댓글순서 생략
+커밋사항: 스타일 조정, turbo 비활성화
 
 
 -- 추후 MonthCalendarSchedule 랑 비교해서 공통로직 뺼 것

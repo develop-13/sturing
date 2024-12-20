@@ -16,7 +16,7 @@ export default function StudyBox({ props }: { props: TStudyItem }) {
   return (
     <Link href={`/study/${props._id}`}>
       <div className="cursor-pointer ">
-        <div className="flex flex-col w-[185px]">
+        <div className="flex flex-col w-[175px]">
           <StudyImageBox
             src={props.imgSrc || "/img/studyItem/studyItemImg1.png"}
             dayOfWeek={props.dayOfWeek}

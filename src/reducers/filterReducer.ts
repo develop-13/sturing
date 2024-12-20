@@ -54,7 +54,10 @@ export type TFilterAction =
       type: "deleteLocation";
       payload: { region: string; location: string };
     }
-  | { type: "setDate"; payload: { startDate: Date; endDate: Date } }
+  | {
+      type: "setDate";
+      payload: { startDate: Date | null; endDate: Date | null };
+    }
   | { type: "setLevel"; payload: { level: TLevel | "" } }
   | { type: "setRole"; payload: { role: TRoleText } }
   | { type: "cancelRole"; payload: { role: TRoleText } }
@@ -128,7 +131,7 @@ export type TDispatchFuncs = {
   decreaseMemberNum: () => void;
   addLocation: (region: string, location: string) => void;
   deleteLocation: (region: string, location: string) => void;
-  setDate: (startDate: Date, endDate: Date) => void;
+  setDate: (startDate: Date | null, endDate: Date | null) => void;
   setLevel: (level: TLevel | "") => void;
   setRole: (role: TRoleText) => void;
   cancelRole: (role: TRoleText) => void;
@@ -160,7 +163,7 @@ export function createDispatchFuncs(
     });
   };
 
-  const setDate = (startDate: Date, endDate: Date) => {
+  const setDate = (startDate: Date | null, endDate: Date | null) => {
     dispatch({
       type: "setDate",
       payload: { startDate, endDate },
