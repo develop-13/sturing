@@ -28,6 +28,7 @@ import {
 } from "../organisms/ModalProvider";
 import Text from "../atoms/Text";
 import { useRouter } from "next/navigation";
+import LogoutButton from "../molecules/auth-components/LogoutButton";
 
 // 추후에 srp 에 맞게 리팩토링할 것
 function RecommendPage() {
@@ -119,12 +120,14 @@ function RecommendPage() {
         className="px-4"
         leftSlot={
           <div className="flex gap-[12px]">
-            <MenuBtn session={session} />
+            {/* <MenuBtn session={session} /> */}
             <Icon type="LOGO" />
           </div>
         }
         rightSlot={
-          session ? null : (
+          session ? (
+            <LogoutButton />
+          ) : (
             <LoginButton
               upModal={upModal}
               closeModal={closeModal}

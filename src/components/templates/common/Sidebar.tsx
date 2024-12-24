@@ -3,7 +3,7 @@ import { Session } from "next-auth";
 import Divider from "../../atoms/Divider";
 import Icon from "../../atoms/Icon";
 import Text from "../../atoms/Text";
-import { forwardRef, useEffect } from "react";
+import { forwardRef } from "react";
 import Image from "../../atoms/Image";
 import { signOut } from "next-auth/react";
 
@@ -65,9 +65,11 @@ const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(function Sidebar(
               signOut();
             }}
           >
-            <Text size="lg" color="gray-600">
-              로그아웃
-            </Text>
+            {userName !== "사용자" ? (
+              <Text size="lg" color="gray-600">
+                로그아웃
+              </Text>
+            ) : null}
           </div>
         </li>
       </ul>
