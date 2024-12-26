@@ -31,23 +31,21 @@ function SlideContentList(props: TSlideContentList) {
   };
 
   return (
-    <Suspense fallback={<div>로딩 중...</div>}>
-      <div className={twMerge("flex flex-col gap-5 ", className)}>
-        <TitleLink
-          title={title}
-          hasArrow={hasArrow}
-          arrowColor={arrowColor}
-          onClick={scrollRight}
-        />
+    <div className={twMerge("flex flex-col gap-5 ", className)}>
+      <TitleLink
+        title={title}
+        hasArrow={hasArrow}
+        arrowColor={arrowColor}
+        onClick={scrollRight}
+      />
 
-        <ul
-          ref={scrollRef}
-          className="flex gap-2 relative overflow-x-scroll list-none px-2 scrollbar-hide "
-        >
-          {children}
-        </ul>
-      </div>
-    </Suspense>
+      <ul
+        ref={scrollRef}
+        className="flex gap-2 relative overflow-x-scroll list-none px-2 scrollbar-hide "
+      >
+        {children}
+      </ul>
+    </div>
   );
 }
 

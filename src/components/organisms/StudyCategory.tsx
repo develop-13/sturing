@@ -5,7 +5,6 @@ import Icon from "../atoms/Icon";
 import IconLabelButton from "../molecules/IconLabelButton";
 import { categories } from "@/db/categories";
 import { iconAdapter } from "@/adapters/adapters";
-import { Suspense } from "react";
 
 export default function StudyCategory() {
   const router = useRouter();
@@ -16,21 +15,19 @@ export default function StudyCategory() {
 
   return (
     <>
-      <Suspense fallback={<div>로딩 중...</div>}>
-        {categories.map((category) => (
-          <IconLabelButton
-            key={category}
-            datas={{
-              usage: "round",
-              text: category,
-              icon: <Icon type={iconAdapter(category)} />,
-              onClick: () => {
-                onClickHandler(category);
-              },
-            }}
-          />
-        ))}
-      </Suspense>
+      {categories.map((category) => (
+        <IconLabelButton
+          key={category}
+          datas={{
+            usage: "round",
+            text: category,
+            icon: <Icon type={iconAdapter(category)} />,
+            onClick: () => {
+              onClickHandler(category);
+            },
+          }}
+        />
+      ))}
     </>
   );
 }

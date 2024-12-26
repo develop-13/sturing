@@ -21,23 +21,54 @@ import {
 } from "../../providers/ModalProvider";
 import Text from "../atoms/Text";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 
-const LoginButton = lazy(
-  () => import("../molecules/auth-components/LoginButton")
+const LoginButton = dynamic(
+  () => import("../molecules/auth-components/LoginButton"),
+  {
+    loading: () => <div>로딩 중...</div>,
+    ssr: false,
+  }
 );
-const LogoutButton = lazy(
-  () => import("../molecules/auth-components/LogoutButton")
+
+const LogoutButton = dynamic(
+  () => import("../molecules/auth-components/LogoutButton"),
+  {
+    loading: () => <div>로딩 중...</div>,
+    ssr: false,
+  }
 );
 
 // GoMatchingPage를 lazy로 로드
-const GoMatchingPage = lazy(() => import("../molecules/GoMatchingPage"));
+const GoMatchingPage = dynamic(() => import("../molecules/GoMatchingPage"), {
+  loading: () => <div>로딩 중...</div>,
+  ssr: false,
+});
 // IconLabelButton을 lazy로 로드
-const IconLabelButton = lazy(() => import("../molecules/IconLabelButton"));
+const IconLabelButton = dynamic(() => import("../molecules/IconLabelButton"), {
+  loading: () => <div>로딩 중...</div>,
+  ssr: false,
+});
 // Searchbar를 lazy로 로드
-const Searchbar = lazy(() => import("../molecules/Searchbar"));
-const StudyBox = lazy(() => import("../organisms/StudyBox"));
-const SlideContentList = lazy(() => import("../organisms/SlideContentList"));
-const StudyCategory = lazy(() => import("../organisms/StudyCategory"));
+const Searchbar = dynamic(() => import("../molecules/Searchbar"), {
+  loading: () => <div>로딩 중...</div>,
+  ssr: false,
+});
+const StudyBox = dynamic(() => import("../organisms/StudyBox"), {
+  loading: () => <StudyBoxSkeleton />,
+  ssr: false,
+});
+const SlideContentList = dynamic(
+  () => import("../organisms/SlideContentList"),
+  {
+    loading: () => <div>로딩 중...</div>,
+    ssr: false,
+  }
+);
+const StudyCategory = dynamic(() => import("../organisms/StudyCategory"), {
+  loading: () => <div>로딩 중...</div>,
+  ssr: false,
+});
 
 // 추후에 srp 에 맞게 리팩토링할 것
 function RecommendPage() {

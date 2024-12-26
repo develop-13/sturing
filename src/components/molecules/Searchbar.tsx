@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import Icon from "../atoms/Icon";
-import { useState, Suspense } from "react";
+import { useState } from "react";
 
 type TSearchbar = {
   placeholder?: string;
@@ -50,25 +50,23 @@ function Searchbar({ placeholder, usage, className, value = "" }: TSearchbar) {
   };
 
   return (
-    <Suspense fallback={<div>로딩 중...</div>}>
-      <div
-        className={
-          "w-full flex items-center gap-[10px] bg-main-100 rounded-full " +
-          searchbarSize +
-          " " +
-          className
-        }
-      >
-        <input
-          type="text"
-          placeholder={placeholder}
-          className="flex-1 border-none outline-none bg-transparent text-[14px] text-gray-1000 font-bold placeholder:text-gray-700"
-          value={query}
-          onChange={onChangeQuery}
-        />
-        <Icon type="SEARCH" onClick={onClickSearchIcon} />
-      </div>
-    </Suspense>
+    <div
+      className={
+        "w-full flex items-center gap-[10px] bg-main-100 rounded-full " +
+        searchbarSize +
+        " " +
+        className
+      }
+    >
+      <input
+        type="text"
+        placeholder={placeholder}
+        className="flex-1 border-none outline-none bg-transparent text-[14px] text-gray-1000 font-bold placeholder:text-gray-700"
+        value={query}
+        onChange={onChangeQuery}
+      />
+      <Icon type="SEARCH" onClick={onClickSearchIcon} />
+    </div>
   );
 }
 
