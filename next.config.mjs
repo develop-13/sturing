@@ -1,12 +1,16 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true", // ANALYZE 환경 변수가 true일 때 번들 분석 활성화
+});
+
+const nextConfig = withBundleAnalyzer({
   reactStrictMode: false,
   webpack: (config, { isServer }) => {
     config.output.publicPath = "/_next/";
 
     config.module.rules.push({
       test: /\.svg$/,
-      use: ["@svgr/webpack"],
+      use: ["@svgr/webpack"], // SVG 파일 처리를 위한 설정 추가
     });
 
     return config;
@@ -40,6 +44,6 @@ const nextConfig = {
       },
     ],
   },
-};
+});
 
 export default nextConfig;
