@@ -5,7 +5,6 @@ import LoginButton from "../molecules/auth-components/LoginButton";
 import { NavButtonGroup } from "../organisms/ButtonGroup";
 import StudyBanner from "../organisms/StudyBanner";
 import { lazy, Suspense } from "react";
-import SlideContentList from "../organisms/SlideContentList";
 import StudyCategory from "../organisms/StudyCategory";
 import Divider from "../atoms/Divider";
 import StudyBox from "../organisms/StudyBox";
@@ -32,6 +31,8 @@ const GoMatchingPage = lazy(() => import("../molecules/GoMatchingPage"));
 const IconLabelButton = lazy(() => import("../molecules/IconLabelButton"));
 // Searchbar를 lazy로 로드
 const Searchbar = lazy(() => import("../molecules/Searchbar"));
+
+const SlideContentList = lazy(() => import("../organisms/SlideContentList"));
 
 // 추후에 srp 에 맞게 리팩토링할 것
 function RecommendPage() {
@@ -102,27 +103,6 @@ function RecommendPage() {
 
   return (
     <div id="recommendPage" className="flex flex-col overflow-hidden">
-      <div>
-        <Suspense fallback={null}>
-          <IconLabelButton
-            datas={{
-              text: "스터디 개설하기",
-              usage: "listItem",
-              icon: <Icon type="RLOGO" />,
-              onClick: () => {
-                if (!isLoggedIn) {
-                  // 로그인이 안되어 있는데 클릭하면 모달이 열리도록 함
-                  openModal();
-                } else {
-                  router.push("/recruitment");
-                }
-              },
-              extraStyle:
-                "fixed xs:bottom-[23%] xs:right-[10%] sm:bottom-[26%]  sm:right-[35%]  lg:bottom-[28%] lg:right-[35%] z-40 p-15 ",
-            }}
-          />
-        </Suspense>
-      </div>
       <Header
         className="px-4"
         leftSlot={
@@ -150,13 +130,13 @@ function RecommendPage() {
       <div>
         <StudyBanner props={studyBanners} />
         {userCreated && !hasMatchingInfo && (
-          <Suspense fallback={null}>
+          <Suspense fallback={<div>로딩중</div>}>
             <GoMatchingPage />
           </Suspense>
         )}
       </div>
       <div className="flex flex-col gap-5 py-5 px-4">
-        <Suspense fallback={null}>
+        <Suspense fallback={<div>로딩 중...</div>}>
           <Searchbar
             usage="main"
             placeholder="관심 스터디 분야나 강의명을 검색해보세요"
@@ -164,62 +144,88 @@ function RecommendPage() {
             value=""
           />
         </Suspense>
-        <SlideContentList
-          title="분야별 스터디 탐색하기"
-          hasArrow={true}
-          className="text-lg"
-        >
-          <StudyCategory />
-        </SlideContentList>
+        <Suspense fallback={<div>로딩 중...</div>}>
+          <SlideContentList
+            title="분야별 스터디 탐색하기"
+            hasArrow={true}
+            className="text-lg"
+          >
+            <StudyCategory />
+          </SlideContentList>
+        </Suspense>
         <Divider type="row" py={4} color="bg-gray-300" />
-        <SlideContentList
-          title={studyPlaceHolder.firstStudies}
-          hasArrow={true}
-          className="text-lg"
-        >
-          <div className="mx-auto flex flex-row gap-2 pl-4 h-[250px] justify-center">
-            {isFetchingStudies ? (
-              Array(3)
-                .fill(null)
-                .map((_, index) => <StudyBoxSkeleton key={index} />) // 스켈레톤 UI를 3개 렌더링
-            ) : studies.firstStudies.length ? (
-              studies.firstStudies.map((study: TStudyItem) => (
-                <StudyBox props={study} key={study.createdAt} />
-              ))
-            ) : (
-              <div className="flex flex-row gap-2 h-[250px] w-full justify-center items-center">
-                <Text weight="bold" size="base" color="gray-600">
-                  해당되는 스터디가 없습니다.
-                </Text>
-              </div>
-            )}
-          </div>
-        </SlideContentList>
-        <SlideContentList
-          title={studyPlaceHolder.secondStudies}
-          hasArrow={true}
-        >
-          <div className="mx-auto flex flex-row gap-2 h-[250px] justify-center">
-            {isFetchingStudies ? (
-              Array(3)
-                .fill(null)
-                .map((_, index) => <StudyBoxSkeleton key={index} />) // 스켈레톤 UI를 3개 렌더링
-            ) : studies.secondStudies.length ? (
-              studies.secondStudies.map((study: TStudyItem) => (
-                <StudyBox props={study} key={study._id} />
-              ))
-            ) : (
-              <div className="flex flex-row gap-2 h-[250px] w-full justify-center items-center">
-                <Text weight="bold" size="base" color="gray-600">
-                  해당되는 스터디가 없습니다.
-                </Text>
-              </div>
-            )}
-          </div>
-        </SlideContentList>
+        <Suspense fallback={<div>로딩 중...</div>}>
+          <SlideContentList
+            title={studyPlaceHolder.firstStudies}
+            hasArrow={true}
+            className="text-lg"
+          >
+            <div className="mx-auto flex flex-row gap-2 pl-4 h-[250px] justify-center">
+              {isFetchingStudies ? (
+                Array(3)
+                  .fill(null)
+                  .map((_, index) => <StudyBoxSkeleton key={index} />)
+              ) : studies.firstStudies.length ? (
+                studies.firstStudies.map((study: TStudyItem) => (
+                  <StudyBox props={study} key={study.createdAt} />
+                ))
+              ) : (
+                <div className="flex flex-row gap-2 h-[250px] w-full justify-center items-center">
+                  <Text weight="bold" size="base" color="gray-600">
+                    해당되는 스터디가 없습니다.
+                  </Text>
+                </div>
+              )}
+            </div>
+          </SlideContentList>
+        </Suspense>
+        <Suspense fallback={<div>로딩 중...</div>}>
+          <SlideContentList
+            title={studyPlaceHolder.secondStudies}
+            hasArrow={true}
+          >
+            <div className="mx-auto flex flex-row gap-2 h-[250px] justify-center">
+              {isFetchingStudies ? (
+                Array(3)
+                  .fill(null)
+                  .map((_, index) => <StudyBoxSkeleton key={index} />)
+              ) : studies.secondStudies.length ? (
+                studies.secondStudies.map((study: TStudyItem) => (
+                  <StudyBox props={study} key={study._id} />
+                ))
+              ) : (
+                <div className="flex flex-row gap-2 h-[250px] w-full justify-center items-center">
+                  <Text weight="bold" size="base" color="gray-600">
+                    해당되는 스터디가 없습니다.
+                  </Text>
+                </div>
+              )}
+            </div>
+          </SlideContentList>
+        </Suspense>
+      </div>
+      <div>
+        <Suspense fallback={null}>
+          <IconLabelButton
+            datas={{
+              text: "스터디 개설하기",
+              usage: "listItem",
+              icon: <Icon type="RLOGO" />,
+              onClick: () => {
+                if (!isLoggedIn) {
+                  // 로그인이 안되어 있는데 클릭하면 모달이 열리도록 함
+                  openModal();
+                } else {
+                  router.push("/recruitment");
+                }
+              },
+              extraStyle:
+                "fixed xs:bottom-[23%] xs:right-[10%] sm:bottom-[26%]  sm:right-[35%]  lg:bottom-[28%] lg:right-[35%] z-40 p-15 ",
+            }}
+          />
+        </Suspense>
       </div>
     </div>
   );
 }
-
 export default RecommendPage;
