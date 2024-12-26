@@ -1,7 +1,7 @@
 "use client";
 import Text from "@/components/atoms/Text";
 import Button from "../Button";
-import React, { useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import LoginModal from "@/components/organisms/modals/LoginModal";
 
@@ -46,26 +46,25 @@ const LoginButton = (props: TLoginButton) => {
     };
   }, []);
 
-  console.log(upModal);
-  console.log(rootLayout.current);
-
   return (
-    <Button
-      theme="secondary"
-      extraCss="p-[6px] rounded-[5px]"
-      onClick={openModal}
-    >
-      <Text weight="bold">간편 로그인</Text>
-      {/* rootLayout.current가 null이 아닌 경우에만 createPortal 실행 */}
-      {upModal &&
-        rootLayout.current &&
-        createPortal(
-          <div className="w-[375px] h-full fixed top-0 z-50 flex items-center bg-black bg-opacity-70">
-            <LoginModal ref={modalRef} />
-          </div>,
-          rootLayout.current // useRef로 관리된 rootLayout 참조
-        )}
-    </Button>
+    <Suspense fallback={<div>로딩 중...</div>}>
+      <Button
+        theme="secondary"
+        extraCss="p-[6px] rounded-[5px]"
+        onClick={openModal}
+      >
+        <Text weight="bold">간편 로그인</Text>
+        {/* rootLayout.current가 null이 아닌 경우에만 createPortal 실행 */}
+        {upModal &&
+          rootLayout.current &&
+          createPortal(
+            <div className="w-[375px] h-full fixed top-0 z-50 flex items-center bg-black bg-opacity-70">
+              <LoginModal ref={modalRef} />
+            </div>,
+            rootLayout.current // useRef로 관리된 rootLayout 참조
+          )}
+      </Button>
+    </Suspense>
   );
 };
 

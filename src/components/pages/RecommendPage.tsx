@@ -1,7 +1,6 @@
 "use client";
 import Header from "../organisms/Header";
 import Icon from "../atoms/Icon";
-import LoginButton from "../molecules/auth-components/LoginButton";
 import { NavButtonGroup } from "../organisms/ButtonGroup";
 import StudyBanner from "../organisms/StudyBanner";
 import { lazy, Suspense } from "react";
@@ -22,7 +21,13 @@ import {
 } from "../../providers/ModalProvider";
 import Text from "../atoms/Text";
 import { useRouter } from "next/navigation";
-import LogoutButton from "../molecules/auth-components/LogoutButton";
+
+const LoginButton = lazy(
+  () => import("../molecules/auth-components/LoginButton")
+);
+const LogoutButton = lazy(
+  () => import("../molecules/auth-components/LogoutButton")
+);
 
 // GoMatchingPage를 lazy로 로드
 const GoMatchingPage = lazy(() => import("../molecules/GoMatchingPage"));
@@ -52,8 +57,6 @@ function RecommendPage() {
     firstStudies: [],
     secondStudies: [],
   });
-
-  console.log(studies);
 
   const [isFetchingStudies, setIsFetchingStudies] = useState(false);
 
