@@ -6,6 +6,7 @@ import Button from "../molecules/Button";
 import InfoTags from "../molecules/InfoTags";
 import StudyImageBox from "../molecules/StudyImageBox";
 import { TStudyItem } from "@/types/study";
+import { Suspense } from "react";
 
 export default function StudyBox({ props }: { props: TStudyItem }) {
   let startDateMonth = new Date(props.period.startDate).getMonth() + 1; // 월은 0부터 시작하므로 1을 더합니다.
@@ -14,58 +15,60 @@ export default function StudyBox({ props }: { props: TStudyItem }) {
   let endDate = new Date(props.period.endDate).getDate();
 
   return (
-    <Link href={`/study/${props._id}`}>
-      <div className="cursor-pointer ">
-        <div className="flex flex-col w-[175px]">
-          <StudyImageBox
-            src={props.imgSrc || "/img/studyItem/studyItemImg1.png"}
-            dayOfWeek={props.dayOfWeek}
-            startTime={props.time?.startTime}
-          />
-          <div className="flex flex-row gap-2 pt-3">
-            <Button theme="primary" shape="tag">
-              <Text size="xs" weight="bold" color="white">
-                {props.type}
-              </Text>
-            </Button>
-            <Button theme="secondary" shape="tag" key={props.categories[0]}>
-              <Text size="xs" weight="bold" color="main">
-                {props.categories[0]}
-              </Text>
-            </Button>
-          </div>
+    <Suspense fallback={<div>로딩 중...</div>}>
+      <Link href={`/study/${props._id}`}>
+        <div className="cursor-pointer ">
+          <div className="flex flex-col w-[175px]">
+            <StudyImageBox
+              src={props.imgSrc || "/img/studyItem/studyItemImg1.png"}
+              dayOfWeek={props.dayOfWeek}
+              startTime={props.time?.startTime}
+            />
+            <div className="flex flex-row gap-2 pt-3">
+              <Button theme="primary" shape="tag">
+                <Text size="xs" weight="bold" color="white">
+                  {props.type}
+                </Text>
+              </Button>
+              <Button theme="secondary" shape="tag" key={props.categories[0]}>
+                <Text size="xs" weight="bold" color="main">
+                  {props.categories[0]}
+                </Text>
+              </Button>
+            </div>
 
-          <Text
-            size="base"
-            className="font-bold pt-2 whitespace-nowrap overflow-hidden text-ellipsis"
-          >
-            {props.title}
-          </Text>
-          <div className="pt-2 overflow-hidden ">
-            <InfoTags theme="transparent" mx={5}>
-              <div className="flex items-center gap-[2px]">
-                <Icon type="DATE" />
-                <Text size="xs" weight="bold" color="gray-600">
-                  {`${startDateMonth}.${startDate}~${endDateMonth}.${endDate}`}
-                </Text>
-              </div>
-              <div className=" flex items-center gap-[2px] whitespace-nowrap overflow-hidden text-ellipsis">
-                <Icon type="LOCATION" />
-                <Text size="xs" weight="bold" color="gray-600">
-                  {props.location}
-                </Text>
-              </div>
-            </InfoTags>
+            <Text
+              size="base"
+              className="font-bold pt-2 whitespace-nowrap overflow-hidden text-ellipsis"
+            >
+              {props.title}
+            </Text>
+            <div className="pt-2 overflow-hidden ">
+              <InfoTags theme="transparent" mx={5}>
+                <div className="flex items-center gap-[2px]">
+                  <Icon type="DATE" />
+                  <Text size="xs" weight="bold" color="gray-600">
+                    {`${startDateMonth}.${startDate}~${endDateMonth}.${endDate}`}
+                  </Text>
+                </div>
+                <div className=" flex items-center gap-[2px] whitespace-nowrap overflow-hidden text-ellipsis">
+                  <Icon type="LOCATION" />
+                  <Text size="xs" weight="bold" color="gray-600">
+                    {props.location}
+                  </Text>
+                </div>
+              </InfoTags>
+            </div>
+            <Divider type="row" my={8} />
+            <Text size="xs" weight="bold" color="gray-700">
+              {"모집 중 " +
+                props.currentMembers?.length +
+                "/" +
+                props.maxMembersNum}
+            </Text>
           </div>
-          <Divider type="row" my={8} />
-          <Text size="xs" weight="bold" color="gray-700">
-            {"모집 중 " +
-              props.currentMembers?.length +
-              "/" +
-              props.maxMembersNum}
-          </Text>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </Suspense>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, Suspense } from "react";
 import TitleLink from "../molecules/TitleLink";
 import { twMerge } from "tailwind-merge";
 
@@ -31,21 +31,23 @@ function SlideContentList(props: TSlideContentList) {
   };
 
   return (
-    <div className={twMerge("flex flex-col gap-5 ", className)}>
-      <TitleLink
-        title={title}
-        hasArrow={hasArrow}
-        arrowColor={arrowColor}
-        onClick={scrollRight}
-      />
+    <Suspense fallback={<div>로딩 중...</div>}>
+      <div className={twMerge("flex flex-col gap-5 ", className)}>
+        <TitleLink
+          title={title}
+          hasArrow={hasArrow}
+          arrowColor={arrowColor}
+          onClick={scrollRight}
+        />
 
-      <ul
-        ref={scrollRef}
-        className="flex gap-2 relative overflow-x-scroll list-none px-2 scrollbar-hide "
-      >
-        {children}
-      </ul>
-    </div>
+        <ul
+          ref={scrollRef}
+          className="flex gap-2 relative overflow-x-scroll list-none px-2 scrollbar-hide "
+        >
+          {children}
+        </ul>
+      </div>
+    </Suspense>
   );
 }
 

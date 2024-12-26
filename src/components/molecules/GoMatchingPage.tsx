@@ -75,29 +75,31 @@ function GoMatchingPage() {
   // }, [isMatchingModalUp]);
 
   return (
-    <div>
-      <Link
-        className="h-[43px] bg-black text-white flex gap-[8px] items-center px-[16px] hover:underline cursor-pointer "
-        href={"/matching"}
-      >
-        <Icon type="RLOGO" />
-        <Text size="sm" weight="bold">
-          매칭항목 선택하고 딱 맞는 스터디 추천받기
-        </Text>
-        <Icon type="FORWARD" />
-      </Link>
-      {/* recommendPage가 null이 아닌 경우에만 createPortal 실행 */}
-      {Modalup && recommendPage && (
-        <Suspense fallback={<div>로딩 중...</div>}>
-          {createPortal(
-            <div className="w-[375px] h-full fixed z-50 flex items-center bg-black bg-opacity-70">
-              <GoMatchingModal ref={modalRef} />
-            </div>,
-            recommendPage
-          )}
-        </Suspense>
-      )}
-    </div>
+    <Suspense fallback={<div>로딩 중...</div>}>
+      <div>
+        <Link
+          className="h-[43px] bg-black text-white flex gap-[8px] items-center px-[16px] hover:underline cursor-pointer "
+          href={"/matching"}
+        >
+          <Icon type="RLOGO" />
+          <Text size="sm" weight="bold">
+            매칭항목 선택하고 딱 맞는 스터디 추천받기
+          </Text>
+          <Icon type="FORWARD" />
+        </Link>
+        {/* recommendPage가 null이 아닌 경우에만 createPortal 실행 */}
+        {Modalup && recommendPage && (
+          <Suspense fallback={<div>로딩 중...</div>}>
+            {createPortal(
+              <div className="w-[375px] h-full fixed z-50 flex items-center bg-black bg-opacity-70">
+                <GoMatchingModal ref={modalRef} />
+              </div>,
+              recommendPage
+            )}
+          </Suspense>
+        )}
+      </div>
+    </Suspense>
   );
 }
 
