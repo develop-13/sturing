@@ -3,8 +3,6 @@ import Header from "../organisms/Header";
 import Icon from "../atoms/Icon";
 import { NavButtonGroup } from "../organisms/ButtonGroup";
 import StudyBanner from "../organisms/StudyBanner";
-import { lazy, Suspense } from "react";
-// import StudyCategory from "../organisms/StudyCategory";
 import Divider from "../atoms/Divider";
 import { studyBanners } from "@/db/studyBanners";
 import React, { useContext, useEffect, useState } from "react";
@@ -26,7 +24,6 @@ import dynamic from "next/dynamic";
 const LoginButton = dynamic(
   () => import("../molecules/auth-components/LoginButton"),
   {
-    loading: () => <div>로딩 중...</div>,
     ssr: false,
   }
 );
@@ -34,39 +31,32 @@ const LoginButton = dynamic(
 const LogoutButton = dynamic(
   () => import("../molecules/auth-components/LogoutButton"),
   {
-    loading: () => <div>로딩 중...</div>,
     ssr: false,
   }
 );
 
 // GoMatchingPage를 lazy로 로드
 const GoMatchingPage = dynamic(() => import("../molecules/GoMatchingPage"), {
-  loading: () => <div>로딩 중...</div>,
   ssr: false,
 });
 // IconLabelButton을 lazy로 로드
 const IconLabelButton = dynamic(() => import("../molecules/IconLabelButton"), {
-  loading: () => <div>로딩 중...</div>,
   ssr: false,
 });
 // Searchbar를 lazy로 로드
 const Searchbar = dynamic(() => import("../molecules/Searchbar"), {
-  loading: () => <div>로딩 중...</div>,
   ssr: false,
 });
 const StudyBox = dynamic(() => import("../organisms/StudyBox"), {
-  loading: () => <StudyBoxSkeleton />,
   ssr: false,
 });
 const SlideContentList = dynamic(
   () => import("../organisms/SlideContentList"),
   {
-    loading: () => <div>로딩 중...</div>,
     ssr: false,
   }
 );
 const StudyCategory = dynamic(() => import("../organisms/StudyCategory"), {
-  loading: () => <div>로딩 중...</div>,
   ssr: false,
 });
 
@@ -103,11 +93,15 @@ function RecommendPage() {
         };
 
   useEffect(() => {
+    const controller = new AbortController(); // AbortController 생성
+    const signal = controller.signal; // AbortController의 signal 가져오기
+
     async function getStudies(studyType: "common" | "userMatching") {
       try {
         setIsFetchingStudies(true);
         const fetchedStudies = await fetch(
-          `recommend/api?studyType=${studyType}&userEmail=${session?.user.email}`
+          `recommend/api?studyType=${studyType}&userEmail=${session?.user.email}`,
+          { signal } // fetch에 signal 추가
         ).then((res) => res.json());
 
         const { firstStudies, secondStudies } = fetchedStudies;
@@ -116,7 +110,11 @@ function RecommendPage() {
           secondStudies: secondStudies,
         });
       } catch (err) {
-        console.error(err);
+        if (err instanceof Error && err.name === "AbortError") {
+          console.log("Fetch aborted");
+        } else {
+          console.error("Fetch error:", err);
+        }
       } finally {
         setIsFetchingStudies(false);
       }
@@ -129,6 +127,10 @@ function RecommendPage() {
       // 로그인을 하지 않았거나, 로그인 하더라도 매칭 정보가 없는 경우 공통 스터디를 가져옴
       getStudies("common");
     }
+
+    return () => {
+      controller.abort(); // 컴포넌트 언마운트 또는 의존성 변경 시 fetch 요청 취소
+    };
   }, [userCreated, hasMatchingInfo, status, session?.user.email]);
 
   if (status == "loading") {
@@ -226,25 +228,23 @@ function RecommendPage() {
           </div>
         </SlideContentList>
       </div>
-      <Suspense fallback={<div>로딩 중...</div>}>
-        <IconLabelButton
-          datas={{
-            text: "스터디 개설하기",
-            usage: "listItem",
-            icon: <Icon type="RLOGO" />,
-            onClick: () => {
-              if (!isLoggedIn) {
-                // 로그인이 안되어 있는데 클릭하면 모달이 열리도록 함
-                openModal();
-              } else {
-                router.push("/recruitment");
-              }
-            },
-            extraStyle:
-              "fixed xs:bottom-[23%] xs:right-[10%] sm:bottom-[26%]  sm:right-[35%]  lg:bottom-[28%] lg:right-[35%] z-40 p-15 ",
-          }}
-        />
-      </Suspense>
+      <IconLabelButton
+        datas={{
+          text: "스터디 개설하기",
+          usage: "listItem",
+          icon: <Icon type="RLOGO" />,
+          onClick: () => {
+            if (!isLoggedIn) {
+              // 로그인이 안되어 있는데 클릭하면 모달이 열리도록 함
+              openModal();
+            } else {
+              router.push("/recruitment");
+            }
+          },
+          extraStyle:
+            "fixed xs:bottom-[23%] xs:right-[10%] sm:bottom-[26%]  sm:right-[35%]  lg:bottom-[28%] lg:right-[35%] z-40 p-15 ",
+        }}
+      />
     </div>
   );
 }
