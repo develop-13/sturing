@@ -21,6 +21,7 @@ import {
 } from "@/reducers/matchingReducer";
 import { TCategory, TLevel } from "@/types/common";
 import { UserStatusContext } from "../../providers/UserStatusProvider";
+import { useStep } from "@/hooks/useStep";
 
 const steps = [
   // 각 컴포넌트가 사용하는 props 보내주기
@@ -142,7 +143,6 @@ const validateStep = (step: number, state: TMatchingState) => {
 
 function MatchingPage() {
   const router = useRouter();
-
   const { session } = useContext(UserStatusContext);
 
   useEffect(() => {
@@ -153,26 +153,21 @@ function MatchingPage() {
     }
   }, [session?.user]);
 
-  const [step, setStep] = useState(0);
+  const { step, nextStep, prevStep, resetStep } = useStep();
   const [state, dispatch] = useReducer(MatchingReducer, initialState);
 
   let userName = session?.user?.name;
   let userEmail = session?.user?.email;
 
-  // 애초에 서버에서 한 번 렌더링 되고 그 다음에 클라이언트에서 한 번 더 렌더링됨
-
   const goPrevStep = () => {
     if (step === 0) {
-      // 홈으로 가게 하기'
       router.back();
       return;
     }
-    setStep(step - 1);
+    prevStep();
   };
 
   const goNextStep = () => {
-    //4단계까지 모두 완료된 상태에서 화살표를 누르면 전송
-
     if (step >= steps.length - 1) {
       router.push("/recommend");
       return;
@@ -180,7 +175,7 @@ function MatchingPage() {
 
     let flag = validateStep(step, state);
     if (flag) {
-      setStep(step + 1);
+      nextStep();
     }
   };
 
@@ -191,7 +186,7 @@ function MatchingPage() {
         className="px-4"
       />
       <div className="px-4">
-        {step < steps.length - 1 && ( // 마지막 페이지에는 안 보이게
+        {step < steps.length - 1 && (
           <Progressbar currentPage={step} totalPage={steps.length - 1} />
         )}
         {steps[step](state, createDispatchFuncs(dispatch), userName, userEmail)}

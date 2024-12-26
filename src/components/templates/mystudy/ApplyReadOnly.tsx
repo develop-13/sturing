@@ -7,6 +7,7 @@ import Button from "@/components/molecules/Button";
 import Text from "@/components/atoms/Text";
 import { TRoleText } from "@/types/common";
 import { v4 } from "uuid";
+import { useStep } from "@/hooks/useStep";
 
 // type TApplyReadOnly = { applyData: TApply };
 type TApplyReadOnly = {
@@ -19,7 +20,7 @@ const ApplyReadOnly = forwardRef<HTMLDivElement, TApplyReadOnly>(
     props: TApplyReadOnly,
     ref: React.Ref<HTMLDivElement>
   ) {
-    const [step, setStep] = useState(0);
+    const { step, nextStep, prevStep } = useStep();
 
     const [currentApply, setCurrentApply] = useState<null | TApply>(null);
 
@@ -48,21 +49,18 @@ const ApplyReadOnly = forwardRef<HTMLDivElement, TApplyReadOnly>(
     };
 
     const goNextStep = () => {
-      // 두 번 클릭 시, 전전 주소로 요청되는 문제
       if (step >= steps.length - 1) {
-        // router.push("/recommend");
         return;
       }
-      setStep(step + 1);
+      nextStep();
     };
 
     const goPrevStep = () => {
       console.log("prev Step clicked");
       if (step <= 0) {
-        // router.back();
         return;
       }
-      setStep(step - 1);
+      prevStep();
     };
 
     const getPrevButton = () => {

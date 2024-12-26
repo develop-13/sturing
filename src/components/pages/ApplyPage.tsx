@@ -23,6 +23,7 @@ import {
   UserStatusContext,
   UserStatusContextProps,
 } from "../../providers/UserStatusProvider";
+import { useStep } from "@/hooks/useStep";
 
 function ApplyPage() {
   const router = useRouter();
@@ -47,7 +48,8 @@ function ApplyPage() {
     [dispatch]
   );
 
-  const [step, setStep] = useState(0);
+  const { step, nextStep, prevStep } = useStep();
+
   const steps = [
     <ApplyText
       key={"ApplyText"}
@@ -67,20 +69,20 @@ function ApplyPage() {
   ];
 
   const goNextStep = () => {
-    // 두 번 클릭 시, 전전 주소로 요청되는 문제
     if (step >= steps.length - 1) {
       router.push("/recommend");
       return;
     }
-    setStep(step + 1);
+    nextStep();
   };
+
   const goPrevStep = () => {
     console.log("prev Step clicked");
     if (step <= 0) {
       router.back();
       return;
     }
-    setStep(step - 1);
+    prevStep();
   };
 
   return (
