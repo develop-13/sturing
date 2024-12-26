@@ -26,7 +26,7 @@ import Loading from "../templates/common/Loading";
 import {
   UserStatusContext,
   UserStatusContextProps,
-} from "../organisms/auth-components/UserStatusProvider";
+} from "../../providers/UserStatusProvider";
 import {
   JoiningStudyReducer,
   initialState,

@@ -18,6 +18,7 @@ export default function StudyImageBox(props: TStudyImageBox) {
         src={src}
         fill
         style={{ objectFit: "cover" }}
+        loading="eager" // 즉시 로드
       />
       <div className="flex absolute bottom-0 w-full h-[24px]  bg-black bg-opacity-80 justify-center items-center">
         <Text size="sm" weight="bold" color="white">

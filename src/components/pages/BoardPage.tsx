@@ -9,7 +9,7 @@ import UserInfoItem from "@/components/molecules/UserInfoItem";
 import Text from "@/components/atoms/Text";
 import Image from "@/components/atoms/Image";
 import CommentSection from "../templates/Board/CommentSection";
-import { UserStatusContext } from "../organisms/auth-components/UserStatusProvider";
+import { UserStatusContext } from "../../providers/UserStatusProvider";
 import useCommentActions from "@/hooks/useCommentActions";
 
 const initialBoardState: TBoard_Client = {

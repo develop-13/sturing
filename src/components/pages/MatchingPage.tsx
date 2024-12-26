@@ -20,7 +20,7 @@ import {
   createDispatchFuncs,
 } from "@/reducers/matchingReducer";
 import { TCategory, TLevel } from "@/types/common";
-import { UserStatusContext } from "../organisms/auth-components/UserStatusProvider";
+import { UserStatusContext } from "../../providers/UserStatusProvider";
 
 const steps = [
   // 각 컴포넌트가 사용하는 props 보내주기

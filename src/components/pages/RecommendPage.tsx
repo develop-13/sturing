@@ -1,13 +1,10 @@
 "use client";
 import Header from "../organisms/Header";
-import MenuBtn from "../molecules/MenuBtn";
 import Icon from "../atoms/Icon";
-import Link from "next/link";
 import LoginButton from "../molecules/auth-components/LoginButton";
 import { NavButtonGroup } from "../organisms/ButtonGroup";
 import StudyBanner from "../organisms/StudyBanner";
-import GoMatchingPage from "../molecules/GoMatchingPage";
-import Searchbar from "../molecules/Searchbar";
+import { lazy, Suspense } from "react";
 import SlideContentList from "../organisms/SlideContentList";
 import StudyCategory from "../organisms/StudyCategory";
 import Divider from "../atoms/Divider";
@@ -19,16 +16,22 @@ import StudyBoxSkeleton from "../molecules/skeletonUI/StudyBoxSkeleton";
 import {
   UserStatusContext,
   UserStatusContextProps,
-} from "../organisms/auth-components/UserStatusProvider";
+} from "../../providers/UserStatusProvider";
 import Loading from "../templates/common/Loading";
-import IconLabelButton from "../molecules/IconLabelButton";
 import {
   ModalContextProps,
   ModalProviderContext,
-} from "../organisms/ModalProvider";
+} from "../../providers/ModalProvider";
 import Text from "../atoms/Text";
 import { useRouter } from "next/navigation";
 import LogoutButton from "../molecules/auth-components/LogoutButton";
+
+// GoMatchingPage를 lazy로 로드
+const GoMatchingPage = lazy(() => import("../molecules/GoMatchingPage"));
+// IconLabelButton을 lazy로 로드
+const IconLabelButton = lazy(() => import("../molecules/IconLabelButton"));
+// Searchbar를 lazy로 로드
+const Searchbar = lazy(() => import("../molecules/Searchbar"));
 
 // 추후에 srp 에 맞게 리팩토링할 것
 function RecommendPage() {
@@ -48,6 +51,8 @@ function RecommendPage() {
     firstStudies: [],
     secondStudies: [],
   });
+
+  console.log(studies);
 
   const [isFetchingStudies, setIsFetchingStudies] = useState(false);
 
@@ -89,7 +94,7 @@ function RecommendPage() {
       // 로그인을 하지 않았거나, 로그인 하더라도 매칭 정보가 없는 경우 공통 스터디를 가져옴
       getStudies("common");
     }
-  }, [userCreated, hasMatchingInfo]);
+  }, [userCreated, hasMatchingInfo, session?.user, status]);
 
   if (status == "loading") {
     return <Loading />;
@@ -98,29 +103,30 @@ function RecommendPage() {
   return (
     <div id="recommendPage" className="flex flex-col overflow-hidden">
       <div>
-        <IconLabelButton
-          datas={{
-            text: "스터디 개설하기",
-            usage: "listItem",
-            icon: <Icon type="RLOGO" />,
-            onClick: () => {
-              if (!isLoggedIn) {
-                // 로그인이 안되어 있는데 클릭하면 모달이 열리도록 함
-                openModal();
-              } else {
-                router.push("/recruitment");
-              }
-            },
-            extraStyle:
-              "fixed xs:bottom-[23%] xs:right-[10%] sm:bottom-[26%]  sm:right-[35%]  lg:bottom-[28%] lg:right-[35%] z-40 p-15 ",
-          }}
-        />
+        <Suspense fallback={null}>
+          <IconLabelButton
+            datas={{
+              text: "스터디 개설하기",
+              usage: "listItem",
+              icon: <Icon type="RLOGO" />,
+              onClick: () => {
+                if (!isLoggedIn) {
+                  // 로그인이 안되어 있는데 클릭하면 모달이 열리도록 함
+                  openModal();
+                } else {
+                  router.push("/recruitment");
+                }
+              },
+              extraStyle:
+                "fixed xs:bottom-[23%] xs:right-[10%] sm:bottom-[26%]  sm:right-[35%]  lg:bottom-[28%] lg:right-[35%] z-40 p-15 ",
+            }}
+          />
+        </Suspense>
       </div>
       <Header
         className="px-4"
         leftSlot={
           <div className="flex gap-[12px]">
-            {/* <MenuBtn session={session} /> */}
             <Icon type="LOGO" />
           </div>
         }
@@ -143,15 +149,21 @@ function RecommendPage() {
       />
       <div>
         <StudyBanner props={studyBanners} />
-        {userCreated && !hasMatchingInfo && <GoMatchingPage />}
+        {userCreated && !hasMatchingInfo && (
+          <Suspense fallback={null}>
+            <GoMatchingPage />
+          </Suspense>
+        )}
       </div>
       <div className="flex flex-col gap-5 py-5 px-4">
-        <Searchbar
-          usage="main"
-          placeholder="관심 스터디 분야나 강의명을 검색해보세요"
-          className="px-4"
-          value=""
-        />
+        <Suspense fallback={null}>
+          <Searchbar
+            usage="main"
+            placeholder="관심 스터디 분야나 강의명을 검색해보세요"
+            className="px-4"
+            value=""
+          />
+        </Suspense>
         <SlideContentList
           title="분야별 스터디 탐색하기"
           hasArrow={true}

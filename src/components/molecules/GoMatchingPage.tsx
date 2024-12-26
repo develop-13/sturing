@@ -3,9 +3,13 @@ import Icon from "../atoms/Icon";
 import Text from "../atoms/Text";
 import Link from "next/link";
 import { Session } from "next-auth";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { createPortal } from "react-dom";
-import GoMatchingModal from "../organisms/GoMatchingModal";
+
+// GoMatchingModal을 lazy로 로드
+const GoMatchingModal = lazy(
+  () => import("../organisms/modals/GoMatchingModal")
+);
 
 function GoMatchingPage() {
   let isMatchingModalUp = true;
@@ -83,14 +87,16 @@ function GoMatchingPage() {
         <Icon type="FORWARD" />
       </Link>
       {/* recommendPage가 null이 아닌 경우에만 createPortal 실행 */}
-      {Modalup &&
-        recommendPage &&
-        createPortal(
-          <div className="w-[375px] h-full fixed z-50 flex items-center bg-black bg-opacity-70">
-            <GoMatchingModal ref={modalRef} />
-          </div>,
-          recommendPage
-        )}
+      {Modalup && recommendPage && (
+        <Suspense fallback={<div>로딩 중...</div>}>
+          {createPortal(
+            <div className="w-[375px] h-full fixed z-50 flex items-center bg-black bg-opacity-70">
+              <GoMatchingModal ref={modalRef} />
+            </div>,
+            recommendPage
+          )}
+        </Suspense>
+      )}
     </div>
   );
 }

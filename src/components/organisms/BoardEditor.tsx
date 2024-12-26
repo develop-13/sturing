@@ -6,7 +6,7 @@ import Text from "../atoms/Text";
 import {
   UserStatusContext,
   UserStatusContextProps,
-} from "./auth-components/UserStatusProvider";
+} from "../../providers/UserStatusProvider";
 import {
   TBoard_Server,
   TJoiningStudy_Client,

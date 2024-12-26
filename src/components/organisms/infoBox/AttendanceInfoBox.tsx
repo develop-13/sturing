@@ -7,7 +7,7 @@ import { TJoiningStudy_Client, TStudyMember } from "@/types/study";
 import {
   UserStatusContext,
   UserStatusContextProps,
-} from "../auth-components/UserStatusProvider";
+} from "../../../providers/UserStatusProvider";
 
 type TAttendanceInfoBox = {
   memberAttendances: TJoiningStudy_Client["memberAttendances"];

@@ -22,12 +22,18 @@ export default function StudyBanner({ props }: { props: TStudyBanner[] }) {
           }}
           navigation={true}
           modules={[Pagination, Navigation]}
-          className="mySwiper"
         >
           {props.map((data) => {
             return (
               <SwiperSlide key={data.id}>
-                <Image key={data.id} src={data.src} width={375} height={194} />
+                <Image
+                  loading="eager" // 즉시 로드
+                  key={data.id}
+                  src={data.src}
+                  width={375}
+                  height={194}
+                  priority // Lazy Loading 해제
+                />
               </SwiperSlide>
             );
           })}

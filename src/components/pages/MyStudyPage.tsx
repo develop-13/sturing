@@ -9,12 +9,12 @@ import UpcomingStudies from "../templates/mystudy/UpcomingSchedules";
 import {
   UserStatusContext,
   UserStatusContextProps,
-} from "../organisms/auth-components/UserStatusProvider";
+} from "../../providers/UserStatusProvider";
 import { useRouter } from "next/navigation";
 import {
   ModalContextProps,
   ModalProviderContext,
-} from "../organisms/ModalProvider";
+} from "../../providers/ModalProvider";
 
 function MyStudyPage() {
   const router = useRouter();

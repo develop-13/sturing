@@ -1,4 +1,4 @@
-커밋사항: sidebar 없앰
+커밋사항: recommendPage에 이미지 최적화 priority, lazy loading 해제  적용
 
 
 -- 추후 MonthCalendarSchedule 랑 비교해서 공통로직 뺼 것

@@ -9,13 +9,13 @@ import IconLabelButton from "../molecules/IconLabelButton";
 import {
   UserStatusContext,
   UserStatusContextProps,
-} from "../organisms/auth-components/UserStatusProvider";
+} from "../../providers/UserStatusProvider";
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   ModalContextProps,
   ModalProviderContext,
-} from "../organisms/ModalProvider";
+} from "../../providers/ModalProvider";
 import SlideContentList from "../organisms/SlideContentList";
 import StudyBox from "../organisms/StudyBox";
 import {

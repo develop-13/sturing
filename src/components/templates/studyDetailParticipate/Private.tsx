@@ -6,7 +6,7 @@ import TodoListInfoBox from "@/components/organisms/infoBox/TodoListInfoBox";
 import {
   UserStatusContext,
   UserStatusContextProps,
-} from "@/components/organisms/auth-components/UserStatusProvider";
+} from "@/providers/UserStatusProvider";
 
 type TPrivate = {
   memberCheckLists: TJoiningStudy_Client["memberCheckLists"];

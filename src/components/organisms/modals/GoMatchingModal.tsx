@@ -1,14 +1,12 @@
 import React, { forwardRef } from "react";
-import Text from "../atoms/Text";
-import Box from "../atoms/Box";
+import Text from "../../atoms/Text";
+import Box from "../../atoms/Box";
 import Link from "next/link";
 
 const GoMatchingModal = forwardRef<HTMLDivElement, {}>(function GoMatchingModal(
   props,
   ref
 ) {
-  // const router = useRouter();
-
   return (
     <div
       ref={ref}

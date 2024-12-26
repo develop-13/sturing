@@ -15,7 +15,7 @@ import StudyBox from "../organisms/StudyBox";
 import { TStudyItem } from "@/types/study";
 import StudyBoxSkeleton from "../molecules/skeletonUI/StudyBoxSkeleton";
 import SortSelector from "../molecules/SortSelector";
-import { UserStatusContext } from "../organisms/auth-components/UserStatusProvider";
+import { UserStatusContext } from "../../providers/UserStatusProvider";
 
 // 상태값 두 개를 두어야 할 것 같음
 // 서버에서 가져온 검색어에 해당한 스터디 객체들의 배열

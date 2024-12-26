@@ -4,7 +4,7 @@ import ScheduleCreator from "@/components/organisms/ScheduleCreator";
 import {
   UserStatusContext,
   UserStatusContextProps,
-} from "@/components/organisms/auth-components/UserStatusProvider";
+} from "@/providers/UserStatusProvider";
 import MonthCalendarSchedule from "@/components/organisms/infoBox/CustomCalendar/MonthCalendarSchedule";
 import ScheduleViewerInfoBox from "@/components/organisms/infoBox/ScheduleViewerInfoBox";
 import { TJoiningStudy_Client, TSchedule } from "@/types/study";

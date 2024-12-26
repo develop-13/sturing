@@ -20,7 +20,7 @@ import {
   initialState,
   recruitmentReducer,
 } from "@/reducers/recruitmentReducer";
-import { UserStatusContext } from "../organisms/auth-components/UserStatusProvider";
+import { UserStatusContext } from "../../providers/UserStatusProvider";
 import Loading from "../templates/common/Loading";
 
 export type HandleStateChange<T> = <K extends keyof T>(

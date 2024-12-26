@@ -8,7 +8,7 @@ import { TStudyItem } from "@/types/study";
 import { ErrorBoundary } from "react-error-boundary";
 import Loading from "../common/Loading";
 import { createPortal } from "react-dom";
-import { UserStatusContext } from "@/components/organisms/auth-components/UserStatusProvider";
+import { UserStatusContext } from "@/providers/UserStatusProvider";
 import Text from "@/components/atoms/Text";
 
 type TCompleteTemplate = {

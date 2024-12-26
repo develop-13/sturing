@@ -22,7 +22,7 @@ import { setStudyOnLocalStorage } from "@/utils/localStorageFuncs";
 import {
   UserStatusContext,
   UserStatusContextProps,
-} from "../organisms/auth-components/UserStatusProvider";
+} from "../../providers/UserStatusProvider";
 import { TStatus } from "@/types/apply";
 
 const buttonGroupData = ["info", "member"];

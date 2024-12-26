@@ -3,7 +3,7 @@ import Text from "@/components/atoms/Text";
 import Button from "../Button";
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import LoginModal from "@/components/organisms/auth-components/LoginModal";
+import LoginModal from "@/components/organisms/modals/LoginModal";
 
 type TLoginButton = {
   upModal: boolean;

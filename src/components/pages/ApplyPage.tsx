@@ -22,7 +22,7 @@ import ApplyComplete from "../templates/apply/ApplyComplete";
 import {
   UserStatusContext,
   UserStatusContextProps,
-} from "../organisms/auth-components/UserStatusProvider";
+} from "../../providers/UserStatusProvider";
 
 function ApplyPage() {
   const router = useRouter();
