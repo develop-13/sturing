@@ -1,4 +1,6 @@
 "use client";
+import dynamic from "next/dynamic";
+
 import {
   useCallback,
   useContext,
@@ -16,22 +18,66 @@ import {
   TJoiningStudy_Server,
   TSchedule,
 } from "@/types/study";
-import { useParams, useRouter } from "next/navigation";
-import { TabButtonGroup } from "../organisms/ButtonGroup";
-import Team from "../templates/studyDetailParticipate/Team";
-import Private from "../templates/studyDetailParticipate/Private";
-import Schedule from "../templates/studyDetailParticipate/Schedule";
-import Feedback from "../templates/studyDetailParticipate/Feedback";
+// 동적 가져오기 + SSR 비활성화
+const TabButtonGroup = dynamic(
+  () => import("../organisms/ButtonGroup").then((mod) => mod.TabButtonGroup), // TabButtonGroup을 명시적으로 가져옴
+  { ssr: false }
+);
+
+const JoiningStudyTemplateSkeleton = () => (
+  <div className="w-full h-[280px] animate-pulse">
+    <div className="space-y-4 p-4">
+      <div className="h-[24px] bg-gray-200 rounded-md w-3/4" />
+      <div className="flex gap-2">
+        <div className="h-[32px] bg-gray-200 rounded-md w-1/4" />
+        <div className="h-[32px] bg-gray-200 rounded-md w-1/4" />
+      </div>
+      <div className="h-[48px] bg-gray-200 rounded-md" />
+    </div>
+  </div>
+);
+
+const Team = dynamic(() => import("../templates/studyDetailParticipate/Team"), {
+  loading: () => <JoiningStudyTemplateSkeleton />,
+  ssr: false,
+});
+
+const Private = dynamic(
+  () => import("../templates/studyDetailParticipate/Private"),
+  {
+    loading: () => <JoiningStudyTemplateSkeleton />,
+    ssr: false,
+  }
+);
+
+const Schedule = dynamic(
+  () => import("../templates/studyDetailParticipate/Schedule"),
+  {
+    loading: () => <JoiningStudyTemplateSkeleton />,
+    ssr: false,
+  }
+);
+
+const Feedback = dynamic(
+  () => import("../templates/studyDetailParticipate/Feedback"),
+  {
+    loading: () => <JoiningStudyTemplateSkeleton />,
+    ssr: false,
+  }
+);
 import Loading from "../templates/common/Loading";
 import {
   UserStatusContext,
   UserStatusContextProps,
 } from "../../providers/UserStatusProvider";
+import { useParams, useRouter } from "next/navigation";
 import {
   JoiningStudyReducer,
   initialState,
 } from "@/reducers/JoiningStudyReducer";
-import Button from "../molecules/Button";
+const Button = dynamic(() => import("../molecules/Button"), {
+  ssr: false,
+});
 import Text from "../atoms/Text";
 
 type TParticipationOptions = "team" | "private" | "schedule" | "feedback";
@@ -87,8 +133,6 @@ function JoiningStudyPage() {
 
     fetchStudy();
   }, [params.sid]); // params.sid가 변경될 때마다 다시 fetchStudy() 실행
-
-  console.log(JoiningStudy);
 
   const StudyOverviewProps = useMemo(() => {
     return {

@@ -1,10 +1,25 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Text from "../../atoms/Text";
 import { TabButtonGroup } from "../../organisms/ButtonGroup";
-import JoinedStudyViewer from "@/components/templates/mystudy/studyListViewer/JoinedStudyViewer";
-import WaitingAppliesViewer from "@/components/templates/mystudy/studyListViewer/WaitingAppliesViewer";
-import AcceptedAppliesViewer from "@/components/templates/mystudy/studyListViewer/AcceptedAppliesViewer";
-import FinishedStudiesViewer from "@/components/templates/mystudy/studyListViewer/FinishedStudiesViewer";
+import dynamic from "next/dynamic";
+
+const JoinedStudyViewer = dynamic(
+  () =>
+    import("@/components/templates/mystudy/studyListViewer/JoinedStudyViewer")
+);
+const WaitingAppliesViewer = dynamic(
+  () =>
+    import(
+      "@/components/templates/mystudy/studyListViewer/WaitingAppliesViewer"
+    )
+);
+const AcceptedAppliesViewer = dynamic(
+  () =>
+    import(
+      "@/components/templates/mystudy/studyListViewer/AcceptedAppliesViewer"
+    )
+);
+// import FinishedStudiesViewer from "@/components/templates/mystudy/studyListViewer/FinishedStudiesViewer";
 
 type TStudyList = {
   userEmail?: string;

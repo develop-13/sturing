@@ -19,7 +19,7 @@ import {
   initialState,
   createDispatchFuncs,
 } from "@/reducers/matchingReducer";
-import { TCategory, TLevel } from "@/types/common";
+import { TLevel } from "@/types/common";
 import { UserStatusContext } from "../../providers/UserStatusProvider";
 import { useStep } from "@/hooks/useStep";
 

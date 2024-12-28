@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Complete from "../common/Complete";
 import { TApplyState } from "@/reducers/ApplyReducer";
 import { useParams } from "next/navigation";
@@ -11,42 +11,48 @@ type TApplyComplete = {
 function ApplyComplete({ userEmail, state }: TApplyComplete) {
   const params = useParams();
   const { sid } = params;
+  const hasSubmitted = useRef(false);
 
   useEffect(() => {
-    // apply/[sid]/api로 apply 저장 요청 날림
-    async function submitApplication() {
+    if (hasSubmitted.current) return;
+
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    const submitApplication = async () => {
       try {
-        // [sid] 부분을 실제 studyId로 대체
         const response = await fetch(`/apply/${sid}/api`, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            // applicantImgSrc: applicantImgSrc,
-            applyInfo: state, // TApplyState 타입의 객체
-            userEmail: userEmail, // 유저 이메일
-            // userName: userName,
-          }),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ applyInfo: state, userEmail }),
+          signal,
         });
 
-        // 응답 처리
         if (response.ok) {
           const data = await response.json();
           console.log("Application submitted successfully:", data);
-          alert("Application submitted successfully:");
+          alert("지원서가 성공적으로 제출되었습니다.");
         } else {
           const errorData = await response.json();
           console.error("Application submission failed:", errorData);
-          alert("Application submission failed:");
+          alert(`지원서 제출 실패: ${errorData.message || "알 수 없는 오류"}`);
         }
       } catch (error) {
-        console.error("Error submitting application:", error);
+        if (error instanceof Error && error.name === "AbortError") {
+          console.log("요청이 중단되었습니다.");
+        } else {
+          console.error("지원서 제출 중 오류 발생:", error);
+        }
       }
-    }
+    };
 
     submitApplication();
-  });
+    hasSubmitted.current = true;
+
+    return () => {
+      controller.abort();
+    };
+  }, [sid, state, userEmail]);
 
   return (
     <Complete

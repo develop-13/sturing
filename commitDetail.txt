@@ -1,4 +1,9 @@
-커밋사항:  abortController 적용
+커밋사항:  
+
+ApplyComplete 컴포넌트 수정 -- abortController 적용, hasSubmitted 적용
+JoiningStudyPage 컴포넌트 수정 -- 동적 가져오기 적용
+ApplyPage 컴포넌트 수정 -- 동적 가져오기 적용
+
 
 -- 추후 MonthCalendarSchedule 랑 비교해서 공통로직 뺼 것
 

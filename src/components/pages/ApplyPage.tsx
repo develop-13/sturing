@@ -11,14 +11,30 @@ import Button from "../molecules/Button";
 import Text from "../atoms/Text";
 import { useRouter } from "next/navigation";
 import Progressbar from "../atoms/Progressbar";
-import ApplyText from "../templates/apply/ApplyText";
-import RoleSelectTemp from "../templates/apply/RoleSelectTemp";
+import dynamic from "next/dynamic";
+
+const ApplyText = dynamic(() => import("../templates/apply/ApplyText"), {
+  ssr: false,
+});
+
+const RoleSelectTemp = dynamic(
+  () => import("../templates/apply/RoleSelectTemp"),
+  {
+    ssr: false,
+  }
+);
+
+const ApplyComplete = dynamic(
+  () => import("../templates/apply/ApplyComplete"),
+  {
+    ssr: false,
+  }
+);
 import {
   ApplyReducer,
   TApplyState,
   initialState,
 } from "@/reducers/ApplyReducer";
-import ApplyComplete from "../templates/apply/ApplyComplete";
 import {
   UserStatusContext,
   UserStatusContextProps,

@@ -4,7 +4,10 @@ import React, { useEffect, useRef, useState } from "react";
 import InfoBox from "./InfoBox";
 import Text from "@/components/atoms/Text";
 import { v4 } from "uuid";
-import CheckListItem from "@/components/molecules/CheckItem/CheckListItem";
+const CheckListItem = dynamic(
+  () => import("@/components/molecules/CheckItem/CheckListItem"),
+  { ssr: false }
+);
 import Icon from "@/components/atoms/Icon";
 import {
   postTodo,
@@ -12,6 +15,7 @@ import {
   deleteTodo as deleteTodo_server,
 } from "@/app/joiningStudy/utils/api";
 import Button from "@/components/molecules/Button";
+import dynamic from "next/dynamic";
 
 type TTodoListInfoBox = {
   todoList: TCheckListItem[];

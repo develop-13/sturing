@@ -5,8 +5,9 @@ import Divider from "@/components/atoms/Divider";
 import Button from "@/components/molecules/Button";
 import Icon from "@/components/atoms/Icon";
 import { createPortal } from "react-dom";
-import BoardEditor from "../BoardEditor";
+const BoardEditor = dynamic(() => import("../BoardEditor"), { ssr: false });
 import { TBoard_Server, TJoiningStudy_Client } from "@/types/study";
+import dynamic from "next/dynamic";
 
 type TBoardBox = {
   studyId: string;

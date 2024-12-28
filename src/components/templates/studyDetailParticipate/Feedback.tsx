@@ -1,5 +1,17 @@
-import NoticeBoardItem from "@/components/molecules/NoticeBoardItem";
-import StudyBoardItem from "@/components/molecules/StudyBoardItem";
+import dynamic from "next/dynamic";
+
+const NoticeBoardItem = dynamic(
+  () => import("@/components/molecules/NoticeBoardItem"),
+  {
+    ssr: false,
+  }
+);
+const StudyBoardItem = dynamic(
+  () => import("@/components/molecules/StudyBoardItem"),
+  {
+    ssr: false,
+  }
+);
 import BoardBox from "@/components/organisms/infoBox/BoardBox";
 import {
   TBoard_Client,

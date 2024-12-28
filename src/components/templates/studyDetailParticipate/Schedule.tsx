@@ -1,6 +1,10 @@
+import dynamic from "next/dynamic";
 import Text from "@/components/atoms/Text";
 import Button from "@/components/molecules/Button";
-import ScheduleCreator from "@/components/organisms/ScheduleCreator";
+const ScheduleCreator = dynamic(
+  () => import("@/components/organisms/ScheduleCreator"),
+  { ssr: false }
+);
 import {
   UserStatusContext,
   UserStatusContextProps,
@@ -74,8 +78,6 @@ const addServerSchedule = async (
     console.error("서버 요청 중 오류 발생:", error);
   }
 };
-const patchServerSchedule = async () => {};
-
 // schedules에서 today의 schedule을 골라줘
 export const getTodaySchedule = (
   schedules: TSchedule[],

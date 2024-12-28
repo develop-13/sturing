@@ -10,7 +10,9 @@ import Button from "@/components/molecules/Button";
 import { formatDate } from "@/utils/formatDate";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import ApplyReadOnly from "../ApplyReadOnly";
+import dynamic from "next/dynamic";
+
+const ApplyReadOnly = dynamic(() => import("../ApplyReadOnly"), { ssr: false });
 
 function WaitingAppliesViewer({ userEmail }: { userEmail: string }) {
   const [applyData, setApplyData] = useState<TApply[]>([]);

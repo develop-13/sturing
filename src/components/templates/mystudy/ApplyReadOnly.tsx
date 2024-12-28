@@ -1,12 +1,14 @@
 "use client";
 import React, { forwardRef, useEffect, useRef, useState } from "react";
-import ApplyTextReadOnly from "./ApplyTextReadOnly";
+import dynamic from "next/dynamic";
+const ApplyTextReadOnly = dynamic(() => import("./ApplyTextReadOnly"), {
+  ssr: false,
+});
 import RoleViewer from "./RoleViewer";
 import { TApply } from "@/types/apply";
 import Button from "@/components/molecules/Button";
 import Text from "@/components/atoms/Text";
 import { TRoleText } from "@/types/common";
-import { v4 } from "uuid";
 import { useStep } from "@/hooks/useStep";
 
 // type TApplyReadOnly = { applyData: TApply };

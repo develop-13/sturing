@@ -13,7 +13,10 @@ import {
   TStudyMember,
 } from "@/types/study";
 import { getBlobStringAdapter } from "@/adapters/adapters";
-import ImageItem from "../molecules/ImageItem";
+import dynamic from "next/dynamic";
+const ImageItem = dynamic(() => import("../molecules/ImageItem"), {
+  ssr: false,
+});
 
 type TBoardEditor = {
   studyId: string;
