@@ -123,7 +123,7 @@ function RecommendPage() {
     if (status === "authenticated" && userCreated && hasMatchingInfo) {
       // 로그인 했고 이미 매칭 정보도 정한 경우 맞춤 스터디를 추천해줌
       getStudies("userMatching");
-    } else if (status === "unauthenticated" && !hasMatchingInfo) {
+    } else {
       // 로그인을 하지 않았거나, 로그인 하더라도 매칭 정보가 없는 경우 공통 스터디를 가져옴
       getStudies("common");
     }
