@@ -74,6 +74,12 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+
+  pages: {
+    signIn: "/", // 커스터마이징된 signIn 페이지 경로
+    error: "/", // 에러 발생 시 이동할 경로
+  },
+
   // strategy: "jwt", // 세션을 JWT로 저장 (기본값은 'database'가 아닌 'jwt'가 추천됨)
 
   session: {
