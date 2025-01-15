@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true", // ANALYZE 환경 변수가 'true'일 때만 활성화
+});
+
 const nextConfig = {
   reactStrictMode: false,
   webpack: (config, { isServer }) => {
@@ -42,4 +46,5 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+// BundleAnalyzer 적용
+module.exports = withBundleAnalyzer(nextConfig);

@@ -6,6 +6,7 @@ import { UserStatusProvider } from "@/providers/UserStatusProvider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./utils/authOptions";
 import ModalProvider from "@/providers/ModalProvider";
+// import Head from "next/head";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,6 +17,10 @@ const roboto = Roboto({
   subsets: ["latin"],
 });
 
+const getBannerImages = () => {
+  return;
+};
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -25,6 +30,15 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      {/* <Head>
+        <link
+          rel="preload"
+          href="/fonts/my-font.woff2"
+          as="font"
+          type="font/woff2"
+        />
+        <link rel="preload" href="/images/hero-image.jpg" as="image" />
+      </Head> */}
       <body className="flex justify-center">
         <div
           id="rootLayout"
