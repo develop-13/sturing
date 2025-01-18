@@ -104,7 +104,7 @@ function Schedule({
   handleUpdateSchedules,
   studyId,
 }: TScheduleSection) {
-  const { session, status }: UserStatusContextProps =
+  const { session, isLoggedIn }: UserStatusContextProps =
     useContext(UserStatusContext);
 
   const myUserEmail = session?.user.email || "none";
