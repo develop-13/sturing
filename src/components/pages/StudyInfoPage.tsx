@@ -1,8 +1,8 @@
 "use client";
 import { v4 as uuidv4 } from "uuid";
 import { useParams, useRouter } from "next/navigation";
-import { useContext, useEffect, useRef, useState } from "react";
-import Divider from "../atoms/Divider";
+import { useRef, useState } from "react";
+
 import Icon from "../atoms/Icon";
 import Text from "../atoms/Text";
 import Button from "../molecules/Button";
@@ -13,17 +13,22 @@ import StudyOverview from "../organisms/StudyOverview";
 import Header from "../organisms/Header";
 import { TStudyDetail, TStudyMember } from "@/types/study";
 import TitleLink from "../molecules/TitleLink";
-import ButtonLabel from "../molecules/IconLabelButton";
-import UserInfoItem from "../molecules/UserInfoItem";
-import Link from "next/link";
 import getTranslation from "@/utils/getTranslation";
-import Loading from "../templates/common/Loading";
-import { setStudyOnLocalStorage } from "@/utils/localStorageFuncs";
-import {
-  UserStatusContext,
-  UserStatusContextProps,
-} from "../../providers/UserStatusProvider";
 import { TStatus } from "@/types/apply";
+import Link from "next/link";
+import dynamic from "next/dynamic";
+const Divider = dynamic(() => import("../atoms/Divider"), {
+  ssr: false,
+  loading: () => <></>, // Loading 상태일 때 비어있는 React Fragment 반환
+});
+const ButtonLabel = dynamic(() => import("../molecules/IconLabelButton"), {
+  ssr: false,
+  loading: () => <></>, // Loading 상태일 때 비어있는 React Fragment 반환
+});
+const UserInfoItem = dynamic(() => import("../molecules/UserInfoItem"), {
+  ssr: false,
+  loading: () => <></>, // Loading 상태일 때 비어있는 React Fragment 반환
+});
 
 const buttonGroupData = ["info", "member"];
 
@@ -58,40 +63,23 @@ const getSignUpButton = (status: TStatus, sid: string) => {
   }
 };
 
-function StudyInfoPage() {
-  const { session }: UserStatusContextProps = useContext(UserStatusContext);
+function StudyInfoPage({
+  studyInfo,
+  status,
+}: {
+  studyInfo: TStudyDetail;
+  status: TStatus;
+}) {
+  // const { session }: UserStatusContextProps = useContext(UserStatusContext);
 
   const router = useRouter();
   const params = useParams<{ sid: string }>();
   const [selectedIdx, setSelected] = useState(0);
-  const [studyInfo, setStudyInfo] = useState<TStudyDetail | null>(null);
+  // const [studyInfo, setStudyInfo] = useState<TStudyDetail | null>(null);
   const boxRef = {
     info: useRef<HTMLDivElement>(null),
     member: useRef<HTMLDivElement>(null),
   };
-
-  console.log(studyInfo);
-
-  const statusRef = useRef<TStatus>("notApplied");
-  useEffect(() => {
-    // 스터디를 가져옴
-
-    async function fetchstudyInfo() {
-      const data = await fetch(
-        `/study/${params.sid}/api?userEmail=${session?.user.email}`
-      ).then((res) => res.json());
-
-      const { study, status } = data;
-      setStudyInfo(study);
-
-      if (session?.user) {
-        setStudyOnLocalStorage(study); // 스터디를 가져오면서 로컬에 저장
-      }
-
-      statusRef.current = status;
-    }
-    fetchstudyInfo();
-  }, [params.sid]);
 
   const onClickBtn = (selectedOptionIdx: number) => {
     setSelected(selectedOptionIdx);
@@ -103,8 +91,6 @@ function StudyInfoPage() {
       targetElement.scrollIntoView({ behavior: "smooth" });
     }
   };
-
-  if (!studyInfo) return <Loading />;
 
   return (
     <div className="bg-gray-100">
@@ -277,7 +263,7 @@ function StudyInfoPage() {
             ))}
           </div>
         </InfoBox>
-        {getSignUpButton(statusRef.current, params.sid)}
+        {getSignUpButton(status, params.sid)}
       </section>
     </div>
   );

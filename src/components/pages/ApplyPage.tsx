@@ -1,11 +1,5 @@
 "use client";
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
+import React, { useCallback, useContext, useReducer } from "react";
 import Header from "../organisms/Header";
 import Button from "../molecules/Button";
 import Text from "../atoms/Text";

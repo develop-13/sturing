@@ -3,8 +3,6 @@ import Header from "../organisms/Header";
 import Icon from "../atoms/Icon";
 import { NavButtonGroup } from "../organisms/ButtonGroup";
 import StudyBanner from "../organisms/StudyBanner";
-import Divider from "../atoms/Divider";
-import { studyBanners } from "@/db/studyBanners";
 import React, { useContext } from "react";
 import { TStudyItem } from "@/types/study";
 import {
@@ -21,6 +19,10 @@ import CommonStudies from "../organisms/CommonStudies";
 import Searchbar from "../molecules/Searchbar";
 import StudyCategory from "../organisms/StudyCategory";
 
+const Divider = dynamic(() => import("../atoms/Divider"), {
+  ssr: false,
+  loading: () => <></>, // Loading 상태일 때 비어있는 React Fragment 반환
+});
 const LoginButton = dynamic(
   () => import("../molecules/auth-components/LoginButton"),
   {
@@ -126,7 +128,6 @@ function RecommendPage({
         </SlideContentList>
 
         <Divider type="row" py={4} color="bg-gray-300" />
-
         {userFromServer && isLoggedIn && hasMatchingInfo ? (
           <UserStudies
             userName={session?.user.name as string}
