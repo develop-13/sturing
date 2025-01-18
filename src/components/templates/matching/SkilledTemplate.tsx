@@ -1,6 +1,6 @@
 import MatchingTitle from "@/components/molecules/MatchingTitle";
 import { TabButtonGroup } from "@/components/organisms/ButtonGroup";
-import { TMatchingState, TDispatchFuncs } from "@/reducers/matchingReducer";
+import { TMatchingState, TDispatchFuncs } from "@/states/matchingReducer";
 import { useState } from "react";
 import OptionButtonContainer from "@/components/organisms/OptionButtonContainer";
 import { TLevel } from "@/types/common";

@@ -1,6 +1,6 @@
 import Icon from "@/components/atoms/Icon";
 import Text from "@/components/atoms/Text";
-import { TStudyRecruitmentReducer } from "@/reducers/recruitmentReducer";
+import { TStudyRecruitmentReducer } from "@/states/recruitmentReducer";
 import { getBlobStringAdapter } from "@/adapters/adapters";
 import React from "react";
 

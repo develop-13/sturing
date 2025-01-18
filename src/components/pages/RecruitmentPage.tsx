@@ -16,10 +16,7 @@ import StudyDetail from "../templates/recruitment/StudyDetail";
 import MemberPreference from "../templates/recruitment/MemberPreference";
 import Complete from "../templates/recruitment/RecruitmentComplete";
 import { TStudyRecruitment } from "@/types/study";
-import {
-  initialState,
-  recruitmentReducer,
-} from "@/reducers/recruitmentReducer";
+import { initialState, recruitmentReducer } from "@/states/recruitmentReducer";
 import { UserStatusContext } from "../../providers/UserStatusProvider";
 import Loading from "../templates/common/Loading";
 

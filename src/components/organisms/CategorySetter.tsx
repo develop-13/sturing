@@ -1,4 +1,4 @@
-import { TDispatchFuncs, TFilterState } from "@/reducers/filterReducer";
+import { TDispatchFuncs, TFilterState } from "@/states/filterReducer";
 import CheckBoxItem from "../molecules/CheckItem/CheckBoxItem";
 import { TCategory } from "@/types/common";
 

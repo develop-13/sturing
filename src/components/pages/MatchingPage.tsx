@@ -18,7 +18,7 @@ import {
   TMatchingState,
   initialState,
   createDispatchFuncs,
-} from "@/reducers/matchingReducer";
+} from "@/states/matchingReducer";
 import { TLevel } from "@/types/common";
 import { UserStatusContext } from "../../providers/UserStatusProvider";
 import { useStep } from "@/hooks/useStep";

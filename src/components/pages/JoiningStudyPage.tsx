@@ -74,7 +74,7 @@ import { useParams, useRouter } from "next/navigation";
 import {
   JoiningStudyReducer,
   initialState,
-} from "@/reducers/JoiningStudyReducer";
+} from "@/states/JoiningStudyReducer";
 const Button = dynamic(() => import("../molecules/Button"), {
   ssr: false,
 });

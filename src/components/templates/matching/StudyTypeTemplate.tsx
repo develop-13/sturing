@@ -1,5 +1,5 @@
 import MatchingTitle from "@/components/molecules/MatchingTitle";
-import { TMatchingState, TDispatchFuncs } from "@/reducers/matchingReducer";
+import { TMatchingState, TDispatchFuncs } from "@/states/matchingReducer";
 import { CheckBarButton } from "@/components/molecules/IconLabelButton";
 import Text from "@/components/atoms/Text";
 

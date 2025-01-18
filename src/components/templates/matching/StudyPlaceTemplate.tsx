@@ -1,6 +1,6 @@
 import React from "react";
 import MatchingTitle from "@/components/molecules/MatchingTitle";
-import { TMatchingState, TDispatchFuncs } from "@/reducers/matchingReducer";
+import { TMatchingState, TDispatchFuncs } from "@/states/matchingReducer";
 import LocationSetter from "@/components/organisms/LocationSetter";
 
 // 유지보수하기 힘들어졌다.. 액션 하나 추가할때 마다 고쳐야 할 부분이 상당함..

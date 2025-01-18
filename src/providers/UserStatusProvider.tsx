@@ -3,7 +3,6 @@
 import React, { createContext, useEffect, useCallback, useState } from "react";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
-import Loading from "@/components/templates/common/Loading";
 
 export type UserStatusContextProps = {
   session?: Session | null;
@@ -82,11 +81,6 @@ export const UserStatusProvider = ({
       });
     }
   }, [session?.user]);
-
-  if (session === undefined && status === "loading") {
-    // 세션 정보를 가져오는 중(새로고침 할 때)
-    return <Loading />;
-  }
 
   return (
     <UserStatusContext.Provider

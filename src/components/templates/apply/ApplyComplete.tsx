@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Complete from "../common/Complete";
-import { TApplyState } from "@/reducers/ApplyReducer";
+import { TApplyState } from "@/states/ApplyReducer";
 import { useParams } from "next/navigation";
 
 type TApplyComplete = {

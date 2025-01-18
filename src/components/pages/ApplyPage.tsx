@@ -30,11 +30,7 @@ const ApplyComplete = dynamic(
     ssr: false,
   }
 );
-import {
-  ApplyReducer,
-  TApplyState,
-  initialState,
-} from "@/reducers/ApplyReducer";
+import { ApplyReducer, TApplyState, initialState } from "@/states/ApplyReducer";
 import {
   UserStatusContext,
   UserStatusContextProps,

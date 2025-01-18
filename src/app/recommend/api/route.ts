@@ -9,6 +9,7 @@ import User from "@/models/User";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request, res: NextResponse) {
+  console.log("recommend api 호출");
   await dbConnect();
 
   const { searchParams } = new URL(request.url);
@@ -32,6 +33,8 @@ export async function GET(request: Request, res: NextResponse) {
     // 사용자 맞춤형 스터디를 가져옴 (관심 스터디와 주변 스터디)
 
     const existingUser = await User.findOne({ email: email });
+
+    console.log("야 왜 안되냐");
 
     if (!existingUser) {
       return NextResponse.json(

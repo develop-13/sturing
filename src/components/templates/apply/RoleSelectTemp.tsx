@@ -1,7 +1,7 @@
 import Text from "@/components/atoms/Text";
 import RoleSetter from "@/components/organisms/recruitmentComponents/RoleSetter";
 import { HandleStateChange } from "@/components/pages/RecruitmentPage";
-import { TApplyState } from "@/reducers/ApplyReducer";
+import { TApplyState } from "@/states/ApplyReducer";
 import { TRoleText } from "@/types/common";
 import { useCallback } from "react";
 

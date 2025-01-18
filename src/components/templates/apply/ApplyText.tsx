@@ -2,7 +2,7 @@ import Text from "@/components/atoms/Text";
 import TextSetter from "@/components/organisms/recruitmentComponents/TextSetter";
 import TitleSetter from "@/components/organisms/recruitmentComponents/TitleSetter";
 import { HandleStateChange } from "@/components/pages/RecruitmentPage";
-import { TApplyState } from "@/reducers/ApplyReducer";
+import { TApplyState } from "@/states/ApplyReducer";
 import { useCallback } from "react";
 
 type TApplyText = {

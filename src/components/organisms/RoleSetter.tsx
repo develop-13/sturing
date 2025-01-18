@@ -1,6 +1,6 @@
 import { TRoleItem, roleData } from "@/db/roles";
 import { CheckBarButton } from "../molecules/IconLabelButton";
-import { TDispatchFuncs, TFilterState } from "@/reducers/filterReducer";
+import { TDispatchFuncs, TFilterState } from "@/states/filterReducer";
 
 function RoleSetter({
   selectedRoles,

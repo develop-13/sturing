@@ -2,7 +2,7 @@
 import IconLabelButton from "@/components/molecules/IconLabelButton";
 import MatchingTitle from "../../molecules/MatchingTitle";
 import Icon from "@/components/atoms/Icon";
-import { TMatchingState, TDispatchFuncs } from "@/reducers/matchingReducer";
+import { TMatchingState, TDispatchFuncs } from "@/states/matchingReducer";
 import { categories } from "@/db/categories";
 import { iconAdapter } from "@/adapters/adapters";
 

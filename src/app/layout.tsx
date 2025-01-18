@@ -6,7 +6,8 @@ import { UserStatusProvider } from "@/providers/UserStatusProvider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./utils/authOptions";
 import ModalProvider from "@/providers/ModalProvider";
-// import Head from "next/head";
+import Head from "next/head";
+import RecoilProvider from "@/providers/RecoilProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -33,11 +34,11 @@ export default async function RootLayout({
       {/* <Head>
         <link
           rel="preload"
-          href="/fonts/my-font.woff2"
-          as="font"
-          type="font/woff2"
+          href="/globals.css"
+          as="style"
+          type="text/css"
+          crossOrigin="anonymous"
         />
-        <link rel="preload" href="/images/hero-image.jpg" as="image" />
       </Head> */}
       <body className="flex justify-center">
         <div
@@ -47,9 +48,11 @@ export default async function RootLayout({
           }
         >
           <AuthWrapper session={session}>
-            <UserStatusProvider>
+            <RecoilProvider>
+              {/* <UserStatusProvider> */}
               <ModalProvider>{children}</ModalProvider>
-            </UserStatusProvider>
+              {/* </UserStatusProvider> */}
+            </RecoilProvider>
           </AuthWrapper>
         </div>
       </body>

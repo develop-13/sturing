@@ -7,12 +7,12 @@ import Divider from "../atoms/Divider";
 import { studyBanners } from "@/db/studyBanners";
 import React, { useContext, useEffect, useState } from "react";
 import { TStudyItem } from "@/types/study";
+import CommonStudies from "../organisms/CommonStudies";
 import StudyBoxSkeleton from "../molecules/skeletonUI/StudyBoxSkeleton";
 import {
   UserStatusContext,
   UserStatusContextProps,
 } from "../../providers/UserStatusProvider";
-import Loading from "../templates/common/Loading";
 import {
   ModalContextProps,
   ModalProviderContext,
@@ -20,6 +20,11 @@ import {
 import Text from "../atoms/Text";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
+import { useSession } from "next-auth/react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { sessionUserState } from "@/states/atoms";
+import { userStatusSelector } from "@/states/selectors";
+import UserStudies from "../organisms/UserStudies";
 
 const LoginButton = dynamic(
   () => import("../molecules/auth-components/LoginButton"),
@@ -61,81 +66,64 @@ const StudyCategory = dynamic(() => import("../organisms/StudyCategory"), {
 });
 
 // 추후에 srp 에 맞게 리팩토링할 것
-function RecommendPage() {
-  const {
-    session,
-    status,
-    userCreated,
-    hasMatchingInfo,
-  }: UserStatusContextProps = useContext(UserStatusContext);
+function RecommendPage({
+  popularStudies,
+  newStudies,
+  user,
+}: {
+  popularStudies: TStudyItem[];
+  newStudies: TStudyItem[];
+  user: any;
+}) {
+  console.log(popularStudies);
+  console.log(newStudies);
+  console.log(user);
+
+  // const {
+  //   session,
+  //   status,
+  //   userCreated,
+  //   hasMatchingInfo,
+  // }: UserStatusContextProps = useContext(UserStatusContext);
+
+  const { data: session, status } = useSession();
+
+  // const session = { user: { name: "g", email: "" } };
 
   const modalInfo: ModalContextProps = useContext(ModalProviderContext);
   const { upModal, openModal, closeModal } = modalInfo;
   const isLoggedIn = !!session?.user;
   const router = useRouter();
 
-  const [studies, setStudies] = useState({
-    firstStudies: [],
-    secondStudies: [],
-  });
+  const setSessionUser = useSetRecoilState(sessionUserState); // Atom 업데이트 함수
+  const userStatus = useRecoilValue(userStatusSelector); // Selector 값 읽기
+  // console.log(userStatus);
+  //selector에 등록한 비동기 함수가 실행되고 그 함수에서 반환된 값이 userStatus에 저장
+  // 여기서는 userCreated, hasMatchingInfo가 될듯
 
-  const [isFetchingStudies, setIsFetchingStudies] = useState(false);
+  console.log();
 
-  let studyPlaceHolder =
-    status === "authenticated" && userCreated && hasMatchingInfo
-      ? {
-          firstStudies: `${session?.user.name}님을 위한 스터디`,
-          secondStudies: `내 주변에 새로 개설된 스터디`,
-        }
-      : {
-          firstStudies: "인기 스터디 ",
-          secondStudies: `새로 개설된 스터디`,
-        };
+  const { hasMatchingInfo } = userStatus;
+  // const hasMatchingInfo = false;
+  // 여기까지 존재하고 useEffect 없었을 때는 랜더링 3번됨
+  // 1.초기랜더링 2.useSession때문에 1번, userStatus때문에 한 번
 
+  // 세션 데이터를 Atom에 저장
   useEffect(() => {
-    const controller = new AbortController(); // AbortController 생성
-    const signal = controller.signal; // AbortController의 signal 가져오기
-
-    async function getStudies(studyType: "common" | "userMatching") {
-      try {
-        setIsFetchingStudies(true);
-        const fetchedStudies = await fetch(
-          `recommend/api?studyType=${studyType}&userEmail=${session?.user.email}`,
-          { signal } // fetch에 signal 추가
-        ).then((res) => res.json());
-
-        const { firstStudies, secondStudies } = fetchedStudies;
-        setStudies({
-          firstStudies: firstStudies,
-          secondStudies: secondStudies,
-        });
-      } catch (err) {
-        if (err instanceof Error && err.name === "AbortError") {
-          console.log("Fetch aborted");
-        } else {
-          console.error("Fetch error:", err);
-        }
-      } finally {
-        setIsFetchingStudies(false);
-      }
-    }
-
-    if (status === "authenticated" && userCreated && hasMatchingInfo) {
-      // 로그인 했고 이미 매칭 정보도 정한 경우 맞춤 스터디를 추천해줌
-      getStudies("userMatching");
+    if (session?.user) {
+      setSessionUser({
+        image: session.user.image,
+        name: session.user.name,
+        email: session.user.email,
+      });
     } else {
-      // 로그인을 하지 않았거나, 로그인 하더라도 매칭 정보가 없는 경우 공통 스터디를 가져옴
-      getStudies("common");
+      setSessionUser({
+        image: null,
+        name: null,
+        email: null,
+      });
     }
-
-    return () => {
-      controller.abort(); // 컴포넌트 언마운트 또는 의존성 변경 시 fetch 요청 취소
-    };
-  }, [userCreated, hasMatchingInfo, status, session?.user.email]);
-
-  if (status == "loading") {
-    return <Loading />;
-  }
+  }, [isLoggedIn]);
 
   return (
     <div id="recommendPage" className="flex flex-col overflow-hidden">
@@ -165,7 +153,7 @@ function RecommendPage() {
       />
       <div>
         <StudyBanner props={studyBanners} />
-        {userCreated && !hasMatchingInfo && <GoMatchingPage />}
+        {/* {userCreated && !hasMatchingInfo && <GoMatchingPage />} */}
       </div>
       <div className="flex flex-col gap-5 py-5 px-4">
         <Searchbar
@@ -182,51 +170,23 @@ function RecommendPage() {
           <StudyCategory />
         </SlideContentList>
         <Divider type="row" py={4} color="bg-gray-300" />
-        <SlideContentList
-          title={studyPlaceHolder.firstStudies}
-          hasArrow={true}
-          className="text-lg"
-        >
-          <div className="mx-auto flex flex-row gap-2 pl-4 h-[250px] justify-center">
-            {isFetchingStudies ? (
-              Array(3)
-                .fill(null)
-                .map((_, index) => <StudyBoxSkeleton key={index} />)
-            ) : studies.firstStudies.length ? (
-              studies.firstStudies.map((study: TStudyItem) => (
-                <StudyBox props={study} key={study.createdAt} />
-              ))
-            ) : (
-              <div className="flex flex-row gap-2 h-[250px] w-full justify-center items-center">
-                <Text weight="bold" size="base" color="gray-600">
-                  해당되는 스터디가 없습니다.
-                </Text>
-              </div>
-            )}
-          </div>
-        </SlideContentList>
-        <SlideContentList
-          title={studyPlaceHolder.secondStudies}
-          hasArrow={true}
-        >
-          <div className="mx-auto flex flex-row gap-2 h-[250px] justify-center">
-            {isFetchingStudies ? (
-              Array(3)
-                .fill(null)
-                .map((_, index) => <StudyBoxSkeleton key={index} />)
-            ) : studies.secondStudies.length ? (
-              studies.secondStudies.map((study: TStudyItem) => (
-                <StudyBox props={study} key={study._id} />
-              ))
-            ) : (
-              <div className="flex flex-row gap-2 h-[250px] w-full justify-center items-center">
-                <Text weight="bold" size="base" color="gray-600">
-                  해당되는 스터디가 없습니다.
-                </Text>
-              </div>
-            )}
-          </div>
-        </SlideContentList>
+        {/* {!isLoggedIn && (
+          <CommonStudies
+            popularStudies={popularStudies}
+            newStudies={newStudies}
+          />
+        )} */}
+        {isLoggedIn && hasMatchingInfo ? (
+          <UserStudies
+            userName={session?.user.name}
+            userEmail={session?.user.email}
+          />
+        ) : (
+          <CommonStudies
+            popularStudies={popularStudies}
+            newStudies={newStudies}
+          />
+        )}
       </div>
       <IconLabelButton
         datas={{

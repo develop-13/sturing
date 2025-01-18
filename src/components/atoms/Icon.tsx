@@ -1,7 +1,14 @@
 "use client";
+
+import dynamic from "next/dynamic";
 import React from "react";
 import Image from "@/components/atoms/Image";
-import { IoCheckmark } from "react-icons/io5";
+const IoCheckmark = dynamic(
+  () => import("react-icons/io5").then((mod) => mod.IoCheckmark),
+  {
+    ssr: false, // 서버 측 렌더링을 비활성화하여 클라이언트 측에서만 로드되게 함
+  }
+);
 import { useRouter } from "next/navigation";
 
 export type TIconData = {

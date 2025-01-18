@@ -2,7 +2,7 @@ import Icon from "@/components/atoms/Icon";
 import IconLabelButton from "@/components/molecules/IconLabelButton";
 import MatchingTitle from "@/components/molecules/MatchingTitle";
 import React from "react";
-import { TMatchingState, TDispatchFuncs } from "@/reducers/matchingReducer";
+import { TMatchingState, TDispatchFuncs } from "@/states/matchingReducer";
 import { atmosphereData } from "@/db/atmospheres";
 import { iconAdapter } from "@/adapters/adapters";
 

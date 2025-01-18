@@ -8,7 +8,7 @@ import {
   createDispatchFuncs,
   TDispatchFuncs,
   TFilterState,
-} from "@/reducers/filterReducer";
+} from "@/states/filterReducer";
 import CategorySetter from "@/components/organisms/CategorySetter";
 import NumberSetter from "@/components/organisms/NumberSetter";
 import LocationSetter from "@/components/organisms/LocationSetter";

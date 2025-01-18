@@ -2,7 +2,7 @@ import Icon from "@/components/atoms/Icon";
 import TitleLink from "@/components/molecules/TitleLink";
 import MatchingTitle from "@/components/molecules/MatchingTitle";
 import StudyBox from "@/components/organisms/StudyBox";
-import { TMatchingState } from "@/reducers/matchingReducer";
+import { TMatchingState } from "@/states/matchingReducer";
 import { useContext, useEffect, useState } from "react";
 import { TStudyItem } from "@/types/study";
 import { ErrorBoundary } from "react-error-boundary";
