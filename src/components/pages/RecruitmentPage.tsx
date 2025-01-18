@@ -19,6 +19,7 @@ import { TStudyRecruitment } from "@/types/study";
 import { initialState, recruitmentReducer } from "@/states/recruitmentReducer";
 import { UserStatusContext } from "../../providers/UserStatusProvider";
 import Loading from "../templates/common/Loading";
+import useLoginCheck from "@/hooks/useLoginCheck";
 
 export type HandleStateChange<T> = <K extends keyof T>(
   field: K,
@@ -27,7 +28,7 @@ export type HandleStateChange<T> = <K extends keyof T>(
 
 function RecruitmentPage() {
   const [studyData, dispatch] = useReducer(recruitmentReducer, initialState);
-  const { session, status } = useContext(UserStatusContext);
+  const { session } = useContext(UserStatusContext);
   const router = useRouter();
 
   const [step, setStep] = useState(0);
@@ -41,13 +42,7 @@ function RecruitmentPage() {
     },
     [dispatch]
   );
-
-  useEffect(() => {
-    if (session === null && status === "unauthenticated") {
-      alert("로그인이 필요한 페이지 입니다");
-      router.push("/");
-    }
-  }, [session, status, router]);
+  useLoginCheck();
 
   useEffect(() => {
     if (session?.user) {

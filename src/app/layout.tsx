@@ -6,8 +6,6 @@ import { UserStatusProvider } from "@/providers/UserStatusProvider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./utils/authOptions";
 import ModalProvider from "@/providers/ModalProvider";
-import Head from "next/head";
-import RecoilProvider from "@/providers/RecoilProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,10 +15,6 @@ const roboto = Roboto({
   weight: "400",
   subsets: ["latin"],
 });
-
-const getBannerImages = () => {
-  return;
-};
 
 export default async function RootLayout({
   children,
@@ -40,19 +34,18 @@ export default async function RootLayout({
           crossOrigin="anonymous"
         />
       </Head> */}
-      <body className="flex justify-center">
+      <body className="flex justify-center ">
         <div
           id="rootLayout"
           className={
-            `relative w-[375px] h-auto overflow-x-hidden ` + roboto.className
+            `scrollbar-hide relative w-[375px] h-auto overflow-x-hidden ` +
+            roboto.className
           }
         >
           <AuthWrapper session={session}>
-            <RecoilProvider>
-              {/* <UserStatusProvider> */}
+            <UserStatusProvider>
               <ModalProvider>{children}</ModalProvider>
-              {/* </UserStatusProvider> */}
-            </RecoilProvider>
+            </UserStatusProvider>
           </AuthWrapper>
         </div>
       </body>

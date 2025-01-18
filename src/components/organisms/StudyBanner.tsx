@@ -6,8 +6,15 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
+import React from "react";
 
-export default function StudyBanner({ props }: { props: TStudyBanner[] }) {
+export default function StudyBanner({
+  bannerImages,
+}: {
+  bannerImages: React.ReactNode[];
+}) {
+  console.log(bannerImages);
+
   return (
     <>
       <div
@@ -23,7 +30,7 @@ export default function StudyBanner({ props }: { props: TStudyBanner[] }) {
           navigation={true}
           modules={[Pagination, Navigation]}
         >
-          {props.map((data) => {
+          {/* {props.map((data) => {
             return (
               <SwiperSlide key={data.id}>
                 <Image
@@ -36,6 +43,9 @@ export default function StudyBanner({ props }: { props: TStudyBanner[] }) {
                 />
               </SwiperSlide>
             );
+          })} */}
+          {bannerImages.map((img, idx) => {
+            return <SwiperSlide key={idx}>{img}</SwiperSlide>;
           })}
         </Swiper>
       </div>

@@ -1,21 +1,26 @@
 "use client";
-// UserStatusContext.tsx
-import React, { createContext, useEffect, useCallback, useState } from "react";
+import React, {
+  createContext,
+  useEffect,
+  useCallback,
+  useState,
+  useMemo,
+} from "react";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
 
 export type UserStatusContextProps = {
   session?: Session | null;
-  status: string;
-  userCreated: boolean;
+  isLoggedIn: boolean;
+  hasUser: boolean;
   hasMatchingInfo: boolean;
   handleHasMatchingInfo: () => void;
 };
 
 const initialStateContext = {
   session: undefined,
-  status: "loading", // 기본값 설정
-  userCreated: false,
+  isLoggedIn: false,
+  hasUser: false,
   hasMatchingInfo: false,
   handleHasMatchingInfo: () => {},
 };
@@ -34,16 +39,18 @@ export const UserStatusProvider = ({
 }) => {
   const { data: session, status } = useSession();
 
+  const isLoggedIn = status === "authenticated";
+
   const [userInfo, setUserInfo] = useState({
-    userCreated: false,
+    hasUser: false,
     hasMatchingInfo: false,
   });
 
   const handleHasMatchingInfo = useCallback(() => {
-    setUserInfo((prev) => ({ userCreated: true, hasMatchingInfo: true }));
+    setUserInfo((prev) => ({ hasUser: true, hasMatchingInfo: true }));
   }, []);
 
-  console.log(session);
+  console.log("userStatusProvider render");
 
   useEffect(() => {
     async function getUserStatus() {
@@ -61,37 +68,44 @@ export const UserStatusProvider = ({
 
       const { hasUser, hasMatchingInfo } = userResponse;
       setUserInfo({
-        userCreated: !!hasUser,
+        hasUser: !!hasUser,
         hasMatchingInfo: !!hasMatchingInfo,
       });
     }
 
     if (
       status === "authenticated" &&
-      !userInfo.userCreated &&
+      !userInfo.hasUser &&
       !userInfo.hasMatchingInfo
     ) {
-      // 로그인을 했는데 db에 사용자 정보가 없으면 만들기
       getUserStatus();
     } else if (status === "unauthenticated") {
-      // 로그인이 안되어 있으면 사용자 정보 false 처리: 실제로는 db에 사용자 정보가 있다고 하더라도, 로그인 안되어 있으면 의미가 없으므로
       setUserInfo({
-        userCreated: false,
+        hasUser: false,
         hasMatchingInfo: false,
       });
     }
-  }, [session?.user]);
+  }, [session?.user, status, userInfo.hasUser, userInfo.hasMatchingInfo]);
+
+  // useMemo로 value 객체 메모화
+  const value = useMemo(
+    () => ({
+      session,
+      isLoggedIn: isLoggedIn,
+      hasUser: userInfo.hasUser,
+      hasMatchingInfo: userInfo.hasMatchingInfo,
+      handleHasMatchingInfo,
+    }),
+    [
+      isLoggedIn,
+      userInfo.hasUser,
+      userInfo.hasMatchingInfo,
+      handleHasMatchingInfo,
+    ]
+  );
 
   return (
-    <UserStatusContext.Provider
-      value={{
-        session,
-        status,
-        userCreated: userInfo.userCreated,
-        hasMatchingInfo: userInfo.hasMatchingInfo,
-        handleHasMatchingInfo,
-      }}
-    >
+    <UserStatusContext.Provider value={value}>
       {children}
     </UserStatusContext.Provider>
   );

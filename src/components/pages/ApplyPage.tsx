@@ -36,20 +36,14 @@ import {
   UserStatusContextProps,
 } from "../../providers/UserStatusProvider";
 import { useStep } from "@/hooks/useStep";
+import useLoginCheck from "@/hooks/useLoginCheck";
 
 function ApplyPage() {
   const router = useRouter();
 
-  const { session, status }: UserStatusContextProps =
-    useContext(UserStatusContext);
+  const { session }: UserStatusContextProps = useContext(UserStatusContext);
 
-  useEffect(() => {
-    if (session === null && status === "unauthenticated") {
-      alert("로그인이 필요한 페이지 입니다");
-      router.push("/");
-      return;
-    }
-  }, [session?.user]);
+  useLoginCheck();
 
   const [applyData, dispatch] = useReducer(ApplyReducer, initialState);
 

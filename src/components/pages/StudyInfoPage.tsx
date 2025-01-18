@@ -59,8 +59,7 @@ const getSignUpButton = (status: TStatus, sid: string) => {
 };
 
 function StudyInfoPage() {
-  const { session, status }: UserStatusContextProps =
-    useContext(UserStatusContext);
+  const { session }: UserStatusContextProps = useContext(UserStatusContext);
 
   const router = useRouter();
   const params = useParams<{ sid: string }>();

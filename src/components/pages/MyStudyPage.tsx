@@ -15,23 +15,15 @@ import {
   ModalContextProps,
   ModalProviderContext,
 } from "../../providers/ModalProvider";
+import useLoginCheck from "@/hooks/useLoginCheck";
 
 function MyStudyPage() {
-  const router = useRouter();
-
-  const { session, status }: UserStatusContextProps =
-    useContext(UserStatusContext);
+  const { session }: UserStatusContextProps = useContext(UserStatusContext);
 
   const modalInfo: ModalContextProps = useContext(ModalProviderContext);
   const { openModal } = modalInfo;
 
-  useEffect(() => {
-    if (session === null && status === "unauthenticated") {
-      alert("로그인이 필요한 페이지 입니다");
-      router.push("/");
-      return;
-    }
-  }, [session?.user]);
+  useLoginCheck();
 
   return (
     <div className="flex flex-col">

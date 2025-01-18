@@ -16,6 +16,7 @@ import { TStudyItem } from "@/types/study";
 import StudyBoxSkeleton from "../molecules/skeletonUI/StudyBoxSkeleton";
 import SortSelector from "../molecules/SortSelector";
 import { UserStatusContext } from "../../providers/UserStatusProvider";
+import useLoginCheck from "@/hooks/useLoginCheck";
 
 // 상태값 두 개를 두어야 할 것 같음
 // 서버에서 가져온 검색어에 해당한 스터디 객체들의 배열
@@ -39,10 +40,6 @@ async function fetchSearchResults(query: string) {
 }
 
 function SearchResultPage() {
-  const router = useRouter();
-
-  const { session, status } = useContext(UserStatusContext);
-
   let isDragging = false;
   const dragging = (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
     if (!isDragging) return;
@@ -66,13 +63,7 @@ function SearchResultPage() {
     setShowFilterModal(false);
   };
 
-  useEffect(() => {
-    if (session === null && status === "unauthenticated") {
-      alert("로그인이 필요한 페이지 입니다");
-      router.push("/");
-      return;
-    }
-  }, [session?.user]);
+  useLoginCheck();
 
   useEffect(() => {
     const listener = (e: MouseEvent) => {

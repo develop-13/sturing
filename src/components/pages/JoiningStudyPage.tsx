@@ -79,6 +79,7 @@ const Button = dynamic(() => import("../molecules/Button"), {
   ssr: false,
 });
 import Text from "../atoms/Text";
+import useLoginCheck from "@/hooks/useLoginCheck";
 
 type TParticipationOptions = "team" | "private" | "schedule" | "feedback";
 const buttonGroupDatas: TParticipationOptions[] = [
@@ -89,11 +90,8 @@ const buttonGroupDatas: TParticipationOptions[] = [
 ];
 
 function JoiningStudyPage() {
-  const router = useRouter();
-
-  const { session, status }: UserStatusContextProps =
-    useContext(UserStatusContext);
-
+  const { session }: UserStatusContextProps = useContext(UserStatusContext);
+  useLoginCheck();
   const params = useParams<{ sid: string }>();
   // 만약 전역 상태관리 라이브러리를 사용한다고 했을 때?
   const [selectedIdx, setSelectedIdx] = useState(0);
@@ -101,14 +99,6 @@ function JoiningStudyPage() {
     JoiningStudyReducer,
     initialState
   );
-
-  useEffect(() => {
-    if (session === null && status === "unauthenticated") {
-      alert("로그인이 필요한 페이지 입니다");
-      router.push("/");
-      return;
-    }
-  }, [session?.user, status, router]);
 
   // 자신이 리더라면 스터디 시작버튼이 존재.
   const isLeader = useMemo(
@@ -262,17 +252,7 @@ function JoiningStudyPage() {
   return (
     <div className="bg-gray-100 ">
       {" "}
-      <Header
-        position="absolute"
-        leftSlot={
-          <Icon
-            type="BACK"
-            onClick={() => {
-              router.back();
-            }}
-          />
-        }
-      />
+      <Header position="absolute" leftSlot={<Icon type="BACK" />} />
       <StudyOverview props={StudyOverviewProps} />
       {/* 얘네를 React.memo로 감싸야겠음. StudyOverview가 받는 props는 나눠서 전달해주고.. */}
       <TabButtonGroup

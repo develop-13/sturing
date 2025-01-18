@@ -10,7 +10,7 @@ function commonStudies({
   newStudies: TStudyItem[];
 }) {
   return (
-    <div>
+    <div className="flex flex-col gap-3">
       <SlideContentList
         title={"인기 스터디"}
         hasArrow={true}

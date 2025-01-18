@@ -22,6 +22,7 @@ import {
 import { TLevel } from "@/types/common";
 import { UserStatusContext } from "../../providers/UserStatusProvider";
 import { useStep } from "@/hooks/useStep";
+import useLoginCheck from "@/hooks/useLoginCheck";
 
 const steps = [
   // 각 컴포넌트가 사용하는 props 보내주기
@@ -144,15 +145,7 @@ const validateStep = (step: number, state: TMatchingState) => {
 function MatchingPage() {
   const router = useRouter();
   const { session } = useContext(UserStatusContext);
-
-  useEffect(() => {
-    if (session === null && status === "unauthenticated") {
-      alert("로그인이 필요한 페이지 입니다");
-      router.push("/");
-      return;
-    }
-  }, [session?.user]);
-
+  useLoginCheck();
   const { step, nextStep, prevStep, resetStep } = useStep();
   const [state, dispatch] = useReducer(MatchingReducer, initialState);
 

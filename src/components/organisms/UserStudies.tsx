@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import SlideContentList from "./SlideContentList";
-import StudyBox from "./StudyBox";
 import { TStudyItem } from "@/types/study";
+import StudyBoxSkeleton from "../molecules/skeletonUI/StudyBoxSkeleton";
+import Text from "../atoms/Text";
+import dynamic from "next/dynamic";
+
+const StudyBox = dynamic(() => import("./StudyBox"), {
+  ssr: false,
+});
 
 function UserStudies({
   userEmail,
@@ -26,7 +32,12 @@ function UserStudies({
           { signal } // fetch에 signal 추가
         ).then((res) => res.json());
 
-        const { interestringStudies, closeStudies } = userStudies;
+        console.log(userStudies);
+
+        const {
+          firstStudies: interestringStudies,
+          secondStudies: closeStudies,
+        } = userStudies;
 
         setInterestStudies(interestringStudies);
         setCloseStudies(closeStudies);
@@ -48,24 +59,54 @@ function UserStudies({
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col gap-3">
       <SlideContentList
         title={`${userName}님을 위한 스터디`}
         hasArrow={true}
         className="text-lg"
       >
-        {interestStudies.map((study: TStudyItem) => (
+        {/* {interestStudies.map((study: TStudyItem) => (
           <StudyBox props={study} key={study.createdAt} />
-        ))}
+        ))} */}
+        {isFetchingStudies ? (
+          Array(3)
+            .fill(null)
+            .map((_, index) => <StudyBoxSkeleton key={index} />)
+        ) : interestStudies.length ? (
+          interestStudies.map((study: TStudyItem) => (
+            <StudyBox props={study} key={study.createdAt} />
+          ))
+        ) : (
+          <div className="flex flex-row gap-2 h-[250px] w-full justify-center items-center">
+            <Text weight="bold" size="base" color="gray-600">
+              해당되는 스터디가 없습니다.
+            </Text>
+          </div>
+        )}
       </SlideContentList>
       <SlideContentList
         title={`내 주변 스터디`}
         hasArrow={true}
         className="text-lg"
       >
-        {closeStudies.map((study: TStudyItem) => (
+        {/* {closeStudies.map((study: TStudyItem) => (
           <StudyBox props={study} key={study.createdAt} />
-        ))}
+        ))} */}
+        {isFetchingStudies ? (
+          Array(3)
+            .fill(null)
+            .map((_, index) => <StudyBoxSkeleton key={index} />)
+        ) : closeStudies.length ? (
+          closeStudies.map((study: TStudyItem) => (
+            <StudyBox props={study} key={study.createdAt} />
+          ))
+        ) : (
+          <div className="flex flex-row gap-2 h-[250px] w-full justify-center items-center">
+            <Text weight="bold" size="base" color="gray-600">
+              해당되는 스터디가 없습니다.
+            </Text>
+          </div>
+        )}
       </SlideContentList>
     </div>
   );

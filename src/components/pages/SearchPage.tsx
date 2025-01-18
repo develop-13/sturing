@@ -23,11 +23,9 @@ import {
   getStudiesFromLocalStorage,
 } from "@/utils/localStorageFuncs";
 import { TStudyItem } from "@/types/study";
+import useLoginCheck from "@/hooks/useLoginCheck";
 function SearchPage() {
-  const router = useRouter();
-
-  const { session, status }: UserStatusContextProps =
-    useContext(UserStatusContext);
+  const { isLoggedIn }: UserStatusContextProps = useContext(UserStatusContext);
 
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
   const [recentWatchedStudies, setRecentWatchedStudies] = useState<
@@ -65,15 +63,7 @@ function SearchPage() {
     setRecentWatchedStudies([]);
   };
 
-  useEffect(() => {
-    if (session === null && status === "unauthenticated") {
-      alert("로그인이 필요한 페이지 입니다");
-      router.push("/");
-      return;
-    }
-  }, [session?.user]);
-
-  console.log("SerachPage rendered");
+  useLoginCheck();
 
   return (
     <div>
@@ -87,7 +77,7 @@ function SearchPage() {
       />
       <NavButtonGroup
         pathname="/search"
-        isLoggedIn={!!session?.user}
+        isLoggedIn={isLoggedIn}
         openLoginLodal={openModal}
       />
       <section className="px-4 py-5 flex flex-col gap-10">
