@@ -1,3 +1,4 @@
+"use client";
 import { selector } from "recoil";
 import { sessionUserState } from "./atoms";
 
@@ -17,6 +18,7 @@ export const userStatusSelector = selector({
     }
 
     // API 요청에 세션 정보 전달
+    console.log("API 요청 시작");
     const response = await fetch("/api/user", {
       method: "POST",
       headers: {
@@ -30,6 +32,8 @@ export const userStatusSelector = selector({
     }).then((res) => res.json());
 
     const { hasUser, hasMatchingInfo } = response;
+    console.log("API 요청 완료");
+
     return {
       userCreated: !!hasUser,
       hasMatchingInfo: !!hasMatchingInfo,
