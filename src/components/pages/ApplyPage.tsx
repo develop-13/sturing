@@ -15,12 +15,14 @@ import dynamic from "next/dynamic";
 
 const ApplyText = dynamic(() => import("../templates/apply/ApplyText"), {
   ssr: false,
+  loading: () => <></>, // Loading 상태일 때 비어있는 React Fragment 반환
 });
 
 const RoleSelectTemp = dynamic(
   () => import("../templates/apply/RoleSelectTemp"),
   {
     ssr: false,
+    loading: () => <></>, // Loading 상태일 때 비어있는 React Fragment 반환
   }
 );
 
@@ -28,6 +30,7 @@ const ApplyComplete = dynamic(
   () => import("../templates/apply/ApplyComplete"),
   {
     ssr: false,
+    loading: () => <></>, // Loading 상태일 때 비어있는 React Fragment 반환
   }
 );
 import { ApplyReducer, TApplyState, initialState } from "@/states/ApplyReducer";

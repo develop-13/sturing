@@ -90,7 +90,9 @@ function GoMatchingPage() {
         recommendPage &&
         createPortal(
           <div className="w-[375px] h-full fixed z-50 flex items-center bg-black bg-opacity-70">
-            <GoMatchingModal ref={modalRef} />
+            <Suspense fallback={<div></div>}>
+              <GoMatchingModal ref={modalRef} />
+            </Suspense>
           </div>,
           recommendPage
         )}

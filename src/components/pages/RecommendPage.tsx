@@ -25,33 +25,38 @@ const LoginButton = dynamic(
   () => import("../molecules/auth-components/LoginButton"),
   {
     ssr: false,
+    loading: () => <></>, // Loading 상태일 때 비어있는 React Fragment 반환
   }
 );
+
 const UserStudies = dynamic(() => import("../organisms/UserStudies"), {
   ssr: false,
+  loading: () => <></>,
 });
 
 const LogoutButton = dynamic(
   () => import("../molecules/auth-components/LogoutButton"),
   {
     ssr: false,
+    loading: () => <></>,
   }
 );
 
-// GoMatchingPage를 lazy로 로드
 const GoMatchingPage = dynamic(() => import("../molecules/GoMatchingPage"), {
   ssr: false,
+  loading: () => <></>,
 });
-// IconLabelButton을 lazy로 로드
+
 const IconLabelButton = dynamic(() => import("../molecules/IconLabelButton"), {
   ssr: false,
+  loading: () => <></>,
 });
-// Searchbar를 lazy로 로드
 
 const SlideContentList = dynamic(
   () => import("../organisms/SlideContentList"),
   {
     ssr: false,
+    loading: () => <></>,
   }
 );
 

@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 
 const StudyBox = dynamic(() => import("./StudyBox"), {
   ssr: false,
+  loading: () => <></>,
 });
 
 function UserStudies({

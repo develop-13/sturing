@@ -21,7 +21,10 @@ import {
 // 동적 가져오기 + SSR 비활성화
 const TabButtonGroup = dynamic(
   () => import("../organisms/ButtonGroup").then((mod) => mod.TabButtonGroup), // TabButtonGroup을 명시적으로 가져옴
-  { ssr: false }
+  {
+    ssr: false,
+    loading: () => <></>, // Loading 상태일 때 비어있는 React Fragment 반환
+  }
 );
 
 const JoiningStudyTemplateSkeleton = () => (
