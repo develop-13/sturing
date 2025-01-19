@@ -17,11 +17,6 @@ async function page({ params }: { params: { sid: string } }) {
 
   const { study: studyInfo, status } = await fetchStudyInfo();
 
-  // console.log("session");
-  // console.log(session?.user);
-  console.log("params");
-  console.log(params);
-
   return <StudyInfoPage studyInfo={studyInfo} status={status} />;
 }
 

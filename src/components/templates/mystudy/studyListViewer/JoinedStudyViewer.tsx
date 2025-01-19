@@ -46,7 +46,7 @@ function JoinedStudyViewer({ userEmail }: { userEmail: string }) {
   console.log(currentData);
 
   return (
-    <div className="h-[300px] overflow-scroll bg-gray-100 px-[16px] pt-[20px] pb-[40px] flex flex-col gap-[16px]">
+    <main className="flex flex-col gap-[16px]">
       <div className="flex gap-3">
         <Button
           shape="listItem"
@@ -121,7 +121,7 @@ function JoinedStudyViewer({ userEmail }: { userEmail: string }) {
           </InfoBox>
         </Link>
       ))}
-    </div>
+    </main>
   );
 }
 

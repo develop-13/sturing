@@ -65,7 +65,7 @@ TabButtonGroup.displayName = "TabButtonGroup";
 type TNavButtonGroup = {
   pathname: string;
   isLoggedIn: boolean;
-  openLoginLodal: () => void;
+  openLoginLodal?: () => void;
 };
 
 export function NavButtonGroup(props: TNavButtonGroup) {
@@ -78,7 +78,7 @@ export function NavButtonGroup(props: TNavButtonGroup) {
   const onClickBtn = (pathname: string) => () => {
     if (!isLoggedIn) {
       // 로그인이 안되어 있는데 클릭하면 모달이 열리도록 함
-      openLoginLodal();
+      openLoginLodal?.();
     } else {
       router.push(pathname);
     }

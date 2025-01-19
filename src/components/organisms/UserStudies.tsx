@@ -7,7 +7,6 @@ import dynamic from "next/dynamic";
 
 const StudyBox = dynamic(() => import("./StudyBox"), {
   ssr: false,
-  loading: () => <></>,
 });
 
 function UserStudies({
@@ -64,14 +63,11 @@ function UserStudies({
       <SlideContentList
         title={`${userName}님을 위한 스터디`}
         hasArrow={true}
-        className="text-lg"
+        className="text-lg h-[300px] "
       >
-        {/* {interestStudies.map((study: TStudyItem) => (
-          <StudyBox props={study} key={study.createdAt} />
-        ))} */}
         {isFetchingStudies ? (
-          Array(3)
-            .fill(null)
+          Array(2)
+            .fill(0)
             .map((_, index) => <StudyBoxSkeleton key={index} />)
         ) : interestStudies.length ? (
           interestStudies.map((study: TStudyItem) => (
@@ -88,14 +84,11 @@ function UserStudies({
       <SlideContentList
         title={`내 주변 스터디`}
         hasArrow={true}
-        className="text-lg"
+        className="text-lg h-[300px] "
       >
-        {/* {closeStudies.map((study: TStudyItem) => (
-          <StudyBox props={study} key={study.createdAt} />
-        ))} */}
         {isFetchingStudies ? (
-          Array(3)
-            .fill(null)
+          Array(2)
+            .fill(0)
             .map((_, index) => <StudyBoxSkeleton key={index} />)
         ) : closeStudies.length ? (
           closeStudies.map((study: TStudyItem) => (

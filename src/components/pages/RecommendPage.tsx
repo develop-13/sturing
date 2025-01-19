@@ -18,6 +18,7 @@ import dynamic from "next/dynamic";
 import CommonStudies from "../organisms/CommonStudies";
 import Searchbar from "../molecules/Searchbar";
 import StudyCategory from "../organisms/StudyCategory";
+import SlideContentList from "../organisms/SlideContentList";
 
 const Divider = dynamic(() => import("../atoms/Divider"), {
   ssr: false,
@@ -33,7 +34,7 @@ const LoginButton = dynamic(
 
 const UserStudies = dynamic(() => import("../organisms/UserStudies"), {
   ssr: false,
-  loading: () => <></>,
+  loading: () => <div></div>,
 });
 
 const LogoutButton = dynamic(
@@ -53,14 +54,6 @@ const IconLabelButton = dynamic(() => import("../molecules/IconLabelButton"), {
   ssr: false,
   loading: () => <></>,
 });
-
-const SlideContentList = dynamic(
-  () => import("../organisms/SlideContentList"),
-  {
-    ssr: false,
-    loading: () => <></>,
-  }
-);
 
 // 추후에 srp 에 맞게 리팩토링할 것
 function RecommendPage({

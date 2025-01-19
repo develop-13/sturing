@@ -1,4 +1,5 @@
 "use client";
+
 import { useRouter } from "next/navigation";
 import {
   useCallback,
@@ -7,19 +8,51 @@ import {
   useReducer,
   useState,
 } from "react";
+import dynamic from "next/dynamic";
 import Progressbar from "../atoms/Progressbar";
 import Text from "../atoms/Text";
 import Button from "../molecules/Button";
 import Header from "../organisms/Header";
-import StudyIntro from "../templates/recruitment/StudyIntro";
-import StudyDetail from "../templates/recruitment/StudyDetail";
-import MemberPreference from "../templates/recruitment/MemberPreference";
-import Complete from "../templates/recruitment/RecruitmentComplete";
 import { TStudyRecruitment } from "@/types/study";
 import { initialState, recruitmentReducer } from "@/states/recruitmentReducer";
 import { UserStatusContext } from "../../providers/UserStatusProvider";
-import Loading from "../templates/common/Loading";
 import useLoginCheck from "@/hooks/useLoginCheck";
+import { SessionUser } from "@/app/utils/authOptions";
+
+const Skeleton = () => (
+  <div className="h-screen flex items-center justify-center animate-pulse bg-gray-100">
+    <div className="text-center">
+      <Text size="lg" color="gray-500">
+        Loading...
+      </Text>
+    </div>
+  </div>
+);
+
+const StudyIntro = dynamic(
+  () => import("../templates/recruitment/StudyIntro"),
+  {
+    loading: Skeleton,
+  }
+);
+const StudyDetail = dynamic(
+  () => import("../templates/recruitment/StudyDetail"),
+  {
+    loading: Skeleton,
+  }
+);
+const MemberPreference = dynamic(
+  () => import("../templates/recruitment/MemberPreference"),
+  {
+    loading: Skeleton,
+  }
+);
+const Complete = dynamic(
+  () => import("../templates/recruitment/RecruitmentComplete"),
+  {
+    loading: Skeleton,
+  }
+);
 
 export type HandleStateChange<T> = <K extends keyof T>(
   field: K,
@@ -42,6 +75,50 @@ function RecruitmentPage() {
     },
     [dispatch]
   );
+
+  const validate1 = () => {
+    const { title, categories, description, type, location } = studyData;
+    if (!title || !categories.length || !description || !type || !location) {
+      alert("모든 필드를 채워주세요");
+      return false;
+    }
+    return true;
+  };
+
+  const validate2 = () => {
+    const { period, time, atmospheres } = studyData;
+    if (
+      !period?.startDate ||
+      !period?.endDate ||
+      !time?.startTime ||
+      !time?.endTime ||
+      !atmospheres?.length
+    ) {
+      alert("모든 필드를 채워주세요");
+      return false;
+    }
+    return true;
+  };
+
+  const validate3 = () => {
+    const {
+      maxMembersNum,
+      preferentialAge,
+      preferentialLevel,
+      necessaryRoles,
+    } = studyData;
+    if (
+      !maxMembersNum ||
+      !preferentialAge.length ||
+      !preferentialLevel ||
+      !necessaryRoles.length
+    ) {
+      alert("모든 필드를 채워주세요 ");
+      return false;
+    }
+    return true;
+  };
+
   useLoginCheck();
 
   useEffect(() => {
@@ -51,25 +128,24 @@ function RecruitmentPage() {
   }, [session?.user, handleStateChange]);
 
   const goNextStep = () => {
+    if (step === 0 && !validate1()) return;
+    if (step === 1 && !validate2()) return;
+    if (step === 2 && !validate3()) return;
+
     if (step > steps.length - 1) {
       router.push("/recommend");
       return;
     }
     setStep(step + 1);
   };
-
   const goPrevStep = () => {
     if (step <= 0) {
       router.back();
       return;
     }
+
     setStep(step - 1);
   };
-
-  // Render Loading if session or user data is not yet available
-  if (!session?.user) {
-    return <Loading />;
-  }
 
   const steps = [
     <StudyIntro
@@ -87,7 +163,11 @@ function RecruitmentPage() {
       state={studyData}
       handleStateChange={handleStateChange}
     />,
-    <Complete key="complete" state={studyData} user={session?.user} />,
+    <Complete
+      key="complete"
+      state={studyData}
+      user={session?.user as SessionUser}
+    />,
   ];
 
   return (

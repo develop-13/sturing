@@ -1,5 +1,4 @@
 "use client";
-
 import { TApply } from "@/types/apply";
 import InfoBox from "../../../organisms/infoBox/InfoBox";
 import Text from "@/components/atoms/Text";
@@ -116,7 +115,7 @@ function WaitingAppliesViewer({ userEmail }: { userEmail: string }) {
   console.log(applyData);
 
   return (
-    <div className="max-h-[300px] overflow-scroll bg-gray-100 px-[16px] pt-[20px] pb-[40px] flex flex-col gap-[16px]">
+    <main>
       {applyData.map((apply) => (
         <InfoBox theme="white" key={v4()}>
           <div className="flex items-center justify-end mb-2">
@@ -166,7 +165,7 @@ function WaitingAppliesViewer({ userEmail }: { userEmail: string }) {
           </div>,
           rootLayout.current
         )}
-    </div>
+    </main>
   );
 }
 

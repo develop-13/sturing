@@ -1,30 +1,20 @@
-"use client";
-import { useContext, useEffect } from "react";
+import UseLoginCheckWrapper from "@/hooks/UseLoginCheckWrapper";
 import Icon from "../atoms/Icon";
 import MenuBtn from "../molecules/MenuBtn";
 import { NavButtonGroup } from "../organisms/ButtonGroup";
 import Header from "../organisms/Header";
 import StudyList from "../templates/mystudy/StudyListContainer";
 import UpcomingStudies from "../templates/mystudy/UpcomingSchedules";
-import {
-  UserStatusContext,
-  UserStatusContextProps,
-} from "../../providers/UserStatusProvider";
-import { useRouter } from "next/navigation";
-import {
-  ModalContextProps,
-  ModalProviderContext,
-} from "../../providers/ModalProvider";
-import useLoginCheck from "@/hooks/useLoginCheck";
 
-function MyStudyPage() {
-  const { session }: UserStatusContextProps = useContext(UserStatusContext);
+import { TSchedule } from "@/types/study";
 
-  const modalInfo: ModalContextProps = useContext(ModalProviderContext);
-  const { openModal } = modalInfo;
-
-  useLoginCheck();
-
+function MyStudyPage({
+  userSchedule,
+  session,
+}: {
+  userSchedule: TSchedule[];
+  session: any;
+}) {
   return (
     <div className="flex flex-col">
       <Header
@@ -35,14 +25,11 @@ function MyStudyPage() {
           </div>
         }
       />
-      <NavButtonGroup
-        pathname="/mystudy"
-        isLoggedIn={!!session?.user}
-        openLoginLodal={openModal}
-      />
+      {/* <UseLoginCheckWrapper /> */}
+      <NavButtonGroup pathname="/mystudy" isLoggedIn={!!session?.user} />
       {session?.user.email && (
         <div>
-          <UpcomingStudies userEmail={session?.user.email} />
+          <UpcomingStudies userSchedule={userSchedule} />
           <StudyList userEmail={session?.user.email} />
         </div>
       )}

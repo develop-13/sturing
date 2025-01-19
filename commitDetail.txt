@@ -15,6 +15,9 @@ study/sid 페이지 최적화
 동적 가져오기는 적용해도 점수가 오르지는 않았음
 
 
+myStudy schedule 데이터 서버에서 가져오기 + 동적 가져오기
+
+recuritment 페이지 동적 가져오기 적용 + 사용자 입력값 검사로직 추가
 
 
 -- 추후 MonthCalendarSchedule 랑 비교해서 공통로직 뺼 것

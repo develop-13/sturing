@@ -1,38 +1,20 @@
 "use client";
-import { Swiper, SwiperSlide } from "swiper/react";
+
+import dynamic from "next/dynamic";
+import { Swiper, SwiperSlide } from "swiper/react"; // Swiper와 SwiperSlide를 함께 정적으로 가져오기
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
-import UpcomingScheduleItem from "../../organisms/UpcomingScheduleItem";
-import { useEffect, useState } from "react";
-import Loading from "../common/Loading";
 import { TSchedule } from "@/types/study";
 import Text from "@/components/atoms/Text";
 
-function UpcomingSchedules({ userEmail }: { userEmail: string | undefined }) {
-  const [schedules, setSchedules] = useState<TSchedule[]>([]);
-  const hasSchedule = schedules.length;
-  const [isFetchingSchedules, setIsFetchingSchedules] = useState(true);
+const UpcomingScheduleItem = dynamic(
+  () => import("../../organisms/UpcomingScheduleItem"),
+  { ssr: false } // 서버 렌더링 비활성화
+);
 
-  useEffect(() => {
-    // 사용자 스케쥴 가져오는 로직
-
-    async function getUserSchedules() {
-      try {
-        const fetchedSchedules = await (
-          await fetch(`/mystudy/api?userEmail=${userEmail}&type=schedules`)
-        ).json();
-        setSchedules(fetchedSchedules);
-        setIsFetchingSchedules(false);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    getUserSchedules();
-  }, []);
-
-  if (isFetchingSchedules) return <Loading />;
+function UpcomingSchedules({ userSchedule }: { userSchedule: TSchedule[] }) {
+  const hasSchedule = userSchedule.length;
 
   return (
     <div className="">
@@ -46,7 +28,7 @@ function UpcomingSchedules({ userEmail }: { userEmail: string | undefined }) {
         modules={[Pagination]}
       >
         {hasSchedule ? (
-          schedules.map((schedule, idx) => (
+          userSchedule.map((schedule, idx) => (
             <SwiperSlide key={idx}>
               <UpcomingScheduleItem {...schedule} />
             </SwiperSlide>

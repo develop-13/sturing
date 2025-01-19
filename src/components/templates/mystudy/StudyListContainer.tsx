@@ -1,23 +1,55 @@
+"use client";
 import { useState } from "react";
 import Text from "../../atoms/Text";
 import { TabButtonGroup } from "../../organisms/ButtonGroup";
 import dynamic from "next/dynamic";
+import ViewerContainer from "./studyListViewer/ViewerContainer";
 
 const JoinedStudyViewer = dynamic(
   () =>
-    import("@/components/templates/mystudy/studyListViewer/JoinedStudyViewer")
+    import("@/components/templates/mystudy/studyListViewer/JoinedStudyViewer"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="space-y-2">
+        <div className="bg-gray-300 w-4/5 h-4 rounded animate-pulse"></div>
+        <div className="bg-gray-300 w-3/4 h-4 rounded animate-pulse"></div>
+        <div className="bg-gray-300 w-2/3 h-4 rounded animate-pulse"></div>
+      </div>
+    ),
+  }
 );
 const WaitingAppliesViewer = dynamic(
   () =>
     import(
       "@/components/templates/mystudy/studyListViewer/WaitingAppliesViewer"
-    )
+    ),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="space-y-2">
+        <div className="bg-gray-300 w-4/5 h-4 rounded animate-pulse"></div>
+        <div className="bg-gray-300 w-3/4 h-4 rounded animate-pulse"></div>
+        <div className="bg-gray-300 w-2/3 h-4 rounded animate-pulse"></div>
+      </div>
+    ),
+  }
 );
 const AcceptedAppliesViewer = dynamic(
   () =>
     import(
       "@/components/templates/mystudy/studyListViewer/AcceptedAppliesViewer"
-    )
+    ),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="space-y-2">
+        <div className="bg-gray-300 w-4/5 h-4 rounded animate-pulse"></div>
+        <div className="bg-gray-300 w-3/4 h-4 rounded animate-pulse"></div>
+        <div className="bg-gray-300 w-2/3 h-4 rounded animate-pulse"></div>
+      </div>
+    ),
+  }
 );
 // import FinishedStudiesViewer from "@/components/templates/mystudy/studyListViewer/FinishedStudiesViewer";
 
@@ -50,7 +82,7 @@ const renderListViewer = (
 };
 
 function StudyList(props: TStudyList) {
-  const [selectedIdx, setSelectedIdx] = useState(2);
+  const [selectedIdx, setSelectedIdx] = useState(0);
   const selectedKey: MyStudyTab = myStudyTabData[selectedIdx];
 
   if (props?.userEmail === undefined) return null;
@@ -69,7 +101,9 @@ function StudyList(props: TStudyList) {
           setSelectedIdx(idx);
         }}
       />
-      {renderListViewer(selectedKey, props.userEmail)}
+      <ViewerContainer>
+        {renderListViewer(selectedKey, props.userEmail)}
+      </ViewerContainer>
     </div>
   );
 }
