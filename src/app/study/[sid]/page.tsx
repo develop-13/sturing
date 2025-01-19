@@ -16,7 +16,13 @@ async function page({ params }: { params: { sid: string } }) {
 
   const { study: studyInfo, status } = await fetchStudyInfo();
 
-  return <StudyInfoPage studyInfo={studyInfo} status={status} />;
+  return (
+    <StudyInfoPage
+      studyInfo={studyInfo}
+      status={status}
+      session={session?.user}
+    />
+  );
 }
 
 export default page;

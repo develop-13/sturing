@@ -1,7 +1,7 @@
 "use client";
 import { v4 as uuidv4 } from "uuid";
 import { useParams, useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Icon from "../atoms/Icon";
 import Text from "../atoms/Text";
@@ -11,12 +11,14 @@ import { TabButtonGroup } from "../organisms/ButtonGroup";
 import InfoBox from "../organisms/infoBox/InfoBox";
 import StudyOverview from "../organisms/StudyOverview";
 import Header from "../organisms/Header";
-import { TStudyDetail, TStudyMember } from "@/types/study";
+import { TStudy, TStudyDetail, TStudyMember } from "@/types/study";
 import TitleLink from "../molecules/TitleLink";
 import getTranslation from "@/utils/getTranslation";
 import { TStatus } from "@/types/apply";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { SessionUser } from "@/app/utils/authOptions";
+import { setStudyOnLocalStorage } from "@/utils/localStorageFuncs";
 const Divider = dynamic(() => import("../atoms/Divider"), {
   ssr: false,
   loading: () => <></>, // Loading 상태일 때 비어있는 React Fragment 반환
@@ -66,20 +68,25 @@ const getSignUpButton = (status: TStatus, sid: string) => {
 function StudyInfoPage({
   studyInfo,
   status,
+  session,
 }: {
-  studyInfo: TStudyDetail;
+  studyInfo: TStudy;
   status: TStatus;
+  session?: SessionUser;
 }) {
-  // const { session }: UserStatusContextProps = useContext(UserStatusContext);
-
   const router = useRouter();
   const params = useParams<{ sid: string }>();
   const [selectedIdx, setSelected] = useState(0);
-  // const [studyInfo, setStudyInfo] = useState<TStudyDetail | null>(null);
   const boxRef = {
     info: useRef<HTMLDivElement>(null),
     member: useRef<HTMLDivElement>(null),
   };
+
+  useEffect(() => {
+    if (session) {
+      setStudyOnLocalStorage(studyInfo); // 스터디를 가져오면서 로컬에 저장
+    }
+  }, []);
 
   const onClickBtn = (selectedOptionIdx: number) => {
     setSelected(selectedOptionIdx);
