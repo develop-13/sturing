@@ -1,4 +1,3 @@
-import UseLoginCheckWrapper from "@/hooks/UseLoginCheckWrapper";
 import Icon from "../atoms/Icon";
 import MenuBtn from "../molecules/MenuBtn";
 import { NavButtonGroup } from "../organisms/ButtonGroup";
@@ -25,7 +24,6 @@ function MyStudyPage({
           </div>
         }
       />
-      {/* <UseLoginCheckWrapper /> */}
       <NavButtonGroup pathname="/mystudy" isLoggedIn={!!session?.user} />
       {session?.user.email && (
         <div>

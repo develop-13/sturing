@@ -23,8 +23,6 @@ function StudyDetail({
     [state.period]
   );
 
-  console.log(state);
-
   const handleAtmosphere = useCallback(
     (selectedAtmosphere: TAtmosphere) => {
       const isSelected = state.atmospheres.includes(selectedAtmosphere);
