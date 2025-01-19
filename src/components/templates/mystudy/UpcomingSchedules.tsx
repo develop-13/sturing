@@ -14,6 +14,8 @@ const UpcomingScheduleItem = dynamic(
 );
 
 function UpcomingSchedules({ userSchedule }: { userSchedule: TSchedule[] }) {
+  console.log(userSchedule);
+
   const hasSchedule = userSchedule.length;
 
   return (
