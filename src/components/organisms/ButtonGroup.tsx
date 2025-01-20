@@ -65,7 +65,7 @@ TabButtonGroup.displayName = "TabButtonGroup";
 type TNavButtonGroup = {
   pathname: string;
   isLoggedIn: boolean;
-  openLoginLodal: () => void;
+  openLoginLodal?: () => void;
 };
 
 export function NavButtonGroup(props: TNavButtonGroup) {
@@ -76,12 +76,13 @@ export function NavButtonGroup(props: TNavButtonGroup) {
   let btnStyle = "flex-grow basis-0 h-full border-gray-400 ";
 
   const onClickBtn = (pathname: string) => () => {
-    if (!isLoggedIn) {
-      // 로그인이 안되어 있는데 클릭하면 모달이 열리도록 함
-      openLoginLodal();
-    } else {
-      router.push(pathname);
-    }
+    // if (!isLoggedIn) {
+    //   // 로그인이 안되어 있는데 클릭하면 모달이 열리도록 함
+    //   openLoginLodal?.();
+    // } else {
+    //   router.push(pathname);
+    // }
+    router.push(pathname);
   };
 
   return (

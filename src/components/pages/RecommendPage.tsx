@@ -104,12 +104,12 @@ function RecommendPage() {
             usage: "listItem",
             icon: <Icon type="RLOGO" />,
             onClick: () => {
-              if (!isLoggedIn) {
-                // 로그인이 안되어 있는데 클릭하면 모달이 열리도록 함
-                openModal();
-              } else {
-                router.push("/recruitment");
-              }
+              // if (!isLoggedIn) {
+              //   // 로그인이 안되어 있는데 클릭하면 모달이 열리도록 함
+              //   // openModal();
+              // } else {
+              // }
+              router.push("/recruitment");
             },
             extraStyle:
               "fixed xs:bottom-[23%] xs:right-[10%] sm:bottom-[26%]  sm:right-[35%]  lg:bottom-[28%] lg:right-[35%] z-40 p-15 ",

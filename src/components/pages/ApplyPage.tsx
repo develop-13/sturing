@@ -32,8 +32,8 @@ function ApplyPage() {
 
   useEffect(() => {
     if (session === null && status === "unauthenticated") {
-      alert("로그인이 필요한 페이지 입니다");
-      router.push("/");
+      // alert("로그인이 필요한 페이지 입니다");
+      // router.push("/");
       return;
     }
   }, [session?.user]);

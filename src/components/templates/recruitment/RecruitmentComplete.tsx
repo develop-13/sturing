@@ -10,7 +10,7 @@ function RecruitmentComplete({
   user,
 }: {
   state: TStudyRecruitment;
-  user: SessionUser;
+  user?: SessionUser;
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();

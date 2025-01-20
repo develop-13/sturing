@@ -47,8 +47,8 @@ function RecruitmentPage() {
 
   useEffect(() => {
     if (session === null && status === "unauthenticated") {
-      alert("로그인이 필요한 페이지 입니다");
-      router.push("/");
+      // alert("로그인이 필요한 페이지 입니다");
+      // router.push("/");
     }
   }, [session, status, router]);
 
@@ -75,9 +75,9 @@ function RecruitmentPage() {
   };
 
   // Render Loading if session or user data is not yet available
-  if (!session?.user) {
-    return <Loading />;
-  }
+  // if (!session?.user) {
+  //   return <Loading />;
+  // }
 
   const steps = [
     <StudyIntro
