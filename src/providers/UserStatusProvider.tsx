@@ -51,6 +51,8 @@ export const UserStatusProvider = ({
   }, []);
 
   console.log("userStatusProvider render");
+  console.log("session");
+  console.log(session);
 
   useEffect(() => {
     async function getUserStatus() {
@@ -91,7 +93,7 @@ export const UserStatusProvider = ({
   const value = useMemo(
     () => ({
       session,
-      isLoggedIn: isLoggedIn,
+      isLoggedIn,
       hasUser: userInfo.hasUser,
       hasMatchingInfo: userInfo.hasMatchingInfo,
       handleHasMatchingInfo,
