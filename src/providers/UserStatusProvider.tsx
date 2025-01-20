@@ -50,10 +50,6 @@ export const UserStatusProvider = ({
     setUserInfo((prev) => ({ hasUser: true, hasMatchingInfo: true }));
   }, []);
 
-  console.log("userStatusProvider render");
-  console.log("session");
-  console.log(session);
-
   useEffect(() => {
     async function getUserStatus() {
       const userResponse = await fetch("/api/user", {
