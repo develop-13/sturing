@@ -3,6 +3,8 @@
 
 -- 추후 MonthCalendarSchedule 랑 비교해서 공통로직 뺼 것
 
+test- init
+
 -- 추후 해야 할 일
 현재 Board 페이지 상황
 댓글 하나 추가할 때 마다 db에서 Board 데이터 전체를 가져온다. 
