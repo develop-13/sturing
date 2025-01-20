@@ -96,6 +96,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -106,6 +107,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -124,6 +126,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -134,6 +137,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
   GOOGLE: (onClick, width = 18, height = 18, className) => (
@@ -143,6 +147,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
   PLUS: (onClick, width = 18, height = 18, className) => (
@@ -152,6 +157,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -162,6 +168,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -172,6 +179,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -182,6 +190,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -192,6 +201,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -202,6 +212,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -212,6 +223,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -222,6 +234,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -232,6 +245,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -242,6 +256,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -252,6 +267,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -262,6 +278,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -272,6 +289,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -282,6 +300,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -292,6 +311,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -302,6 +322,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -312,6 +333,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -322,6 +344,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -332,6 +355,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -342,6 +366,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -352,6 +377,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -362,6 +388,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -372,6 +399,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -382,6 +410,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -392,6 +421,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -413,6 +443,7 @@ const IconDataSet: TIconDataSet = {
         height={height}
         onClick={onClick || defaultOnClick}
         className={className}
+        loading="lazy"
       />
     );
   },
@@ -425,6 +456,7 @@ const IconDataSet: TIconDataSet = {
         height={height}
         onClick={onClick}
         className={className}
+        loading="lazy"
       />
     );
   },
@@ -436,6 +468,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -446,6 +479,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -456,6 +490,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -466,6 +501,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -476,6 +512,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -486,6 +523,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -497,6 +535,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -507,6 +546,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -517,6 +557,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -527,6 +568,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -537,6 +579,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -547,6 +590,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -557,6 +601,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -567,6 +612,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -577,6 +623,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -587,6 +634,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -597,6 +645,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -607,6 +656,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -617,6 +667,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -627,6 +678,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -637,6 +689,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -647,6 +700,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -657,6 +711,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -667,6 +722,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 
@@ -677,6 +733,7 @@ const IconDataSet: TIconDataSet = {
       height={height}
       onClick={onClick}
       className={className}
+      loading="lazy"
     />
   ),
 };

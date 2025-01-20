@@ -8,6 +8,13 @@
 
 useCheckLogin 훅
 
+서버에서 commonStudies가져오는 거랑 클라이언트에서 commonStudies 가져오는 거랑
+성능 상 차이가 안보여서 서버로 가져오게끔 함.
+
++ Icon 컴포넌트 지연 로딩
+
+recommendPage 몇몇 동적으로 가져오는 부분 다시 몇개 정적으로 가져오는 걸로 함
+
 
 study/sid 페이지 최적화
 - 서버에서 스터디 데이터 가져와서 전달해주기

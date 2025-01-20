@@ -19,35 +19,18 @@ import CommonStudies from "../organisms/CommonStudies";
 import Searchbar from "../molecules/Searchbar";
 import StudyCategory from "../organisms/StudyCategory";
 import SlideContentList from "../organisms/SlideContentList";
-
-const Divider = dynamic(() => import("../atoms/Divider"), {
-  ssr: false,
-  loading: () => <></>, // Loading 상태일 때 비어있는 React Fragment 반환
-});
-const LoginButton = dynamic(
-  () => import("../molecules/auth-components/LoginButton"),
-  {
-    ssr: false,
-    loading: () => <></>, // Loading 상태일 때 비어있는 React Fragment 반환
-  }
-);
-
-const UserStudies = dynamic(() => import("../organisms/UserStudies"), {
-  ssr: false,
-  loading: () => <div></div>,
-});
-
-const LogoutButton = dynamic(
-  () => import("../molecules/auth-components/LogoutButton"),
-  {
-    ssr: false,
-    loading: () => <></>,
-  }
-);
+import Divider from "../atoms/Divider";
+import LoginButton from "../molecules/auth-components/LoginButton";
+import LogoutButton from "../molecules/auth-components/LogoutButton";
 
 const GoMatchingPage = dynamic(() => import("../molecules/GoMatchingPage"), {
   ssr: false,
   loading: () => <></>,
+});
+
+const UserStudies = dynamic(() => import("../organisms/UserStudies"), {
+  ssr: false,
+  loading: () => <div></div>,
 });
 
 const IconLabelButton = dynamic(() => import("../molecules/IconLabelButton"), {

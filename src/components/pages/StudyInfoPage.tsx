@@ -2,7 +2,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-
 import Icon from "../atoms/Icon";
 import Text from "../atoms/Text";
 import Button from "../molecules/Button";
@@ -11,7 +10,7 @@ import { TabButtonGroup } from "../organisms/ButtonGroup";
 import InfoBox from "../organisms/infoBox/InfoBox";
 import StudyOverview from "../organisms/StudyOverview";
 import Header from "../organisms/Header";
-import { TStudy, TStudyDetail, TStudyMember } from "@/types/study";
+import { TStudy, TStudyMember } from "@/types/study";
 import TitleLink from "../molecules/TitleLink";
 import getTranslation from "@/utils/getTranslation";
 import { TStatus } from "@/types/apply";
@@ -104,14 +103,7 @@ function StudyInfoPage({
       <Header
         position="absolute"
         className="px-4"
-        leftSlot={
-          <Icon
-            type="BACK"
-            onClick={() => {
-              router.back();
-            }}
-          />
-        }
+        leftSlot={<Icon type="BACK" />}
       />
       <StudyOverview
         props={{
