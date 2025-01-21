@@ -1,15 +1,9 @@
 "use client";
 import React, { useContext, useEffect, useReducer, useState } from "react";
 // 각 템플릿 컴포넌트를 가져옵니다.
-import InterestsTemplate from "@/components/templates/matching/InterestsTemplate";
-import SkilledTemplate from "@/components/templates/matching/SkilledTemplate";
 import ButtonIcon from "../molecules/ButtonIcon";
 import Icon from "../atoms/Icon";
-import StudyPlaceTemplate from "../templates/matching/StudyPlaceTemplate";
-import StudyTypeTemplate from "../templates/matching/StudyTypeTemplate";
-import AtmosphereTemplate from "../templates/matching/AtmosphereTemplate";
 import Progressbar from "../atoms/Progressbar";
-import CompleteTemplate from "../templates/matching/CompleteTemplate";
 import Header from "../organisms/Header";
 import { useRouter } from "next/navigation";
 import {
@@ -23,6 +17,32 @@ import { TLevel } from "@/types/common";
 import { UserStatusContext } from "../../providers/UserStatusProvider";
 import { useStep } from "@/hooks/useStep";
 import useLoginCheck from "@/hooks/useLoginCheck";
+import dynamic from "next/dynamic";
+
+const InterestsTemplate = dynamic(
+  () => import("@/components/templates/matching/InterestsTemplate"),
+  { ssr: false }
+);
+const SkilledTemplate = dynamic(
+  () => import("@/components/templates/matching/SkilledTemplate"),
+  { ssr: false }
+);
+const StudyTypeTemplate = dynamic(
+  () => import("@/components/templates/matching/StudyTypeTemplate"),
+  { ssr: false }
+);
+const StudyPlaceTemplate = dynamic(
+  () => import("@/components/templates/matching/StudyPlaceTemplate"),
+  { ssr: false }
+);
+const AtmosphereTemplate = dynamic(
+  () => import("@/components/templates/matching/AtmosphereTemplate"),
+  { ssr: false }
+);
+const CompleteTemplate = dynamic(
+  () => import("@/components/templates/matching/CompleteTemplate"),
+  { ssr: false }
+);
 
 const steps = [
   // 각 컴포넌트가 사용하는 props 보내주기
