@@ -88,11 +88,6 @@ export async function GET(
       });
     }
 
-    if (!study) {
-      return new Response(JSON.stringify({ error: "Study not found" }), {
-        status: 404,
-      });
-    }
     // 응답으로 Study 데이터를 보냄
     return new Response(
       JSON.stringify({ study, status }), // Combine study and hasApplied in the response

@@ -30,8 +30,8 @@ function StudyOverview({ props }: { props: TStudyOverview }) {
     <div className="relative h-[287px] flex items-center justify-center">
       {/* Image 컴포넌트를 사용해 배경 이미지 설정 */}
       <Image
-        src={props.imgSrc as string}
-        alt={props.title}
+        src={(props.imgSrc as string) || "/img/studyOverView_example.png"} // 기본 이미지 경로
+        alt={props.title || "Default Study Overview"} // alt도 기본 값 설정
         layout="fill" // 부모를 기준으로 가득 채움
         objectFit="cover" // 이미지 비율 유지하며 채움
         objectPosition="center" // 이미지 정렬

@@ -19,6 +19,9 @@ async function page({ params }: { params: { sid: string } }) {
 
   const { study: studyInfo, status } = await fetchStudyInfo();
 
+  console.log("study in page component");
+  console.log(studyInfo);
+
   return (
     <StudyInfoPage
       studyInfo={studyInfo}
