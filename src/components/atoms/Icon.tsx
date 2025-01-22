@@ -402,16 +402,14 @@ const IconDataSet: TIconDataSet = {
   BACK: (onClick, width = 10, height = 17, className) => {
     const router = useRouter();
 
-    const defaultOnClick = () => {
-      router.back();
-    };
-
     return (
       <Image
         src="/svg/ect/back.svg"
         width={width}
         height={height}
-        onClick={onClick || defaultOnClick}
+        onClick={() => {
+          router.back();
+        }}
         className={className}
       />
     );
