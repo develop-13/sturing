@@ -19,9 +19,6 @@ async function page({ params }: { params: { sid: string } }) {
 
   const { study: studyInfo, status } = await fetchStudyInfo();
 
-  console.log("study in page component");
-  console.log(studyInfo);
-
   return (
     <StudyInfoPage
       studyInfo={studyInfo}
@@ -31,7 +28,7 @@ async function page({ params }: { params: { sid: string } }) {
       {" "}
       <Header
         position="absolute"
-        className="px-4"
+        className="px-4 z-50"
         leftSlot={<Icon type="BACK" />}
       />
       <StudyOverview
