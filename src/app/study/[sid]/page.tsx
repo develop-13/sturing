@@ -1,4 +1,7 @@
 import { authOptions } from "@/app/utils/authOptions";
+import Icon from "@/components/atoms/Icon";
+import Header from "@/components/organisms/Header";
+import StudyOverview from "@/components/organisms/StudyOverview";
 import StudyInfoPage from "@/components/pages/StudyInfoPage";
 import { baseUrl } from "@/constants/url";
 import { getServerSession } from "next-auth";
@@ -21,7 +24,24 @@ async function page({ params }: { params: { sid: string } }) {
       studyInfo={studyInfo}
       status={status}
       session={session?.user}
-    />
+    >
+      {" "}
+      <Header
+        position="absolute"
+        className="px-4"
+        leftSlot={<Icon type="BACK" />}
+      />
+      <StudyOverview
+        props={{
+          _id: studyInfo._id,
+          type: studyInfo.type,
+          categories: studyInfo.categories,
+          title: studyInfo.title,
+          period: studyInfo.period,
+          imgSrc: studyInfo.imgSrc,
+        }}
+      />
+    </StudyInfoPage>
   );
 }
 

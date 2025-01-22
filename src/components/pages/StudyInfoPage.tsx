@@ -68,12 +68,13 @@ function StudyInfoPage({
   studyInfo,
   status,
   session,
+  children,
 }: {
   studyInfo: TStudy;
   status: TStatus;
   session?: SessionUser;
+  children: React.ReactNode;
 }) {
-  const router = useRouter();
   const params = useParams<{ sid: string }>();
   const [selectedIdx, setSelected] = useState(0);
   const boxRef = {
@@ -100,21 +101,7 @@ function StudyInfoPage({
 
   return (
     <div className="bg-gray-100">
-      <Header
-        position="absolute"
-        className="px-4"
-        leftSlot={<Icon type="BACK" />}
-      />
-      <StudyOverview
-        props={{
-          _id: studyInfo._id,
-          type: studyInfo.type,
-          categories: studyInfo.categories,
-          title: studyInfo.title,
-          period: studyInfo.period,
-          imgSrc: studyInfo.imgSrc,
-        }}
-      />
+      {children}
       <TabButtonGroup
         onClick={onClickBtn}
         selectedOptionIdx={selectedIdx}
