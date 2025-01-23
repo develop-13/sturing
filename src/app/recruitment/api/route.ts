@@ -22,9 +22,6 @@ export async function POST(req: NextRequest) {
       NextResponse.json({ error: "file Data missing" }, { status: 400 });
     }
 
-    console.log("file");
-    console.log(file);
-
     if (!(file instanceof File)) {
       // file의 타입은 FormDataEntryValue | null
       //FormDataEntryValue 는 string 과 File 타입
@@ -52,8 +49,6 @@ export async function POST(req: NextRequest) {
       file,
       "sturing/studyImages"
     );
-    console.log(`imageUrl=${imageUrl}`);
-    console.log(`imageUrl[0]=${imageUrl[0]}`);
 
     const me = {
       userEmail: user.email,
@@ -86,8 +81,6 @@ export async function POST(req: NextRequest) {
       }
       // 추가적인 에러 핸들링
     });
-    console.log("savedStudy");
-    console.log(savedStudy);
 
     return NextResponse.json({
       message: "Study created successfully",

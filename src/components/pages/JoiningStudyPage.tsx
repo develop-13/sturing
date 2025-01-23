@@ -255,7 +255,11 @@ function JoiningStudyPage() {
   return (
     <div className="bg-gray-100 ">
       {" "}
-      <Header position="absolute" leftSlot={<Icon type="BACK" />} />
+      <Header
+        position="absolute"
+        leftSlot={<Icon type="BACK" />}
+        className="z-50 px-4"
+      />
       <StudyOverview props={StudyOverviewProps} />
       {/* 얘네를 React.memo로 감싸야겠음. StudyOverview가 받는 props는 나눠서 전달해주고.. */}
       <TabButtonGroup

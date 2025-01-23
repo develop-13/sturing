@@ -28,6 +28,9 @@ recuritment 페이지 동적 가져오기 적용 + 사용자 입력값 검사로
 
 -- StudyOvierview는 서버에서 렌더링 하도록 해봄
 
+-- db 에서 사용자 식별자를 token.sub으로 바꿈
+
+
 
 -- 추후 MonthCalendarSchedule 랑 비교해서 공통로직 뺼 것
 

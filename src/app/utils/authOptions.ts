@@ -97,12 +97,12 @@ export const authOptions: NextAuthOptions = {
       user: User;
       account: Account | null;
     }) {
-      if (user) {
+      if (user && account) {
         token.user = user;
-      }
-      if (account) {
         token.accessToken = account.access_token;
+        token.providerId = account.providerAccountId;
       }
+
       return token;
     },
 
@@ -128,8 +128,6 @@ export const authOptions: NextAuthOptions = {
           primary: boolean;
           verified: boolean;
         }> = await res.json();
-
-        console.log("GitHub API 이메일 응답:", emails);
 
         if (emails?.length > 0) {
           // primary 이메일 추출

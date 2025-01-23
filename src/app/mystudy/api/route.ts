@@ -8,7 +8,6 @@ import Study from "@/models/Study";
 import { TSchedule, TStudy } from "@/types/study";
 
 export async function GET(request: NextRequest) {
-  console.log("API GET called");
   await dbConnect();
 
   const { searchParams } = new URL(request.url);
@@ -48,8 +47,6 @@ async function fetchApplyById(applyId: string) {
   }
 
   const applyData = await Apply.findById(new mongoose.Types.ObjectId(applyId));
-  console.log("applyData");
-  console.log(applyData);
   if (!applyData) {
     return NextResponse.json(
       { message: "Apply document not found" },
@@ -147,8 +144,6 @@ export async function POST(request: NextRequest) {
   await dbConnect();
 
   try {
-    console.log("Post handler called!");
-
     // 요청 본문에서 TApply 객체를 파싱
     const applyUpdateData: TApply = await request.json();
     const {
@@ -194,8 +189,6 @@ export async function POST(request: NextRequest) {
     user.study_in_participants.push(study._id);
     await user.save();
 
-    console.log("study in participants added!");
-
     // Study 도큐먼트의 currentMembers 필드에 { userEmail, applicantImgSrc, desiredRole } 추가
     console.log(desiredRole);
     const newMember = {
@@ -204,8 +197,6 @@ export async function POST(request: NextRequest) {
       userName,
       role: desiredRole[0],
     };
-    console.log("newMember");
-    console.log(newMember);
     const isMemberAlreadyAdded = study.currentMembers.some(
       (member: any) =>
         member.userName === userName &&
@@ -287,7 +278,6 @@ export async function DELETE(request: NextRequest) {
         { status: 404 }
       );
     }
-    console.log("study found!");
 
     return NextResponse.json(
       { message: "Apply deleted successfully", deletedApply },

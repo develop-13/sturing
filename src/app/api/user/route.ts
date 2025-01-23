@@ -1,4 +1,6 @@
 import User from "@/models/User";
+import { getToken } from "next-auth/jwt";
+import { NextRequest } from "next/server";
 
 export async function GET(request: Request) {
   // 사용자가 매칭정보를 설정했는지여부를 알려줌
@@ -37,15 +39,7 @@ export async function GET(request: Request) {
     );
   }
 }
-export async function POST(request: Request) {
-  // 사용자정보의 유무, 매칭정보의 유무를 응답으로 보낸다.
-  // DB에 사용자 정보가 존재하는지 확인하고 없다면 추가
-  //DB에 사용자 정보가 있을 때, 매칭정보는 있는지 확인
-
-  // const { searchParams } = new URL(request.url);
-  // const userEmail = searchParams.get("userEmail");
-  // const userName = searchParams.get("userName");
-
+export async function POST(request: NextRequest) {
   const { userEmail, userName, userImg } = await request.json();
 
   if (!userEmail || !userName) {
@@ -56,12 +50,29 @@ export async function POST(request: Request) {
   }
 
   try {
-    let existingUser = await User.findOne({ email: userEmail });
+    const token = await getToken({
+      req: request,
+      secret: process.env.NEXTAUTH_SECRET,
+    });
+
+    // 스키마 조정 - userId 추가
+
+    if (!token?.sub) {
+      return Response.json(
+        { error: "not logged In , userId not exist " },
+        { status: 400 }
+      );
+    }
+
+    let existingUser = await User.findOne({ userId: token.sub });
     // DB에 존재하는 사용자인지 확인
+    // existingUser 을 userId가 token.sub 인 걸로 추적
 
     if (!existingUser) {
       // DB에 사용자 정보가 없으면 생성
+      // 이때 userId에는 token.sub
       existingUser = await User.create({
+        userId: token.sub,
         email: userEmail,
         name: userName,
         imgSrc: userImg || "/img/profile/defaultProfileImage.png",

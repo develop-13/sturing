@@ -4,6 +4,7 @@ import mongoose, { Schema, Document, model, models } from "mongoose";
 
 // Define the User interface based on the schema
 export interface IUser extends Document {
+  userId: string;
   name: string;
   email: string;
   imgSrc?: string;
@@ -33,6 +34,7 @@ export interface IUser extends Document {
 
 const UserSchema = new mongoose.Schema(
   {
+    userId: { type: String, required: true },
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true }, // 이메일을 unique로 설정
     imgSrc: { type: String },

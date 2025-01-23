@@ -119,6 +119,7 @@ export async function getUserInterestStudies(userMatchingInfo: NewTMatching) {
     categories: { $in: interests },
   })
     .sort({ score: -1 })
+    .sort({ createdAt: -1 })
     .select({
       _id: 1,
       title: 1,
@@ -156,7 +157,7 @@ export async function getUserCloseStudies(userMatchingInfo: NewTMatching) {
   const userCloseStudies = await Study.find({
     location: { $in: preferredLocations },
   })
-    .sort({ score: -1 })
+    .sort({ createdAt: -1 })
     .select({
       title: 1,
       createdAt: 1,
