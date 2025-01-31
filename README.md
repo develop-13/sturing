@@ -78,8 +78,7 @@ next auth의 jwt 방식을 사용하여 로그인&로그아웃을 구현하였�
 
 
 
-✨ 기술 스택
-
+## 🎨 기술 스택
 
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
@@ -87,6 +86,8 @@ next auth의 jwt 방식을 사용하여 로그인&로그아웃을 구현하였�
 ![NextAuth](https://img.shields.io/badge/NextAuth.js-FF9900?style=for-the-badge&logo=auth0&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+
 
 
 
