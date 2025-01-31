@@ -26,17 +26,32 @@
 
 ✅ 스터디 검색하기
 
+![Image](https://github.com/user-attachments/assets/fed21315-faa4-4666-b139-cc2409e8ba1b)
+
 
 ✅ 스터디 상세 페이지
+
+![Image](https://github.com/user-attachments/assets/ad711a78-7864-4b55-9fe1-0627c6af0cbd)
 
 
 ✅ 스터디 참여하기
 
+![Image](https://github.com/user-attachments/assets/91d34456-ae1a-407e-99be-3e3421c7f72b)
+
+
 
 ✅ 내 스터디 페이지
 
+![Image](https://github.com/user-attachments/assets/e5575f40-8bfd-442b-9180-f58d57225540)
+
 
 ✅ 내가 참여하는 스터디 페이지
+
+![Image](https://github.com/user-attachments/assets/178b4b6a-9f60-4f93-8ed6-474e5468aca2)
+![Image](https://github.com/user-attachments/assets/6359874d-ccc3-4c4c-950c-76a7dc558259)
+![Image](https://github.com/user-attachments/assets/14125ff2-83d4-4dfd-912b-76996a229028)
+
+
 
 
 
