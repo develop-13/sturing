@@ -3,6 +3,8 @@
 
 ![Image](https://github.com/user-attachments/assets/5c75d11e-0346-49a4-84e4-d213733f0de5)
 
+프로젝트 링크: https://sturing-mu.vercel.app
+
 
 📝 주요 기능
 
