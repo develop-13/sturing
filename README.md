@@ -89,6 +89,9 @@ next auth의 jwt 방식을 사용하여 로그인&로그아웃을 구현하였�
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 
 
+## 성능 개선하기 
+
+https://www.notion.so/sturing-production-mobile-183692062adb80909540f7f73f33916d
 
 
 
