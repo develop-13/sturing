@@ -6,7 +6,7 @@
 프로젝트 링크: https://sturing-mu.vercel.app
 
 
-📝 주요 기능
+## 📝 주요 기능
 
 ✅ 로그인 & 로그아웃
 
